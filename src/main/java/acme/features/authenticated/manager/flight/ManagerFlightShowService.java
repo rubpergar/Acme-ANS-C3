@@ -15,6 +15,8 @@ import acme.realms.Manager;
 @GuiService
 public class ManagerFlightShowService extends AbstractGuiService<Manager, Flight> {
 
+	//creo que no haria falta
+
 	// Internal state ---------------------------------------------------------
 
 	@Autowired
@@ -43,7 +45,7 @@ public class ManagerFlightShowService extends AbstractGuiService<Manager, Flight
 	public void unbind(final Flight flight) {
 		assert flight != null;
 		Dataset dataset;
-		dataset = super.unbindObject(flight, "tag", "selfTransfer", "cost", "description", "isUnpublished");
+		dataset = super.unbindObject(flight, "tag", "selfTransfer", "cost", "description", "isDraft");
 		List<Leg> legs = this.repository.getLegsByFlight(flight.getId()).stream().toList();
 		dataset.put("legs", !legs.isEmpty());
 		super.getResponse().addData(dataset);

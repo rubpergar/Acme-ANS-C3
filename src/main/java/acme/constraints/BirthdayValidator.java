@@ -24,9 +24,11 @@ public class BirthdayValidator extends AbstractValidator<ValidBirthday, Date> {
 		if (date == null)
 			super.state(context, false, "*", "javax.validation.constraints.NotNull.message");
 
-		Date deadline = MomentHelper.parse("2009/03/22 14:30", "yyyy/MM/dd HH:mm");
+		Integer present = MomentHelper.getCurrentMoment().getYear();
+		Integer birthdayYear = date.getYear();
+		int age = present - birthdayYear;
 
-		boolean isBirthdayCorrect = MomentHelper.isBefore(date, deadline);
+		boolean isBirthdayCorrect = age >= 16;
 		super.state(context, isBirthdayCorrect, "date", "acme.validation.birthday.invalid-date.message");
 
 		return !super.hasErrors(context);

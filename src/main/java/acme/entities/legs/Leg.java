@@ -58,7 +58,7 @@ public class Leg extends AbstractEntity {
 
 	@Mandatory
 	@Automapped
-	private Boolean				isUnpublished;
+	private Boolean				isDraft;
 
 	@Mandatory
 	@Valid

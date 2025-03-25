@@ -1,4 +1,4 @@
-key,flight-number,scheduled-departure,scheduled-arrival,status,isUnpublished,key:flight,key:departure-airport,key:arrival-airport,key:aircraft
+key,flight-number,scheduled-departure,scheduled-arrival,status,isDraft,key:flight,key:departure-airport,key:arrival-airport,key:aircraft
 # Base entity
 leg-01,AAX1001,2000/02/01 10:00,2000/02/01 11:00,LANDED,TRUE,flight-01,airport-01,airport-02,aircraft-01
 # Flight-number

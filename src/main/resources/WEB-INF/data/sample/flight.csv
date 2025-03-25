@@ -1,4 +1,4 @@
-key,tag,self-transfer,cost,description,key:airline-manager,isUnpublished
+key,tag,self-transfer,cost,description,key:airline-manager,isDraft
 # Base entity
 flight-01,Express Flight,FALSE,EUR 500000.00,Fast and reliable travel,manager-01,TRUE
 # Tag
@@ -14,7 +14,7 @@ flight-07,VIP Charter,FALSE,EUR 1000000.00,Luxury private jet experience,manager
 flight-08,Weekend Getaway,FALSE,EUR 200000.00,L,manager-01,TRUE
 flight-09,City Hopper,FALSE,EUR 250000.00,Lo,manager-01,TRUE
 flight-10,Transatlantic Journey,FALSE,EUR 500000.00,"Enjoy premium in-flight services, gourmet meals, and extra legroom seating while traveling to your dream destination.",manager-01,TRUE
-flight-11,Exclusive Adventure,FALSE,EUR 450000.00,"Explore new cultures with our tailored international travel experiences. From historic cities to pristine beaches, we bring you closer to the world.",manager-01,TRUE
+flight-11,Exclusive Adventure,FALSE,EUR 450000.00,"Explore new cultures with our tailored international travel experiences. From historic cities to pristine beaches, we bring you closer to the world.",manager-01,FALSE
 # Manager
 flight-12,Express Flight,FALSE,EUR 500000.00,Fast and reliable travel,manager-02,TRUE
 flight-13,Business Class Elite,FALSE,EUR 750000.00,Designed for executives who value time and comfort,manager-02,TRUE

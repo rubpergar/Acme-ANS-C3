@@ -41,10 +41,13 @@ acme.validation.birthday.invalid-date.message=The minimum age to work in Spain i
 manager.flight.form.label.tag = Tag
 manager.flight.form.label.cost = Cost
 manager.flight.form.label.description = Description
-manager.flight.form.label.requiresSelfTransfer = Does it require self transfer?
-manager.flight.form.label.isDraftMode = Draft Mode
+manager.flight.form.label.selfTransfer = Do you have to change flights on your own? 
+manager.flight.form.label.isDraft = Is it a draft?
 
 manager.flight.create = Create
+manager.flight.update = Update
+manager.flight.delete = Delete
+manager.flight.publish = Publish
 manager.flight.form.button.delete = Delete
 manager.flight.form.button.update = Update
 manager.flight.form.button.publish = Publish
@@ -52,13 +55,15 @@ manager.flight.form.button.create = Create
 manager.flight.form.title = Flight
 manager.flight.list.title = My flights
 
-manager.flight.form.error.notDraft = You have already published this flight.
-manager.flight.form.error.LegsNotPublished = Not all legs are published!
+manager.flight.form.error.notDraft = You can not do this action for a flight that is already published.
+manager.flight.publish.error.notAllPublished = Total legs must be published to publish the flight.
+manager.project.publish.error.noLegs = You must have at least one leg to publish a flight.
+manager.flight.publish.error.overlappingLegs = The legs of the flight overlap.
 
 manager.flight.list.label.tag = Tag
 manager.flight.list.label.cost = Cost
 manager.flight.list.label.description = Description
-manager.flight.list.label.selfTransfer = Does it require self transfer?
-manager.flight.list.label.isDraftMode = Draft Mode
-manager.flight.legs = Flight legs
+manager.flight.list.label.selfTransfer =  Do you have to change flights on your own? 
+manager.flight.list.label.isDraft = Is it a draft? 
+manager.flight.legs = Legs of the flight
 
