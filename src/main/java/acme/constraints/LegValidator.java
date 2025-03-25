@@ -1,6 +1,7 @@
 
 package acme.constraints;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.validation.ConstraintValidatorContext;
@@ -51,7 +52,7 @@ public class LegValidator extends AbstractValidator<ValidLeg, Leg> {
 
 		boolean nonOverlappingLegs = true;
 		if (isScheduleCorrect && leg.getFlight() != null) {
-			Collection<Leg> legs = this.repository.getLegsByFlight(leg.getFlight().getId());
+			Collection<Leg> legs = new ArrayList<>(this.repository.getLegsByFlight(leg.getFlight().getId()));
 
 			for (int i = 0; i < legs.size() - 1; i++) {
 				Leg previousLeg = legs.stream().toList().get(i);

@@ -57,6 +57,10 @@ public class Leg extends AbstractEntity {
 	private LegStatus			status;
 
 	@Mandatory
+	@Automapped
+	private Boolean				isUnpublished;
+
+	@Mandatory
 	@Valid
 	@ManyToOne(optional = false)
 	private Airport				departureAirport;

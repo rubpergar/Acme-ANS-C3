@@ -53,6 +53,10 @@ public class Flight extends AbstractEntity {
 	private String				description;
 
 	@Mandatory
+	@Automapped
+	private Boolean				isUnpublished;
+
+	@Mandatory
 	@Valid
 	@ManyToOne(optional = false)
 	private Manager				airlineManager;
