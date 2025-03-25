@@ -7,7 +7,6 @@ import acme.client.components.models.Dataset;
 import acme.client.services.AbstractGuiService;
 import acme.client.services.GuiService;
 import acme.entities.flights.Flight;
-import acme.entities.legs.Leg;
 import acme.realms.Manager;
 
 @GuiService
@@ -23,7 +22,16 @@ public class ManagerFlightDeleteService extends AbstractGuiService<Manager, Flig
 
 	@Override
 	public void authorise() {
-		super.getResponse().setAuthorised(true);
+		Flight flight;
+		int flightId;
+		int userAccountId;
+		flightId = super.getRequest().getData("id", int.class);
+		flight = this.repository.getFlightById(flightId);
+		userAccountId = super.getRequest().getPrincipal().getAccountId();
+		super.getResponse().setAuthorised(flight.getAirlineManager().getUserAccount().getId() == userAccountId);
+		//boton desactivado si el vuelo no esta publicado (no puede aparecer en la interfaz, por eso se pone aqui porque es la url) 
+		if (!flight.getIsDraft())
+			super.state(flight.getIsDraft(), "*", "manager.flight.form.error.notDraft", "isDraft");  //creo que va aqui
 	}
 
 	@Override
@@ -41,55 +49,36 @@ public class ManagerFlightDeleteService extends AbstractGuiService<Manager, Flig
 	public void bind(final Flight flight) {
 		assert flight != null;
 		flight.setAirlineManager(this.repository.getManagerById(super.getRequest().getPrincipal().getActiveRealm().getId()));
-		super.bindObject(flight, "tag", "selfTransfer", "cost", "description", "isUnpublished");
+		super.bindObject(flight, "tag", "selfTransfer", "cost", "description", "isDraft");
 	}
 
 	@Override
-	public void validate(final Flight flight) {
+	public void validate(final Flight flight) {   //si esta publicado no se puede borrar, creo que esto va en el authorise
 		assert flight != null;
-		if (!flight.getIsUnpublished())
-			super.state(flight.getIsUnpublished(), "*", "manager.flight.form.error.notDraft", "isDraftMode");
+		//if (!flight.getIsDraft())
+		//super.state(flight.getIsDraft(), "*", "manager.flight.form.error.notDraft", "isDraft");
 	}
 
 	@Override
-	public void perform(final Flight flight) {
+	public void perform(final Flight flight) {   //borra el vuelo y todos los legs asociados
 		assert flight != null;
 
-		this.repository.getBookingsByFlight(flight.getId()).forEach(booking -> {
-			this.repository.deleteAll(this.repository.getBookingPassengerByBooking(booking.getId()));
-			this.repository.delete(booking);
-		});
+		//lo de booking no sirve para nada porque un vuelo no tiene booking si no se ha publicado(y no se puede borrar si esta publicado)
 
 		this.repository.getLegsByFlight(flight.getId()).forEach(leg -> {
-			this.deleteAssignmentsAndLogs(leg);
-			//this.deleteClaimsAndTrackingLogs(leg);
+			//pasa lo mismo que antes pero con los assigments y los logs, porque un leg no puede tener eso si el vuelo no se ha llevado a cabo
+			//y no se puede llevar a cabo sin ser publicado
 			this.repository.delete(leg);
 		});
 
 		this.repository.delete(flight);
 	}
 
-	private void deleteAssignmentsAndLogs(final Leg leg) {
-		this.repository.getAssignmentsByLeg(leg.getId()).forEach(assignment -> {
-			this.repository.deleteAll(this.repository.getActivityLogsByFlightAssignment(assignment.getId()));
-			this.repository.delete(assignment);
-		});
-	}
-
-	/*
-	 * private void deleteClaimsAndTrackingLogs(final Leg leg) {
-	 * this.repository.getClaimsByLeg(leg.getId()).forEach(claim -> {
-	 * this.repository.deleteAll(this.repository.getTrackingLogsByClaim(claim.getId()));
-	 * this.repository.delete(claim);
-	 * });
-	 * }
-	 */
-
 	@Override
 	public void unbind(final Flight object) {
 		assert object != null;
 		Dataset dataset;
-		dataset = super.unbindObject(object, "tag", "selfTransfer", "cost", "description", "isUnpublished");
+		dataset = super.unbindObject(object, "tag", "selfTransfer", "cost", "description", "isDraft");
 		super.getResponse().addData(dataset);
 	}
 }

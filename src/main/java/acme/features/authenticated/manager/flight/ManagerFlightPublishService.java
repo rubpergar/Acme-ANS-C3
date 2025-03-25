@@ -32,6 +32,9 @@ public class ManagerFlightPublishService extends AbstractGuiService<Manager, Fli
 		flight = this.repository.getFlightById(flightId);
 		userAccountId = super.getRequest().getPrincipal().getAccountId();
 		super.getResponse().setAuthorised(flight.getAirlineManager().getUserAccount().getId() == userAccountId); //el usuario es el manager del vuelo
+		//igual que antes, no ddeberia aparecer el boton de publicar si ya esta publicado
+		if (!flight.getIsDraft())
+			super.state(flight.getIsDraft(), "*", "manager.flight.form.error.notDraft", "isDraft");
 	}
 
 	@Override
@@ -48,7 +51,7 @@ public class ManagerFlightPublishService extends AbstractGuiService<Manager, Fli
 	@Override
 	public void bind(final Flight flight) {
 		assert flight != null;
-		super.bindObject(flight, "tag", "selfTransfer", "cost", "description", "description", "isUnpublished");
+		super.bindObject(flight, "tag", "selfTransfer", "cost", "description", "isDraft");
 	}
 
 	@Override
@@ -56,22 +59,21 @@ public class ManagerFlightPublishService extends AbstractGuiService<Manager, Fli
 		assert flight != null;
 
 		Collection<Leg> legs = this.repository.getLegsByFlight(flight.getId());
-		super.state(!legs.isEmpty(), "*", "manager.project.form.error.nous");
+		super.state(!legs.isEmpty(), "*", "manager.project.publish.error.noLegs");
 
-		boolean hasNullLegs = legs.stream().anyMatch(leg -> leg == null);
-		super.state(!hasNullLegs, "*", "manager.flight.form.error.nullLegs");
+		boolean allLegsPublished = legs.stream().allMatch(Leg::getIsDraft);
+		super.state(!allLegsPublished, "*", "manager.flight.publish.error.notAllPublished");
 
-		if (!flight.getIsUnpublished())
-			super.state(false, "*", "manager.flight.form.error.notPublished", "isUnpublished");
-
-		boolean allLegsPublished = legs.stream().allMatch(Leg::getIsUnpublished);
-		super.state(!allLegsPublished, "*", "manager.flight.form.error.LegsNotPublished");
+		//porque no se puede publicar un vuelo con tramos superpuestos(y aqui ya los legs no son nulos)
+		//FlightValidator validator = new FlightValidator();
+		//boolean validFlight = validator.isValid(flight, null);
+		//super.state(validFlight, "*", "manager.flight.publish.error.overlappingLegs");
 	}
 
 	@Override
 	public void perform(final Flight flight) {
 		assert flight != null;
-		flight.setIsUnpublished(false);  //publicado
+		flight.setIsDraft(false);  //publicado
 		this.repository.save(flight);
 	}
 
@@ -81,7 +83,7 @@ public class ManagerFlightPublishService extends AbstractGuiService<Manager, Fli
 
 		Dataset dataset;
 
-		dataset = super.unbindObject(flight, "tag", "selfTransfer", "cost", "description", "isUnpublished");
+		dataset = super.unbindObject(flight, "tag", "selfTransfer", "cost", "description", "isDraft");
 		super.getResponse().addData(dataset);
 	}
 

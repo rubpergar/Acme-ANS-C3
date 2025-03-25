@@ -54,7 +54,7 @@ public class Flight extends AbstractEntity {
 
 	@Mandatory
 	@Automapped
-	private Boolean				isUnpublished;
+	private Boolean				isDraft;
 
 	@Mandatory
 	@Valid

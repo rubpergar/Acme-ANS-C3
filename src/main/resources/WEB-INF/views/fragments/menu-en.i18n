@@ -20,7 +20,7 @@ master.menu.anonymous.rubpergar-link = 77863706N: Pérez Garrido, Rubén
 # master.menu.manager #######################################################
 
 master.menu.manager = Manager
-master.menu.manager.list-flights = List flights
+master.menu.manager.list-flights = My flights
 
 # master.menu.administrator ###################################################
 
