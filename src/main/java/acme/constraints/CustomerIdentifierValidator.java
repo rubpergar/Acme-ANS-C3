@@ -41,7 +41,7 @@ public class CustomerIdentifierValidator extends AbstractValidator<ValidCustomer
 		if (!identifier.matches("^[A-Z]{2,3}\\d{6}$"))
 			validIdentifier = false;
 
-		Customer customer = this.repository.findByIdentifier(identifier);
+		Customer customer = this.repository.findByIdentifier(identifier).getFirst();
 		DefaultUserIdentity identity = customer.getIdentity();
 
 		String nameInitial = String.valueOf(identity.getName().charAt(0)).toUpperCase();
@@ -51,7 +51,7 @@ public class CustomerIdentifierValidator extends AbstractValidator<ValidCustomer
 
 		validIdentifier = StringHelper.startsWith(identifier, initials, true);
 
-		List<Customer> duplicateIdentifierCustomers = this.repository.findManyCustomersByIdentifier(identifier);
+		List<Customer> duplicateIdentifierCustomers = this.repository.findByIdentifier(identifier);
 		if (duplicateIdentifierCustomers.size() > 1)
 			validNotDuplication = false;
 
