@@ -36,3 +36,29 @@ acme.validation.manager.invalid-years-of-experience.message=Years of experience 
 
 acme.validation.birthday.invalid-date.message=The minimum age to work in Spain is 16 years.
 
+
+
+manager.flight.form.label.tag = Tag
+manager.flight.form.label.cost = Cost
+manager.flight.form.label.description = Description
+manager.flight.form.label.requiresSelfTransfer = Does it require self transfer?
+manager.flight.form.label.isDraftMode = Draft Mode
+
+manager.flight.create = Create
+manager.flight.form.button.delete = Delete
+manager.flight.form.button.update = Update
+manager.flight.form.button.publish = Publish
+manager.flight.form.button.create = Create
+manager.flight.form.title = Flight
+manager.flight.list.title = My flights
+
+manager.flight.form.error.notDraft = You have already published this flight.
+manager.flight.form.error.LegsNotPublished = Not all legs are published!
+
+manager.flight.list.label.tag = Tag
+manager.flight.list.label.cost = Cost
+manager.flight.list.label.description = Description
+manager.flight.list.label.selfTransfer = Does it require self transfer?
+manager.flight.list.label.isDraftMode = Draft Mode
+manager.flight.legs = Flight legs
+

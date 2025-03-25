@@ -26,8 +26,8 @@ public class BirthdayValidator extends AbstractValidator<ValidBirthday, Date> {
 
 		Date deadline = MomentHelper.parse("2009/03/22 14:30", "yyyy/MM/dd HH:mm");
 
-		boolean isBithdayCorrect = MomentHelper.isBefore(date, deadline);
-		super.state(context, isBithdayCorrect, "date", "acme.validation.birthday.invalid-date.message");
+		boolean isBirthdayCorrect = MomentHelper.isBefore(date, deadline);
+		super.state(context, isBirthdayCorrect, "date", "acme.validation.birthday.invalid-date.message");
 
 		return !super.hasErrors(context);
 	}

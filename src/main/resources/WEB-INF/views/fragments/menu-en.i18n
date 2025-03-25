@@ -17,6 +17,11 @@ master.menu.anonymous.cyncasjua-link = 45814596E: Castaño Juan, Cynthia
 master.menu.anonymous.macpercam-link = 30280837A: Pereira Campos, Macarena
 master.menu.anonymous.rubpergar-link = 77863706N: Pérez Garrido, Rubén
 
+# master.menu.manager #######################################################
+
+master.menu.manager = Manager
+master.menu.manager.list-flights = List flights
+
 # master.menu.administrator ###################################################
 
 master.menu.administrator = Administrator

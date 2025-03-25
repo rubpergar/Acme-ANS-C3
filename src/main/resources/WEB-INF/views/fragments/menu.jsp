@@ -25,6 +25,10 @@
 			<acme:menu-suboption code="master.menu.anonymous.macpercam-link" action="https://es.pinterest.com/"/>
 			<acme:menu-suboption code="master.menu.anonymous.rubpergar-link" action="https://www.youtube.com/"/>
 		</acme:menu-option>
+		
+		<acme:menu-option code="master.menu.manager" access="hasRealm('Manager')">
+			<acme:menu-suboption code="master.menu.manager.list-flights" action="/manager/flight/list"/>
+		</acme:menu-option>
 
 		<acme:menu-option code="master.menu.administrator" access="hasRealm('Administrator')">
 			<acme:menu-suboption code="master.menu.administrator.list-user-accounts" action="/administrator/user-account/list"/>
