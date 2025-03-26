@@ -67,26 +67,106 @@ manager.flight.list.label.selfTransfer =  Do you have to change flights on your 
 manager.flight.list.label.isDraft = Is it a draft? 
 manager.flight.legs = Legs of the flight
 
-customer.project.publish.error.lastNibbleNotPublished = To publish a booking the last credit card nibble must have been stored. 
-customer.booking.form.error.notDraft = You can not do this action for a booking that is already published.
+master.menu.administrator.list-aircrafts = List aircrafts
+administrator.aircraft.list.title = Aircrafts
+administrator.aircraft.form.title = Aircraft
 
-customer.booking.list.label.locatorCode = Locator Code
-customer.booking.list.label.flight = Flight
-customer.booking.list.label.purchaseMoment = Purchase Moment
-customer.booking.list.label.travelClass = Travel Class
-customer.booking.list.label.price = Price
-customer.booking.list.label.isDraft = Is it a draft?
+acme.validation.confirmation.message = These operations require confirmation. Please confirm your action.
+administrator.aircraft.list.label.model = Model
+administrator.aircraft.list.label.registrationNumber = Registration number
+administrator.aircraft.list.label.capacity = Capacity
+administrator.aircraft.list.label.cargoWeight = Cargo weight
+administrator.aircraft.list.label.status = Status
+administrator.aircraft.list.label.details = Details
+administrator.aircraft.form.label.confirmation = Are you sure you want to proceed with this action for this aircraft?
 
-customer.booking.form.title = Create a Booking
-customer.booking.form.label.locatorCode = Locator Code
-customer.booking.form.label.flight = Flight
-customer.booking.form.label.purchaseMoment = Purchase Moment
-customer.booking.form.label.travelClass = Travel Class
-customer.booking.form.label.price = Price
-customer.booking.form.label.isDraft = Is it a draft?
-customer.booking.form.button.create = Create
+administrator.aircraft.list.button.create = Create
+administrator.airport.form.button.update = Update
+administrator.airport.form.button.disable = Disable
+administrator.aircraft.form.button.create = Create
+validation.airline.phone = The phone number can start with '+' and must have between 6 and 15 digits without blank spaces or special characters
+validation.airline.codeIATA = The code must be formed by 3 capital letters, where the last letter is typically an "X"
+acme.validation.airline.codeIATA.not-unique.message = IATA code must be unique. This value is already used by an airport or an airline.
 
-customer.booking.create = Create
-customer.booking.update = Update
-customer.booking.publish = Publish
-customer.booking.list.title = My Bookings
+acme.validation.crew-member.invalid-identifier.message=The identifier is invalid. It must start with their initials (2 or 3 uppercase letters) followed by 6 digits.
+
+acme.validation.activity-log.invalid-moment.message=Activity log can't be registered because its corresponding leg hasn't finished yet.
+
+acme.validation.leg.invalid-scheduled-arrival.message=The scheduled arrival time must be after the scheduled departure time.
+acme.validation.leg.invalid-flight-number.message=The flight number must start with the airline's IATA code
+
+acme.validation.flight.overlapping.message=Flight legs must not overlap
+
+acme.validation.manager.null-identity.message=The manager's identity cannot be null. Please provide a valid first and last name.
+acme.validation.manager.invalid-identifier.message=The manager's identifier is invalid. It must start with their initials (2 or 3 uppercase letters) followed by 6 digits.
+
+acme.validation.PromotionCode.message=The promotion code is invalid. It must follow a pattern of four uppercase letters followed by two digits representing the current year.
+
+acme.validation.PromotionCodeLength.message = The promotion code is invalid. It cannot be null or have a length less than one.
+
+acme.validation.wrongPhoneNumber.message=The phone number is invalid. It must follow a pattern. This pattern matches an optional + followed by 6 to 15 digits, ensuring the entire string consists only of numbers.
+
+acme.validation.aircraft.duplicate-registration-number.message=The registration number is already in use. Please provide a different one.
+
+acme.validation.manager.invalid-identifier-not-duplication.message= The customer's identifier is invalid. Many customers must not have the same identifier.
+
+acme.validation.manager.invalid-identifier-notNull.message= The customer's identifier is invalid. Customer's identifier can not be null.
+
+acme.validation.manager.invalid-identifier.message = The customer's identifier is invalid. The identifier must start with 2 or 3 uppercase letters, followed by exactly 6 digits, with no spaces or special characters.
+
+acme.validation.LastNibbleWrongFormat.message = The last nibble format is invalid. The system should record the last 4 numbers of the credit card.
+
+acme.validation.LastNibbleWrongLength.message = The last nibble format is invalid. The system should record 4 numbers.
+
+acme.validation.manager.invalid-years-of-experience.message=Years of experience cannot exceed the manager's age.
+
+acme.validation.birthday.invalid-date.message=The minimum age to work in Spain is 16 years.
+
+
+
+manager.flight.form.label.tag = Tag
+manager.flight.form.label.cost = Cost
+manager.flight.form.label.description = Description
+manager.flight.form.label.selfTransfer = Do you have to change flights on your own? 
+manager.flight.form.label.isDraft = Is it a draft?
+
+manager.flight.create = Create
+manager.flight.update = Update
+manager.flight.delete = Delete
+manager.flight.publish = Publish
+manager.flight.form.button.delete = Delete
+manager.flight.form.button.update = Update
+manager.flight.form.button.publish = Publish
+manager.flight.form.button.create = Create
+manager.flight.form.title = Flight
+manager.flight.list.title = My flights
+
+manager.flight.form.error.notDraft = You can not do this action for a flight that is already published.
+manager.flight.publish.error.notAllPublished = Total legs must be published to publish the flight.
+manager.project.publish.error.noLegs = You must have at least one leg to publish a flight.
+manager.flight.publish.error.overlappingLegs = The legs of the flight overlap.
+
+manager.flight.list.label.tag = Tag
+manager.flight.list.label.cost = Cost
+manager.flight.list.label.description = Description
+manager.flight.list.label.selfTransfer =  Do you have to change flights on your own? 
+manager.flight.list.label.isDraft = Is it a draft? 
+manager.flight.legs = Legs of the flight
+
+master.menu.administrator.list-aircrafts = List aircrafts
+administrator.aircraft.list.title = Aircrafts
+administrator.aircraft.form.title = Aircraft
+
+acme.validation.confirmation.message = These operations require confirmation. Please confirm your action.
+administrator.aircraft.list.label.model = Model
+administrator.aircraft.list.label.registrationNumber = Registration number
+administrator.aircraft.list.label.capacity = Capacity
+administrator.aircraft.list.label.cargoWeight = Cargo weight
+administrator.aircraft.list.label.status = Status
+administrator.aircraft.list.label.details = Details
+administrator.aircraft.form.label.confirmation = Are you sure you want to proceed with this action for this aircraft?
+
+administrator.aircraft.list.button.create = Create
+administrator.airport.form.button.update = Update
+administrator.airport.form.button.disable = Disable
+administrator.aircraft.form.button.create = Create
