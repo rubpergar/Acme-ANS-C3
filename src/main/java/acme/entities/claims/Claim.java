@@ -61,4 +61,6 @@ public class Claim extends AbstractEntity {
 	@ManyToOne(optional = false)
 	private AssistanceAgent		assistanceAgent;
 
+	private boolean				draftMode;
+
 }
