@@ -79,6 +79,7 @@ administrator.aircraft.list.label.cargoWeight = Cargo weight
 administrator.aircraft.list.label.status = Status
 administrator.aircraft.list.label.details = Details
 administrator.aircraft.form.label.confirmation = Are you sure you want to proceed with this action for this aircraft?
+administrator.aircraft.form.label.airline = Airline
 
 administrator.aircraft.list.button.create = Create
 administrator.airport.form.button.update = Update

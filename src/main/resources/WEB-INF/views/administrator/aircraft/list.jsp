@@ -11,6 +11,7 @@
 	<acme:list-column code="administrator.aircraft.list.label.status" path="status" width="20%"/>
 	<acme:list-column code="administrator.aircraft.list.label.details" path="details" width="20%"/>
 </acme:list>
-
-<acme:button code="administrator.aircraft.list.button.create" action="/administrator/aircraft/create"/>
+<jstl:if test="${_command == 'list'}">
+	<acme:button code="administrator.aircraft.list.button.create" action="/administrator/aircraft/create"/>
+</jstl:if>	
 
