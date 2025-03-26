@@ -13,6 +13,3 @@
 	
 </acme:list>
 <acme:button code="manager.flight.create" action="/manager/flight/create"/>
-<acme:button code="manager.flight.delete" action="/manager/flight/delete"/>
-<acme:button code="manager.flight.update" action="/manager/flight/update"/>
-<acme:button code="manager.flight.publish" action="/manager/flight/publish"/>

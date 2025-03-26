@@ -75,10 +75,10 @@ public class ManagerFlightDeleteService extends AbstractGuiService<Manager, Flig
 	}
 
 	@Override
-	public void unbind(final Flight object) {
-		assert object != null;
+	public void unbind(final Flight flight) {
+		assert flight != null;
 		Dataset dataset;
-		dataset = super.unbindObject(object, "tag", "selfTransfer", "cost", "description", "isDraft");
+		dataset = super.unbindObject(flight, "tag", "selfTransfer", "cost", "description", "isDraft");
 		super.getResponse().addData(dataset);
 	}
 }
