@@ -15,7 +15,7 @@
 			<acme:button code="manager.flight.legs" action="/manager/flight/list?masterId=${id}"/>
 		</jstl:when>
 		<jstl:when test="${acme:anyOf(_command, 'show|update|delete|publish')  && isDraft == true}">
-			<acme:button code="manager.flight.legs" action="/manager/leg/list?masterId=${id}"/>
+			<acme:button code="manager.flight.legs" action="/manager/flight/leg/list"/>
 			<acme:submit code="manager.flight.form.button.update" action="/manager/flight/update"/>
 			<acme:submit code="manager.flight.form.button.delete" action="/manager/flight/delete"/>
 			<acme:submit code="manager.flight.form.button.publish" action="/manager/flight/publish"/>

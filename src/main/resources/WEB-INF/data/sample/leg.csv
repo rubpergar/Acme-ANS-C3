@@ -1,6 +1,6 @@
 key,flight-number,scheduled-departure,scheduled-arrival,status,isDraft,key:flight,key:departure-airport,key:arrival-airport,key:aircraft
 # Base entity
-leg-01,AAX1001,2000/02/01 10:00,2000/02/01 11:00,LANDED,TRUE,flight-01,airport-01,airport-02,aircraft-01
+leg-01,AAX1001,2000/02/01 10:00,2000/02/01 11:00,LANDED,FALSE,flight-01,airport-01,airport-02,aircraft-01
 # Flight-number
 leg-02,AAX1002,2000/02/01 11:01,2000/02/01 12:00,ON_TIME,TRUE,flight-02,airport-02,airport-03,aircraft-02
 leg-03,AAX1003,2000/02/01 13:01,2000/02/01 14:00,ON_TIME,TRUE,flight-03,airport-03,airport-04,aircraft-03

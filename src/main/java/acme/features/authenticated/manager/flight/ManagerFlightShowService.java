@@ -15,8 +15,6 @@ import acme.realms.Manager;
 @GuiService
 public class ManagerFlightShowService extends AbstractGuiService<Manager, Flight> {
 
-	//creo que no haria falta
-
 	// Internal state ---------------------------------------------------------
 
 	@Autowired

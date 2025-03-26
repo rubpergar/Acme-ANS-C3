@@ -4,9 +4,9 @@ package acme.features.authenticated.manager.flight;
 import java.util.Collection;
 
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
 import acme.client.repositories.AbstractRepository;
-import acme.client.services.GuiService;
 import acme.entities.activityLog.ActivityLog;
 import acme.entities.booking.Booking;
 import acme.entities.booking.BookingPassenger;
@@ -15,7 +15,7 @@ import acme.entities.flights.Flight;
 import acme.entities.legs.Leg;
 import acme.realms.Manager;
 
-@GuiService
+@Repository
 public interface ManagerFlightRepository extends AbstractRepository {
 
 	@Query("select f from Flight f")
@@ -42,7 +42,7 @@ public interface ManagerFlightRepository extends AbstractRepository {
 	@Query("select l from BookingPassenger l where l.booking.id = :bookingId")
 	Collection<BookingPassenger> getBookingPassengerByBooking(int bookingId);
 
-	@Query("select l from Leg l where l.flight.id = :flightId")
+	@Query("select l from Leg l where l.flight.id = :flightId order by l.scheduledDeparture")
 	Collection<Leg> getLegsByFlight(int flightId);
 
 	@Query("select a from FlightAssignment a where a.leg.id = :legId")
