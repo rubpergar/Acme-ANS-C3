@@ -5,18 +5,19 @@
 <%@taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
 
 <acme:form>
-		<acme:input-textarea code="administrator.aircraft.list.label.model" path="model" />
-		<acme:input-textarea code="administrator.aircraft.list.label.registrationNumber" path="registrationNumber"/>
+		<acme:input-textbox code="administrator.aircraft.list.label.model" path="model" />
+		<acme:input-textbox code="administrator.aircraft.list.label.registrationNumber" path="registrationNumber"/>
 		<acme:input-integer code="administrator.aircraft.list.label.capacity" path="capacity"/>
 		<acme:input-integer code="administrator.aircraft.list.label.cargoWeight" path="cargoWeight"/>
 		<acme:input-select code="administrator.aircraft.list.label.status" path="status" choices="${status}"/>
-		<acme:input-textarea code="administrator.aircraft.list.label.details" path="details"/>
+		<acme:input-select code="administrator.aircraft.form.label.airline" path="airline" choices= "${airlines}"/>
+		<acme:input-textbox code="administrator.aircraft.list.label.details" path="details"/>
 		
 		<jstl:choose>
 			<jstl:when test="${acme:anyOf(_command, 'show')}">
 				<acme:input-checkbox code="administrator.aircraft.form.label.confirmation" path="confirmation"/>
 				<acme:submit code="administrator.airport.form.button.update" action="/administrator/aircraft/update"/>
-				<acme:submit code="administrator.airport.form.button.disable" action="/administrator/aircraft/disable"/>
+				<acme:submit code="administrator.airport.form.button.disable" action="/administrator/aircraft/delete"/>
 			</jstl:when>
 			<jstl:when test="${_command == 'create'}">
 				<acme:input-checkbox code="administrator.aircraft.form.label.confirmation" path="confirmation"/>	
