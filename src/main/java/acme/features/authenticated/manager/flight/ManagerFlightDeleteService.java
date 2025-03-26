@@ -28,10 +28,7 @@ public class ManagerFlightDeleteService extends AbstractGuiService<Manager, Flig
 		flightId = super.getRequest().getData("id", int.class);
 		flight = this.repository.getFlightById(flightId);
 		userAccountId = super.getRequest().getPrincipal().getAccountId();
-		super.getResponse().setAuthorised(flight.getAirlineManager().getUserAccount().getId() == userAccountId);
-		//boton desactivado si el vuelo no esta publicado (no puede aparecer en la interfaz, por eso se pone aqui porque es la url) 
-		if (!flight.getIsDraft())
-			super.state(flight.getIsDraft(), "*", "manager.flight.form.error.notDraft", "isDraft");  //creo que va aqui
+		super.getResponse().setAuthorised(flight.getIsDraft() && flight.getAirlineManager().getUserAccount().getId() == userAccountId);
 	}
 
 	@Override
@@ -49,14 +46,13 @@ public class ManagerFlightDeleteService extends AbstractGuiService<Manager, Flig
 	public void bind(final Flight flight) {
 		assert flight != null;
 		flight.setAirlineManager(this.repository.getManagerById(super.getRequest().getPrincipal().getActiveRealm().getId()));
-		super.bindObject(flight, "tag", "selfTransfer", "cost", "description", "isDraft");
+		super.bindObject(flight, "tag", "selfTransfer", "cost", "description");
 	}
 
 	@Override
-	public void validate(final Flight flight) {   //si esta publicado no se puede borrar, creo que esto va en el authorise
+	public void validate(final Flight flight) {
 		assert flight != null;
-		//if (!flight.getIsDraft())
-		//super.state(flight.getIsDraft(), "*", "manager.flight.form.error.notDraft", "isDraft");
+
 	}
 
 	@Override

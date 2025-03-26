@@ -11,6 +11,7 @@
 		<acme:input-integer code="administrator.aircraft.list.label.cargoWeight" path="cargoWeight"/>
 		<acme:input-select code="administrator.aircraft.list.label.status" path="status" choices="${status}"/>
 		<acme:input-textarea code="administrator.aircraft.list.label.details" path="details"/>
+		
 		<jstl:choose>
 			<jstl:when test="${acme:anyOf(_command, 'show')}">
 				<acme:input-checkbox code="administrator.aircraft.form.label.confirmation" path="confirmation"/>
