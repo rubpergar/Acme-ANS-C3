@@ -67,3 +67,21 @@ manager.flight.list.label.selfTransfer =  Do you have to change flights on your 
 manager.flight.list.label.isDraft = Is it a draft? 
 manager.flight.legs = Legs of the flight
 
+master.menu.administrator.list-aircrafts = List aircrafts
+administrator.aircraft.list.title = Aircrafts
+administrator.aircraft.form.title = Aircraft
+
+acme.validation.confirmation.message = These operations require confirmation. Please confirm your action.
+administrator.aircraft.list.label.model = Model
+administrator.aircraft.list.label.registrationNumber = Registration number
+administrator.aircraft.list.label.capacity = Capacity
+administrator.aircraft.list.label.cargoWeight = Cargo weight
+administrator.aircraft.list.label.status = Status
+administrator.aircraft.list.label.details = Details
+administrator.aircraft.form.label.confirmation = Are you sure you want to proceed with this action for this aircraft?
+
+administrator.aircraft.list.button.create = Create
+administrator.airport.form.button.update = Update
+administrator.airport.form.button.disable = Disable
+administrator.aircraft.form.button.create = Create
+
