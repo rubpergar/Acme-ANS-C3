@@ -1,5 +1,5 @@
 
-package acme.features.authenticated.manager.flight.leg;
+package acme.features.authenticated.manager.leg;
 
 import javax.annotation.PostConstruct;
 
@@ -11,26 +11,30 @@ import acme.entities.legs.Leg;
 import acme.realms.Manager;
 
 @Controller
-public class FlightLegController extends AbstractGuiController<Manager, Leg> {
+public class ManagerLegController extends AbstractGuiController<Manager, Leg> {
 
 	@Autowired
-	protected FlightLegShowService		showService;
+	protected ManagerLegListService		listService;
 
 	@Autowired
-	protected FlightLegCreateService	createService;
+	protected ManagerLegShowService		showService;
 
 	@Autowired
-	protected FlightLegDeleteService	deleteService;
+	protected ManagerLegCreateService	createService;
 
 	@Autowired
-	protected FlightLegUpdateService	updateService;
+	protected ManagerLegDeleteService	deleteService;
 
 	@Autowired
-	protected FlightLegPublishService	publishService;
+	protected ManagerLegUpdateService	updateService;
+
+	@Autowired
+	protected ManagerLegPublishService	publishService;
 
 
 	@PostConstruct
 	protected void initialise() {
+		super.addBasicCommand("list", this.listService);
 		super.addBasicCommand("show", this.showService);
 		super.addBasicCommand("create", this.createService);
 		super.addBasicCommand("delete", this.deleteService);

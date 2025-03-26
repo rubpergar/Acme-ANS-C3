@@ -1,40 +1,40 @@
 key,duty,lastUpdateMoment,status,remarks,draftMode,key:leg,key:flightCrewMember
-flight-assignment-01,PILOT,2012/07/02 00:00,PENDING,lorem,false,leg-01,member-01
-flight-assignment-02,CO_PILOT,2012/07/02 00:00,PENDING,lorem,false,leg-01,member-01
-flight-assignment-03,LEAD_ATTENDANT,2012/07/02 00:00,PENDING,lorem,false,leg-01,member-01
-flight-assignment-04,CABIN_ATTENDANT,2012/07/02 00:00,PENDING,lorem,false,leg-01,member-01
+flight-assignment-01,PILOT,2012/07/02 00:00,PENDING,lorem,false,leg-05,member-01
+flight-assignment-02,CO_PILOT,2012/07/02 00:00,PENDING,lorem,false,leg-05,member-01
+flight-assignment-03,LEAD_ATTENDANT,2012/07/02 00:00,PENDING,lorem,false,leg-05,member-01
+flight-assignment-04,CABIN_ATTENDANT,2012/07/02 00:00,PENDING,lorem,false,leg-05,member-01
 # duty
-flight-assignment-06,PILOT,2012/07/02 00:00,PENDING,lorem,true,leg-01,member-01
-flight-assignment-07,CO_PILOT,2012/07/02 00:00,PENDING,lorem,true,leg-01,member-01
-flight-assignment-08,LEAD_ATTENDANT,2012/07/02 00:00,PENDING,lorem,true,leg-01,member-01
-flight-assignment-09,CABIN_ATTENDANT,2012/07/02 00:00,PENDING,lorem,true,leg-01,member-01
+flight-assignment-06,PILOT,2012/07/02 00:00,PENDING,lorem,true,leg-05,member-01
+flight-assignment-07,CO_PILOT,2012/07/02 00:00,PENDING,lorem,true,leg-05,member-01
+flight-assignment-08,LEAD_ATTENDANT,2012/07/02 00:00,PENDING,lorem,true,leg-05,member-01
+flight-assignment-09,CABIN_ATTENDANT,2012/07/02 00:00,PENDING,lorem,true,leg-05,member-01
 # lastUpdateMoment
-flight-assignment-10,PILOT,2000/01/01 00:00,PENDING,lorem,true,leg-01,member-01
-flight-assignment-11,PILOT,2000/01/01 00:01,PENDING,lorem,true,leg-01,member-01
-flight-assignment-12,PILOT,2024/12/31 23:59,PENDING,lorem,true,leg-01,member-01
-flight-assignment-13,PILOT,2025/01/01 00:00,PENDING,lorem,true,leg-01,member-01
+flight-assignment-10,PILOT,2000/01/01 00:00,PENDING,lorem,true,leg-05,member-01
+flight-assignment-11,PILOT,2000/01/01 00:01,PENDING,lorem,true,leg-05,member-01
+flight-assignment-12,PILOT,2024/12/31 23:59,PENDING,lorem,true,leg-05,member-01
+flight-assignment-13,PILOT,2025/01/01 00:00,PENDING,lorem,true,leg-05,member-01
 # status
-flight-assignment-14,PILOT,2012/07/02 00:00,CONFIRMED,lorem,true,leg-01,member-01
-flight-assignment-15,PILOT,2012/07/02 00:00,PENDING,lorem,true,leg-01,member-01
-flight-assignment-16,PILOT,2012/07/02 00:00,CANCELLED,lorem,true,leg-01,member-01
+flight-assignment-14,PILOT,2012/07/02 00:00,CONFIRMED,lorem,true,leg-05,member-01
+flight-assignment-15,PILOT,2012/07/02 00:00,PENDING,lorem,true,leg-05,member-01
+flight-assignment-16,PILOT,2012/07/02 00:00,CANCELLED,lorem,true,leg-05,member-01
 # remarks
-flight-assignment-17,PILOT,2012/07/02 00:00,PENDING,L,true,leg-01,member-01
-flight-assignment-18,PILOT,2012/07/02 00:00,PENDING,Lo,true,leg-01,member-01
-flight-assignment-19,PILOT,2012/07/02 00:00,PENDING,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut enim ad minim veniam? Quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor",true,leg-01,member-01
-flight-assignment-20,PILOT,2012/07/02 00:00,PENDING,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut enim ad minim veniam? Quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor*",true,leg-01,member-01
-flight-assignment-21,PILOT,2012/07/02 00:00,PENDING,โลเร็ม อิปซัม,true,leg-01,member-01
-flight-assignment-22,PILOT,2012/07/02 00:00,PENDING,لوريم إيبسوم,true,leg-01,member-01
-flight-assignment-23,PILOT,2012/07/02 00:00,PENDING,洛伦·伊普森,true,leg-01,member-01
-flight-assignment-24,PILOT,2012/07/02 00:00,PENDING,<marquee>Hacked</marquee>,true,leg-01,member-01
-flight-assignment-25,PILOT,2012/07/02 00:00,PENDING,<script>alert(‘Hacked!’);</script>,true,leg-01,member-01
-flight-assignment-26,PILOT,2012/07/02 00:00,PENDING,' or 'A' = 'A,true,leg-01,member-01
+flight-assignment-17,PILOT,2012/07/02 00:00,PENDING,L,true,leg-05,member-01
+flight-assignment-18,PILOT,2012/07/02 00:00,PENDING,Lo,true,leg-05,member-01
+flight-assignment-19,PILOT,2012/07/02 00:00,PENDING,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut enim ad minim veniam? Quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor",true,leg-05,member-01
+flight-assignment-20,PILOT,2012/07/02 00:00,PENDING,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut enim ad minim veniam? Quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor*",true,leg-05,member-01
+flight-assignment-21,PILOT,2012/07/02 00:00,PENDING,โลเร็ม อิปซัม,true,leg-05,member-01
+flight-assignment-22,PILOT,2012/07/02 00:00,PENDING,لوريم إيبسوم,true,leg-05,member-01
+flight-assignment-23,PILOT,2012/07/02 00:00,PENDING,洛伦·伊普森,true,leg-05,member-01
+flight-assignment-24,PILOT,2012/07/02 00:00,PENDING,<marquee>Hacked</marquee>,true,leg-05,member-01
+flight-assignment-25,PILOT,2012/07/02 00:00,PENDING,<script>alert(‘Hacked!’);</script>,true,leg-05,member-01
+flight-assignment-26,PILOT,2012/07/02 00:00,PENDING,' or 'A' = 'A,true,leg-05,member-01
 # draftMode
-flight-assignment-28,PILOT,2012/07/02 00:00,PENDING,lorem,true,leg-01,member-01
-flight-assignment-29,PILOT,2012/07/02 00:00,PENDING,lorem,false,leg-01,member-01
+flight-assignment-28,PILOT,2012/07/02 00:00,PENDING,lorem,true,leg-05,member-01
+flight-assignment-29,PILOT,2012/07/02 00:00,PENDING,lorem,false,leg-05,member-01
 # leg
-flight-assignment-30,PILOT,2012/07/02 00:00,PENDING,lorem,true,leg-01,member-01
+flight-assignment-30,PILOT,2012/07/02 00:00,PENDING,lorem,true,leg-05,member-01
 # flightCrewMember
-flight-assignment-32,PILOT,2012/07/02 00:00,PENDING,lorem,true,leg-01,member-01
-flight-assignment-33,CO_PILOT,2012/07/02 00:00,PENDING,lorem,true,leg-01,member-02
-flight-assignment-34,LEAD_ATTENDANT,2012/07/02 00:00,PENDING,lorem,true,leg-01,member-03
-flight-assignment-35,CABIN_ATTENDANT,2012/07/02 00:00,PENDING,lorem,true,leg-01,member-04
+flight-assignment-32,PILOT,2012/07/02 00:00,PENDING,lorem,true,leg-05,member-01
+flight-assignment-33,CO_PILOT,2012/07/02 00:00,PENDING,lorem,true,leg-05,member-02
+flight-assignment-34,LEAD_ATTENDANT,2012/07/02 00:00,PENDING,lorem,true,leg-05,member-03
+flight-assignment-35,CABIN_ATTENDANT,2012/07/02 00:00,PENDING,lorem,true,leg-05,member-04

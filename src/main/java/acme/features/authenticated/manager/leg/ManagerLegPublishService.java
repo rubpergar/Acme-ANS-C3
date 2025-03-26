@@ -1,5 +1,5 @@
 
-package acme.features.authenticated.manager.flight.leg;
+package acme.features.authenticated.manager.leg;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -10,12 +10,12 @@ import acme.entities.legs.Leg;
 import acme.realms.Manager;
 
 @GuiService
-public class FlightLegPublishService extends AbstractGuiService<Manager, Leg> {
+public class ManagerLegPublishService extends AbstractGuiService<Manager, Leg> {
 
 	// Internal state ---------------------------------------------------------
 
 	@Autowired
-	private FlightLegRepository repository;
+	private ManagerLegRepository repository;
 
 	// AbstractGuiService interface -------------------------------------------
 

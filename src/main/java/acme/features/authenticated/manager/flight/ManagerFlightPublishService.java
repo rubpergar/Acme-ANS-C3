@@ -6,10 +6,12 @@ import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import acme.client.components.models.Dataset;
+import acme.client.helpers.MomentHelper;
 import acme.client.services.AbstractGuiService;
 import acme.client.services.GuiService;
 import acme.entities.flights.Flight;
 import acme.entities.legs.Leg;
+import acme.entities.legs.LegRepository;
 import acme.realms.Manager;
 
 @GuiService
@@ -18,7 +20,10 @@ public class ManagerFlightPublishService extends AbstractGuiService<Manager, Fli
 	// Internal state ---------------------------------------------------------
 
 	@Autowired
-	private ManagerFlightRepository repository;
+	private ManagerFlightRepository	repository;
+
+	@Autowired
+	private LegRepository			legRepository;
 
 	// AbstractGuiService interface -------------------------------------------
 
@@ -31,10 +36,7 @@ public class ManagerFlightPublishService extends AbstractGuiService<Manager, Fli
 		flightId = super.getRequest().getData("id", int.class);
 		flight = this.repository.getFlightById(flightId);
 		userAccountId = super.getRequest().getPrincipal().getAccountId();
-		super.getResponse().setAuthorised(flight.getAirlineManager().getUserAccount().getId() == userAccountId); //el usuario es el manager del vuelo
-		//igual que antes, no ddeberia aparecer el boton de publicar si ya esta publicado
-		if (!flight.getIsDraft())
-			super.state(flight.getIsDraft(), "*", "manager.flight.form.error.notDraft", "isDraft");
+		super.getResponse().setAuthorised(flight.getIsDraft() && flight.getAirlineManager().getUserAccount().getId() == userAccountId); //el usuario es el manager del vuelo
 	}
 
 	@Override
@@ -51,7 +53,7 @@ public class ManagerFlightPublishService extends AbstractGuiService<Manager, Fli
 	@Override
 	public void bind(final Flight flight) {
 		assert flight != null;
-		super.bindObject(flight, "tag", "selfTransfer", "cost", "description", "isDraft");
+		super.bindObject(flight, "tag", "selfTransfer", "cost", "description");
 	}
 
 	@Override
@@ -64,10 +66,22 @@ public class ManagerFlightPublishService extends AbstractGuiService<Manager, Fli
 		boolean allLegsPublished = legs.stream().allMatch(Leg::getIsDraft);
 		super.state(!allLegsPublished, "*", "manager.flight.publish.error.notAllPublished");
 
-		//porque no se puede publicar un vuelo con tramos superpuestos(y aqui ya los legs no son nulos)
-		//FlightValidator validator = new FlightValidator();
-		//boolean validFlight = validator.isValid(flight, null);
-		//super.state(validFlight, "*", "manager.flight.publish.error.overlappingLegs");
+		boolean nonOverlappingLegs = true;
+
+		Collection<Leg> sortedLegs = this.legRepository.getLegsByFlight(flight.getId());
+
+		for (int i = 0; i < sortedLegs.size() - 1; i++) {
+			Leg previousLeg = sortedLegs.stream().toList().get(i);
+			Leg nextLeg = sortedLegs.stream().toList().get(i + 1);
+
+			if (previousLeg.getScheduledArrival() != null && nextLeg.getScheduledDeparture() != null) {
+				boolean validLeg = MomentHelper.isBefore(previousLeg.getScheduledArrival(), nextLeg.getScheduledDeparture());
+				if (!validLeg) {
+					nonOverlappingLegs = false;
+					super.state(nonOverlappingLegs, "legs", "acme.validation.flight.overlapping.message");
+				}
+			}
+		}
 	}
 
 	@Override

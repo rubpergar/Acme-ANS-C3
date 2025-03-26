@@ -28,10 +28,8 @@ public class ManagerFlightUpdateService extends AbstractGuiService<Manager, Flig
 		flightId = super.getRequest().getData("id", int.class);
 		flight = this.repository.getFlightById(flightId);
 		userAccountId = super.getRequest().getPrincipal().getAccountId();
-		super.getResponse().setAuthorised(flight.getAirlineManager().getUserAccount().getId() == userAccountId); //el usuario es el manager del vuelo
-		//no deberia poder editar un vuelo que no este en borrador
-		if (!flight.getIsDraft())
-			super.state(flight.getIsDraft(), "*", "manager.flight.form.error.notDraft", "isDraft");
+		super.getResponse().setAuthorised(flight.getIsDraft() && flight.getAirlineManager().getUserAccount().getId() == userAccountId); //el usuario es el manager del vuelo
+
 	}
 
 	@Override
@@ -48,14 +46,12 @@ public class ManagerFlightUpdateService extends AbstractGuiService<Manager, Flig
 	@Override
 	public void bind(final Flight flight) {
 		assert flight != null;
-		super.bindObject(flight, "tag", "selfTransfer", "cost", "description", "isDraft");
+		super.bindObject(flight, "tag", "selfTransfer", "cost", "description");
 	}
 
 	@Override
 	public void validate(final Flight flight) {
 		assert flight != null;
-		//if (!flight.getIsDraft())
-		//super.state(flight.getIsDraft(), "*", "manager.flight.form.error.notDraft", "isDraft");
 	}
 
 	@Override
