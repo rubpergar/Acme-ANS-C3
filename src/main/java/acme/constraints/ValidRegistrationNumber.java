@@ -8,13 +8,12 @@ import java.lang.annotation.Target;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
+import javax.validation.ReportAsSingleViolation;
 
-import org.hibernate.validator.constraints.Length;
-
-@Target(ElementType.FIELD)
+@Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = UniqueRegistrationNumberValidator.class)
-@Length(min = 1, max = 255)
+@ReportAsSingleViolation
 public @interface ValidRegistrationNumber {
 
 	String message() default "Registration number must be unique";
