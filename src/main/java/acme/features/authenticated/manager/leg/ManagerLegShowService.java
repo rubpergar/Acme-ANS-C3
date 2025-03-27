@@ -70,14 +70,23 @@ public class ManagerLegShowService extends AbstractGuiService<Manager, Leg> {
 		departureAirportChoices = SelectChoices.from(airports, "IATAcode", leg.getDepartureAirport());
 		arrivalAirportChoices = SelectChoices.from(airports, "IATAcode", leg.getArrivalAirport());
 
-		SelectChoices selectedAircraft;
-		Collection<Aircraft> aircrafts;
-		aircrafts = this.repository.findAllAircrafts();
-		selectedAircraft = SelectChoices.from(aircrafts, "registrationNumber", leg.getAircraft());
+		SelectChoices selectedAircraft = new SelectChoices();
+		selectedAircraft.add("0", "----", leg.getAircraft() == null);
+
+		for (Aircraft aircraft : this.repository.findAllAircrafts()) {
+			String key = Integer.toString(aircraft.getId());
+			String label = aircraft.getRegistrationNumber();
+
+			if (aircraft.getAirline() != null)
+				label += " (" + aircraft.getAirline().getCodeIATA() + ")";
+
+			boolean isSelected = aircraft.equals(leg.getAircraft());
+			selectedAircraft.add(key, label, isSelected);
+		}
 
 		dataset = super.unbindObject(leg, "flightNumber", "scheduledDeparture", "scheduledArrival");
 		dataset.put("masterId", leg.getFlight().getId());
-		dataset.put("isDraft", leg.getFlight().getIsDraft());
+		dataset.put("isDraft", leg.getIsDraft());
 		dataset.put("status", choices);
 		dataset.put("departureAirports", departureAirportChoices);
 		dataset.put("departureAirport", departureAirportChoices.getSelected().getKey());
@@ -85,6 +94,7 @@ public class ManagerLegShowService extends AbstractGuiService<Manager, Leg> {
 		dataset.put("arrivalAirport", arrivalAirportChoices.getSelected().getKey());
 		dataset.put("aircrafts", selectedAircraft);
 		dataset.put("aircraft", selectedAircraft.getSelected().getKey());
+		dataset.put("duration", leg.getDuration());
 
 		super.getResponse().addData(dataset);
 	}

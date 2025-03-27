@@ -14,4 +14,4 @@
 	<acme:list-column code="manager.leg.list.label.aircraft" path="aircraft" width="20%" />
 	
 </acme:list>
-<acme:button code="manager.leg.create.button" action="/manager/leg/create"/>
+<acme:button code="manager.leg.create.button" action="/manager/leg/create?masterId=${masterId}"/>
