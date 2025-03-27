@@ -1,12 +1,16 @@
 
 package acme.features.authenticated.manager.leg;
 
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import acme.client.components.models.Dataset;
 import acme.client.components.views.SelectChoices;
 import acme.client.services.AbstractGuiService;
 import acme.client.services.GuiService;
+import acme.entities.aircrafts.Aircraft;
+import acme.entities.airports.Airport;
 import acme.entities.flights.Flight;
 import acme.entities.legs.Leg;
 import acme.entities.legs.LegStatus;
@@ -59,13 +63,28 @@ public class ManagerLegShowService extends AbstractGuiService<Manager, Leg> {
 		SelectChoices choices;
 		choices = SelectChoices.from(LegStatus.class, leg.getStatus());
 
-		dataset = super.unbindObject(leg, "flightNumber", "scheduledDeparture", "scheduledArrival", "departureAirport", "arrivalAirport");
+		SelectChoices departureAirportChoices;
+		SelectChoices arrivalAirportChoices;
+		Collection<Airport> airports;
+		airports = this.repository.findAllAirports();
+		departureAirportChoices = SelectChoices.from(airports, "IATAcode", leg.getDepartureAirport());
+		arrivalAirportChoices = SelectChoices.from(airports, "IATAcode", leg.getArrivalAirport());
+
+		SelectChoices selectedAircraft;
+		Collection<Aircraft> aircrafts;
+		aircrafts = this.repository.findAllAircrafts();
+		selectedAircraft = SelectChoices.from(aircrafts, "registrationNumber", leg.getAircraft());
+
+		dataset = super.unbindObject(leg, "flightNumber", "scheduledDeparture", "scheduledArrival");
 		dataset.put("masterId", leg.getFlight().getId());
-		dataset.put("draftMode", leg.getFlight().getId());
+		dataset.put("isDraft", leg.getFlight().getIsDraft());
 		dataset.put("status", choices);
-		dataset.put("departureArrival", leg.getArrivalAirport().getIATAcode());
-		dataset.put("departureDeparture", leg.getDepartureAirport().getIATAcode());
-		dataset.put("aircraft", leg.getAircraft().getRegistrationNumber());
+		dataset.put("departureAirports", departureAirportChoices);
+		dataset.put("departureAirport", departureAirportChoices.getSelected().getKey());
+		dataset.put("arrivalAirports", arrivalAirportChoices);
+		dataset.put("arrivalAirport", arrivalAirportChoices.getSelected().getKey());
+		dataset.put("aircrafts", selectedAircraft);
+		dataset.put("aircraft", selectedAircraft.getSelected().getKey());
 
 		super.getResponse().addData(dataset);
 	}
