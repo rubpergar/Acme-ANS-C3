@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import acme.client.components.models.Dataset;
 import acme.client.services.AbstractGuiService;
 import acme.client.services.GuiService;
+import acme.entities.flights.Flight;
 import acme.entities.legs.Leg;
 import acme.realms.Manager;
 
@@ -22,13 +23,17 @@ public class ManagerLegPublishService extends AbstractGuiService<Manager, Leg> {
 
 	@Override
 	public void authorise() {
-		Leg leg;
+		boolean status;
 		int legId;
+		Flight flight;
+		Leg leg;
+
 		legId = super.getRequest().getData("id", int.class);
 		leg = this.repository.getLegById(legId);
-		//igual que antes, no deberia aparecer el boton de publicar si ya esta publicado
-		if (!leg.getIsDraft())
-			super.state(leg.getIsDraft(), "*", "manager.flight.form.error.notDraft", "isDraft");
+		flight = this.repository.getFlightByLegId(legId);
+		status = flight != null && flight.getIsDraft() && super.getRequest().getPrincipal().hasRealm(flight.getAirlineManager()) || leg.getIsDraft();
+
+		super.getResponse().setAuthorised(status);
 	}
 
 	@Override
@@ -45,7 +50,7 @@ public class ManagerLegPublishService extends AbstractGuiService<Manager, Leg> {
 	@Override
 	public void bind(final Leg leg) {
 		assert leg != null;
-		super.bindObject(leg, "flightNumber", "scheduledDeparture", "scheduledArrival", "status", "isDraft");
+		super.bindObject(leg, "flightNumber", "scheduledDeparture", "scheduledArrival", "status");
 	}
 
 	@Override
@@ -66,7 +71,7 @@ public class ManagerLegPublishService extends AbstractGuiService<Manager, Leg> {
 
 		Dataset dataset;
 
-		dataset = super.unbindObject(leg, "flightNumber", "scheduledDeparture", "scheduledArrival", "status", "isDraft");
+		dataset = super.unbindObject(leg, "flightNumber", "scheduledDeparture", "scheduledArrival", "status", "isDraft", "departureAirport", "arrivalAirport", "aircraft");
 		super.getResponse().addData(dataset);
 	}
 

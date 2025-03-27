@@ -42,11 +42,11 @@ public class ManagerFlightCreateService extends AbstractGuiService<Manager, Flig
 
 		flight.setAirlineManager(this.repository.getManagerById(super.getRequest().getPrincipal().getActiveRealm().getId()));
 
-		super.bindObject(flight, "tag", "selfTransfer", "cost", "description", "isDraft");
+		super.bindObject(flight, "tag", "selfTransfer", "cost", "description");
 	}
 
 	@Override
-	public void validate(final Flight flight) {  //dice que la validacion del duplicado es siempre en el modelo de dominio.
+	public void validate(final Flight flight) {
 		assert flight != null;
 	}
 
@@ -60,7 +60,8 @@ public class ManagerFlightCreateService extends AbstractGuiService<Manager, Flig
 	public void unbind(final Flight flight) {
 		assert flight != null;
 		Dataset dataset;
-		dataset = super.unbindObject(flight, "tag", "selfTransfer", "cost", "description", "isDraft");
+		dataset = super.unbindObject(flight, "tag", "selfTransfer", "cost", "description");
+		dataset.put("isDraft", true);
 		super.getResponse().addData(dataset);
 	}
 

@@ -17,7 +17,7 @@
 			<jstl:when test="${acme:anyOf(_command, 'show')}">
 				<acme:input-checkbox code="administrator.aircraft.form.label.confirmation" path="confirmation"/>
 				<acme:submit code="administrator.airport.form.button.update" action="/administrator/aircraft/update"/>
-				<acme:submit code="administrator.airport.form.button.disable" action="/administrator/aircraft/delete"/>
+				<acme:submit code="administrator.airport.form.button.disable" action="/administrator/aircraft/disable"/>
 			</jstl:when>
 			<jstl:when test="${_command == 'create'}">
 				<acme:input-checkbox code="administrator.aircraft.form.label.confirmation" path="confirmation"/>	
