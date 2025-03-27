@@ -9,9 +9,9 @@
 	<acme:input-moment code="manager.leg.list.label.scheduledDeparture" path="scheduledDeparture"/>	
 	<acme:input-moment code="manager.leg.list.label.scheduledArrival" path="scheduledArrival"/>	
 	<acme:input-select code="manager.leg.list.label.status" path="status" choices="${status}"/>
-	<acme:input-textbox code="manager.leg.list.label.arrivalAirport" path="arrivalAirport"/>
-	<acme:input-textbox code="manager.leg.list.label.departureAirport" path="departureAirport"/>
-	<acme:input-textbox code="manager.leg.list.label.aircraft" path="aircraft"/>
+	<acme:input-select code="manager.leg.list.label.arrivalAirport" path="arrivalAirport" choices="${arrivalAirports}"/>
+	<acme:input-select code="manager.leg.list.label.departureAirport" path="departureAirport" choices="${departureAirports}"/>
+	<acme:input-select code="manager.leg.list.label.aircraft" path="aircraft" choices="${aircrafts}"/>
 	
 	<jstl:choose>	 
 		<jstl:when test="${_command == 'show' && isDraft == false}">
