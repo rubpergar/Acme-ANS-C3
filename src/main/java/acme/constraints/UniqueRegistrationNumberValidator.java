@@ -1,6 +1,8 @@
 
 package acme.constraints;
 
+import java.util.Optional;
+
 import javax.validation.ConstraintValidatorContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +13,7 @@ import acme.entities.aircrafts.Aircraft;
 import acme.entities.aircrafts.AircraftRepository;
 
 @Validator
-public class UniqueRegistrationNumberValidator extends AbstractValidator<ValidRegistrationNumber, String> {
+public class UniqueRegistrationNumberValidator extends AbstractValidator<ValidRegistrationNumber, Aircraft> {
 
 	@Autowired
 	private AircraftRepository aircraftRepository;
@@ -23,18 +25,24 @@ public class UniqueRegistrationNumberValidator extends AbstractValidator<ValidRe
 	}
 
 	@Override
-	public boolean isValid(final String registrationNumber, final ConstraintValidatorContext context) {
+	public boolean isValid(final Aircraft aircraft, final ConstraintValidatorContext context) {
 		assert context != null;
 
+		if (aircraft == null)
+			return false;
+
+		String registrationNumber = aircraft.getRegistrationNumber();
+
 		if (registrationNumber == null)
-			super.state(context, false, "*", "javax.validation.constraints.NotNull.message");
+			return false;
 
-		Aircraft existingAircraft = this.aircraftRepository.findByRegistrationNumber(registrationNumber);
+		Optional<Aircraft> aircraftWithSameRegistrationNumber = this.aircraftRepository.findAircraftByRegistrationNumber(registrationNumber);
+		if (aircraftWithSameRegistrationNumber.isPresent() && aircraftWithSameRegistrationNumber.get().getId() != aircraft.getId()) {
+			super.state(context, false, "registrationNumber", "acme.validation.aircraft.duplicate-registration-number.message");
+			return false;
+		}
 
-		boolean isValid = existingAircraft == null || existingAircraft.getRegistrationNumber().equals(registrationNumber);
-
-		super.state(context, isValid, "registrationNumber", "acme.validation.aircraft.duplicate-registration-number.message");
-
-		return isValid;
+		return true;
 	}
+
 }

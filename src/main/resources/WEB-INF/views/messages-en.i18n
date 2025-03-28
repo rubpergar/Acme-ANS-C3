@@ -51,9 +51,14 @@ manager.flight.publish = Publish
 manager.flight.form.button.delete = Delete
 manager.flight.form.button.update = Update
 manager.flight.form.button.publish = Publish
-manager.flight.form.button.create = Create
+manager.flight.form.button.create = Create Flight
 manager.flight.form.title = Flight
 manager.flight.list.title = My flights
+manager.flight.form.label.scheduledDeparture = Scheduled departure
+manager.flight.form.label.scheduledArrival = Scheduled arrival
+manager.flight.form.label.originCity = Origin city
+manager.flight.form.label.destinationCity = Destination city
+manager.flight.form.label.layovers = Numbers of Layovers
 
 manager.flight.form.error.notDraft = You can not do this action for a flight that is already published.
 manager.flight.publish.error.notAllPublished = Total legs must be published to publish the flight.
@@ -66,4 +71,40 @@ manager.flight.list.label.description = Description
 manager.flight.list.label.selfTransfer =  Do you have to change flights on your own? 
 manager.flight.list.label.isDraft = Is it a draft? 
 manager.flight.legs = Legs of the flight
+
+master.menu.administrator.list-aircrafts = List aircrafts
+administrator.aircraft.list.title = Aircrafts
+administrator.aircraft.form.title = Aircraft
+
+acme.validation.confirmation.message = These operations require confirmation. Please confirm your action.
+administrator.aircraft.list.label.model = Model
+administrator.aircraft.list.label.registrationNumber = Registration number
+administrator.aircraft.list.label.capacity = Capacity
+administrator.aircraft.list.label.cargoWeight = Cargo weight
+administrator.aircraft.list.label.status = Status
+administrator.aircraft.list.label.details = Details
+administrator.aircraft.form.label.confirmation = Are you sure you want to proceed with this action for this aircraft?
+administrator.aircraft.form.label.airline = Airline
+
+administrator.aircraft.list.button.create = Create Aircraft
+administrator.airport.form.button.update = Update
+administrator.airport.form.button.disable = Disable
+administrator.aircraft.form.button.create = Create Aircraft
+
+manager.leg.list.title = Legs of the flight
+manager.leg.list.label.flightNumber = Flight number (It must start with IATAcode of aircraft.Ej:AAX)
+manager.leg.list.label.flightNumber2 = Flight number
+manager.leg.list.label.scheduledDeparture = Sche.dep
+manager.leg.list.label.scheduledArrival = Sche.arr
+manager.leg.list.label.status = Status
+manager.leg.create.button = Create Leg
+manager.leg.list.label.departureAirport = Dep.airp
+manager.leg.list.label.arrivalAirport = Arr.airp
+manager.leg.list.label.aircraft = Aircraft (IATAcode)
+manager.leg.list.label.aircraft2 = Aircraft
+manager.leg.form.title=Leg details
+manager.leg.form.button.update=Update
+manager.leg.form.button.delete=Delete
+manager.leg.form.button.publish=Publish
+manager.leg.list.label.duration=Duration(hours)
 

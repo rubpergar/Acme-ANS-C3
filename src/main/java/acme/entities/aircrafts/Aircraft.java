@@ -20,6 +20,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
+@ValidRegistrationNumber
 public class Aircraft extends AbstractEntity {
 
 	// Serialisation version ---------------------------------------------------
@@ -34,7 +35,7 @@ public class Aircraft extends AbstractEntity {
 	private String				model;
 
 	@Mandatory
-	@ValidRegistrationNumber
+	@ValidString(min = 1, max = 50)
 	@Column(unique = true)
 	private String				registrationNumber;
 

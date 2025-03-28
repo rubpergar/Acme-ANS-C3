@@ -84,7 +84,8 @@ public class Leg extends AbstractEntity {
 
 
 	@Transient
-	Double getDuration() {
+	public Double getDuration() {
 		return (double) MomentHelper.computeDuration(this.scheduledDeparture, this.scheduledArrival).toHours();
 	}
+
 }
