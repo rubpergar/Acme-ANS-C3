@@ -112,7 +112,7 @@ public class ManagerLegCreateService extends AbstractGuiService<Manager, Leg> {
 			String label = aircraft.getRegistrationNumber();
 
 			if (aircraft.getAirline() != null)
-				label += " (" + aircraft.getAirline().getCodeIATA() + ")";
+				label += " (" + aircraft.getAirline().getCodeIATA() + ")";  // Incluye el airline aquí
 
 			boolean isSelected = aircraft.equals(leg.getAircraft());
 			selectedAircraft.add(key, label, isSelected);
