@@ -57,7 +57,7 @@ public class ManagerLegUpdateService extends AbstractGuiService<Manager, Leg> {
 	@Override
 	public void bind(final Leg leg) {
 		assert leg != null;
-		super.bindObject(leg, "flightNumber", "scheduledDeparture", "scheduledArrival", "status");
+		super.bindObject(leg, "flightNumber", "scheduledDeparture", "scheduledArrival", "status", "departureAirport", "arrivalAirport", "aircraft");
 	}
 
 	@Override
@@ -85,10 +85,19 @@ public class ManagerLegUpdateService extends AbstractGuiService<Manager, Leg> {
 		departureAirportChoices = SelectChoices.from(airports, "IATAcode", leg.getDepartureAirport());
 		arrivalAirportChoices = SelectChoices.from(airports, "IATAcode", leg.getArrivalAirport());
 
-		SelectChoices selectedAircraft;
-		Collection<Aircraft> aircrafts;
-		aircrafts = this.repository.findAllAircraftsByStatus(AircraftStatus.ACTIVE);
-		selectedAircraft = SelectChoices.from(aircrafts, "registrationNumber", leg.getAircraft());
+		SelectChoices selectedAircraft = new SelectChoices();
+		selectedAircraft.add("0", "----", leg.getAircraft() == null);
+
+		for (Aircraft aircraft : this.repository.findAllAircraftsByStatus(AircraftStatus.ACTIVE)) {
+			String key = Integer.toString(aircraft.getId());
+			String label = aircraft.getRegistrationNumber();
+
+			if (aircraft.getAirline() != null)
+				label += " (" + aircraft.getAirline().getCodeIATA() + ")";
+
+			boolean isSelected = aircraft.equals(leg.getAircraft());
+			selectedAircraft.add(key, label, isSelected);
+		}
 
 		dataset = super.unbindObject(leg, "flightNumber", "scheduledDeparture", "scheduledArrival");
 		dataset.put("status", choices);
