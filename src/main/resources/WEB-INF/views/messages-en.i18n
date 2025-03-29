@@ -108,3 +108,29 @@ manager.leg.form.button.delete=Delete
 manager.leg.form.button.publish=Publish
 manager.leg.list.label.duration=Duration(hours)
 
+customer.project.publish.error.lastNibbleNotPublished = To publish a booking the last credit card nibble must have been stored. 
+customer.booking.form.error.notDraft = You can not do this action for a booking that is already published.
+
+customer.booking.list.label.locatorCode = Locator Code
+customer.booking.list.label.flight = Flight
+customer.booking.list.label.purchaseMoment = Purchase Moment
+customer.booking.list.label.travelClass = Travel Class
+customer.booking.list.label.price = Price
+customer.booking.list.label.isDraft = Is it a draft?
+
+customer.booking.form.title = Create a Booking
+customer.booking.form.label.locatorCode = Locator Code
+customer.booking.form.label.flight = Flight
+customer.booking.form.label.purchaseMoment = Purchase Moment
+customer.booking.form.label.travelClass = Travel Class
+customer.booking.form.label.price = Price
+customer.booking.form.label.lastNibble = Last Nibble
+customer.booking.form.label.isDraft = Is it a draft?
+customer.booking.form.button.create = Create
+
+customer.booking.create = Create
+customer.booking.update = Update
+customer.booking.publish = Publish
+customer.booking.list.title = My Bookings
+
+customer.project.publish.error.lastNibbleNotPublished = To publish a booking the last credit card nibble must have been stored. 
