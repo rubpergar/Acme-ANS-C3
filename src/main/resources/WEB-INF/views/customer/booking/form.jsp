@@ -15,19 +15,10 @@
     <acme:input-money code="customer.booking.form.label.price" path="price"/>
     <acme:input-textbox code="customer.booking.form.label.lastNibble" path="lastNibble"/>
     <acme:input-checkbox code="customer.booking.form.label.isDraft" path="isDraft"/>
-    
-    <jstl:if test="${passengers}">
-		<acme:input-textarea code="customer.booking.form.label.passengers" path="passengers" readonly="true"/>
-	</jstl:if>
-
-	<jstl:if test="${!passengers}">
-	        <p><em>No passengers for this booking.</em></p>
-	</jstl:if>	
-    
         
     <jstl:choose>     
         <jstl:when test="${_command == 'show' && isDraft == false}">
-            <acme:button code="customer.booking.passengers" action="/customer/booking/list?masterId=${id}"/>
+            <acme:button code="customer.booking.passengers" action="/customer/passenger/list?masterId=${id}"/>
         </jstl:when>
         <jstl:when test="${acme:anyOf(_command, 'show|update|delete|publish')  && isDraft == true}">
             <acme:button code="customer.booking.passengers" action="/customer/passenger/list?masterId=${id}"/>

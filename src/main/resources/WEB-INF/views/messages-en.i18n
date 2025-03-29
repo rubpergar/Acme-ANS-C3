@@ -136,4 +136,26 @@ customer.booking.publish = Publish
 customer.booking.passengers = Passengers
 customer.booking.list.title = My Bookings
 
+customer.passenger.list.label.fullName = Full Name
+customer.passenger.list.label.email = Email
+customer.passenger.list.label.passportNumber = Passport Number
+customer.passenger.list.label.dateOfBirth = Date of Birth
+customer.passenger.list.label.isDraft = Is it a draft?
+
+customer.passenger.create = Create
+customer.passenger.update = Update
+customer.passenger.publish = Publish
+customer.passenger.list.title = My Passengers
+
+customer.passenger.form.title = Passenger
+customer.passenger.form.label.fullName = Full Name
+customer.passenger.form.label.email = Email
+customer.passenger.form.label.passportNumber = Passport Number
+customer.passenger.form.label.dateOfBirth= Date of Birth
+customer.passenger.form.label.specialNeeds = Special Needs
+customer.passenger.form.isDraft  = Is it a draft?
+customer.passenger.form.button.create = Create
+customer.passenger.form.button.update = Update
+customer.passenger.form.button.publish = Publish
+
 customer.project.publish.error.lastNibbleNotPublished = To publish a booking the last credit card nibble must have been stored. 

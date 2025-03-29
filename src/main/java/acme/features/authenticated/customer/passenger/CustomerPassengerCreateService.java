@@ -1,9 +1,12 @@
 
 package acme.features.authenticated.customer.passenger;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import acme.client.components.models.Dataset;
+import acme.client.helpers.MomentHelper;
 import acme.client.services.AbstractGuiService;
 import acme.client.services.GuiService;
 import acme.entities.passenger.Passenger;
@@ -26,18 +29,27 @@ public class CustomerPassengerCreateService extends AbstractGuiService<Customer,
 
 	@Override
 	public void load() {
-		Customer customer;
-		int userAccountId;
+		Passenger passenger;
+		Date currentMoment;
 
-		userAccountId = super.getRequest().getPrincipal().getAccountId();
-		customer = this.repository.findCustomerByUserAccountId(userAccountId);
+		currentMoment = MomentHelper.getCurrentMoment();
 
-		super.getBuffer().addData(customer);
+		passenger = new Passenger();
+		passenger.setFullName("");
+		passenger.setEmail("");
+		passenger.setPassportNumber("");
+		passenger.setDateOfBirth(currentMoment);
+		passenger.setSpecialNeeds("");
+		passenger.setIsDraft(true);
+
+		//no se como asociar el passenger con el booking
+
+		super.getBuffer().addData(passenger);
 	}
 
 	@Override
 	public void bind(final Passenger passenger) {
-		super.bindObject(passenger, "fullName", "email", "passportNumber", "dateOfBirth", "isDraft");
+		super.bindObject(passenger, "fullName", "email", "passportNumber", "dateOfBirth", "specialNeeds", "isDraft");
 	}
 
 	// ??????
@@ -56,7 +68,7 @@ public class CustomerPassengerCreateService extends AbstractGuiService<Customer,
 	public void unbind(final Passenger passenger) {
 		assert passenger != null;
 		Dataset dataset;
-		dataset = super.unbindObject(passenger, "fullName", "email", "passportNumber", "dateOfBirth", "isDraft");
+		dataset = super.unbindObject(passenger, "fullName", "email", "passportNumber", "dateOfBirth", "specialNeeds", "isDraft");
 		super.getResponse().addData(dataset);
 	}
 

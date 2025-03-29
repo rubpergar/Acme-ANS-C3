@@ -69,18 +69,23 @@ public class CustomerPassengerListService extends AbstractGuiService<Customer, P
 	//		super.getResponse().addGlobal("showCreate", showCreate);
 	//	}
 
+	//	@Override
+	//	public void authorise() {
+	//		boolean status;
+	//		int masterId;
+	//		Booking booking;
+	//
+	//		masterId = super.getRequest().getData("masterId", int.class);
+	//		booking = this.repository.findBookingById(masterId);
+	//		status = booking != null && super.getRequest().getPrincipal().hasRealm(booking.getCustomer());
+	//
+	//		super.getResponse().setAuthorised(status);
+	//	}
+
 
 	@Override
 	public void authorise() {
-		boolean status;
-		int masterId;
-		Booking booking;
-
-		masterId = super.getRequest().getData("masterId", int.class);
-		booking = this.repository.findBookingById(masterId);
-		status = booking != null && super.getRequest().getPrincipal().hasRealm(booking.getCustomer());
-
-		super.getResponse().setAuthorised(status);
+		super.getResponse().setAuthorised(true);
 	}
 
 	@Override
@@ -98,7 +103,7 @@ public class CustomerPassengerListService extends AbstractGuiService<Customer, P
 	public void unbind(final Passenger passenger) {
 		Dataset dataset;
 
-		dataset = super.unbindObject(passenger, "fullName", "email", "passportNumber");
+		dataset = super.unbindObject(passenger, "fullName", "email", "passportNumber", "dateOfBirth", "isDraft");
 
 		super.getResponse().addData(dataset);
 	}

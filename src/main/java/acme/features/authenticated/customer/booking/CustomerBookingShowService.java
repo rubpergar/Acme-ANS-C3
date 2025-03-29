@@ -21,12 +21,6 @@ public class CustomerBookingShowService extends AbstractGuiService<Customer, Boo
 	@Autowired
 	private CustomerBookingRepository repository;
 
-	//	@Override
-	//	public void authorise() {
-	//		boolean status = super.getRequest().getPrincipal().hasRealmOfType(Customer.class);
-	//		super.getResponse().setAuthorised(status);
-	//	}
-
 
 	@Override
 	public void authorise() {
@@ -37,10 +31,8 @@ public class CustomerBookingShowService extends AbstractGuiService<Customer, Boo
 	public void load() {
 		Integer id = super.getRequest().getData("id", int.class);
 		Booking booking = this.repository.findBookingById(id);
-		if (booking != null)
-			super.getBuffer().addData(booking);
-		else
-			throw new IllegalArgumentException("Booking not found for id: " + id);
+		super.getBuffer().addData(booking);
+
 	}
 
 	@Override
