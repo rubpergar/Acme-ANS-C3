@@ -1,7 +1,7 @@
 
 package acme.features.authenticated.customer;
 
-import java.util.List;
+import java.util.Collection;
 
 import org.springframework.stereotype.Repository;
 
@@ -11,6 +11,6 @@ import acme.realms.Customer;
 @Repository
 public interface CustomerRepository extends AbstractRepository {
 
-	List<Customer> findByIdentifier(String identifier);
+	Collection<Customer> findByIdentifier(String identifier);
 
 }

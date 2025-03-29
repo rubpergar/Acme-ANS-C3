@@ -36,3 +36,27 @@ acme.validation.manager.invalid-years-of-experience.message=Los años de experie
 
 acme.validation.birthday.invalid-date.message=La edad minima para trabajar en España son 16 años.
 
+
+customer.project.publish.error.lastNibbleNotPublished = Para publicar una reserva, el último fragmento de la tarjeta de crédito debe haberse almacenado.
+customer.booking.form.error.notDraft = No puedes realizar esta acción para una reserva que ya está publicada.
+
+customer.booking.list.label.locatorCode = Código de localización
+customer.booking.list.label.flight = Vuelo
+customer.booking.list.label.purchaseMoment = Momento de compra
+customer.booking.list.label.travelClass = Clase 
+customer.booking.list.label.price = Precio
+customer.booking.list.label.isDraft = ¿Es un borrador?
+
+customer.booking.form.title = Crear una reserva
+customer.booking.form.label.locatorCode = Código de localización
+customer.booking.form.label.flight = Vuelo
+customer.booking.form.label.purchaseMoment = Momento de compra
+customer.booking.form.label.travelClass = Clase 
+customer.booking.form.label.price = Precio
+customer.booking.form.label.isDraft = ¿Es un borrador?
+customer.booking.form.button.create = Crear
+
+customer.booking.create = Crear
+customer.booking.update = Actualizar
+customer.booking.publish = Publicar
+customer.booking.list.title = Mis reservas
