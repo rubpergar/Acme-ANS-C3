@@ -17,7 +17,7 @@ public class CustomerBookingController extends AbstractGuiController<Customer, B
 	protected CustomerBookingListService	listService;
 
 	@Autowired
-	protected CustomerBookingListService	showService;
+	protected CustomerBookingShowService	showService;
 
 	@Autowired
 	protected CustomerBookingCreateService	createService;

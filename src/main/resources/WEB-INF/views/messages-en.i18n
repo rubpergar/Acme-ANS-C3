@@ -118,7 +118,7 @@ customer.booking.list.label.travelClass = Travel Class
 customer.booking.list.label.price = Price
 customer.booking.list.label.isDraft = Is it a draft?
 
-customer.booking.form.title = Create a Booking
+customer.booking.form.title = Booking
 customer.booking.form.label.locatorCode = Locator Code
 customer.booking.form.label.flight = Flight
 customer.booking.form.label.purchaseMoment = Purchase Moment
@@ -127,10 +127,13 @@ customer.booking.form.label.price = Price
 customer.booking.form.label.lastNibble = Last Nibble
 customer.booking.form.label.isDraft = Is it a draft?
 customer.booking.form.button.create = Create
+customer.booking.form.button.update = Update
+customer.booking.form.button.publish = Publish
 
 customer.booking.create = Create
 customer.booking.update = Update
 customer.booking.publish = Publish
+customer.booking.passengers = Passengers
 customer.booking.list.title = My Bookings
 
 customer.project.publish.error.lastNibbleNotPublished = To publish a booking the last credit card nibble must have been stored. 
