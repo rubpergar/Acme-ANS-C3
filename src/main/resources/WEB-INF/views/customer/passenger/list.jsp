@@ -12,5 +12,3 @@
 	
 </acme:list>
 <acme:button code="customer.passenger.create" action="/customer/passenger/create"/>
-<acme:button code="customer.passenger.update" action="/customer/passenger/update"/>
-<acme:button code="customer.passenger.publish" action="/customer/passenger/publish"/>

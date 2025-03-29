@@ -31,24 +31,24 @@ public class CustomerPassengerUpdateService extends AbstractGuiService<Customer,
 
 		super.getResponse().setAuthorised(true);
 
-		if (!passenger.getIsDraft())
+		if (passenger.getIsDraft())
 			super.state(passenger.getIsDraft(), "*", "customer.booking.form.error.notDraft", "isDraft");
 	}
 
 	@Override
 	public void load() {
-		Customer customer;
-		int userAccountId;
+		Passenger passenger;
+		int passengerId;
 
-		userAccountId = super.getRequest().getPrincipal().getAccountId();
-		customer = this.repository.findCustomerByUserAccountId(userAccountId);
+		passengerId = this.getRequest().getData("id", int.class);
+		passenger = this.repository.findPassengerById(passengerId);
 
-		super.getBuffer().addData(customer);
+		super.getBuffer().addData(passenger);
 	}
 
 	@Override
 	public void bind(final Passenger passenger) {
-		super.bindObject(passenger, "fullName", "email", "passportNumber", "dateOfBirth", "isDraft");
+		super.bindObject(passenger, "fullName", "email", "passportNumber", "dateOfBirth", "specialNeeds", "isDraft");
 	}
 
 	// ???
@@ -67,7 +67,7 @@ public class CustomerPassengerUpdateService extends AbstractGuiService<Customer,
 	public void unbind(final Passenger passenger) {
 		assert passenger != null;
 		Dataset dataset;
-		dataset = super.unbindObject(passenger, "fullName", "email", "passportNumber", "dateOfBirth", "isDraft");
+		dataset = super.unbindObject(passenger, "fullName", "email", "passportNumber", "dateOfBirth", "specialNeeds", "isDraft");
 		super.getResponse().addData(dataset);
 	}
 
