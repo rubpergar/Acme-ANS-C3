@@ -13,5 +13,3 @@
 	
 </acme:list>
 <acme:button code="customer.booking.create" action="/customer/booking/create"/>
-<acme:button code="customer.booking.update" action="/customer/booking/update"/>
-<acme:button code="customer.booking.publish" action="/customer/booking/publish"/>

@@ -1,68 +1,59 @@
 
 package acme.features.authenticated.customer.booking;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import acme.client.components.models.Dataset;
+import acme.client.components.views.SelectChoices;
 import acme.client.services.AbstractGuiService;
 import acme.client.services.GuiService;
 import acme.entities.booking.Booking;
+import acme.entities.booking.TravelClass;
+import acme.entities.flights.Flight;
+import acme.entities.passenger.Passenger;
 import acme.realms.Customer;
 
 @GuiService
 public class CustomerBookingShowService extends AbstractGuiService<Customer, Booking> {
 
-	// Internal state ---------------------------------------------------------
-
 	@Autowired
 	private CustomerBookingRepository repository;
 
-	// AbstractGuiService interface -------------------------------------------
+	//	@Override
+	//	public void authorise() {
+	//		boolean status = super.getRequest().getPrincipal().hasRealmOfType(Customer.class);
+	//		super.getResponse().setAuthorised(status);
+	//	}
 
 
 	@Override
 	public void authorise() {
-		Booking booking;
-		int id;
-		id = super.getRequest().getData("id", int.class);
-		booking = this.repository.findBookingById(id);
-
-		final int userAccountId = super.getRequest().getPrincipal().getAccountId();
-		final int customerId = booking.getCustomer().getUserAccount().getId();
-		super.getResponse().setAuthorised(userAccountId == customerId);
+		super.getResponse().setAuthorised(true);
 	}
 
 	@Override
 	public void load() {
-		Integer id = super.getRequest().getData("id", Integer.class);
-
-		if (id == null)
-			throw new IllegalArgumentException("El ID del booking es nulo");
-
+		Integer id = super.getRequest().getData("id", int.class);
 		Booking booking = this.repository.findBookingById(id);
-
-		if (booking == null)
-			throw new IllegalArgumentException("Booking con ID " + id + " no encontrado.");
-
-		super.getBuffer().addData(booking);
+		if (booking != null)
+			super.getBuffer().addData(booking);
+		else
+			throw new IllegalArgumentException("Booking not found for id: " + id);
 	}
 
 	@Override
 	public void unbind(final Booking booking) {
-		assert booking != null;
+		List<Flight> nonDraftFlights = this.repository.findNotDraftFlights().stream().toList();
+		SelectChoices travelClasses = SelectChoices.from(TravelClass.class, booking.getTravelClass());
+		SelectChoices flights = SelectChoices.from(nonDraftFlights, "id", booking.getFlight());
+		List<Passenger> passengers = this.repository.findAllPassengersByBookingId(booking.getId()).stream().toList();
 		Dataset dataset;
-		//		SelectChoices travelClasses = SelectChoices.from(TravelClass.class, booking.getTravelClass());
-		//		Money price = booking.getPrice();
-		//		List<Passenger> passengers = this.repository.findAllPassengersByBookingId(booking.getId()).stream().toList();
-
-		dataset = super.unbindObject(booking, "locatorCode", "purchaseMoment", "travelClass", "price", "lastNibble", "isDraft");
-
-		//		dataset.put("passenger", !passengers.isEmpty());
-		//		dataset.put("passengers", passengers);
-		//		dataset.put("travelClass", travelClasses);
-		//		dataset.put("price", price);
-
+		dataset = super.unbindObject(booking, "locatorCode", "flight", "purchaseMoment", "travelClass", "price", "lastNibble", "isDraft");
+		dataset.put("travelClass", travelClasses);
+		dataset.put("flight", flights);
+		dataset.put("passenger", !passengers.isEmpty());
 		super.getResponse().addData(dataset);
 	}
-
 }
