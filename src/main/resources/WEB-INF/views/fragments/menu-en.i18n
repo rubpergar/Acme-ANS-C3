@@ -19,7 +19,7 @@ master.menu.anonymous.rubpergar-link = 77863706N: Pérez Garrido, Rubén
 
 # master.menu.assistanceAgent #################################################
 master.menu.assistanceAgent = Assistance Agent
-master.menu.assistanceAgent.list-completed-claims = Completed Claims
+master.menu.assistanceAgent.list-claims = Completed Claims
 
 # master.menu.manager #######################################################
 
