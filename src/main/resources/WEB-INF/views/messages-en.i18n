@@ -36,6 +36,8 @@ acme.validation.manager.invalid-years-of-experience.message=Years of experience 
 
 acme.validation.birthday.invalid-date.message=The minimum age to work in Spain is 16 years.
 
+acme.validation.leg.invalid-airport.message=The arrival airport can't the same that the departure airport. 
+
 
 
 manager.flight.form.label.tag = Tag
@@ -117,3 +119,54 @@ manager.leg.form.button.delete=Delete
 manager.leg.form.button.publish=Publish
 manager.leg.list.label.duration=Duration(hours)
 
+customer.project.publish.error.lastNibbleNotPublished = To publish a booking the last credit card nibble must have been stored. 
+customer.booking.form.error.notDraft = You can not do this action for a booking that is already published.
+
+customer.booking.list.label.locatorCode = Locator Code
+customer.booking.list.label.flight = Flight
+customer.booking.list.label.purchaseMoment = Purchase Moment
+customer.booking.list.label.travelClass = Travel Class
+customer.booking.list.label.price = Price
+customer.booking.list.label.isDraft = Is it a draft?
+
+customer.booking.form.title = Booking
+customer.booking.form.label.locatorCode = Locator Code
+customer.booking.form.label.flight = Flight
+customer.booking.form.label.purchaseMoment = Purchase Moment
+customer.booking.form.label.travelClass = Travel Class
+customer.booking.form.label.price = Price
+customer.booking.form.label.lastNibble = Last Nibble
+customer.booking.form.label.isDraft = Is it a draft?
+customer.booking.form.button.create = Create
+customer.booking.form.button.update = Update
+customer.booking.form.button.publish = Publish
+
+customer.booking.create = Create
+customer.booking.update = Update
+customer.booking.publish = Publish
+customer.booking.passengers = Passengers
+customer.booking.list.title = My Bookings
+
+customer.passenger.list.label.fullName = Full Name
+customer.passenger.list.label.email = Email
+customer.passenger.list.label.passportNumber = Passport Number
+customer.passenger.list.label.dateOfBirth = Date of Birth
+customer.passenger.list.label.isDraft = Is it a draft?
+
+customer.passenger.create = Create
+customer.passenger.update = Update
+customer.passenger.publish = Publish
+customer.passenger.list.title = My Passengers
+
+customer.passenger.form.title = Passenger
+customer.passenger.form.label.fullName = Full Name
+customer.passenger.form.label.email = Email
+customer.passenger.form.label.passportNumber = Passport Number
+customer.passenger.form.label.dateOfBirth= Date of Birth
+customer.passenger.form.label.specialNeeds = Special Needs
+customer.passenger.form.isDraft  = Is it a draft?
+customer.passenger.form.button.create = Create
+customer.passenger.form.button.update = Update
+customer.passenger.form.button.publish = Publish
+
+customer.project.publish.error.lastNibbleNotPublished = To publish a booking the last credit card nibble must have been stored. 

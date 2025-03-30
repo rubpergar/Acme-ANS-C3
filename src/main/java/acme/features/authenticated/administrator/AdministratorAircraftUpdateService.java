@@ -1,6 +1,8 @@
 
 package acme.features.authenticated.administrator;
 
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import acme.client.components.models.Dataset;
@@ -10,6 +12,8 @@ import acme.client.services.AbstractGuiService;
 import acme.client.services.GuiService;
 import acme.entities.aircrafts.Aircraft;
 import acme.entities.aircrafts.AircraftStatus;
+import acme.entities.legs.Leg;
+import acme.entities.legs.LegRepository;
 
 @GuiService
 public class AdministratorAircraftUpdateService extends AbstractGuiService<Administrator, Aircraft> {
@@ -17,7 +21,10 @@ public class AdministratorAircraftUpdateService extends AbstractGuiService<Admin
 	// Internal state ---------------------------------------------------------
 
 	@Autowired
-	protected AdministratorAircraftRepository repository;
+	protected AdministratorAircraftRepository	repository;
+
+	@Autowired
+	protected LegRepository						legRepository;
 
 	// AbstractUpdateService<Administrator, Aircraft> interface --------------
 
@@ -41,7 +48,7 @@ public class AdministratorAircraftUpdateService extends AbstractGuiService<Admin
 	@Override
 	public void bind(final Aircraft aircraft) {
 		assert aircraft != null;
-		super.bindObject(aircraft, "model", "registrationNumber", "capacity", "cargoWeight", "status", "details");
+		super.bindObject(aircraft, "model", "registrationNumber", "capacity", "cargoWeight", "status", "details", "airline");
 	}
 
 	@Override
@@ -55,6 +62,16 @@ public class AdministratorAircraftUpdateService extends AbstractGuiService<Admin
 	@Override
 	public void perform(final Aircraft aircraft) {
 		assert aircraft != null;
+
+		String airlineCode = aircraft.getAirline().getCodeIATA();
+
+		Collection<Leg> legs = this.repository.getLegsByAircraft(aircraft);
+		for (Leg leg : legs) {
+			String flightNumberSuffix = leg.getFlightNumber().substring(3);
+			String newFlightNumber = airlineCode + flightNumberSuffix;
+			leg.setFlightNumber(newFlightNumber);
+			this.legRepository.save(leg);
+		}
 		this.repository.save(aircraft);
 	}
 

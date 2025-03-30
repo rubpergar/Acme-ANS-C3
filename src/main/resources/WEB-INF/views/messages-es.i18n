@@ -36,3 +36,120 @@ acme.validation.manager.invalid-years-of-experience.message=Los años de experie
 
 acme.validation.birthday.invalid-date.message=La edad minima para trabajar en España son 16 años.
 
+acme.validation.leg.invalid-airport.message=El aeropuerto de llegada no puede ser el mismo que el aeropuerto de salida.
+
+customer.project.publish.error.lastNibbleNotPublished = Para publicar una reserva, el último fragmento de la tarjeta de crédito debe haberse almacenado.
+customer.booking.form.error.notDraft = No puedes realizar esta acción para una reserva que ya está publicada.
+
+customer.booking.list.label.locatorCode = Código de localización
+customer.booking.list.label.flight = Vuelo
+customer.booking.list.label.purchaseMoment = Momento de compra
+customer.booking.list.label.travelClass = Clase 
+customer.booking.list.label.price = Precio
+customer.booking.list.label.isDraft = ¿Es un borrador?
+
+customer.booking.form.title = Reserva
+customer.booking.form.label.locatorCode = Código de localización
+customer.booking.form.label.flight = Vuelo
+customer.booking.form.label.purchaseMoment = Momento de compra
+customer.booking.form.label.travelClass = Clase 
+customer.booking.form.label.price = Precio
+customer.booking.form.label.isDraft = ¿Es un borrador?
+customer.booking.form.button.create = Crear
+customer.booking.form.button.update = Actualizar
+customer.booking.form.button.publish = Publicar
+
+customer.booking.create = Crear
+customer.booking.update = Actualizar
+customer.booking.publish = Publicar
+customer.booking.list.title = Mis reservas
+customer.booking.passengers = Pasajeros
+
+customer.passenger.list.label.fullName = Nombre completo
+customer.passenger.list.label.email = Email
+customer.passenger.list.label.passportNumber = Numero de pasaporte
+customer.passenger.list.label.dateOfBirth = Fecha de nacimiento
+customer.passenger.list.label.isDraft = ¿Es un borrador?
+
+customer.passenger.create = Crear
+customer.passenger.update = Actualizar
+customer.passenger.publish = Publicar
+customer.passenger.list.title = Mis Pasajeros
+
+customer.passenger.form.title = Pasajero
+customer.passenger.form.label.fullName = Nombre completo
+customer.passenger.form.label.email = Email
+customer.passenger.form.label.passportNumber = Numero de pasaporte
+customer.passenger.form.label.dateOfBirth= Fecha de nacimiento
+customer.passenger.form.label.specialNeeds = Necesidades especiales
+customer.passenger.form.isDraft  = ¿Es un borrador?
+
+manager.flight.form.label.tag = Etiqueta
+manager.flight.form.label.cost = Costo
+manager.flight.form.label.description = Descripción
+manager.flight.form.label.selfTransfer = ¿Tienes que hacer el cambio de vuelo por tu cuenta?
+manager.flight.form.label.isDraft = ¿Es un borrador?
+
+manager.flight.create = Crear
+manager.flight.update = Actualizar
+manager.flight.delete = Eliminar
+manager.flight.publish = Publicar
+manager.flight.form.button.delete = Eliminar
+manager.flight.form.button.update = Actualizar
+manager.flight.form.button.publish = Publicar
+manager.flight.form.button.create = Crear vuelo
+manager.flight.form.title = Vuelo
+manager.flight.list.title = Mis vuelos
+manager.flight.form.label.scheduledDeparture = Salida programada
+manager.flight.form.label.scheduledArrival = Llegada programada
+manager.flight.form.label.originCity = Ciudad de origen
+manager.flight.form.label.destinationCity = Ciudad de destino
+manager.flight.form.label.layovers = Número de escalas
+
+manager.flight.form.error.notDraft = No puedes realizar esta acción para un vuelo que ya está publicado.
+manager.flight.publish.error.notAllPublished = Para publicar el vuelo, todos sus tramos deben estar publicados.
+manager.project.publish.error.noLegs = Debes tener al menos un tramo para publicar un vuelo.
+manager.flight.publish.error.overlappingLegs = Los tramos del vuelo se solapan.
+
+manager.flight.list.label.tag = Etiqueta
+manager.flight.list.label.cost = Costo
+manager.flight.list.label.description = Descripción
+manager.flight.list.label.selfTransfer = ¿Tienes que hacer el cambio de vuelo por tu cuenta?
+manager.flight.list.label.isDraft = ¿Es un borrador?
+manager.flight.legs = Etapas del vuelo
+
+master.menu.administrator.list-aircrafts = Listar aeronaves
+administrator.aircraft.list.title = Aeronaves
+administrator.aircraft.form.title = Aeronave
+
+acme.validation.confirmation.message = Estas operaciones requieren confirmación. Por favor, confirma tu acción.
+administrator.aircraft.list.label.model = Modelo
+administrator.aircraft.list.label.registrationNumber = Número de registro
+administrator.aircraft.list.label.capacity = Capacidad
+administrator.aircraft.list.label.cargoWeight = Peso de carga
+administrator.aircraft.list.label.status = Estado
+administrator.aircraft.list.label.details = Detalles
+administrator.aircraft.form.label.confirmation = ¿Estás seguro de que deseas continuar con esta acción para esta aeronave?
+administrator.aircraft.form.label.airline = Aerolínea
+
+administrator.aircraft.list.button.create = Crear aeronave
+administrator.airport.form.button.update = Actualizar
+administrator.airport.form.button.disable = Deshabilitar
+administrator.aircraft.form.button.create = Crear aeronave
+
+manager.leg.list.title = Tramos del vuelo
+manager.leg.list.label.flightNumber = Número de vuelo (Debe comenzar con el código IATA de la aerolínea. Ej: AAX)
+manager.leg.list.label.flightNumber2 = Número de vuelo
+manager.leg.list.label.scheduledDeparture = Salida prog.
+manager.leg.list.label.scheduledArrival = Llegada prog.
+manager.leg.list.label.status = Estado
+manager.leg.create.button = Crear tramo
+manager.leg.list.label.departureAirport = Aerop. salida
+manager.leg.list.label.arrivalAirport = Aerop. llegada
+manager.leg.list.label.aircraft = Aeronave (código IATA)
+manager.leg.list.label.aircraft2 = Aeronave
+manager.leg.form.title=Detalles del tramo etapa
+manager.leg.form.button.update=Actualizar
+manager.leg.form.button.delete=Eliminar
+manager.leg.form.button.publish=Publicar
+manager.leg.list.label.duration=Duración (horas)

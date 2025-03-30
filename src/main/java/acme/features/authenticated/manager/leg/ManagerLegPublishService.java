@@ -1,13 +1,17 @@
 
 package acme.features.authenticated.manager.leg;
 
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import acme.client.components.models.Dataset;
+import acme.client.helpers.MomentHelper;
 import acme.client.services.AbstractGuiService;
 import acme.client.services.GuiService;
 import acme.entities.flights.Flight;
 import acme.entities.legs.Leg;
+import acme.entities.legs.LegRepository;
 import acme.realms.Manager;
 
 @GuiService
@@ -16,7 +20,10 @@ public class ManagerLegPublishService extends AbstractGuiService<Manager, Leg> {
 	// Internal state ---------------------------------------------------------
 
 	@Autowired
-	private ManagerLegRepository repository;
+	private ManagerLegRepository	repository;
+
+	@Autowired
+	private LegRepository			legRepository;
 
 	// AbstractGuiService interface -------------------------------------------
 
@@ -56,6 +63,24 @@ public class ManagerLegPublishService extends AbstractGuiService<Manager, Leg> {
 	@Override
 	public void validate(final Leg leg) {
 		assert leg != null;
+
+		boolean nonOverlappingLegs = true;
+
+		Collection<Leg> sortedLegs = this.legRepository.getLegsByFlight(leg.getFlight().getId());
+
+		for (int i = 0; i < sortedLegs.size() - 1; i++) {
+			Leg previousLeg = sortedLegs.stream().toList().get(i);
+			Leg nextLeg = sortedLegs.stream().toList().get(i + 1);
+
+			if (previousLeg.getScheduledArrival() != null && nextLeg.getScheduledDeparture() != null) {
+				boolean validLeg = MomentHelper.isBefore(previousLeg.getScheduledArrival(), nextLeg.getScheduledDeparture());
+				if (!validLeg) {
+					nonOverlappingLegs = false;
+					super.state(nonOverlappingLegs, "legs", "acme.validation.flight.overlapping.message");
+				}
+			}
+		}
+
 	}
 
 	@Override
