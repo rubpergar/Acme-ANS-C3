@@ -16,14 +16,18 @@ public class AssistanceAgentClaimController extends AbstractGuiController<Assist
 	// Internal state ---------------------------------------------------------
 
 	@Autowired
-	private AssistanceAgentCompletedClaimListService listCompletedClaimsService;
+	private AssistanceAgentCompletedClaimListService	listCompletedClaimsService;
+
+	@Autowired
+	private AssistanceAgentPendingClaimListService		listPendingClaimService;
 
 	// Constructors -----------------------------------------------------------
 
 
 	@PostConstruct
 	protected void initialise() {
-		super.addBasicCommand("list", this.listCompletedClaimsService);
+		super.addCustomCommand("completed-list", "list", this.listCompletedClaimsService);
+		super.addCustomCommand("pending-list", "list", this.listPendingClaimService);
 
 	}
 
