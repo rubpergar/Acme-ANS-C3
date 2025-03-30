@@ -36,6 +36,8 @@ acme.validation.manager.invalid-years-of-experience.message=Years of experience 
 
 acme.validation.birthday.invalid-date.message=The minimum age to work in Spain is 16 years.
 
+acme.validation.leg.invalid-airport.message=The arrival airport can't the same that the departure airport. 
+
 
 
 manager.flight.form.label.tag = Tag

@@ -38,7 +38,10 @@ public class LegValidator extends AbstractValidator<ValidLeg, Leg> {
 		}
 		super.state(context, isFlightNumberCorrect, "flightNumber", "acme.validation.leg.invalid-flight-number.message");
 
-		// Los tramos no pueden superponerse
+		boolean isValidAirport = true;
+		if (leg.getDepartureAirport() == leg.getArrivalAirport())
+			isValidAirport = false;
+		super.state(context, isValidAirport, "departureAirport", "acme.validation.leg.invalid-airport.message");
 
 		return !super.hasErrors(context);
 	}
