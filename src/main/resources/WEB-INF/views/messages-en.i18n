@@ -74,6 +74,15 @@ manager.flight.list.label.selfTransfer =  Do you have to change flights on your 
 manager.flight.list.label.isDraft = Is it a draft? 
 manager.flight.legs = Legs of the flight
 
+assistance-agent.claim.list.title = Completed Claims
+
+assistanceAgent.claim.list.label.registrationMoment = Registration Moment
+assistanceAgent.claim.list.label.email = Email
+assistanceAgent.claim.list.label.description = Description
+assistanceAgent.claim.list.label.type = Type
+assistanceAgent.claim.list.label.status = Status
+assistanceAgent.claim.list.label.draftMode = Draft Mode
+
 master.menu.administrator.list-aircrafts = List aircrafts
 administrator.aircraft.list.title = Aircrafts
 administrator.aircraft.form.title = Aircraft

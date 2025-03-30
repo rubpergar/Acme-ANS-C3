@@ -53,12 +53,14 @@ public class Claim extends AbstractEntity {
 	@Mandatory
 	@Valid
 	@Automapped
-	private Boolean				isAccepted;
+	private ClaimStatus			status;
 
 	// They are registered by the assistance agent
 	@Mandatory
 	@Valid
 	@ManyToOne(optional = false)
 	private AssistanceAgent		assistanceAgent;
+
+	private boolean				draftMode;
 
 }
