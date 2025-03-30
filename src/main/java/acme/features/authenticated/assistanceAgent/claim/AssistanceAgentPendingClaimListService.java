@@ -12,15 +12,15 @@ import acme.entities.claims.Claim;
 import acme.realms.AssistanceAgent;
 
 @GuiService
-public class AssistanceAgentCompletedClaimListService extends AbstractGuiService<AssistanceAgent, Claim> {
+public class AssistanceAgentPendingClaimListService extends AbstractGuiService<AssistanceAgent, Claim> {
+
 	// Internal state ---------------------------------------------------------
 
 	@Autowired
 	private AssistanceAgentClaimRepository repository;
 
+
 	// AbstractGuiService interface -------------------------------------------
-
-
 	@Override
 	public void authorise() {
 		super.getResponse().setAuthorised(true);
@@ -32,7 +32,7 @@ public class AssistanceAgentCompletedClaimListService extends AbstractGuiService
 		int assistanceAgentId;
 
 		assistanceAgentId = super.getRequest().getPrincipal().getActiveRealm().getId();
-		claims = this.repository.findCompletedClaimsByAssistanceAgent(assistanceAgentId);
+		claims = this.repository.findPendingClaimsByAssistanceAgent(assistanceAgentId);
 
 		super.getBuffer().addData(claims);
 	}
@@ -46,5 +46,4 @@ public class AssistanceAgentCompletedClaimListService extends AbstractGuiService
 		dataset = super.unbindObject(claim, "registrationMoment", "email", "description", "type", "status", "draftMode");
 		super.getResponse().addData(dataset);
 	}
-
 }
