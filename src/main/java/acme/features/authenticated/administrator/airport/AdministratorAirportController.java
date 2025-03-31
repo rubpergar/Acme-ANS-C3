@@ -14,16 +14,20 @@ import acme.entities.airports.Airport;
 public class AdministratorAirportController extends AbstractGuiController<Administrator, Airport> {
 
 	@Autowired
-	private AdministratorAirportListService	listService;
+	private AdministratorAirportListService		listService;
 
 	@Autowired
-	private AdministratorAirportShowService	showService;
+	private AdministratorAirportShowService		showService;
+
+	@Autowired
+	private AdministratorAirportCreateService	createService;
 
 
 	@PostConstruct
 	protected void initialise() {
 		super.addBasicCommand("list", this.listService);
 		super.addBasicCommand("show", this.showService);
+		super.addBasicCommand("create", this.createService);
 	}
 
 }
