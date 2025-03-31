@@ -1,5 +1,5 @@
 
-package acme.features.authenticated.administrator;
+package acme.features.authenticated.administrator.aircraft;
 
 import java.util.Collection;
 

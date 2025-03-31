@@ -135,6 +135,19 @@ administrator.airport.form.button.update = Update
 administrator.airport.form.button.disable = Disable
 administrator.aircraft.form.button.create = Create Aircraft
 
+master.menu.administrator.list-airport = List of airports
+administrator.airport.list.title = Airports
+administrator.airport.list.label.name = Name
+administrator.airport.list.label.IATAcode = IATA
+administrator.airport.list.label.scope = Scope
+administrator.airport.list.label.city = City
+administrator.airport.list.label.country = Country
+administrator.airport.list.label.web = Web
+administrator.airport.list.label.email = Email
+administrator.airport.list.label.phone = Phone Number
+
+administrator.airport.list.button.create = Create
+
 manager.leg.list.title = Legs of the flight
 manager.leg.list.label.flightNumber = Flight number (It must start with IATAcode of aircraft.Ej:AAX)
 manager.leg.list.label.flightNumber2 = Flight number

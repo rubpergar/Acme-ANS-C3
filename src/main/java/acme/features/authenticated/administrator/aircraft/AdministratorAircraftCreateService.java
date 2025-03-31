@@ -1,5 +1,5 @@
 
-package acme.features.authenticated.administrator;
+package acme.features.authenticated.administrator.aircraft;
 
 import java.util.Collection;
 
@@ -12,21 +12,17 @@ import acme.client.services.AbstractGuiService;
 import acme.client.services.GuiService;
 import acme.entities.aircrafts.Aircraft;
 import acme.entities.aircrafts.AircraftStatus;
-import acme.entities.legs.Leg;
-import acme.entities.legs.LegRepository;
+import acme.entities.airline.Airline;
 
 @GuiService
-public class AdministratorAircraftUpdateService extends AbstractGuiService<Administrator, Aircraft> {
+public class AdministratorAircraftCreateService extends AbstractGuiService<Administrator, Aircraft> {
 
 	// Internal state ---------------------------------------------------------
 
 	@Autowired
-	protected AdministratorAircraftRepository	repository;
+	private AdministratorAircraftRepository repository;
 
-	@Autowired
-	protected LegRepository						legRepository;
-
-	// AbstractUpdateService<Administrator, Aircraft> interface --------------
+	// AbstractGuiService interface -------------------------------------------
 
 
 	@Override
@@ -37,54 +33,54 @@ public class AdministratorAircraftUpdateService extends AbstractGuiService<Admin
 	@Override
 	public void load() {
 		Aircraft aircraft;
-		int aircraftId;
 
-		aircraftId = this.getRequest().getData("id", int.class);
-		aircraft = this.repository.getAircraftById(aircraftId);
+		aircraft = new Aircraft();
 
 		super.getBuffer().addData(aircraft);
 	}
 
 	@Override
 	public void bind(final Aircraft aircraft) {
-		assert aircraft != null;
-		super.bindObject(aircraft, "model", "registrationNumber", "capacity", "cargoWeight", "status", "details", "airline");
+		int airlineId;
+		Airline airline;
+
+		airlineId = super.getRequest().getData("airline", int.class);
+		airline = this.repository.findAirlineById(airlineId);
+
+		super.bindObject(aircraft, "model", "registrationNumber", "capacity", "cargoWeight", "status", "details");
+		aircraft.setAirline(airline);
 	}
 
 	@Override
 	public void validate(final Aircraft aircraft) {
-		assert aircraft != null;
 		boolean confirmation;
+
 		confirmation = super.getRequest().getData("confirmation", boolean.class);
 		super.state(confirmation, "confirmation", "acme.validation.confirmation.message");
 	}
 
 	@Override
 	public void perform(final Aircraft aircraft) {
-		assert aircraft != null;
-
-		String airlineCode = aircraft.getAirline().getCodeIATA();
-
-		Collection<Leg> legs = this.repository.getLegsByAircraft(aircraft);
-		for (Leg leg : legs) {
-			String flightNumberSuffix = leg.getFlightNumber().substring(3);
-			String newFlightNumber = airlineCode + flightNumberSuffix;
-			leg.setFlightNumber(newFlightNumber);
-			this.legRepository.save(leg);
-		}
 		this.repository.save(aircraft);
 	}
 
 	@Override
 	public void unbind(final Aircraft aircraft) {
-		assert aircraft != null;
 		Dataset dataset;
-
 		SelectChoices choices;
+		SelectChoices selectedAirlines;
+		Collection<Airline> airlines;
+
 		choices = SelectChoices.from(AircraftStatus.class, aircraft.getStatus());
+		airlines = this.repository.findAllAirlines();
+		selectedAirlines = SelectChoices.from(airlines, "name", aircraft.getAirline());
 
 		dataset = super.unbindObject(aircraft, "model", "registrationNumber", "capacity", "cargoWeight", "status", "details");
+		dataset.put("confirmation", false);
+		dataset.put("readonly", false);
 		dataset.put("status", choices);
+		dataset.put("airlines", selectedAirlines);
+		dataset.put("airline", selectedAirlines.getSelected().getKey());
 
 		super.getResponse().addData(dataset);
 	}
