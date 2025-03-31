@@ -12,5 +12,5 @@
 	<acme:list-column code="assistanceAgent.claim.list.label.status" path="status" width="10%"/>
 	<acme:list-column code="assistanceAgent.claim.list.label.draftMode" path="draftMode" width="10%"/>
 </acme:list>
-
+<acme:button code="assistanceAgent.claim.create" action="/assistance-agent/claim/create"/>
 
