@@ -31,6 +31,11 @@ public class CustomerPassengerCreateService extends AbstractGuiService<Customer,
 	public void load() {
 		Passenger passenger;
 		Date currentMoment;
+		int customerId;
+		Customer customer;
+
+		customerId = super.getRequest().getPrincipal().getActiveRealm().getId();
+		customer = this.repository.findCustomerById(customerId);
 
 		currentMoment = MomentHelper.getCurrentMoment();
 
@@ -41,6 +46,7 @@ public class CustomerPassengerCreateService extends AbstractGuiService<Customer,
 		passenger.setDateOfBirth(currentMoment);
 		passenger.setSpecialNeeds("");
 		passenger.setIsDraft(true);
+		passenger.setCustomer(customer);
 
 		super.getBuffer().addData(passenger);
 	}
