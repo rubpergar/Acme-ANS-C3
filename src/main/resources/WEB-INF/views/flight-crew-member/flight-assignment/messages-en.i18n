@@ -1,0 +1,24 @@
+# messages-en.i18n
+
+flight-crew-member.flight-assignment.form.title = Flight assignment form
+flight-crew-member.flight-assignment.list.title = Flight assignment list
+
+member.flight-assignment.form.label.duty = Duty
+member.flight-assignment.form.label.lastUpdateMoment = Last update moment
+member.flight-assignment.form.label.status = Status
+member.flight-assignment.form.label.remarks = Remarks
+member.flight-assignment.form.label.leg = Leg
+member.flight-assignment.form.label.flightCrewMember = Crew member
+
+member.flight-assignment.form.button.create = Create
+member.flight-assignment.form.button.update = Update
+member.flight-assignment.form.button.publish = Publish
+member.flight-assignment.form.button.delete = Delete
+member.flight-assignment.form.button.activity-log = Activity Logs
+
+member.flight-assignment.list.label.duty = Duty
+member.flight-assignment.list.label.status = Status
+member.flight-assignment.list.label.remarks = Remarks
+member.flight-assignment.list.label.draftMode = Draft
+
+member.flight-assignment.list.button.create = Create

@@ -59,3 +59,9 @@ master.menu.user-account.become-provider = Become a provider
 master.menu.user-account.provider-profile = Provider profile
 master.menu.user-account.become-consumer = Become a consumer
 master.menu.user-account.consumer-profile = Consumer profile
+
+# master.menu.member ####################################################
+
+master.menu.member = Member
+master.menu.member.listCompleted-flightAssignment = Completed Flight Assignments
+master.menu.member.listUncompleted-flightAssignment = Uncompleted Flight Assignments
