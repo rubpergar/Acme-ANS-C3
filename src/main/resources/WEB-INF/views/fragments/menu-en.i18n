@@ -35,6 +35,7 @@ master.menu.administrator.populate-db-initial = Populate DB (initial)
 master.menu.administrator.populate-db-sample = Populate DB (samples)
 master.menu.administrator.shut-system-down = Shut system down
 master.menu.administrator.list-aircrafts = List of aircrafts 
+master.menu.administrator.list-airport = List of airports
 
 # master.menu.customer #######################################################
 

@@ -1,5 +1,5 @@
 
-package acme.features.authenticated.administrator;
+package acme.features.authenticated.administrator.airport;
 
 import javax.annotation.PostConstruct;
 
@@ -8,25 +8,22 @@ import org.springframework.stereotype.Controller;
 
 import acme.client.components.principals.Administrator;
 import acme.client.controllers.AbstractGuiController;
-import acme.entities.aircrafts.Aircraft;
+import acme.entities.airports.Airport;
 
 @Controller
-public class AdministratorAircraftController extends AbstractGuiController<Administrator, Aircraft> {
+public class AdministratorAirportController extends AbstractGuiController<Administrator, Airport> {
 
 	@Autowired
-	protected AdministratorAircraftListService		listService;
+	private AdministratorAirportListService		listService;
 
 	@Autowired
-	protected AdministratorAircraftShowService		showService;
+	private AdministratorAirportShowService		showService;
 
 	@Autowired
-	protected AdministratorAircraftCreateService	createService;
+	private AdministratorAirportCreateService	createService;
 
 	@Autowired
-	protected AdministratorAircraftDisableService	disableService;
-
-	@Autowired
-	protected AdministratorAircraftUpdateService	updateService;
+	private AdministratorAirportUpdateService	updateService;
 
 
 	@PostConstruct
@@ -34,7 +31,6 @@ public class AdministratorAircraftController extends AbstractGuiController<Admin
 		super.addBasicCommand("list", this.listService);
 		super.addBasicCommand("show", this.showService);
 		super.addBasicCommand("create", this.createService);
-		super.addCustomCommand("disable", "update", this.disableService);
 		super.addBasicCommand("update", this.updateService);
 	}
 
