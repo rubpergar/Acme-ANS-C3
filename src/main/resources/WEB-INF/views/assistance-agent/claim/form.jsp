@@ -12,7 +12,8 @@
 	<acme:input-select code="assistanceAgent.claim.form.label.leg" path="selectedLeg" choices="${legs}"/>
 		
 	<jstl:choose>
-		<jstl:when test="${_command == 'show' && draftMode == false}">
+		<jstl:when test="${_command == 'show'}">
+			<acme:button code="assistanceAgent.claim.trackingLogs" action="/assistance-agent/tracking-log/list?masterId=${id}"/>
 		</jstl:when>
 		<jstl:when test="${acme:anyOf(_command, 'show|update|delete')  && draftMode == true}">
 			<acme:submit code="assistanceAgent.claim.form.button.update" action="/assistance-agent/claim/update"/>
