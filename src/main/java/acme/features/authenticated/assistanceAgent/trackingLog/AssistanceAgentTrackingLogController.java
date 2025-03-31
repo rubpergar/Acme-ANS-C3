@@ -19,11 +19,15 @@ public class AssistanceAgentTrackingLogController extends AbstractGuiController<
 	@Autowired
 	private AssistanceAgentTrackingLogShowService	showService;
 
+	@Autowired
+	private AssistanceAgentTrackingLogCreateService	createService;
+
 
 	@PostConstruct
 	protected void initialise() {
 		super.addBasicCommand("list", this.listService);
 		super.addBasicCommand("show", this.showService);
+		super.addBasicCommand("create", this.createService);
 	}
 
 }
