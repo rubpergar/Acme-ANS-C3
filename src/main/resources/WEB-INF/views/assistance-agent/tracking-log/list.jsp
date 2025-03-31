@@ -10,6 +10,8 @@
 	<acme:list-column code="assistanceAgent.trackingLog.list.label.status" path="status" width="10%"/>
 	<acme:list-column code="assistanceAgent.trackingLog.list.label.resolution" path="resolution" width="10%"/>
 	<acme:list-column code="assistanceAgent.trackingLog.list.label.draftMode" path="draftMode" width="10%"/>
-	
 </acme:list>
+
+<acme:button code="assistanceAgent.trackingLog.form.button.create" action="/assistance-agent/tracking-log/create?masterId=${masterId}"/>
+
 
