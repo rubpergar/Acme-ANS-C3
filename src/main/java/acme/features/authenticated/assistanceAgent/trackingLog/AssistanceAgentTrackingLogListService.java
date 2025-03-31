@@ -18,7 +18,7 @@ public class AssistanceAgentTrackingLogListService extends AbstractGuiService<As
 	// Internal state ---------------------------------------------------------
 
 	@Autowired
-	private AssistanceAgentTrackinLogRepository	repository;
+	private AssistanceAgentTrackingLogRepository	repository;
 
 	@Autowired
 	private AssistanceAgentClaimRepository		claimRepository;
