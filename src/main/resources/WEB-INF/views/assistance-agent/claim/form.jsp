@@ -15,8 +15,10 @@
 		<jstl:when test="${_command == 'show' && draftMode == false}">
 			<acme:button code="assistanceAgent.claim" action="/assistance-agent/claim/list?masterId=${id}"/>
 		</jstl:when>
-		<jstl:when test="${acme:anyOf(_command, 'show|update')  && draftMode == true}">
+		<jstl:when test="${acme:anyOf(_command, 'show|update|delete')  && draftMode == true}">
 			<acme:submit code="assistanceAgent.claim.form.button.update" action="/assistance-agent/claim/update"/>
+			<acme:submit code="assistanceAgent.claim.form.button.delete" action="/assistance-agent/claim/delete"/>
+			
 		</jstl:when>
 		<jstl:when test="${_command == 'create'}">
 			<acme:submit code="assistanceAgent.claim.form.button.create" action="/assistance-agent/claim/create"/>

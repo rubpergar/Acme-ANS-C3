@@ -83,9 +83,10 @@ assistanceAgent.claim.list.label.status = Status
 assistanceAgent.claim.list.label.draftMode = Draft Mode
 
 assistance-agent.claim.form.title = Claim
+assistanceAgent.claim.create = Create
 assistanceAgent.claim.form.button.create = Create
 assistanceAgent.claim.form.button.update = Update
-assistanceAgent.claim.create = Create
+assistanceAgent.claim.form.button.delete = Delete
 assistanceAgent.claim.form.label.registrationMoment = Registration Moment
 assistanceAgent.claim.form.label.email = Email
 assistanceAgent.claim.form.label.description = Description
