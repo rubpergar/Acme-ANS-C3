@@ -88,12 +88,30 @@ assistanceAgent.claim.form.button.create = Create
 assistanceAgent.claim.form.button.update = Update
 assistanceAgent.claim.form.button.delete = Delete
 assistanceAgent.claim.form.button.publish = Publish
+assistanceAgent.claim.trackingLogs = It's tracking logs
 assistanceAgent.claim.form.label.registrationMoment = Registration Moment
 assistanceAgent.claim.form.label.email = Email
 assistanceAgent.claim.form.label.description = Description
 assistanceAgent.claim.form.label.type = Type
 assistanceAgent.claim.form.label.status = Status
 assistanceAgent.claim.form.label.leg = Leg
+
+assistance-agent.tracking-log.list.title = Tracking Logs
+assistanceAgent.trackingLog.list.label.lastUpdate = Last Update
+assistanceAgent.trackingLog.list.label.stepUndergoing = Step Undergoing
+assistanceAgent.trackingLog.list.label.resolutionPercentage = Percentage of resolution
+assistanceAgent.trackingLog.list.label.status = Status
+assistanceAgent.trackingLog.list.label.resolution = Resolution
+
+assistance-agent.tracking-log.form.title = Tracking Log
+assistanceAgent.trackingLog.form.button.update = Update
+assistanceAgent.trackingLog.form.button.delete = Delete
+assistanceAgent.trackingLog.form.button.publish = Publish
+assistanceAgent.trackingLog.form.label.lastUpdate = Last Update
+assistanceAgent.trackingLog.form.label.stepUndergoing  = Step Undergoing
+assistanceAgent.trackingLog.form.label.resolutionPercentage = Percentage of Resolution
+assistanceAgent.trackingLog.form.label.status = Status
+assistanceAgent.trackingLog.form.label.resolution Resolution 
 
 
 master.menu.administrator.list-aircrafts = List aircrafts
