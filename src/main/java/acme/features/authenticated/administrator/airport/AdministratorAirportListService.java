@@ -1,5 +1,5 @@
 
-package acme.features.authenticated.administrator;
+package acme.features.authenticated.administrator.airport;
 
 import java.util.Collection;
 
@@ -9,15 +9,14 @@ import acme.client.components.models.Dataset;
 import acme.client.components.principals.Administrator;
 import acme.client.services.AbstractGuiService;
 import acme.client.services.GuiService;
-import acme.entities.aircrafts.Aircraft;
+import acme.entities.airports.Airport;
 
 @GuiService
-public class AdministratorAircraftListService extends AbstractGuiService<Administrator, Aircraft> {
-
+public class AdministratorAirportListService extends AbstractGuiService<Administrator, Airport> {
 	// Internal state ---------------------------------------------------------
 
 	@Autowired
-	protected AdministratorAircraftRepository repository;
+	protected AdministratorAirportRepository repository;
 
 	// AbstractListService<Administrator, Aircraft> interface --------------
 
@@ -29,18 +28,19 @@ public class AdministratorAircraftListService extends AbstractGuiService<Adminis
 
 	@Override
 	public void load() {
-		Collection<Aircraft> aircrafts;
-		aircrafts = this.repository.getAircrafts();
-		super.getBuffer().addData(aircrafts);
+		Collection<Airport> airports;
+		airports = this.repository.findAllAirports();
+		super.getBuffer().addData(airports);
 	}
 
 	@Override
-	public void unbind(final Aircraft aircraft) {
-		assert aircraft != null;
+	public void unbind(final Airport airport) {
+		assert airport != null;
 
 		Dataset dataset;
 
-		dataset = super.unbindObject(aircraft, "model", "registrationNumber", "capacity", "cargoWeight", "status", "details");
+		dataset = super.unbindObject(airport, "name", "IATAcode", "scope", "city", "country", "web", "email", "phone");
+
 		super.getResponse().addData(dataset);
 	}
 
