@@ -15,7 +15,7 @@
 		<acme:input-textbox code="administrator.airport.form.label.phone" path="phone"/>
 		
 		<jstl:choose>
-			<jstl:when test="${acme:anyOf(_command, 'show')}">
+			<jstl:when test="${_command == 'show'}">
 				<acme:input-checkbox code="administrator.airport.form.label.confirmation" path="confirmation"/>
 				<acme:submit code="administrator.airport.form.button.update" action="/administrator/airport/update"/>
 			</jstl:when>

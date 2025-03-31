@@ -158,7 +158,7 @@ administrator.airport.form.label.web = Web
 administrator.airport.form.label.email = Email
 administrator.airport.form.label.phone = Phone Number
 
-administrator.airport.form.label.confirmation = Confirmation
+administrator.airport.form.label.confirmation = Are you sure you want to proceed with this action for this aircraft?
 administrator.airport.form.button.update = Update
 administrator.airport.form.button.create = Create
 
