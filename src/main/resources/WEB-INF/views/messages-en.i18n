@@ -36,6 +36,8 @@ acme.validation.manager.invalid-years-of-experience.message=Years of experience 
 
 acme.validation.birthday.invalid-date.message=The minimum age to work in Spain is 16 years.
 
+acme.validation.leg.invalid-airport.message=The arrival airport can't the same that the departure airport. 
+
 
 
 manager.flight.form.label.tag = Tag
@@ -71,6 +73,28 @@ manager.flight.list.label.description = Description
 manager.flight.list.label.selfTransfer =  Do you have to change flights on your own? 
 manager.flight.list.label.isDraft = Is it a draft? 
 manager.flight.legs = Legs of the flight
+
+assistance-agent.claim.list.title = List of claims
+assistanceAgent.claim.list.label.registrationMoment = Registration Moment
+assistanceAgent.claim.list.label.email = Email
+assistanceAgent.claim.list.label.description = Description
+assistanceAgent.claim.list.label.type = Type
+assistanceAgent.claim.list.label.status = Status
+assistanceAgent.claim.list.label.draftMode = Draft Mode
+
+assistance-agent.claim.form.title = Claim
+assistanceAgent.claim.create = Create
+assistanceAgent.claim.form.button.create = Create
+assistanceAgent.claim.form.button.update = Update
+assistanceAgent.claim.form.button.delete = Delete
+assistanceAgent.claim.form.button.publish = Publish
+assistanceAgent.claim.form.label.registrationMoment = Registration Moment
+assistanceAgent.claim.form.label.email = Email
+assistanceAgent.claim.form.label.description = Description
+assistanceAgent.claim.form.label.type = Type
+assistanceAgent.claim.form.label.status = Status
+assistanceAgent.claim.form.label.leg = Leg
+
 
 master.menu.administrator.list-aircrafts = List aircrafts
 administrator.aircraft.list.title = Aircrafts
