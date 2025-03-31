@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import acme.client.components.models.Dataset;
 import acme.client.components.views.SelectChoices;
-import acme.client.helpers.MomentHelper;
 import acme.client.services.AbstractGuiService;
 import acme.client.services.GuiService;
 import acme.entities.claims.Claim;
@@ -15,7 +14,7 @@ import acme.features.authenticated.assistanceAgent.claim.AssistanceAgentClaimRep
 import acme.realms.AssistanceAgent;
 
 @GuiService
-public class AssistanceAgentTrackingLogUpdateService extends AbstractGuiService<AssistanceAgent, TrackingLog> {
+public class AssistanceAgentTrackingLogDeleteService extends AbstractGuiService<AssistanceAgent, TrackingLog> {
 
 	// Internal state ---------------------------------------------------------
 	@Autowired
@@ -24,9 +23,8 @@ public class AssistanceAgentTrackingLogUpdateService extends AbstractGuiService<
 	@Autowired
 	private AssistanceAgentClaimRepository			claimRepository;
 
+
 	// AbstractGuiService interface -------------------------------------------
-
-
 	@Override
 	public void authorise() {
 		boolean status;
@@ -63,18 +61,12 @@ public class AssistanceAgentTrackingLogUpdateService extends AbstractGuiService<
 	@Override
 	public void validate(final TrackingLog tl) {
 		assert tl != null;
-
-		if (tl.getResolutionPercentage() == 100.0)
-			assert tl.getStatus() == TrackingLogStatus.ACCEPTED || tl.getStatus() == TrackingLogStatus.REJECTED;
-		else
-			assert tl.getStatus() == TrackingLogStatus.PENDING;
 	}
 
 	@Override
 	public void perform(final TrackingLog tl) {
 		assert tl != null;
-		tl.setLastUpdate(MomentHelper.getCurrentMoment());
-		this.repository.save(tl);
+		this.repository.delete(tl);
 	}
 
 	@Override
