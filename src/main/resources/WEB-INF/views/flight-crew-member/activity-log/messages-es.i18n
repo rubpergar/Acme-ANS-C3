@@ -1,0 +1,23 @@
+# messages-es.i18n
+
+flight-crew-member.activity-log.form.title = Formulario de registros de actividad
+flight-crew-member.activity-log.list.title = Lista de registros de actividad
+
+member.activity-log.form.label.registrationMoment = Momento de registro
+member.activity-log.form.label.type = Tipo de incidente
+member.activity-log.form.label.description = Descripción
+member.activity-log.form.label.severityLevel = Nivel de criticidad
+member.activity-log.form.label.flightAssignment = Vuelo asignado
+
+member.activity-log.form.button.create = Crear
+member.activity-log.form.button.update = Actualizar
+member.activity-log.form.button.publish = Publicar
+member.activity-log.form.button.delete = Eliminar
+member.activity-log.form.button.activity-log = Registros de actividad
+
+member.activity-log.list.label.type = Tipo de incidente
+member.activity-log.list.label.description = Descripción
+member.activity-log.list.label.severityLevel = Nivel de criticidad
+member.activity-log.list.label.draftMode = Borrador
+
+member.activity-log.list.button.create = Crear
