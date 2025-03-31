@@ -102,8 +102,10 @@ assistanceAgent.trackingLog.list.label.stepUndergoing = Step Undergoing
 assistanceAgent.trackingLog.list.label.resolutionPercentage = Percentage of resolution
 assistanceAgent.trackingLog.list.label.status = Status
 assistanceAgent.trackingLog.list.label.resolution = Resolution
+assistanceAgent.trackingLog.list.label.draftMode = Draft
 
 assistance-agent.tracking-log.form.title = Tracking Log
+assistanceAgent.trackingLog.form.button.create = Create
 assistanceAgent.trackingLog.form.button.update = Update
 assistanceAgent.trackingLog.form.button.delete = Delete
 assistanceAgent.trackingLog.form.button.publish = Publish
@@ -111,7 +113,7 @@ assistanceAgent.trackingLog.form.label.lastUpdate = Last Update
 assistanceAgent.trackingLog.form.label.stepUndergoing  = Step Undergoing
 assistanceAgent.trackingLog.form.label.resolutionPercentage = Percentage of Resolution
 assistanceAgent.trackingLog.form.label.status = Status
-assistanceAgent.trackingLog.form.label.resolution Resolution 
+assistanceAgent.trackingLog.form.label.resolution = Resolution 
 
 
 master.menu.administrator.list-aircrafts = List aircrafts
