@@ -3,7 +3,7 @@ key,key:booking,key:passenger
 # base entity
 bookingPassenger-01,booking-01,passenger-15
 bookingPassenger-02,booking-02,passenger-12
-bookingPassenger-03,booking-03,passenger-07
+bookingPassenger-03,booking-02,passenger-07
 bookingPassenger-04,booking-04,passenger-19
 bookingPassenger-05,booking-05,passenger-22
 bookingPassenger-06,booking-06,passenger-30
