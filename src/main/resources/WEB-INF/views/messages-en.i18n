@@ -166,7 +166,7 @@ customer.passenger.list.label.passportNumber = Passport Number
 customer.passenger.list.label.dateOfBirth = Date of Birth
 customer.passenger.list.label.isDraft = Is it a draft?
 
-customer.passenger.create = Create
+customer.passenger.create = Create Passenger
 customer.passenger.update = Update
 customer.passenger.publish = Publish
 customer.passenger.list.title = My Passengers
@@ -181,5 +181,10 @@ customer.passenger.form.isDraft  = Is it a draft?
 customer.passenger.form.button.create = Create
 customer.passenger.form.button.update = Update
 customer.passenger.form.button.publish = Publish
+
+customer.bookingPassenger.form.button.addPassenger = Add Passenger
+customer.booking-passenger.form.title = Add Passenger to Booking
+customer.bookingPassenger.form.label.passenger  = Passenger
+customer.bookingPassenger.form.label.booking = Booking
 
 customer.project.publish.error.lastNibbleNotPublished = To publish a booking the last credit card nibble must have been stored. 

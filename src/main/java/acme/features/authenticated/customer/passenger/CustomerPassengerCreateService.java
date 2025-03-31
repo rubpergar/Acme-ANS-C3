@@ -42,8 +42,6 @@ public class CustomerPassengerCreateService extends AbstractGuiService<Customer,
 		passenger.setSpecialNeeds("");
 		passenger.setIsDraft(true);
 
-		//no se como asociar el passenger con el booking
-
 		super.getBuffer().addData(passenger);
 	}
 
@@ -71,5 +69,4 @@ public class CustomerPassengerCreateService extends AbstractGuiService<Customer,
 		dataset = super.unbindObject(passenger, "fullName", "email", "passportNumber", "dateOfBirth", "specialNeeds", "isDraft");
 		super.getResponse().addData(dataset);
 	}
-
 }

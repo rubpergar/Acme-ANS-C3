@@ -1,6 +1,7 @@
 
 package acme.features.authenticated.customer.booking;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,7 +71,15 @@ public class CustomerBookingPublishService extends AbstractGuiService<Customer, 
 	@Override
 	public void perform(final Booking booking) {
 		assert booking != null;
+		Collection<Passenger> passengers;
+
 		booking.setIsDraft(false);
+		// Cuando se publica el booking, los pasajeros también se publican
+		passengers = this.repository.findAllPassengersByBookingId(booking.getId());
+		for (Passenger p : passengers) {
+			p.setIsDraft(false);
+			this.repository.save(p);
+		}
 		this.repository.save(booking);
 	}
 

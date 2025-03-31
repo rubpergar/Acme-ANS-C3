@@ -12,3 +12,4 @@
 	
 </acme:list>
 <acme:button code="customer.passenger.create" action="/customer/passenger/create"/>
+            <acme:button code="customer.bookingPassenger.form.button.addPassenger" action="/customer/booking-passenger/create?masterId=${masterId}"/>

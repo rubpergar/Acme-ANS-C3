@@ -23,7 +23,7 @@ public class CustomerPassengerController extends AbstractGuiController<Customer,
 	protected CustomerPassengerCreateService	createService;
 
 	@Autowired
-	protected CustomerPassengerListService		updateService;
+	protected CustomerPassengerUpdateService	updateService;
 
 
 	@PostConstruct
