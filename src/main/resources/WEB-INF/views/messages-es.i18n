@@ -158,3 +158,8 @@ manager.leg.form.button.update=Actualizar
 manager.leg.form.button.delete=Eliminar
 manager.leg.form.button.publish=Publicar
 manager.leg.list.label.duration=Duración (horas)
+
+acme.validation.flight-assignment.incompatible-legs.message = Este miembro no puede estar asignado a varios tramos simultáneamente
+acme.validation.flight-assignment.has-pilot.message = Este trabajo ya ha sido asignado. Cada tramo puede solo tener un piloto
+acme.validation.flight-assignment.has-copilot.message = Este trabajo ya ha sido asignado. Cada tramo puede solo tener un copiloto
+acme.validation.flight-assignment.leg-concluded.message = La asignación de vuelo no puede esta vinculada a un tramo que ya ha concluido
