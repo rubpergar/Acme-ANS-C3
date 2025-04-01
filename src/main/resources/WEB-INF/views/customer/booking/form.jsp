@@ -14,7 +14,6 @@
     <acme:input-select code="customer.booking.form.label.travelClass" path="travelClass" choices="${travelClass}"/>    
     <acme:input-money code="customer.booking.form.label.price" path="price"/>
     <acme:input-textbox code="customer.booking.form.label.lastNibble" path="lastNibble"/>
-    <acme:input-checkbox code="customer.booking.form.label.isDraft" path="isDraft"/>
         
     <jstl:choose>     
         <jstl:when test="${_command == 'show' && isDraft == false}">

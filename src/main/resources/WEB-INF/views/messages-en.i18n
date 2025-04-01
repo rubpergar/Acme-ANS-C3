@@ -163,7 +163,7 @@ administrator.airport.form.button.update = Update
 administrator.airport.form.button.create = Create
 
 manager.leg.list.title = Legs of the flight
-manager.leg.list.label.flightNumber = Flight number (It must start with IATAcode of aircraft.Ej:AAX)
+manager.leg.list.label.flightNumber = Flight number (It must start with IATAcode of airline.Ej:AAX)
 manager.leg.list.label.flightNumber2 = Flight number
 manager.leg.list.label.scheduledDeparture = Sche.dep
 manager.leg.list.label.scheduledArrival = Sche.arr
@@ -171,7 +171,7 @@ manager.leg.list.label.status = Status
 manager.leg.create.button = Create Leg
 manager.leg.list.label.departureAirport = Dep.airp
 manager.leg.list.label.arrivalAirport = Arr.airp
-manager.leg.list.label.aircraft = Aircraft (IATAcode)
+manager.leg.list.label.aircraft = Aircraft (Airline's IATAcode)
 manager.leg.list.label.aircraft2 = Aircraft
 manager.leg.form.title=Leg details
 manager.leg.form.button.update=Update
