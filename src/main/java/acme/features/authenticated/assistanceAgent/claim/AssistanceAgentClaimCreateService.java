@@ -9,7 +9,6 @@ import acme.client.helpers.MomentHelper;
 import acme.client.services.AbstractGuiService;
 import acme.client.services.GuiService;
 import acme.entities.claims.Claim;
-import acme.entities.claims.ClaimStatus;
 import acme.entities.claims.claimType;
 import acme.realms.AssistanceAgent;
 
@@ -37,6 +36,7 @@ public class AssistanceAgentClaimCreateService extends AbstractGuiService<Assist
 		claim.setAssistanceAgent(this.repository.getAgentById(super.getRequest().getPrincipal().getActiveRealm().getId()));
 		claim.setDraftMode(true);
 		claim.setRegistrationMoment(MomentHelper.getCurrentMoment()); //?
+		claim.setStatus(claim.getStatus());
 
 		super.getBuffer().addData(claim);
 	}
@@ -47,13 +47,13 @@ public class AssistanceAgentClaimCreateService extends AbstractGuiService<Assist
 
 		claim.setAssistanceAgent(this.repository.getAgentById(super.getRequest().getPrincipal().getActiveRealm().getId()));
 
-		super.bindObject(claim, "email", "description", "type", "status", "leg");
+		super.bindObject(claim, "email", "description", "type", "leg");
 	}
 
 	@Override
 	public void validate(final Claim claim) {
 		assert claim != null;
-		assert claim.getLeg().getScheduledArrival().before(MomentHelper.getCurrentMoment()); //? "...linked to a leg that occurred"
+		//assert claim.getLeg().getScheduledArrival().before(MomentHelper.getCurrentMoment()); //? "esto tiene que ser que leg este publicado"
 	}
 
 	@Override
@@ -67,17 +67,14 @@ public class AssistanceAgentClaimCreateService extends AbstractGuiService<Assist
 		assert claim != null;
 		Dataset dataset;
 		SelectChoices typeChoices;
-		SelectChoices statusChoices;
 		SelectChoices legs;
 
 		typeChoices = SelectChoices.from(claimType.class, claim.getType());
-		statusChoices = SelectChoices.from(ClaimStatus.class, claim.getStatus());
 		legs = SelectChoices.from(this.repository.getAllLegs(), "flightNumber", null);
 
 		dataset = super.unbindObject(claim, "registrationMoment", "email", "description");
 		dataset.put("draftMode", true);
 		dataset.put("type", typeChoices);
-		dataset.put("status", statusChoices);
 		dataset.put("legs", legs);
 		claim.setRegistrationMoment(MomentHelper.getCurrentMoment()); //?
 		super.getResponse().addData(dataset);

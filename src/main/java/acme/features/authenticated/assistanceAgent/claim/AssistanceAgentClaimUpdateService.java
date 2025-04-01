@@ -47,7 +47,7 @@ public class AssistanceAgentClaimUpdateService extends AbstractGuiService<Assist
 	@Override
 	public void bind(final Claim claim) {
 		assert claim != null;
-		super.bindObject(claim, "registrationMoment", "email", "description", "type", "status", "selectedLeg");
+		super.bindObject(claim, "registrationMoment", "email", "description", "type", "selectedLeg");
 	}
 
 	@Override
