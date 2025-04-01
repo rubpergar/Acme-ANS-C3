@@ -8,6 +8,7 @@ import acme.client.components.views.SelectChoices;
 import acme.client.services.AbstractGuiService;
 import acme.client.services.GuiService;
 import acme.entities.claims.Claim;
+import acme.entities.claims.ClaimStatus;
 import acme.entities.trackingLogs.TrackingLog;
 import acme.entities.trackingLogs.TrackingLogStatus;
 import acme.features.authenticated.assistanceAgent.claim.AssistanceAgentClaimRepository;
@@ -76,6 +77,17 @@ public class AssistanceAgentTrackingLogPublishService extends AbstractGuiService
 		assert tl != null;
 		//tl.setLastUpdate(MomentHelper.getCurrentMoment());
 		tl.setDraftMode(false);
+
+		Claim claim;
+		claim = tl.getClaim();
+		if (tl.getResolutionPercentage() != 100.0) {
+			tl.setStatus(TrackingLogStatus.PENDING);
+			claim.setStatus(ClaimStatus.PENDING);
+		} else if (tl.getStatus() == TrackingLogStatus.ACCEPTED)
+			claim.setStatus(ClaimStatus.ACCEPTED);
+		if (tl.getStatus() == TrackingLogStatus.REJECTED)
+			claim.setStatus(ClaimStatus.REJECTED);
+
 		this.repository.save(tl);
 	}
 

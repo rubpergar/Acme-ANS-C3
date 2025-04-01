@@ -8,6 +8,7 @@ import acme.client.components.views.SelectChoices;
 import acme.client.services.AbstractGuiService;
 import acme.client.services.GuiService;
 import acme.entities.claims.Claim;
+import acme.entities.claims.ClaimStatus;
 import acme.entities.trackingLogs.TrackingLog;
 import acme.entities.trackingLogs.TrackingLogStatus;
 import acme.features.authenticated.assistanceAgent.claim.AssistanceAgentClaimRepository;
@@ -66,7 +67,12 @@ public class AssistanceAgentTrackingLogDeleteService extends AbstractGuiService<
 	@Override
 	public void perform(final TrackingLog tl) {
 		assert tl != null;
+		Claim claim;
+		claim = tl.getClaim();
+		if (tl.getResolutionPercentage() == 100.0)
+			claim.setStatus(ClaimStatus.PENDING);
 		this.repository.delete(tl);
+		this.claimRepository.save(claim);
 	}
 
 	@Override
