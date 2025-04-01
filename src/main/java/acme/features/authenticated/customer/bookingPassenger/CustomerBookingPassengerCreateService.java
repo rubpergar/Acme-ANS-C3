@@ -25,6 +25,7 @@ public class CustomerBookingPassengerCreateService extends AbstractGuiService<Cu
 	public void authorise() {
 		super.getResponse().setAuthorised(true);
 	}
+	//NO PUEDEN SER DRAFT NI BOOKING NI PASSENGER
 
 	@Override
 	public void load() {

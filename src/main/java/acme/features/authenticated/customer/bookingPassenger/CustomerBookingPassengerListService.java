@@ -1,5 +1,5 @@
 
-package acme.features.authenticated.customer.passenger;
+package acme.features.authenticated.customer.bookingPassenger;
 
 import java.util.Collection;
 
@@ -8,15 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import acme.client.components.models.Dataset;
 import acme.client.services.AbstractGuiService;
 import acme.client.services.GuiService;
-import acme.entities.passenger.Passenger;
+import acme.entities.booking.BookingPassenger;
 import acme.realms.Customer;
 
 @GuiService
-public class CustomerPassengerListService extends AbstractGuiService<Customer, Passenger> {
-	// Internal state ---------------------------------------------------------
+public class CustomerBookingPassengerListService extends AbstractGuiService<Customer, BookingPassenger> {
 
 	@Autowired
-	private CustomerPassengerRepository repository;
+	private CustomerBookingPassengerRepository repository;
 
 	// AbstractGuiService interface -------------------------------------------
 
@@ -28,21 +27,25 @@ public class CustomerPassengerListService extends AbstractGuiService<Customer, P
 
 	@Override
 	public void load() {
-		Collection<Passenger> passengers;
-		int customerId;
+		Collection<BookingPassenger> bookingPassengers;
+		int masterId;
 
-		customerId = super.getRequest().getPrincipal().getActiveRealm().getId();
+		masterId = super.getRequest().getData("masterId", int.class);
+		bookingPassengers = this.repository.findBookingPassengersByBookingId(masterId);
 
-		passengers = this.repository.findAllPassengersByCustomerId(customerId);
-
-		super.getBuffer().addData(passengers);
+		super.getBuffer().addData(bookingPassengers);
 	}
 
 	@Override
-	public void unbind(final Passenger passenger) {
+	public void unbind(final BookingPassenger bookingPassenger) {
 		Dataset dataset;
 
-		dataset = super.unbindObject(passenger, "fullName", "email", "passportNumber", "dateOfBirth", "isDraft");
+		dataset = super.unbindObject(bookingPassenger, "passenger", "booking");
+		dataset.put("fullName", bookingPassenger.getPassenger().getFullName());
+		dataset.put("email", bookingPassenger.getPassenger().getEmail());
+		dataset.put("passportNumber", bookingPassenger.getPassenger().getPassportNumber());
+		dataset.put("dateOfBirth", bookingPassenger.getPassenger().getDateOfBirth());
+		dataset.put("bookingIsDraft", bookingPassenger.getBooking().getIsDraft());
 
 		super.getResponse().addData(dataset);
 	}

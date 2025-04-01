@@ -1,20 +1,20 @@
 key,tag,self-transfer,cost,description,key:airline-manager,isDraft
 # Base entity
-flight-01,Express Flight,FALSE,EUR 500000.00,Fast and reliable travel,manager-01,TRUE
+flight-01,Express Flight,FALSE,EUR 50.00,Fast and reliable travel,manager-01,TRUE
 # Tag
-flight-02,E,FALSE,EUR 450000.00,Short tag example,manager-01,TRUE
-flight-03,Experience the best,FALSE,EUR 600000.00,Maximum length tag,manager-01,TRUE
+flight-02,E,FALSE,EUR 45.00,Short tag example,manager-01,TRUE
+flight-03,Experience the best,FALSE,EUR 60.00,Maximum length tag,manager-01,TRUE
 # Indication
-flight-04,Direct Connection,TRUE,EUR 300000.00,Seamless journey with a short layover,manager-01,TRUE
+flight-04,Direct Connection,TRUE,EUR 30.00,Seamless journey with a short layover,manager-01,TRUE
 # Cost
-flight-05,Budget Flight,FALSE,EUR 0.00,Free promotional flight,manager-01,FALSE
+flight-05,Budget Flight,FALSE,EUR 110.00,Free promotional flight,manager-01,FALSE
 flight-06,Economy Class,FALSE,EUR 999999.99,Exclusive last-minute deal,manager-01,TRUE
 flight-07,VIP Charter,FALSE,EUR 1000000.00,Luxury private jet experience,manager-01,TRUE
 # Description
-flight-08,Weekend Getaway,FALSE,EUR 200000.00,L,manager-01,TRUE
-flight-09,City Hopper,FALSE,EUR 250000.00,Lo,manager-01,TRUE
-flight-10,Transatlantic Journey,FALSE,EUR 500000.00,"Enjoy premium in-flight services, gourmet meals, and extra legroom seating while traveling to your dream destination.",manager-01,TRUE
+flight-08,Weekend Getaway,FALSE,EUR 200.00,L,manager-01,TRUE
+flight-09,City Hopper,FALSE,EUR 250.00,Lo,manager-01,TRUE
+flight-10,Transatlantic Journey,FALSE,EUR 500.00,"Enjoy premium in-flight services, gourmet meals, and extra legroom seating while traveling to your dream destination.",manager-01,TRUE
 flight-11,Exclusive Adventure,FALSE,EUR 450000.00,"Explore new cultures with our tailored international travel experiences. From historic cities to pristine beaches, we bring you closer to the world.",manager-01,TRUE
 # Manager
-flight-12,Express Flight,FALSE,EUR 500000.00,Fast and reliable travel,manager-02,TRUE
-flight-13,Business Class Elite,FALSE,EUR 750000.00,Designed for executives who value time and comfort,manager-02,TRUE
+flight-12,Express Flight,FALSE,EUR 50.00,Fast and reliable travel,manager-02,TRUE
+flight-13,Business Class Elite,FALSE,EUR 75.00,Designed for executives who value time and comfort,manager-02,TRUE

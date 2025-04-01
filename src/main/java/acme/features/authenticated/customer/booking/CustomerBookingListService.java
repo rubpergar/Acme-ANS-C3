@@ -44,7 +44,9 @@ public class CustomerBookingListService extends AbstractGuiService<Customer, Boo
 
 		Dataset dataset;
 
-		dataset = super.unbindObject(booking, "locatorCode", "flight", "purchaseMoment", "travelClass", "price", "isDraft");
+		dataset = super.unbindObject(booking, "locatorCode", "flight", "purchaseMoment", "travelClass", "isDraft");
+		dataset.put("flight", booking.getFlight().getTag());
+		dataset.put("price", booking.getPrice());
 		super.getResponse().addData(dataset);
 	}
 

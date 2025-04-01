@@ -2,12 +2,14 @@
 package acme.entities.booking;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.Valid;
 
 import acme.client.components.basis.AbstractEntity;
@@ -16,10 +18,11 @@ import acme.client.components.mappings.Automapped;
 import acme.client.components.validation.Mandatory;
 import acme.client.components.validation.Optional;
 import acme.client.components.validation.ValidMoment;
-import acme.client.components.validation.ValidMoney;
 import acme.client.components.validation.ValidString;
+import acme.client.helpers.SpringHelper;
 import acme.constraints.ValidLastNibble;
 import acme.entities.flights.Flight;
+import acme.entities.passenger.Passenger;
 import acme.realms.Customer;
 import lombok.Getter;
 import lombok.Setter;
@@ -58,11 +61,6 @@ public class Booking extends AbstractEntity {
 	@Automapped
 	private TravelClass			travelClass;
 
-	@Mandatory
-	@ValidMoney
-	@Automapped
-	private Money				price;
-
 	@Optional
 	@ValidLastNibble
 	@Automapped
@@ -72,5 +70,39 @@ public class Booking extends AbstractEntity {
 	@Valid
 	@Automapped
 	private Boolean				isDraft;
+
+	// Atributos derivados ---------------------------------
+
+
+	@Transient
+	public Money getPrice() {
+		Money money = new Money();
+		BookingPassengerRepository bookingPassengerRepo;
+		Money flightCost;
+		List<Passenger> passengers;
+		Double numberOfPassengers;
+		Double price;
+
+		bookingPassengerRepo = SpringHelper.getBean(BookingPassengerRepository.class);
+
+		passengers = bookingPassengerRepo.findAllPassengersByBookingId(this.getId()).stream().toList();
+		numberOfPassengers = (double) passengers.size();
+
+		if (this.flight == null) {
+			money.setAmount(0.0);
+			money.setCurrency("");
+		} else if (this.travelClass.equals(TravelClass.ECONOMY)) {
+			flightCost = this.getFlight().getCost();
+			price = flightCost.getAmount() * numberOfPassengers;
+			money.setAmount(price);
+			money.setCurrency(flightCost.getCurrency());
+		} else {
+			flightCost = this.getFlight().getCost();
+			price = flightCost.getAmount() * numberOfPassengers * 2;
+			money.setAmount(price);
+			money.setCurrency(flightCost.getCurrency());
+		}
+		return money;
+	}
 
 }
