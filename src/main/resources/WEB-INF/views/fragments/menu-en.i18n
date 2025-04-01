@@ -41,6 +41,7 @@ master.menu.administrator.list-airport = List of airports
 
 master.menu.customer = Customer
 master.menu.customer.list-bookings = My bookings
+master.menu.customer.list-passengers = My passengers
 
 # master.menu.provider ########################################################
 

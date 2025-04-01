@@ -10,7 +10,6 @@
     <acme:input-textbox code="customer.passenger.form.label.passportNumber" path="passportNumber"/>  
     <acme:input-textbox code="customer.passenger.form.label.dateOfBirth" path="dateOfBirth"/>     
     <acme:input-textarea code="customer.passenger.form.label.specialNeeds" path="specialNeeds"/>  
-    <acme:input-checkbox code="customer.passenger.form.isDraft" path="isDraft" readonly="true"/>
         
     <jstl:choose>     
         <jstl:when test="${acme:anyOf(_command, 'show|update')  && isDraft == true}">
