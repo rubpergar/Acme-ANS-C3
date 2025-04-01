@@ -14,6 +14,4 @@
 	
 </acme:list>
 
-<jstl:if test="${showCreate}">
-	<acme:button code="member.activity-log.list.button.create" action="/flight-crew-member/activity-log/create?masterId=${masterId}"/>
-</jstl:if> 
+<acme:button code="member.activity-log.list.button.create" action="/flight-crew-member/activity-log/create?masterId=${masterId}"/>

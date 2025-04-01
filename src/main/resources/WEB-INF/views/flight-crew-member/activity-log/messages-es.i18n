@@ -13,7 +13,6 @@ member.activity-log.form.button.create = Crear
 member.activity-log.form.button.update = Actualizar
 member.activity-log.form.button.publish = Publicar
 member.activity-log.form.button.delete = Eliminar
-member.activity-log.form.button.activity-log = Registros de actividad
 
 member.activity-log.list.label.type = Tipo de incidente
 member.activity-log.list.label.description = Descripción
