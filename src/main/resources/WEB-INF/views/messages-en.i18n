@@ -235,3 +235,8 @@ customer.bookingPassenger.form.label.passenger  = Passenger
 customer.bookingPassenger.form.label.booking = Booking
 
 customer.project.publish.error.lastNibbleNotPublished = To publish a booking the last credit card nibble must have been stored. 
+
+acme.validation.flight-assignment.incompatible-legs.message = This member cannot be assigned to multiple legs simultaneously
+acme.validation.flight-assignment.has-pilot.message = This duty has been already assigned. Each leg can only have one pilot
+acme.validation.flight-assignment.has-copilot.message = This duty has been already assigned. Each leg can only have one copilot
+acme.validation.flight-assignment.leg-concluded.message = This flight assignment cannot be linked to a leg that have already occurred

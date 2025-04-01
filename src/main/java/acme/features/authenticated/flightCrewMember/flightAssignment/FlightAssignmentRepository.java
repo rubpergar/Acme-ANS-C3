@@ -2,6 +2,7 @@
 package acme.features.authenticated.flightCrewMember.flightAssignment;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -15,27 +16,33 @@ import acme.realms.flightCrewMember.FlightCrewMember;
 @Repository
 public interface FlightAssignmentRepository extends AbstractRepository {
 
-	//	@Query("select fa from FlightAssignment fa where fa.leg.scheduledArrival < CURRENT_TIMESTAMP")
-	//	Collection<FlightAssignment> getCompletedFlightAssignments();
-
-	@Query("select fa from FlightAssignment fa where fa.leg.scheduledArrival < CURRENT_TIMESTAMP AND fa.flightCrewMember.id = :id")
+	@Query("SELECT fa from FlightAssignment fa where fa.leg.scheduledArrival < CURRENT_TIMESTAMP AND fa.flightCrewMember.id = :id")
 	Collection<FlightAssignment> getCompletedFlightAssignmentsByMemberId(int id);
 
-	//	@Query("select fa from FlightAssignment fa where fa.leg.scheduledArrival > CURRENT_TIMESTAMP")
-	//	Collection<FlightAssignment> getUncompletedFlightAssignments();
-
-	@Query("select fa from FlightAssignment fa where fa.leg.scheduledArrival > CURRENT_TIMESTAMP AND fa.flightCrewMember.id = :id")
+	@Query("SELECT fa from FlightAssignment fa where fa.leg.scheduledArrival > CURRENT_TIMESTAMP AND fa.flightCrewMember.id = :id")
 	Collection<FlightAssignment> getUncompletedFlightAssignmentsByMemberId(int id);
 
-	@Query("select fa from FlightAssignment fa where fa.id = :id")
+	@Query("SELECT fa from FlightAssignment fa where fa.id = :id")
 	FlightAssignment getFlightAssignmentById(int id);
 
-	@Query("select l from Leg l")
+	@Query("SELECT l from Leg l")
 	Collection<Leg> findAllLegs();
 
-	@Query("select fcm from FlightCrewMember fcm WHERE fcm.availabilityStatus = 'AVAILABLE'")
+	@Query("SELECT l from Leg l WHERE l.scheduledArrival > CURRENT_TIMESTAMP")
+	Collection<Leg> findAllUncompletedLegs();
+
+	@Query("SELECT fcm from FlightCrewMember fcm WHERE fcm.availabilityStatus = 'AVAILABLE'")
 	Collection<FlightCrewMember> findAllAvailableMembers();
 
-	@Query("select al from ActivityLog al WHERE al.flightAssignment.id = :id")
+	@Query("SELECT al from ActivityLog al WHERE al.flightAssignment.id = :id")
 	Collection<ActivityLog> getAllActivityLogsFromAssignmentId(int id);
+
+	@Query("SELECT fa from FlightAssignment fa WHERE fa.leg.id = :id")
+	List<FlightAssignment> getAllFlightAssignmentsByLegId(int id);
+
+	@Query("SELECT DISTINCT fa.leg FROM FlightAssignment fa WHERE fa.flightCrewMember.id = :id")
+	List<Leg> getAllLegsByMemberId(int id);
+
+	@Query("SELECT COUNT(l) > 0 FROM Leg l WHERE l.id = :id AND l.scheduledDeparture < CURRENT_TIMESTAMP")
+	boolean isLegConcluded(int id);
 }
