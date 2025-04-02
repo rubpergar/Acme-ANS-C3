@@ -38,6 +38,8 @@ acme.validation.birthday.invalid-date.message=La edad minima para trabajar en Es
 
 acme.validation.leg.invalid-airport.message=El aeropuerto de llegada no puede ser el mismo que el aeropuerto de salida.
 
+acme.validation.leg.duplicate-flight-number.message=El número de vuelo ya está en uso. Por favor, proporcione uno diferente.
+
 customer.project.publish.error.lastNibbleNotPublished = Para publicar una reserva, el último fragmento de la tarjeta de crédito debe haberse almacenado.
 customer.booking.form.error.notDraft = No puedes realizar esta acción para una reserva que ya está publicada.
 
@@ -115,6 +117,8 @@ manager.flight.form.error.notDraft = No puedes realizar esta acción para un vue
 manager.flight.publish.error.notAllPublished = Para publicar el vuelo, todos sus tramos deben estar publicados.
 manager.project.publish.error.noLegs = Debes tener al menos un tramo para publicar un vuelo.
 manager.flight.publish.error.overlappingLegs = Los tramos del vuelo se solapan.
+manager.flight.publish.error.notAfter = El vuelo no puede ser publicado después de que comience.
+manager.leg.publish.error.notAfter= El tramo no puede ser publicado despues de que el vuelo comience.
 
 manager.flight.list.label.tag = Etiqueta
 manager.flight.list.label.cost = Costo

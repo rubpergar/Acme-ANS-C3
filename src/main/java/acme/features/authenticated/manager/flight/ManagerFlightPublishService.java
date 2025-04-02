@@ -66,12 +66,12 @@ public class ManagerFlightPublishService extends AbstractGuiService<Manager, Fli
 		boolean allLegsPublished = legs.stream().allMatch(Leg::getIsDraft);
 		super.state(!allLegsPublished, "*", "manager.flight.publish.error.notAllPublished");
 
-	}
-
-	@Override
-	public void perform(final Flight flight) {
-		assert flight != null;
-		flight.setIsDraft(false);  //publicado
+		/*
+		 * Date scheduledDeparture = flight.getScheduledDeparture();
+		 * Date present = MomentHelper.getCurrentMoment();
+		 * boolean isAfter = MomentHelper.isAfter(scheduledDeparture, present);
+		 * super.state(isAfter, "*", "manager.flight.publish.error.notAfter");
+		 */
 
 		boolean nonOverlappingLegs = true;
 
@@ -83,12 +83,18 @@ public class ManagerFlightPublishService extends AbstractGuiService<Manager, Fli
 
 			if (previousLeg.getScheduledArrival() != null && nextLeg.getScheduledDeparture() != null) {
 				boolean validLeg = MomentHelper.isBefore(previousLeg.getScheduledArrival(), nextLeg.getScheduledDeparture());
-				if (!validLeg) {
+				if (!validLeg)
 					nonOverlappingLegs = false;
-					super.state(nonOverlappingLegs, "legs", "acme.validation.flight.overlapping.message");
-				}
 			}
 		}
+		super.state(nonOverlappingLegs, "*", "acme.validation.flight.overlapping.message");
+
+	}
+
+	@Override
+	public void perform(final Flight flight) {
+		assert flight != null;
+		flight.setIsDraft(false);  //publicado
 		this.repository.save(flight);
 	}
 

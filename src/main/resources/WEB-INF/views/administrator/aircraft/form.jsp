@@ -20,7 +20,6 @@
 				<acme:submit code="administrator.airport.form.button.disable" action="/administrator/aircraft/disable"/>
 			</jstl:when>
 			<jstl:when test="${_command == 'create'}">
-			    <input type="hidden" name="confirmation" value="false"/>
 				<acme:input-checkbox code="administrator.aircraft.form.label.confirmation" path="confirmation"/>	
 				<acme:submit code="administrator.aircraft.form.button.create" action="/administrator/aircraft/create"/>
 			</jstl:when>		
