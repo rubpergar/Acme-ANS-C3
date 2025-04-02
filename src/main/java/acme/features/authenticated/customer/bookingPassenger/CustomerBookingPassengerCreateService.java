@@ -46,16 +46,15 @@ public class CustomerBookingPassengerCreateService extends AbstractGuiService<Cu
 		int bookingId;
 		int customerId;
 
-		bookingId = super.getRequest().getData("id", int.class);
+		bookingId = super.getRequest().getData("masterId", int.class);
 		booking = this.repository.findBookingById(bookingId);
 
 		customerId = super.getRequest().getPrincipal().getActiveRealm().getId();
 
-		// Solo el cliente dueño puede acceder y solo si el booking está en draft
-		boolean isOwner = customerId == booking.getCustomer().getId();
+		boolean isCustomer = customerId == booking.getCustomer().getId();
 		boolean isDraft = booking.getIsDraft();
 
-		super.getResponse().setAuthorised(isOwner && isDraft);
+		super.getResponse().setAuthorised(isCustomer && isDraft);
 
 		if (!isDraft)
 			super.state(false, "*", "customer.booking.form.error.publishedBooking", "booking");
