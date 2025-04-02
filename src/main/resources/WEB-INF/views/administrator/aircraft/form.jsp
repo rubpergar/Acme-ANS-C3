@@ -14,12 +14,13 @@
 		<acme:input-textbox code="administrator.aircraft.list.label.details" path="details"/>
 		
 		<jstl:choose>
-			<jstl:when test="${acme:anyOf(_command, 'show')}">
+			<jstl:when test="${acme:anyOf(_command, 'show|update|disable')}">
 				<acme:input-checkbox code="administrator.aircraft.form.label.confirmation" path="confirmation"/>
 				<acme:submit code="administrator.airport.form.button.update" action="/administrator/aircraft/update"/>
 				<acme:submit code="administrator.airport.form.button.disable" action="/administrator/aircraft/disable"/>
 			</jstl:when>
 			<jstl:when test="${_command == 'create'}">
+			    <input type="hidden" name="confirmation" value="false"/>
 				<acme:input-checkbox code="administrator.aircraft.form.label.confirmation" path="confirmation"/>	
 				<acme:submit code="administrator.aircraft.form.button.create" action="/administrator/aircraft/create"/>
 			</jstl:when>		

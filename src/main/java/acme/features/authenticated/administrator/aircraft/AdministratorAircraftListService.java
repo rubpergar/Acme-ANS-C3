@@ -24,7 +24,8 @@ public class AdministratorAircraftListService extends AbstractGuiService<Adminis
 
 	@Override
 	public void authorise() {
-		super.getResponse().setAuthorised(true);
+		boolean hasAuthority = super.getRequest().getPrincipal().hasRealmOfType(Administrator.class);
+		super.getResponse().setAuthorised(hasAuthority);
 	}
 
 	@Override
