@@ -13,7 +13,7 @@ import acme.entities.trackingLogs.TrackingLog;
 @Repository
 public interface ClaimRepository extends AbstractRepository {
 
-	@Query("SELECT tl FROM TrackingLog tl WHERE tl.claim.id = claimId")
+	@Query("SELECT tl FROM TrackingLog tl WHERE tl.claim.id = :claimId")
 	Collection<TrackingLog> getTrackingLogsByClaim(@Param("claimId") int claimId);
 
 }

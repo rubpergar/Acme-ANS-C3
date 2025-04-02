@@ -73,14 +73,15 @@ public class Claim extends AbstractEntity {
 
 
 	@Transient
-	public ClaimStatus status() {
+	public ClaimStatus getStatus() {
 		ClaimStatus status;
 		ClaimRepository repo;
 		Collection<TrackingLog> tls;
+		int claimId = this.getId();
 
 		status = ClaimStatus.PENDING;
 		repo = SpringHelper.getBean(ClaimRepository.class);
-		tls = repo.getTrackingLogsByClaim(this.getId());
+		tls = repo.getTrackingLogsByClaim(claimId);
 
 		for (TrackingLog tl : tls)
 			if (tl.getStatus() == TrackingLogStatus.ACCEPTED)
