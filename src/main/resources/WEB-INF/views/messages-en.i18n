@@ -246,3 +246,7 @@ customer.booking.form.error.notDraftFlight = You can not do this action for a fl
 acme.validation.booking.incorrect-purchaseMoment.message = The purchase moment can not be changed
 acme.validation.booking.incorrect-price.message = The price can not be changed
 customer.booking-passenger.list.title = Passengers of the booking
+customer.booking.form.error.draftBooking = You can not do this action for a booking that is already published
+acme.validation.booking-passenger.notPublishedPassenger.message = The passenger must be published to be added to the booking
+acme.validation.booking.flight-departure.message= The flight has already departed. You cannot create a booking for a flight that has already departed.
+acme.validation.booking.notExisting-flight.message = The flight does not exist. Please select a valid flight.

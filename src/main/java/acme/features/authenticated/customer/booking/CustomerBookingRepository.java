@@ -27,7 +27,7 @@ public interface CustomerBookingRepository extends AbstractRepository {
 	@Query("select b.lastNibble from Booking b where b.id = :id")
 	String findLastNibbleById(int id);
 
-	@Query("select f from Flight f where f.isDraft = false")
+	@Query("select b.flight from Booking b where b.flight.isDraft = false")
 	Collection<Flight> findNotDraftFlights();
 
 	@Query("select b from Booking b where b.customer.id = :customerId")
@@ -38,4 +38,7 @@ public interface CustomerBookingRepository extends AbstractRepository {
 
 	@Query("select b from Booking b where b.locatorCode = :locatorCode")
 	Booking findBookingByLocatorCode(String locatorCode);
+
+	@Query("select f from Flight f where f.id = :id")
+	Flight findFlightById(int id);
 }

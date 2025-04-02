@@ -168,3 +168,7 @@ acme.validation.booking.repeated-locatorCode.message = El código de localizaci�
 acme.validation.booking.incorrect-purchaseMoment.message = El momento de compra no puede cambiar.
 acme.validation.booking.incorrect-price.message = El precio no puede cambiar.
 customer.booking-passenger.list.title = Pasajeros de la reserva
+customer.booking.form.error.draftBooking = No puedes realizar esta acción para una reserva que ya está publicada.
+acme.validation.booking-passenger.notPublishedPassenger.message = El pasajero no está publicado. Por favor, publique el pasajero antes de continuar.
+acme.validation.booking.flight-departure.message = El vuelo ya ha salido. No puede realizar esta reserva.
+acme.validation.booking.notExisting-flight.message = El vuelo no existe. Por favor, proporcione un vuelo válido.
