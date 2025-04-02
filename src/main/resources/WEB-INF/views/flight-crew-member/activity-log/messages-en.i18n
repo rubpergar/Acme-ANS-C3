@@ -20,3 +20,7 @@ member.activity-log.list.label.severityLevel = Flight Assignment
 member.activity-log.list.label.draftMode = Draft
 
 member.activity-log.list.button.create = Create
+
+acme.validation.out-0-10-range.message = Value must be between 0 and 10
+acme.validation.out-1-50-range.message = The field must have between 1 and 50 characters
+acme.validation.out-1-255-range.message = The field must have between 1 and 255 characters
