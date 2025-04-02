@@ -1,0 +1,24 @@
+# messages-en.i18n
+
+administrator.airline.list.title = Airline list
+administrator.airline.form.title = Airline form
+
+administrator.airline.list.label.name = Name
+administrator.airline.list.label.type = Type
+administrator.airline.list.label.foundationMoment = Foundation Moment
+
+administrator.airline.list.button.create = Create
+
+administrator.airline.form.label.name = Name
+administrator.airline.form.label.codeIATA = IATA Code
+administrator.airline.form.label.website = Website
+administrator.airline.form.label.type = Type
+administrator.airline.form.label.foundationMoment = Foundation Moment
+administrator.airline.form.label.email = Email
+administrator.airline.form.label.phone = Phone
+administrator.airline.form.label.confirmation = Confirmation to save changes
+
+administrator.airline.form.button.create = Create
+administrator.airline.form.button.update = Update
+
+acme.validation.duplicated-iata.message = This IATA code is used by other airline
