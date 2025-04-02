@@ -25,7 +25,13 @@ public class ManagerFlightShowService extends AbstractGuiService<Manager, Flight
 
 	@Override
 	public void authorise() {
-		super.getResponse().setAuthorised(true);
+		Flight flight;
+		int flightId;
+		int userAccountId;
+		flightId = super.getRequest().getData("id", int.class);
+		flight = this.repository.getFlightById(flightId);
+		userAccountId = super.getRequest().getPrincipal().getAccountId();
+		super.getResponse().setAuthorised(flight != null && flight.getAirlineManager().getUserAccount().getId() == userAccountId);
 	}
 
 	@Override

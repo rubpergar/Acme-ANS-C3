@@ -6,6 +6,7 @@ import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import acme.client.components.models.Dataset;
+import acme.client.helpers.MomentHelper;
 import acme.client.services.AbstractGuiService;
 import acme.client.services.GuiService;
 import acme.entities.flights.Flight;
@@ -71,6 +72,23 @@ public class ManagerFlightPublishService extends AbstractGuiService<Manager, Fli
 	public void perform(final Flight flight) {
 		assert flight != null;
 		flight.setIsDraft(false);  //publicado
+
+		boolean nonOverlappingLegs = true;
+
+		Collection<Leg> sortedLegs = this.legRepository.getLegsByFlight(flight.getId());
+
+		for (int i = 0; i < sortedLegs.size() - 1; i++) {
+			Leg previousLeg = sortedLegs.stream().toList().get(i);
+			Leg nextLeg = sortedLegs.stream().toList().get(i + 1);
+
+			if (previousLeg.getScheduledArrival() != null && nextLeg.getScheduledDeparture() != null) {
+				boolean validLeg = MomentHelper.isBefore(previousLeg.getScheduledArrival(), nextLeg.getScheduledDeparture());
+				if (!validLeg) {
+					nonOverlappingLegs = false;
+					super.state(nonOverlappingLegs, "legs", "acme.validation.flight.overlapping.message");
+				}
+			}
+		}
 		this.repository.save(flight);
 	}
 
