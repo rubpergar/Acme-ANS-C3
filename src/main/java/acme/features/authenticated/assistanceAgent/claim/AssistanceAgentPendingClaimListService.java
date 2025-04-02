@@ -1,8 +1,6 @@
 
 package acme.features.authenticated.assistanceAgent.claim;
 
-import java.util.Collection;
-
 import org.springframework.beans.factory.annotation.Autowired;
 
 import acme.client.components.models.Dataset;
@@ -26,16 +24,16 @@ public class AssistanceAgentPendingClaimListService extends AbstractGuiService<A
 		super.getResponse().setAuthorised(true);
 	}
 
-	@Override
-	public void load() {
-		Collection<Claim> claims;
-		int assistanceAgentId;
-
-		assistanceAgentId = super.getRequest().getPrincipal().getActiveRealm().getId();
-		claims = this.repository.findPendingClaimsByAssistanceAgent(assistanceAgentId);
-
-		super.getBuffer().addData(claims);
-	}
+	//	@Override
+	//	public void load() {
+	//		Collection<Claim> claims;
+	//		int assistanceAgentId;
+	//
+	//		assistanceAgentId = super.getRequest().getPrincipal().getActiveRealm().getId();
+	//		claims = this.repository.findPendingClaimsByAssistanceAgent(assistanceAgentId);
+	//
+	//		super.getBuffer().addData(claims);
+	//	}
 
 	@Override
 	public void unbind(final Claim claim) {

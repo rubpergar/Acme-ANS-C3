@@ -1,8 +1,37 @@
 key,key:claim,lastUpdate,stepUndergoing,resolutionPercentage,status,resolution,draftMode
-tracking-log-01,claim-01,2012/07/02 00:00,lorem,100,ACCEPTED,lorem,true
-tracking-log-02,claim-03,2012/07/02 00:00,lorem,100,REJECTED,lorem,true
-#si no accepted no resolution
-tracking-log-03,claim-02,2012/07/02 00:00,lorem,90,PENDING,,true
-#porcentaje-increasing
-tracking-log-04,claim-04,2012/07/03 00:00,lorem,10,PENDING,,true
-tracking-log-05,claim-04,2012/07/05 00:00,lorem,20,PENDING,,true
+#lastUpdate
+tracking-log-01,claim-01,2012/01/01 00:00,lorem,10,PENDING,,true
+tracking-log-02,claim-01,2012/01/01 00:01,lorem,25,PENDING,,true
+tracking-log-03,claim-01,2012/07/02 00:00,lorem,50,PENDING,,true
+tracking-log-04,claim-01,2024/12/31 23:59,lorem,90,PENDING,,true
+tracking-log-05,claim-01,2025/01/01 00:00,lorem,100,ACCEPTED,lorem,true
+#stepUndergoing
+tracking-log-06,claim-03,2012/07/02 00:00,L,10,PENDING,,true
+tracking-log-07,claim-03,2012/07/03 00:00,Lo,25,PENDING,,true
+tracking-log-08,claim-03,2012/07/04 00:00,Lorem ipsum dolor sit ame,50,PENDING,,true
+tracking-log-09,claim-03,2012/07/05 00:00,"Lorem ipsum dolor sit amet, consectetur adipiscin",80,PENDING,,true
+tracking-log-10,claim-03,2012/07/05 10:00,โลเร็ม อิปซัม,85,PENDING,,true
+tracking-log-11,claim-03,2012/07/05 12:00,' or 'A' = 'A,90,PENDING,,true
+tracking-log-12,claim-03,2012/07/06 00:00,"Lorem ipsum dolor sit amet, consectetur adipiscing",100,REJECTED,lorem,true
+#resolutionPercentage
+tracking-log-13,claim-02,2012/07/02 00:00,lorem,0,PENDING,,true
+tracking-log-14,claim-02,2012/07/03 00:00,lorem,1,PENDING,,true
+tracking-log-15,claim-02,2012/07/03 18:00,lorem,50,PENDING,,true
+tracking-log-16,claim-02,2012/07/04 00:00,lorem,99,PENDING,,true
+tracking-log-17,claim-02,2012/07/05 00:00,lorem,100,ACCEPTED,lorem,true
+#status
+tracking-log-18,claim-04,2012/07/02 00:00,lorem,50,PENDING,,true
+tracking-log-19,claim-04,2012/07/02 00:00,lorem,100,ACCEPTED,Lorem,true
+tracking-log-20,claim-05,2012/07/04 00:00,lorem,100,REJECTED,Lorem,true
+#resolution
+tracking-log-21,claim-06,2012/07/01 00:00,lorem,50,PENDING,,true
+tracking-log-22,claim-06,2012/07/02 00:00,lorem,100,ACCEPTED,L,true
+tracking-log-23,claim-07,2012/07/02 00:00,lorem,100,ACCEPTED,Lo,true
+tracking-log-24,claim-08,2012/07/02 00:00,lorem,100,ACCEPTED,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut*",true
+tracking-log-25,claim-09,2012/07/02 00:00,lorem,100,ACCEPTED,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut enim ad minim veniam? Quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor",true
+tracking-log-26,claim-10,2012/07/02 00:00,lorem,100,ACCEPTED,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut enim ad minim veniam? Quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor*",true
+tracking-log-27,claim-11,2012/07/02 00:00,lorem,100,ACCEPTED,لوريم إيبسوم,true
+tracking-log-28,claim-12,2012/07/02 00:00,lorem,100,ACCEPTED,<script>alert(‘Hacked!’);</script>,true
+#draftMode
+tracking-log-29,claim-23,2012/07/03 00:00,lorem,10,PENDING,,false
+tracking-log-30,claim-23,2012/07/05 00:00,lorem,20,PENDING,,true

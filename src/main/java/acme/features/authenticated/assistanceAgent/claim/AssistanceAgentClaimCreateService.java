@@ -36,7 +36,6 @@ public class AssistanceAgentClaimCreateService extends AbstractGuiService<Assist
 		claim.setAssistanceAgent(this.repository.getAgentById(super.getRequest().getPrincipal().getActiveRealm().getId()));
 		claim.setDraftMode(true);
 		claim.setRegistrationMoment(MomentHelper.getCurrentMoment()); //?
-		claim.setStatus(claim.getStatus());
 
 		super.getBuffer().addData(claim);
 	}

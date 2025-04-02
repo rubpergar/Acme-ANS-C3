@@ -1,6 +1,8 @@
 
 package acme.entities.claims;
 
+import java.beans.Transient;
+import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -15,7 +17,10 @@ import acme.client.components.validation.Mandatory;
 import acme.client.components.validation.ValidEmail;
 import acme.client.components.validation.ValidMoment;
 import acme.client.components.validation.ValidString;
+import acme.client.helpers.SpringHelper;
 import acme.entities.legs.Leg;
+import acme.entities.trackingLogs.TrackingLog;
+import acme.entities.trackingLogs.TrackingLogStatus;
 import acme.realms.AssistanceAgent;
 import lombok.Getter;
 import lombok.Setter;
@@ -51,11 +56,6 @@ public class Claim extends AbstractEntity {
 	@Automapped
 	private claimType			type;
 
-	@Mandatory
-	@Valid
-	@Automapped
-	private ClaimStatus			status;
-
 	// They are registered by the assistance agent
 	@Mandatory
 	@Valid
@@ -68,5 +68,27 @@ public class Claim extends AbstractEntity {
 	private Leg					leg;
 
 	private boolean				draftMode;
+
+	//Atributos deribados
+
+
+	@Transient
+	public ClaimStatus status() {
+		ClaimStatus status;
+		ClaimRepository repo;
+		Collection<TrackingLog> tls;
+
+		status = ClaimStatus.PENDING;
+		repo = SpringHelper.getBean(ClaimRepository.class);
+		tls = repo.getTrackingLogsByClaim(this.getId());
+
+		for (TrackingLog tl : tls)
+			if (tl.getStatus() == TrackingLogStatus.ACCEPTED)
+				status = ClaimStatus.ACCEPTED;
+			else if (tl.getStatus() == TrackingLogStatus.REJECTED)
+				status = ClaimStatus.REJECTED;
+
+		return status;
+	}
 
 }
