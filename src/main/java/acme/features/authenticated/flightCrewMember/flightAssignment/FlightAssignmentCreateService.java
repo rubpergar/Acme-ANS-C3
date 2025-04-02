@@ -54,38 +54,44 @@ public class FlightAssignmentCreateService extends AbstractGuiService<FlightCrew
 	public void validate(final FlightAssignment flightAssignment) {
 		assert flightAssignment != null;
 
-		// Los miembros no pueden tener varios leg asignados simultáneamente
-		List<Leg> legsByMember = this.repository.getAllLegsByMemberId(flightAssignment.getFlightCrewMember().getId());
+		if (flightAssignment.getRemarks().length() < 1 || flightAssignment.getRemarks().length() > 255)
+			super.state(false, "remarks", "acme.validation.out-1-255-range.message");
 
-		for (Leg leg : legsByMember) {
-			boolean departureIncompatible = MomentHelper.isInRange(flightAssignment.getLeg().getScheduledDeparture(), leg.getScheduledDeparture(), leg.getScheduledArrival());
-			boolean arrivalIncompatible = MomentHelper.isInRange(flightAssignment.getLeg().getScheduledArrival(), leg.getScheduledDeparture(), leg.getScheduledArrival());
+		if (flightAssignment.getFlightCrewMember() != null) {
+			// Los miembros no pueden tener varios leg asignados simultáneamente
+			List<Leg> legsByMember = this.repository.getAllLegsByMemberId(flightAssignment.getFlightCrewMember().getId());
 
-			if (departureIncompatible || arrivalIncompatible) {
-				super.state(false, "flightCrewMember", "acme.validation.flight-assignment.incompatible-legs.message");
-				break;
+			for (Leg leg : legsByMember) {
+				boolean departureIncompatible = MomentHelper.isInRange(flightAssignment.getLeg().getScheduledDeparture(), leg.getScheduledDeparture(), leg.getScheduledArrival());
+				boolean arrivalIncompatible = MomentHelper.isInRange(flightAssignment.getLeg().getScheduledArrival(), leg.getScheduledDeparture(), leg.getScheduledArrival());
+
+				if (departureIncompatible || arrivalIncompatible) {
+					super.state(false, "flightCrewMember", "acme.validation.flight-assignment.incompatible-legs.message");
+					break;
+				}
 			}
+
+			// Solo 1 piloto y 1 co-piloto por leg
+			List<FlightAssignment> flightAssignmentsInLeg = this.repository.getAllFlightAssignmentsByLegId(flightAssignment.getLeg().getId());
+
+			boolean hasPilot = false;
+			boolean hasCopilot = false;
+			for (FlightAssignment fa : flightAssignmentsInLeg) {
+				if (fa.getDuty().equals(FlightAssignmentDuty.PILOT))
+					hasPilot = true;
+				if (fa.getDuty().equals(FlightAssignmentDuty.CO_PILOT))
+					hasCopilot = true;
+			}
+
+			super.state(!(flightAssignment.getDuty().equals(FlightAssignmentDuty.PILOT) && hasPilot), "duty", "acme.validation.flight-assignment.has-pilot.message");
+			super.state(!(flightAssignment.getDuty().equals(FlightAssignmentDuty.CO_PILOT) && hasCopilot), "duty", "acme.validation.flight-assignment.has-copilot.message");
+
+			// No se puede publicar una asignación con leg que ya hayan ocurrido
+			boolean legConcluded = this.repository.isLegConcluded(flightAssignment.getLeg().getId());
+
+			super.state(!legConcluded, "leg", "acme.validation.flight-assignment.leg-concluded.message");
 		}
 
-		// Solo 1 piloto y 1 co-piloto por leg
-		List<FlightAssignment> flightAssignmentsInLeg = this.repository.getAllFlightAssignmentsByLegId(flightAssignment.getLeg().getId());
-
-		boolean hasPilot = false;
-		boolean hasCopilot = false;
-		for (FlightAssignment fa : flightAssignmentsInLeg) {
-			if (fa.getDuty().equals(FlightAssignmentDuty.PILOT))
-				hasPilot = true;
-			if (fa.getDuty().equals(FlightAssignmentDuty.CO_PILOT))
-				hasCopilot = true;
-		}
-
-		super.state(!(flightAssignment.getDuty().equals(FlightAssignmentDuty.PILOT) && hasPilot), "duty", "acme.validation.flight-assignment.has-pilot.message");
-		super.state(!(flightAssignment.getDuty().equals(FlightAssignmentDuty.CO_PILOT) && hasCopilot), "duty", "acme.validation.flight-assignment.has-copilot.message");
-
-		// No se puede publicar una asignación con leg que ya hayan ocurrido
-		boolean legConcluded = this.repository.isLegConcluded(flightAssignment.getLeg().getId());
-
-		super.state(!legConcluded, "leg", "acme.validation.flight-assignment.leg-concluded.message");
 	}
 
 	@Override
