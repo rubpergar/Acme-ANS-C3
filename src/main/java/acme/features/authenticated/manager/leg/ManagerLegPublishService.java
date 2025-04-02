@@ -60,6 +60,13 @@ public class ManagerLegPublishService extends AbstractGuiService<Manager, Leg> {
 	@Override
 	public void validate(final Leg leg) {
 		assert leg != null;
+		/*
+		 * Date scheduledDeparture = leg.getFlight().getScheduledDeparture();
+		 * Date present = MomentHelper.getCurrentMoment();
+		 * boolean isAfter = MomentHelper.isAfter(scheduledDeparture, present);
+		 * super.state(isAfter, "*", "manager.leg.publish.error.notAfter");
+		 */
+
 	}
 
 	@Override

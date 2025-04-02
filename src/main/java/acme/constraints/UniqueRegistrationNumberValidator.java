@@ -29,20 +29,18 @@ public class UniqueRegistrationNumberValidator extends AbstractValidator<ValidRe
 		assert context != null;
 
 		if (aircraft == null)
-			return false;
+			super.state(context, false, "registrationNumber", "javax.validation.constraints.NotNull.message");
 
 		String registrationNumber = aircraft.getRegistrationNumber();
 
 		if (registrationNumber == null)
-			return false;
+			super.state(context, false, "registrationNumber", "javax.validation.constraints.NotNull.message");
 
 		Optional<Aircraft> aircraftWithSameRegistrationNumber = this.aircraftRepository.findAircraftByRegistrationNumber(registrationNumber);
-		if (aircraftWithSameRegistrationNumber.isPresent() && aircraftWithSameRegistrationNumber.get().getId() != aircraft.getId()) {
+		if (aircraftWithSameRegistrationNumber.isPresent() && aircraftWithSameRegistrationNumber.get().getId() != aircraft.getId())
 			super.state(context, false, "registrationNumber", "acme.validation.aircraft.duplicate-registration-number.message");
-			return false;
-		}
 
-		return true;
+		return !super.hasErrors(context);
 	}
 
 }
