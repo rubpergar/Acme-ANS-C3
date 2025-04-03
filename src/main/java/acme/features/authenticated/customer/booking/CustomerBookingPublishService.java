@@ -37,9 +37,9 @@ public class CustomerBookingPublishService extends AbstractGuiService<Customer, 
 		userAccountId = super.getRequest().getPrincipal().getAccountId();
 
 		// Debemos comprobar que hay al menos un pasajero en el booking
-		boolean notValidPassengers = this.repository.findAllPassengersByBookingId(booking.getId()).stream().toList().isEmpty();
+		boolean validPassengers = this.repository.findAllPassengersByBookingId(booking.getId()).stream().toList().size() > 0;
 
-		super.getResponse().setAuthorised(booking.getCustomer().getUserAccount().getId() == userAccountId && !notValidPassengers);
+		super.getResponse().setAuthorised(booking.getCustomer().getUserAccount().getId() == userAccountId && validPassengers);
 
 		if (!booking.getIsDraft())
 			super.state(booking.getIsDraft(), "*", "customer.booking.form.error.notDraft", "isDraft");
@@ -73,7 +73,7 @@ public class CustomerBookingPublishService extends AbstractGuiService<Customer, 
 
 		//Comprobar que el booking no tiene pasajeros
 		List<Passenger> passengers = this.repository.findAllPassengersByBookingId(booking.getId()).stream().toList();
-		super.state(passengers.isEmpty(), "*", "customer.project.publish.error.passengerNotEmpty");
+		super.state(passengers.size() > 0, "*", "customer.project.publish.error.passengerNotEmpty");
 
 		//Comprobar que el precio no es 0
 		super.state(booking.getPrice().getAmount() != 0.0, "*", "customer.project.publish.error.priceNotNull");
