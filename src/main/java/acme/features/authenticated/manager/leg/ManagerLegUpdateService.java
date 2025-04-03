@@ -1,6 +1,7 @@
 
 package acme.features.authenticated.manager.leg;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +39,7 @@ public class ManagerLegUpdateService extends AbstractGuiService<Manager, Leg> {
 		legId = super.getRequest().getData("id", int.class);
 		leg = this.repository.getLegById(legId);
 		flight = this.repository.getFlightByLegId(legId);
-		status = flight != null && flight.getIsDraft() && super.getRequest().getPrincipal().hasRealm(flight.getAirlineManager()) || leg.getIsDraft();
+		status = flight != null && flight.getIsDraft() && super.getRequest().getPrincipal().hasRealm(flight.getAirlineManager()) && leg.getIsDraft();
 
 		super.getResponse().setAuthorised(status);
 	}
@@ -116,7 +117,13 @@ public class ManagerLegUpdateService extends AbstractGuiService<Manager, Leg> {
 		SelectChoices selectedAircraft = new SelectChoices();
 		selectedAircraft.add("0", "----", leg.getAircraft() == null);
 
-		for (Aircraft aircraft : this.repository.findAllAircraftsByStatus(AircraftStatus.ACTIVE)) {
+		Collection<Aircraft> aircraftsActives = this.repository.findAircraftsActivesWithoutLegs(AircraftStatus.ACTIVE);
+		Collection<Aircraft> finalAircrafts = new ArrayList<Aircraft>();
+		for (Aircraft aircraft : aircraftsActives)
+			if (aircraft.getAirline().getCodeIATA().equals(leg.getFlight().getAirlineManager().getAirline().getCodeIATA()))
+				finalAircrafts.add(aircraft);
+
+		for (Aircraft aircraft : finalAircrafts) {
 			String key = Integer.toString(aircraft.getId());
 			String label = aircraft.getRegistrationNumber();
 
