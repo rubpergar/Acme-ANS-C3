@@ -9,7 +9,6 @@ import acme.client.helpers.MomentHelper;
 import acme.client.services.AbstractGuiService;
 import acme.client.services.GuiService;
 import acme.entities.claims.Claim;
-import acme.entities.claims.ClaimStatus;
 import acme.entities.trackingLogs.TrackingLog;
 import acme.entities.trackingLogs.TrackingLogStatus;
 import acme.features.authenticated.assistanceAgent.claim.AssistanceAgentClaimRepository;
@@ -75,16 +74,6 @@ public class AssistanceAgentTrackingLogUpdateService extends AbstractGuiService<
 	public void perform(final TrackingLog tl) {
 		assert tl != null;
 		tl.setLastUpdate(MomentHelper.getCurrentMoment());
-
-		Claim claim;
-		claim = tl.getClaim();
-		if (tl.getResolutionPercentage() != 100.0) {
-			tl.setStatus(TrackingLogStatus.PENDING);
-			claim.setStatus(ClaimStatus.PENDING);
-		} else if (tl.getStatus() == TrackingLogStatus.ACCEPTED)
-			claim.setStatus(ClaimStatus.ACCEPTED);
-		if (tl.getStatus() == TrackingLogStatus.REJECTED)
-			claim.setStatus(ClaimStatus.REJECTED);
 
 		this.repository.save(tl);
 	}
