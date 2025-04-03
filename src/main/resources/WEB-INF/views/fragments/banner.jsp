@@ -16,5 +16,5 @@
 <%@taglib prefix="acme" uri="http://acme-framework.org/"%>
 
 <div class="rounded" style="background: <acme:print code='master.banner.background'/>">
-	<img src="images/banner.png" alt="<acme:print code='master.banner.alt'/>" class="img-fluid rounded"/>
+	<img src="images/banner.png" alt="<acme:print code='master.banner.alt'/>" class="img-fluid rounded mx-auto d-block" style="width: 60%; height: auto;"/>
 </div>
