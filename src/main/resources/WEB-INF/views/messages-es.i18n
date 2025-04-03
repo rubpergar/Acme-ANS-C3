@@ -181,3 +181,5 @@ customer.booking.form.error.draftBooking = No puedes realizar esta acción para 
 acme.validation.booking-passenger.notPublishedPassenger.message = El pasajero no está publicado. Por favor, publique el pasajero antes de continuar.
 acme.validation.booking.flight-departure.message = El vuelo ya ha salido. No puede realizar esta reserva.
 acme.validation.booking.notExisting-flight.message = El vuelo no existe. Por favor, proporcione un vuelo válido.
+acme.validation.booking-passenger.notExistingBookingPassenger.message= Este pasajero ya está asignado a la reserva. Por favor, proporcione un pasajero diferente.
+customer.project.publish.error.passengerNotEmpty = Para publicar una reserva, al menos debe haber 1 pasajero.

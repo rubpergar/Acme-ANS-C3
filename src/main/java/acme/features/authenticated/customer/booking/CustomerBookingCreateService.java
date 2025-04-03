@@ -28,20 +28,8 @@ public class CustomerBookingCreateService extends AbstractGuiService<Customer, B
 
 	@Override
 	public void authorise() {
-		//		Booking booking;
-		//		int bookingId;
-		//		int userAccountId;
-		//
-		//		bookingId = super.getRequest().getData("id", int.class);
-		//		booking = this.repository.findBookingById(bookingId);
-		//
-		//		userAccountId = super.getRequest().getPrincipal().getAccountId();
-		//		super.getResponse().setAuthorised(booking.getCustomer().getUserAccount().getId() == userAccountId);
-		//
-		//		if (booking.getFlight().getIsDraft() && booking.getFlight() != null)
-		//			super.state(booking.getIsDraft(), "*", "customer.booking.form.error.notDraftFlight", "flight");
-
-		super.getResponse().setAuthorised(true);
+		boolean status = super.getRequest().getPrincipal().hasRealmOfType(Customer.class);
+		super.getResponse().setAuthorised(status);
 	}
 
 	@Override
@@ -57,9 +45,7 @@ public class CustomerBookingCreateService extends AbstractGuiService<Customer, B
 
 		booking = new Booking();
 		booking.setLocatorCode("");
-		booking.setFlight(null);
 		booking.setPurchaseMoment(currentMoment);
-		booking.setTravelClass(null);
 		booking.getPrice();
 		booking.setLastNibble(null);
 		booking.setIsDraft(true);
@@ -70,32 +56,32 @@ public class CustomerBookingCreateService extends AbstractGuiService<Customer, B
 
 	@Override
 	public void bind(final Booking booking) {
-<<<<<<< HEAD
-		super.bindObject(booking, "locatorCode", "flight", "purchaseMoment", "travelClass", "price", "lastNibble", "isDraft");
-=======
-		super.bindObject(booking, "locatorCode", "flight", "travelClass", "lastNibble");
->>>>>>> 43c7b441e8822bccee62898b8f486bddf29461d6
+		int flightId;
+		Flight flight;
+
+		flightId = super.getRequest().getData("flight", int.class);
+		flight = this.repository.findFlightById(flightId);
+		booking.setFlight(flight);
+
+		super.bindObject(booking, "locatorCode", "travelClass", "lastNibble");
 	}
 
-	// ??????
 	@Override
 	public void validate(final Booking booking) {
 		assert booking != null;
 
 		// Verificar que el locatorCode es único
-		boolean locatorCodeStatus = this.repository.findBookingByLocatorCode(booking.getLocatorCode()) == null;
+		boolean locatorCodeStatus = this.repository.findBookingsByLocatorCode(booking.getLocatorCode()).size() == 0;
 		super.state(locatorCodeStatus, "locatorCode", "acme.validation.booking.repeated-locatorCode.message");
 
 		// Verificar que PurchaseMoment no cambia
 		boolean purchaseMomentStatus = booking.getPurchaseMoment().equals(MomentHelper.getCurrentMoment());
 		super.state(purchaseMomentStatus, "purchaseMoment", "acme.validation.booking.incorrect-purchaseMoment.message");
 
-		// Verificar que el price no cambia
-		boolean priceStatus = booking.getPrice().equals(booking.getPrice());
-		super.state(priceStatus, "price", "acme.validation.booking.incorrect-price.message");
-
 		// Verificar que el flight está publicado
-		boolean flightDraftStatus = booking.getFlight().getIsDraft() == false;
+		boolean flightDraftStatus = true;
+		if (booking.getFlight() != null)
+			flightDraftStatus = booking.getFlight().getIsDraft() == false;
 		super.state(flightDraftStatus, "flight", "acme.validation.booking.flight-draft.message");
 
 		// Verificar que el flight no es null
@@ -106,6 +92,7 @@ public class CustomerBookingCreateService extends AbstractGuiService<Customer, B
 	@Override
 	public void perform(final Booking booking) {
 		assert booking != null;
+		booking.setFlight(booking.getFlight());
 		this.repository.save(booking);
 	}
 
@@ -115,7 +102,7 @@ public class CustomerBookingCreateService extends AbstractGuiService<Customer, B
 
 		List<Flight> nonDraftFlights = this.repository.findNotDraftFlights().stream().toList();
 		SelectChoices travelClasses = SelectChoices.from(TravelClass.class, booking.getTravelClass());
-		SelectChoices flights = SelectChoices.from(nonDraftFlights, "tag", booking.getFlight());
+		SelectChoices flights = SelectChoices.from(nonDraftFlights, "flightDistinction", booking.getFlight());
 		Dataset dataset;
 		dataset = super.unbindObject(booking, "locatorCode", "flight", "purchaseMoment", "travelClass", "lastNibble", "isDraft");
 		dataset.put("travelClass", travelClasses);

@@ -22,6 +22,7 @@
         </jstl:when>
         <jstl:when test="${acme:anyOf(_command, 'show|update|publish')  && isDraft == true}">
             <acme:button code="customer.booking.passengers" action="/customer/booking-passenger/list?masterId=${id}"/>
+            <acme:button code="customer.bookingPassenger.form.button.addPassenger" action="/customer/booking-passenger/create?masterId=${id}"/>
             <acme:submit code="customer.booking.form.button.update" action="/customer/booking/update"/>
             <acme:submit code="customer.booking.form.button.publish" action="/customer/booking/publish"/>
         </jstl:when>
