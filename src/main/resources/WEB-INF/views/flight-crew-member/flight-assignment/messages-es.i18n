@@ -1,0 +1,24 @@
+# messages-es.i18n
+
+flight-crew-member.flight-assignment.form.title = Formulario de asignaciones de vuelo
+flight-crew-member.flight-assignment.list.title = Lista de asignaciones de vuelo
+
+member.flight-assignment.form.label.duty = Trabajo
+member.flight-assignment.form.label.lastUpdateMoment = Último momento de actualización
+member.flight-assignment.form.label.status = Estado
+member.flight-assignment.form.label.remarks = Comentarios
+member.flight-assignment.form.label.leg = Tramo de vuelo
+member.flight-assignment.form.label.flightCrewMember = Miembro de la tripulación
+
+member.flight-assignment.form.button.create = Crear
+member.flight-assignment.form.button.update = Actualizar
+member.flight-assignment.form.button.publish = Publicar
+member.flight-assignment.form.button.delete = Eliminar
+member.flight-assignment.form.button.activity-log = Registros de actividad
+
+member.flight-assignment.list.label.duty = Trabajo
+member.flight-assignment.list.label.status = Estado
+member.flight-assignment.list.label.remarks = Comentarios
+member.flight-assignment.list.label.draftMode = Borrador
+
+member.flight-assignment.list.button.create = Crear

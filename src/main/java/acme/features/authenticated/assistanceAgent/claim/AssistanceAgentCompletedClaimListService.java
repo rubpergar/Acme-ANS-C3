@@ -9,7 +9,6 @@ import acme.client.components.models.Dataset;
 import acme.client.services.AbstractGuiService;
 import acme.client.services.GuiService;
 import acme.entities.claims.Claim;
-import acme.entities.claims.ClaimStatus;
 import acme.realms.AssistanceAgent;
 
 @GuiService
@@ -33,7 +32,7 @@ public class AssistanceAgentCompletedClaimListService extends AbstractGuiService
 		int assistanceAgentId;
 
 		assistanceAgentId = super.getRequest().getPrincipal().getActiveRealm().getId();
-		claims = this.repository.findCompletedClaimsByAssistanceAgent(assistanceAgentId, ClaimStatus.ACCEPTED, ClaimStatus.REJECTED);
+		claims = this.repository.findCompletedClaimsByAssistanceAgent(assistanceAgentId);
 
 		super.getBuffer().addData(claims);
 	}

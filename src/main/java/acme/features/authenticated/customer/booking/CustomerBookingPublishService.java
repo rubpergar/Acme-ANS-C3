@@ -55,7 +55,7 @@ public class CustomerBookingPublishService extends AbstractGuiService<Customer, 
 	@Override
 	public void bind(final Booking booking) {
 		assert booking != null;
-		super.bindObject(booking, "locatorCode", "flight", "purchaseMoment", "travelClass", "price", "lastNibble", "isDraft");
+		super.bindObject(booking, "locatorCode", "flight", "purchaseMoment", "travelClass", "lastNibble", "isDraft");
 	}
 
 	@Override
@@ -85,6 +85,7 @@ public class CustomerBookingPublishService extends AbstractGuiService<Customer, 
 		dataset.put("travelClass", travelClasses);
 		dataset.put("flight", flights);
 		dataset.put("passenger", !passengers.isEmpty());
+
 		super.getResponse().addData(dataset);
 	}
 

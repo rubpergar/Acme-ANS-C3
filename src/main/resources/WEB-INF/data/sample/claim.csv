@@ -1,5 +1,5 @@
-key,registrationMoment,email,description,type,status,key:assistanceAgent,draftMode
-claim-01,2012/07/02 00:00,example1@gmail.com,lorem,FLIGHT_ISSUES,ACCEPTED,agent-01,true
-claim-02,2012/07/02 00:00,example2@gmail.com,lorem,FLIGHT_ISSUES,REJECTED,agent-01,true
-claim-03,2012/07/02 00:00,example2@gmail.com,lorem,FLIGHT_ISSUES,PENDING,agent-01,true
-claim-04,2012/07/02 00:00,example2@gmail.com,lorem,FLIGHT_ISSUES,PENDING,agent-01,true
+key,registrationMoment,email,description,type,status,key:assistanceAgent,key:leg,draftMode
+claim-01,2012/07/02 00:00,example1@gmail.com,lorem,FLIGHT_ISSUES,ACCEPTED,agent-01,leg-01,true
+claim-02,2012/07/03 00:00,example2@gmail.com,lorem,FLIGHT_ISSUES,PENDING,agent-01,leg-01,true
+claim-03,2012/07/04 00:00,example3@gmail.com,lorem,FLIGHT_ISSUES,REJECTED,agent-01,leg-01,true
+claim-04,2012/07/05 00:00,example4@gmail.com,lorem,FLIGHT_ISSUES,PENDING,agent-01,leg-01,true

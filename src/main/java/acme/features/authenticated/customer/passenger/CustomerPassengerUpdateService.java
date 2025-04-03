@@ -19,20 +19,14 @@ public class CustomerPassengerUpdateService extends AbstractGuiService<Customer,
 	// AbstractGuiService interface -------------------------------------------
 
 
-	// ?????
 	@Override
 	public void authorise() {
 		Passenger passenger;
-		int passengerId;
-		int userAccountId;
-
-		passengerId = super.getRequest().getData("id", int.class);
-		passenger = this.repository.findPassengerById(passengerId);
-
-		super.getResponse().setAuthorised(true);
-
-		if (passenger.getIsDraft())
-			super.state(passenger.getIsDraft(), "*", "customer.booking.form.error.notDraft", "isDraft");
+		int id;
+		id = super.getRequest().getData("id", int.class);
+		passenger = this.repository.findPassengerById(id);
+		int userAccountId = super.getRequest().getPrincipal().getAccountId();
+		super.getResponse().setAuthorised(passenger.getCustomer().getUserAccount().getId() == userAccountId && passenger.getIsDraft());
 	}
 
 	@Override
@@ -48,7 +42,7 @@ public class CustomerPassengerUpdateService extends AbstractGuiService<Customer,
 
 	@Override
 	public void bind(final Passenger passenger) {
-		super.bindObject(passenger, "fullName", "email", "passportNumber", "dateOfBirth", "specialNeeds", "isDraft");
+		super.bindObject(passenger, "fullName", "email", "passportNumber", "dateOfBirth", "specialNeeds");
 	}
 
 	// ???
@@ -67,7 +61,7 @@ public class CustomerPassengerUpdateService extends AbstractGuiService<Customer,
 	public void unbind(final Passenger passenger) {
 		assert passenger != null;
 		Dataset dataset;
-		dataset = super.unbindObject(passenger, "fullName", "email", "passportNumber", "dateOfBirth", "specialNeeds", "isDraft");
+		dataset = super.unbindObject(passenger, "fullName", "email", "passportNumber", "dateOfBirth", "specialNeeds");
 		super.getResponse().addData(dataset);
 	}
 

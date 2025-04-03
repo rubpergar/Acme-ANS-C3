@@ -38,6 +38,8 @@ acme.validation.birthday.invalid-date.message=The minimum age to work in Spain i
 
 acme.validation.leg.invalid-airport.message=The arrival airport can't the same that the departure airport. 
 
+acme.validation.leg.duplicate-flight-number.message=The flight number is already in use. Please provide a different one.
+
 
 
 manager.flight.form.label.tag = Tag
@@ -66,6 +68,8 @@ manager.flight.form.error.notDraft = You can not do this action for a flight tha
 manager.flight.publish.error.notAllPublished = Total legs must be published to publish the flight.
 manager.project.publish.error.noLegs = You must have at least one leg to publish a flight.
 manager.flight.publish.error.overlappingLegs = The legs of the flight overlap.
+manager.flight.publish.error.notAfter= The flight must be published before the flight starts.
+manager.leg.publish.error.notAfter= The leg must be published before the flight starts.
 
 manager.flight.list.label.tag = Tag
 manager.flight.list.label.cost = Cost
@@ -74,14 +78,47 @@ manager.flight.list.label.selfTransfer =  Do you have to change flights on your 
 manager.flight.list.label.isDraft = Is it a draft? 
 manager.flight.legs = Legs of the flight
 
-assistance-agent.claim.list.title = Completed Claims
-
+assistance-agent.claim.list.title = List of claims
 assistanceAgent.claim.list.label.registrationMoment = Registration Moment
 assistanceAgent.claim.list.label.email = Email
 assistanceAgent.claim.list.label.description = Description
 assistanceAgent.claim.list.label.type = Type
 assistanceAgent.claim.list.label.status = Status
 assistanceAgent.claim.list.label.draftMode = Draft Mode
+
+assistance-agent.claim.form.title = Claim
+assistanceAgent.claim.create = Create
+assistanceAgent.claim.form.button.create = Create
+assistanceAgent.claim.form.button.update = Update
+assistanceAgent.claim.form.button.delete = Delete
+assistanceAgent.claim.form.button.publish = Publish
+assistanceAgent.claim.trackingLogs = It's tracking logs
+assistanceAgent.claim.form.label.registrationMoment = Registration Moment
+assistanceAgent.claim.form.label.email = Email
+assistanceAgent.claim.form.label.description = Description
+assistanceAgent.claim.form.label.type = Type
+assistanceAgent.claim.form.label.status = Status
+assistanceAgent.claim.form.label.leg = Leg
+
+assistance-agent.tracking-log.list.title = Tracking Logs
+assistanceAgent.trackingLog.list.label.lastUpdate = Last Update
+assistanceAgent.trackingLog.list.label.stepUndergoing = Step Undergoing
+assistanceAgent.trackingLog.list.label.resolutionPercentage = Percentage of resolution
+assistanceAgent.trackingLog.list.label.status = Status
+assistanceAgent.trackingLog.list.label.resolution = Resolution
+assistanceAgent.trackingLog.list.label.draftMode = Draft
+
+assistance-agent.tracking-log.form.title = Tracking Log
+assistanceAgent.trackingLog.form.button.create = Create
+assistanceAgent.trackingLog.form.button.update = Update
+assistanceAgent.trackingLog.form.button.delete = Delete
+assistanceAgent.trackingLog.form.button.publish = Publish
+assistanceAgent.trackingLog.form.label.lastUpdate = Last Update
+assistanceAgent.trackingLog.form.label.stepUndergoing  = Step Undergoing
+assistanceAgent.trackingLog.form.label.resolutionPercentage = Percentage of Resolution
+assistanceAgent.trackingLog.form.label.status = Status
+assistanceAgent.trackingLog.form.label.resolution = Resolution 
+
 
 master.menu.administrator.list-aircrafts = List aircrafts
 administrator.aircraft.list.title = Aircrafts
@@ -102,8 +139,35 @@ administrator.airport.form.button.update = Update
 administrator.airport.form.button.disable = Disable
 administrator.aircraft.form.button.create = Create Aircraft
 
+master.menu.administrator.list-airport = List of airports
+administrator.airport.list.title = Airports
+administrator.airport.list.label.name = Name
+administrator.airport.list.label.IATAcode = IATA
+administrator.airport.list.label.scope = Scope
+administrator.airport.list.label.city = City
+administrator.airport.list.label.country = Country
+administrator.airport.list.label.web = Web
+administrator.airport.list.label.email = Email
+administrator.airport.list.label.phone = Phone Number
+
+administrator.airport.list.button.create = Create Airport
+
+administrator.airport.form.title = Airports
+administrator.airport.form.label.name = Name
+administrator.airport.form.label.IATAcode = IATA
+administrator.airport.form.label.scope = Scope
+administrator.airport.form.label.city = City
+administrator.airport.form.label.country = Country
+administrator.airport.form.label.web = Web
+administrator.airport.form.label.email = Email
+administrator.airport.form.label.phone = Phone Number
+
+administrator.airport.form.label.confirmation = Are you sure you want to proceed with this action for this aircraft?
+administrator.airport.form.button.update = Update
+administrator.airport.form.button.create = Create
+
 manager.leg.list.title = Legs of the flight
-manager.leg.list.label.flightNumber = Flight number (It must start with IATAcode of aircraft.Ej:AAX)
+manager.leg.list.label.flightNumber = Flight number (It must start with IATAcode of airline.Ej:AAX)
 manager.leg.list.label.flightNumber2 = Flight number
 manager.leg.list.label.scheduledDeparture = Sche.dep
 manager.leg.list.label.scheduledArrival = Sche.arr
@@ -111,7 +175,7 @@ manager.leg.list.label.status = Status
 manager.leg.create.button = Create Leg
 manager.leg.list.label.departureAirport = Dep.airp
 manager.leg.list.label.arrivalAirport = Arr.airp
-manager.leg.list.label.aircraft = Aircraft (IATAcode)
+manager.leg.list.label.aircraft = Aircraft (Airline's IATAcode)
 manager.leg.list.label.aircraft2 = Aircraft
 manager.leg.form.title=Leg details
 manager.leg.form.button.update=Update
@@ -153,7 +217,7 @@ customer.passenger.list.label.passportNumber = Passport Number
 customer.passenger.list.label.dateOfBirth = Date of Birth
 customer.passenger.list.label.isDraft = Is it a draft?
 
-customer.passenger.create = Create
+customer.passenger.create = Create Passenger
 customer.passenger.update = Update
 customer.passenger.publish = Publish
 customer.passenger.list.title = My Passengers
@@ -169,4 +233,25 @@ customer.passenger.form.button.create = Create
 customer.passenger.form.button.update = Update
 customer.passenger.form.button.publish = Publish
 
+customer.bookingPassenger.form.button.addPassenger = Add Passenger
+customer.booking-passenger.form.title = Passenger of the Booking
+customer.bookingPassenger.form.label.passenger  = Passenger
+customer.bookingPassenger.form.label.booking = Booking
+customer.bookingPassenger.form.button.deleteBookingPassenger = Delete Booking Passenger
+
 customer.project.publish.error.lastNibbleNotPublished = To publish a booking the last credit card nibble must have been stored. 
+
+acme.validation.flight-assignment.incompatible-legs.message = This member cannot be assigned to multiple legs simultaneously
+acme.validation.flight-assignment.has-pilot.message = This duty has been already assigned. Each leg can only have one pilot
+acme.validation.flight-assignment.has-copilot.message = This duty has been already assigned. Each leg can only have one copilot
+acme.validation.flight-assignment.leg-concluded.message = This flight assignment cannot be linked to a leg that have already occurred
+
+acme.validation.booking.repeated-locatorCode.message = The locator code must be unique. This value is already used by another booking.
+customer.booking.form.error.notDraftFlight = You can not do this action for a flight that is not published
+acme.validation.booking.incorrect-purchaseMoment.message = The purchase moment can not be changed
+acme.validation.booking.incorrect-price.message = The price can not be changed
+customer.booking-passenger.list.title = Passengers of the booking
+customer.booking.form.error.draftBooking = You can not do this action for a booking that is already published
+acme.validation.booking-passenger.notPublishedPassenger.message = The passenger must be published to be added to the booking
+acme.validation.booking.flight-departure.message= The flight has already departed. You cannot create a booking for a flight that has already departed.
+acme.validation.booking.notExisting-flight.message = The flight does not exist. Please select a valid flight.

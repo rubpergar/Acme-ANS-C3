@@ -1,0 +1,24 @@
+# messages-es.i18n
+
+administrator.airline.list.title = Lista aerolíneas
+administrator.airline.form.title = Formulario aerolíneas
+
+administrator.airline.list.label.name = Nombre
+administrator.airline.list.label.type = Tipo
+administrator.airline.list.label.foundationMoment = Fecha de fundación
+
+administrator.airline.list.button.create = Crear
+
+administrator.airline.form.label.name = Nombre
+administrator.airline.form.label.codeIATA = Código IATA
+administrator.airline.form.label.website = Sitio web
+administrator.airline.form.label.type = Tipo
+administrator.airline.form.label.foundationMoment = Fecha de fundación
+administrator.airline.form.label.email = Email
+administrator.airline.form.label.phone = Teléfono
+administrator.airline.form.label.confirmation = Confirma para guardar tus cambios
+
+administrator.airline.form.button.create = Crear
+administrator.airline.form.button.update = Actualizar
+
+acme.validation.duplicated-iata.message = Este código IATA está siendo utilizado por otra aerolínea

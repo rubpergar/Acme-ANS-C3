@@ -1,16 +1,25 @@
 
 package acme.constraints;
 
+import java.util.Optional;
+
 import javax.validation.ConstraintValidatorContext;
+
+import org.springframework.beans.factory.annotation.Autowired;
 
 import acme.client.components.validation.AbstractValidator;
 import acme.client.components.validation.Validator;
 import acme.client.helpers.MomentHelper;
 import acme.client.helpers.StringHelper;
 import acme.entities.legs.Leg;
+import acme.entities.legs.LegRepository;
 
 @Validator
 public class LegValidator extends AbstractValidator<ValidLeg, Leg> {
+
+	@Autowired
+	private LegRepository repository;
+
 
 	@Override
 	protected void initialise(final ValidLeg annotation) {
@@ -42,6 +51,12 @@ public class LegValidator extends AbstractValidator<ValidLeg, Leg> {
 		if (leg.getDepartureAirport() == leg.getArrivalAirport())
 			isValidAirport = false;
 		super.state(context, isValidAirport, "departureAirport", "acme.validation.leg.invalid-airport.message");
+
+		String flightNumber = leg.getFlightNumber();
+
+		Optional<Leg> legWithSameFlightNumber = this.repository.findLegByFlightNumber(flightNumber);
+		if (legWithSameFlightNumber.isPresent() && legWithSameFlightNumber.get().getId() != leg.getId())
+			super.state(context, false, "flightNumber", "acme.validation.leg.duplicate-flight-number.message");
 
 		return !super.hasErrors(context);
 	}

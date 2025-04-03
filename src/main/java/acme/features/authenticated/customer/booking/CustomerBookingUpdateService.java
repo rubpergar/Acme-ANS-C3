@@ -35,7 +35,8 @@ public class CustomerBookingUpdateService extends AbstractGuiService<Customer, B
 		booking = this.repository.findBookingById(bookingId);
 
 		userAccountId = super.getRequest().getPrincipal().getAccountId();
-		super.getResponse().setAuthorised(booking.getCustomer().getUserAccount().getId() == userAccountId);
+		boolean validFlight = this.repository.findNotDraftFlights().contains(booking.getFlight());
+		super.getResponse().setAuthorised(booking.getCustomer().getUserAccount().getId() == userAccountId && validFlight);
 
 		if (booking.getIsDraft())
 			super.state(booking.getIsDraft(), "*", "customer.booking.form.error.notDraft", "isDraft");
@@ -55,7 +56,7 @@ public class CustomerBookingUpdateService extends AbstractGuiService<Customer, B
 	@Override
 	public void bind(final Booking booking) {
 		assert booking != null;
-		super.bindObject(booking, "locatorCode", "flight", "purchaseMoment", "travelClass", "price", "lastNibble");
+		super.bindObject(booking, "locatorCode", "flight", "travelClass", "lastNibble");
 	}
 
 	// ????
@@ -74,13 +75,14 @@ public class CustomerBookingUpdateService extends AbstractGuiService<Customer, B
 	public void unbind(final Booking booking) {
 		List<Flight> nonDraftFlights = this.repository.findNotDraftFlights().stream().toList();
 		SelectChoices travelClasses = SelectChoices.from(TravelClass.class, booking.getTravelClass());
-		SelectChoices flights = SelectChoices.from(nonDraftFlights, "id", booking.getFlight());
+		SelectChoices flights = SelectChoices.from(nonDraftFlights, "tag", booking.getFlight());
 		List<Passenger> passengers = this.repository.findAllPassengersByBookingId(booking.getId()).stream().toList();
 		Dataset dataset;
-		dataset = super.unbindObject(booking, "locatorCode", "flight", "purchaseMoment", "travelClass", "price", "lastNibble");
+		dataset = super.unbindObject(booking, "locatorCode", "flight", "purchaseMoment", "travelClass", "lastNibble", "isDraft");
 		dataset.put("travelClass", travelClasses);
 		dataset.put("flight", flights);
 		dataset.put("passenger", !passengers.isEmpty());
+		dataset.put("price", booking.getPrice());
 		super.getResponse().addData(dataset);
 	}
 

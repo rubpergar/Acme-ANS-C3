@@ -31,6 +31,11 @@ public class CustomerPassengerCreateService extends AbstractGuiService<Customer,
 	public void load() {
 		Passenger passenger;
 		Date currentMoment;
+		int customerId;
+		Customer customer;
+
+		customerId = super.getRequest().getPrincipal().getActiveRealm().getId();
+		customer = this.repository.findCustomerById(customerId);
 
 		currentMoment = MomentHelper.getCurrentMoment();
 
@@ -41,15 +46,14 @@ public class CustomerPassengerCreateService extends AbstractGuiService<Customer,
 		passenger.setDateOfBirth(currentMoment);
 		passenger.setSpecialNeeds("");
 		passenger.setIsDraft(true);
-
-		//no se como asociar el passenger con el booking
+		passenger.setCustomer(customer);
 
 		super.getBuffer().addData(passenger);
 	}
 
 	@Override
 	public void bind(final Passenger passenger) {
-		super.bindObject(passenger, "fullName", "email", "passportNumber", "dateOfBirth", "specialNeeds", "isDraft");
+		super.bindObject(passenger, "fullName", "email", "passportNumber", "dateOfBirth", "specialNeeds");
 	}
 
 	// ??????
@@ -71,5 +75,4 @@ public class CustomerPassengerCreateService extends AbstractGuiService<Customer,
 		dataset = super.unbindObject(passenger, "fullName", "email", "passportNumber", "dateOfBirth", "specialNeeds", "isDraft");
 		super.getResponse().addData(dataset);
 	}
-
 }
