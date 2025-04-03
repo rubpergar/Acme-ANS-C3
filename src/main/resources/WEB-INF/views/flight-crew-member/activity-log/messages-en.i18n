@@ -1,0 +1,26 @@
+# messages-en.i18n
+
+flight-crew-member.activity-log.form.title = Activity Log Form
+flight-crew-member.activity-log.list.title = Activity Log List
+
+member.activity-log.form.label.registrationMoment = Registration Moment
+member.activity-log.form.label.type = Incident type
+member.activity-log.form.label.description = Description
+member.activity-log.form.label.severityLevel = Severity Level
+member.activity-log.form.label.flightAssignment = Flight Assignment
+
+member.activity-log.form.button.create = Create
+member.activity-log.form.button.update = Update
+member.activity-log.form.button.publish = Publish
+member.activity-log.form.button.delete = Delete
+
+member.activity-log.list.label.type = Incident type
+member.activity-log.list.label.description = Description
+member.activity-log.list.label.severityLevel = Flight Assignment
+member.activity-log.list.label.draftMode = Draft
+
+member.activity-log.list.button.create = Create
+
+acme.validation.out-0-10-range.message = Value must be between 0 and 10
+acme.validation.out-1-50-range.message = The field must have between 1 and 50 characters
+acme.validation.out-1-255-range.message = The field must have between 1 and 255 characters

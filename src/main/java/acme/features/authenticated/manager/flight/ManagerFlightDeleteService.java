@@ -28,7 +28,7 @@ public class ManagerFlightDeleteService extends AbstractGuiService<Manager, Flig
 		flightId = super.getRequest().getData("id", int.class);
 		flight = this.repository.getFlightById(flightId);
 		userAccountId = super.getRequest().getPrincipal().getAccountId();
-		super.getResponse().setAuthorised(flight.getIsDraft() && flight.getAirlineManager().getUserAccount().getId() == userAccountId);
+		super.getResponse().setAuthorised(flight != null && flight.getIsDraft() && flight.getAirlineManager().getUserAccount().getId() == userAccountId);
 	}
 
 	@Override
@@ -56,14 +56,10 @@ public class ManagerFlightDeleteService extends AbstractGuiService<Manager, Flig
 	}
 
 	@Override
-	public void perform(final Flight flight) {   //borra el vuelo y todos los legs asociados
+	public void perform(final Flight flight) {
 		assert flight != null;
 
-		//lo de booking no sirve para nada porque un vuelo no tiene booking si no se ha publicado(y no se puede borrar si esta publicado)
-
 		this.repository.getLegsByFlight(flight.getId()).forEach(leg -> {
-			//pasa lo mismo que antes pero con los assigments y los logs, porque un leg no puede tener eso si el vuelo no se ha llevado a cabo
-			//y no se puede llevar a cabo sin ser publicado
 			this.repository.delete(leg);
 		});
 

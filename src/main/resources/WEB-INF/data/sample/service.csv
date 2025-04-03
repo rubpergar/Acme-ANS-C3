@@ -1,48 +1,48 @@
 key,name,imageLink,averageDwellTime,promotionCode,discount
 # name
-service-01,lorem,https://i.imgur.com/8YcXhS0.png,10.00,ABCD-25,5.00
-service-02,L,https://i.imgur.com/MtBRoNP.png,10.00,EFGH-25,5.00
-service-03,Lo,https://i.imgur.com/NGLSjk6.png,10.00,IJKL-25,5.00
-service-04,"Lorem ipsum dolor sit amet, consectetur adipiscin",https://i.imgur.com/fihihcF.png,10.00,MNOP-25,5.00
-service-05,"Lorem ipsum dolor sit amet, consectetur adipiscing",https://i.imgur.com/2eVF1HG.png,10.00,QRST-25,5.00
-service-06,โลเร็ม อิปซัม,https://i.imgur.com/CqtMSmM.png,10.00,UVWX-25,5.00
-service-07,لوريم إيبسوم,https://i.imgur.com/sgx1bFo.png,10.00,YZAB-25,5.00
-service-08,洛伦·伊普森,https://i.imgur.com/qu5SrLN.png,10.00,CDEF-25,5.00
-service-09,Valid Name,https://i.imgur.com/8n7KfX1.png,10.00,GHJK-25,5.00
-service-10,Valid Script,https://i.imgur.com/8YcXhS0.png,10.00,LMNO-25,5.00
-service-11,Safe Input,https://i.imgur.com/MtBRoNP.png,10.00,PQRS-25,5.00
+service-01,lorem,http://lorem.com/ipsum,10.00,ABCD-25,5.00
+service-02,L,http://lorem.com/ipsum,10.00,EFGH-25,5.00
+service-03,Lo,http://lorem.com/ipsum,10.00,IJKL-25,5.00
+service-04,"Lorem ipsum dolor sit amet, consectetur adipiscin",http://lorem.com/ipsum,10.00,MNOP-25,5.00
+service-05,"Lorem ipsum dolor sit amet, consectetur adipiscing",http://lorem.com/ipsum,10.00,QRST-25,5.00
+service-06,โลเร็ม อิปซัม,http://lorem.com/ipsum,10.00,UVWX-25,5.00
+service-07,لوريم إيبسوم,http://lorem.com/ipsum,10.00,YZAB-25,5.00
+service-08,洛伦·伊普森,http://lorem.com/ipsum,10.00,CDEF-25,5.00
+service-09,Valid Name,http://lorem.com/ipsum,10.00,GHJK-25,5.00
+service-10,Valid Script,http://lorem.com/ipsum,10.00,LMNO-25,5.00
+service-11,Safe Input,http://lorem.com/ipsum,10.00,PQRS-25,5.00
 # imageLink
-service-12,lorem,https://i.imgur.com/NGLSjk6.png,10.00,TUVW-25,5.00
-service-13,lorem,https://i.imgur.com/fihihcF.png,10.00,XYZB-25,5.00
-service-14,lorem,https://i.imgur.com/2eVF1HG.png,10.00,ABCE-25,5.00
-service-15,lorem,https://i.imgur.com/CqtMSmM.png,10.00,FGHI-25,5.00
-service-16,lorem,https://i.imgur.com/sgx1bFo.png,10.00,JKLA-25,5.00
-service-17,lorem,https://i.imgur.com/qu5SrLN.png,10.00,LMNP-25,5.00
-service-18,lorem,https://i.imgur.com/8n7KfX1.png,10.00,QWRS-25,5.00
-service-19,lorem,https://i.imgur.com/8YcXhS0.png,10.00,XYZA-25,5.00
-service-20,lorem,https://i.imgur.com/MtBRoNP.png,10.00,RSTU-25,5.00
-service-21,lorem,https://i.imgur.com/NGLSjk6.png,10.00,VWXY-25,5.00
-service-22,lorem,https://i.imgur.com/fihihcF.png,10.00,ZABC-25,5.00
-service-23,lorem,https://i.imgur.com/2eVF1HG.png,10.00,BCDE-25,5.00
-service-24,lorem,https://i.imgur.com/CqtMSmM.png,10.00,FGHJ-25,5.00
-service-25,lorem,https://i.imgur.com/sgx1bFo.png,10.00,IJKM-25,5.00
-service-26,lorem,https://i.imgur.com/qu5SrLN.png,10.00,NOPQ-25,5.00
-service-27,lorem,https://i.imgur.com/8n7KfX1.png,10.00,STUV-25,5.00
-service-28,lorem,https://i.imgur.com/8YcXhS0.png,10.00,WXYZ-25,5.00
+service-12,lorem,ftp://a,10.00,TUVW-25,5.00
+service-13,lorem,ftp://a.b,10.00,XYZB-25,5.00
+service-14,lorem,"http://www.lorem-ipsum.org/dolor/sit/amet,/consectetur/adipiscing/elit,/sed/do/eiusmod/tempor/incididunt/ut/labore/et/dolore/magna/aliqua/Ut/enim/ad/minim/veniam/quis/nostrud/exercitation/ullamco/laboris/nisi/ut/aliquip/ex/ea/commodo/consequat/duis/aute/",10.00,ABCE-25,5.00
+service-15,lorem,"http://www.lorem-ipsum.org/dolor/sit/amet,/consectetur/adipiscing/elit,/sed/do/eiusmod/tempor/incididunt/ut/labore/et/dolore/magna/aliqua/Ut/enim/ad/minim/veniam/quis/nostrud/exercitation/ullamco/laboris/nisi/ut/aliquip/ex/ea/commodo/consequat/duis/aute/X",10.00,FGHI-25,5.00
+service-16,lorem,https://www.lorem-ipsum.org,10.00,JKLA-25,5.00
+service-17,lorem,ftp://www.lorem-ipsum.org,10.00,LMNP-25,5.00
+service-18,lorem,http://www.lorem-ipsum.org/dolor/sit.html,10.00,QWRS-25,5.00
+service-19,lorem,http://www.lorem-ipsum.org/dolor/sit.html#dolor,10.00,XYZA-25,5.00
+service-20,lorem,http://example.org?a=1&b=2,10.00,RSTU-25,5.00
+service-21,lorem,http://example.org?,10.00,VWXY-25,5.00
+service-22,lorem,http://example.org?a,10.00,ZABC-25,5.00
+service-23,lorem,http://example.org?a&b,10.00,BCDE-25,5.00
+service-24,lorem,http://example.org/,10.00,FGHJ-25,5.00
+service-25,lorem,http://example.org/a,10.00,IJKM-25,5.00
+service-26,lorem,http://example.org/a/b,10.00,NOPQ-25,5.00
+service-27,lorem,http://example.org/a/b?,10.00,STUV-25,5.00
+service-28,lorem,http://example.org/a/b?a&b,10.00,WXYZ-25,5.00
 # averageDwellTime
-service-29,lorem,https://i.imgur.com/MtBRoNP.png,0.00,BCDF-25,5.00
-service-30,lorem,https://i.imgur.com/NGLSjk6.png,1.00,FGHK-25,5.00
-service-31,lorem,https://i.imgur.com/fihihcF.png,100.00,JKLB-25,5.00
-service-32,lorem,https://i.imgur.com/2eVF1HG.png,100.00,MNOQ-25,5.00
+service-29,lorem,http://lorem.com/ipsum,0.00,BCDF-25,5.00
+service-30,lorem,http://lorem.com/ipsum,1.00,FGHK-25,5.00
+service-31,lorem,http://lorem.com/ipsum,100.00,JKLB-25,5.00
+service-32,lorem,http://lorem.com/ipsum,100.00,MNOQ-25,5.00
 # promotionCode
-service-33,lorem,https://i.imgur.com/CqtMSmM.png,10.00,QRSU-25,5.00
-service-34,lorem,https://i.imgur.com/sgx1bFo.png,10.00,UVWY-25,5.00
-service-35,lorem,https://i.imgur.com/qu5SrLN.png,10.00,YZAC-25,5.00
-service-36,lorem,https://i.imgur.com/8n7KfX1.png,10.00,LMNQ-25,5.00
-service-37,lorem,https://i.imgur.com/8YcXhS0.png,10.00,TUVX-25,5.00
+service-33,lorem,http://lorem.com/ipsum,10.00,QRSU-25,5.00
+service-34,lorem,http://lorem.com/ipsum,10.00,UVWY-25,5.00
+service-35,lorem,http://lorem.com/ipsum,10.00,YZAC-25,5.00
+service-36,lorem,http://lorem.com/ipsum,10.00,LMNQ-25,5.00
+service-37,lorem,http://lorem.com/ipsum,10.00,TUVX-25,5.00
 # discount
-service-38,lorem,https://i.imgur.com/MtBRoNP.png,10.00,XYYZ-25,1.00
-service-39,lorem,https://i.imgur.com/NGLSjk6.png,10.00,ZABD-25,1.00
-service-40,lorem,https://i.imgur.com/fihihcF.png,10.00,WXZA-25,99.00
-service-41,lorem,https://i.imgur.com/2eVF1HG.png,10.00,XYAB-25,10.00
-service-42,lorem,https://i.imgur.com/CqtMSmM.png,10.00,LVNO-25,5.00
+service-38,lorem,http://lorem.com/ipsum,10.00,XYYZ-25,1.00
+service-39,lorem,http://lorem.com/ipsum,10.00,ZABD-25,1.00
+service-40,lorem,http://lorem.com/ipsum,10.00,WXZA-25,99.00
+service-41,lorem,http://lorem.com/ipsum,10.00,XYAB-25,10.00
+service-42,lorem,http://lorem.com/ipsum,10.00,LVNO-25,5.00

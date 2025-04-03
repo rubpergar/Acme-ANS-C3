@@ -69,6 +69,7 @@ public class ManagerLegDeleteService extends AbstractGuiService<Manager, Leg> {
 		dataset = super.unbindObject(leg, "flightNumber", "scheduledDeparture", "scheduledArrival", "status", "departureAirport", "arrivalAirport", "aircraft");
 		dataset.put("masterId", leg.getFlight().getId());
 		dataset.put("isDraft", leg.getIsDraft());
+		dataset.put("isDraftFlight", leg.getFlight().getIsDraft());
 
 		super.getResponse().addData(dataset);
 	}
