@@ -29,4 +29,7 @@ public interface AdministratorAircraftRepository extends AbstractRepository {
 	@Query("select l from Leg l where l.aircraft = :aircraft")
 	Collection<Leg> getLegsByAircraft(Aircraft aircraft);
 
+	@Query("select a from Airline a where a.name = :airline")
+	Airline getAirlineByName(String airline);
+
 }
