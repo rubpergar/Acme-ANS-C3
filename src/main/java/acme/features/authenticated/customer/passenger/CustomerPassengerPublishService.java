@@ -1,62 +1,50 @@
 
 package acme.features.authenticated.customer.passenger;
 
-import java.util.Date;
-
 import org.springframework.beans.factory.annotation.Autowired;
 
 import acme.client.components.models.Dataset;
-import acme.client.helpers.MomentHelper;
 import acme.client.services.AbstractGuiService;
 import acme.client.services.GuiService;
 import acme.entities.passenger.Passenger;
 import acme.realms.Customer;
 
 @GuiService
-public class CustomerPassengerCreateService extends AbstractGuiService<Customer, Passenger> {
-	// Internal state ---------------------------------------------------------
+public class CustomerPassengerPublishService extends AbstractGuiService<Customer, Passenger> {
 
 	@Autowired
 	private CustomerPassengerRepository repository;
 
-	// AbstractGuiService interface -------------------------------------------
+	// AbstractGuiService interface --------------------------------------------
 
 
 	@Override
 	public void authorise() {
-		super.getResponse().setAuthorised(true);
+		Passenger passenger;
+		int id;
+		id = super.getRequest().getData("id", int.class);
+		passenger = this.repository.findPassengerById(id);
+		int userAccountId = super.getRequest().getPrincipal().getAccountId();
+		super.getResponse().setAuthorised(passenger.getCustomer().getUserAccount().getId() == userAccountId && passenger.getIsDraft());
 	}
 
 	@Override
 	public void load() {
 		Passenger passenger;
-		Date currentMoment;
-		int customerId;
-		Customer customer;
+		int passengerId;
 
-		customerId = super.getRequest().getPrincipal().getActiveRealm().getId();
-		customer = this.repository.findCustomerById(customerId);
-
-		currentMoment = MomentHelper.getCurrentMoment();
-
-		passenger = new Passenger();
-		passenger.setFullName("");
-		passenger.setEmail("");
-		passenger.setPassportNumber("");
-		passenger.setDateOfBirth(currentMoment);
-		passenger.setSpecialNeeds("");
-		passenger.setIsDraft(true);
-		passenger.setCustomer(customer);
+		passengerId = this.getRequest().getData("id", int.class);
+		passenger = this.repository.findPassengerById(passengerId);
 
 		super.getBuffer().addData(passenger);
 	}
 
 	@Override
 	public void bind(final Passenger passenger) {
+		assert passenger != null;
 		super.bindObject(passenger, "fullName", "email", "passportNumber", "dateOfBirth", "specialNeeds");
 	}
 
-	// ??????
 	@Override
 	public void validate(final Passenger passenger) {
 		assert passenger != null;
@@ -65,6 +53,7 @@ public class CustomerPassengerCreateService extends AbstractGuiService<Customer,
 	@Override
 	public void perform(final Passenger passenger) {
 		assert passenger != null;
+		passenger.setIsDraft(false);
 		this.repository.save(passenger);
 	}
 

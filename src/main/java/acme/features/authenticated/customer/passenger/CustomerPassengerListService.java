@@ -25,7 +25,6 @@ public class CustomerPassengerListService extends AbstractGuiService<Customer, P
 	public void authorise() {
 		super.getResponse().setAuthorised(true);
 	}
-
 	@Override
 	public void load() {
 		Collection<Passenger> passengers;

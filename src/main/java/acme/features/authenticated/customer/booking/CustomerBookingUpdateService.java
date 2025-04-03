@@ -35,7 +35,8 @@ public class CustomerBookingUpdateService extends AbstractGuiService<Customer, B
 		booking = this.repository.findBookingById(bookingId);
 
 		userAccountId = super.getRequest().getPrincipal().getAccountId();
-		super.getResponse().setAuthorised(booking.getCustomer().getUserAccount().getId() == userAccountId);
+		boolean validFlight = this.repository.findNotDraftFlights().contains(booking.getFlight());
+		super.getResponse().setAuthorised(booking.getCustomer().getUserAccount().getId() == userAccountId && validFlight);
 
 		if (booking.getIsDraft())
 			super.state(booking.getIsDraft(), "*", "customer.booking.form.error.notDraft", "isDraft");

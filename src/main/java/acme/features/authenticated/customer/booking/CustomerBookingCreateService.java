@@ -91,9 +91,12 @@ public class CustomerBookingCreateService extends AbstractGuiService<Customer, B
 		super.state(priceStatus, "price", "acme.validation.booking.incorrect-price.message");
 
 		// Verificar que el flight está publicado
-		boolean flightStatus = booking.getFlight().getIsDraft() == false;
-		super.state(flightStatus, "flight", "acme.validation.booking.flight-draft.message");
+		boolean flightDraftStatus = booking.getFlight().getIsDraft() == false;
+		super.state(flightDraftStatus, "flight", "acme.validation.booking.flight-draft.message");
 
+		// Verificar que el flight no es null
+		boolean flightNullStatus = this.repository.findNotDraftFlights().contains(booking.getFlight());
+		super.state(flightNullStatus, "flight", "acme.validation.booking.notExisting-flight.message");
 	}
 
 	@Override
