@@ -67,8 +67,9 @@ customer.booking.passengers = Pasajeros
 
 customer.passenger.list.label.fullName = Nombre completo
 customer.passenger.list.label.email = Email
-customer.passenger.list.label.passportNumber = Numero de pasaporte
+customer.passenger.list.label.passportNumber = Número de pasaporte
 customer.passenger.list.label.dateOfBirth = Fecha de nacimiento
+customer.booking.form.label.lastNibble = Últimos dígitos de la tarjeta de crédito
 customer.passenger.list.label.isDraft = ¿Es un borrador?
 
 customer.passenger.create = Crear Pasajero
@@ -83,11 +84,15 @@ customer.passenger.form.label.passportNumber = Numero de pasaporte
 customer.passenger.form.label.dateOfBirth= Fecha de nacimiento
 customer.passenger.form.label.specialNeeds = Necesidades especiales
 customer.passenger.form.isDraft  = ¿Es un borrador?
+customer.passenger.form.button.create = Crear pasajero
+customer.passenger.form.button.update = Actualizar
+customer.passenger.form.button.publish = Publicar
 
 customer.bookingPassenger.form.button.addPassenger = Añadir pasajero
-customer.booking-passenger.form.title = Añadir pasajero a la reserva
+customer.booking-passenger.form.title = Pasajero de la reserva
 customer.bookingPassenger.form.label.passenger  = Pasajero
 customer.bookingPassenger.form.label.booking = Reserva
+customer.bookingPassenger.form.button.deleteBookingPassenger = Eliminar pasajero de la reserva
 
 manager.flight.form.label.tag = Etiqueta
 manager.flight.form.label.cost = Costo

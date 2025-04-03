@@ -16,9 +16,9 @@ passenger-10,customer-01,<script>alert('Test!');</script>,passenger10@newmail.co
 passenger-11,customer-01," or "B" = "B,passenger11@newmail.com,OLIKUJ23,2001/11/27 05:55,None,false
 
 # email - variations
-passenger-12,customer-01,Ipsum Lorem,xyz@abc.com,ZXCVB678,1980/01/30 03:15,None,true
+passenger-12,customer-01,Ipsum Lorem,xyz@abc.com,ZXCVB678,1980/01/30 03:15,None,false
 passenger-13,customer-01,Ipsum Lorem,test@ipsum-lorem.net,ASDFG234,1993/05/25 20:45,None,false
-passenger-14,customer-01,Ipsum Lorem,lorem-ipsum@amet.dolor.elit.tempor.incididunt.ut.labore.et.magna.aliqua.ad.minim.veniam.quis.exercitation.ullamco.laboris.nisi.ut.aliquip.ex.ea.consequat.duis.aute.irure.doloris.edu,GHJKL890,1987/12/19 13:10,None,true
+passenger-14,customer-01,Ipsum Lorem,lorem-ipsum@amet.dolor.elit.tempor.incididunt.ut.labore.et.magna.aliqua.ad.minim.veniam.quis.exercitation.ullamco.laboris.nisi.ut.aliquip.ex.ea.consequat.duis.aute.irure.doloris.edu,GHJKL890,1987/12/19 13:10,None,false
 
 # passportNumber - variations
 passenger-15,customer-01,Ipsum Lorem,passenger15@newmail.com,QAZ12345,1991/07/09 11:25,None,false

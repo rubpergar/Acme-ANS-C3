@@ -21,6 +21,7 @@ master.menu.anonymous.rubpergar-link = 77863706N: Pérez Garrido, Rubén
 
 master.menu.customer = Cliente
 master.menu.customer.list-bookings = Mis reservas
+master.menu.customer.list-passengers = Mis pasajeros
 
 # master.menu.administrator ###################################################
 
