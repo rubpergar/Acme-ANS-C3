@@ -9,6 +9,7 @@ import acme.client.services.AbstractGuiService;
 import acme.client.services.GuiService;
 import acme.entities.booking.Booking;
 import acme.entities.booking.BookingPassenger;
+import acme.entities.passenger.Passenger;
 import acme.realms.Customer;
 
 @GuiService
@@ -19,25 +20,6 @@ public class CustomerBookingPassengerCreateService extends AbstractGuiService<Cu
 	private CustomerBookingPassengerRepository repository;
 
 	// AbstractGuiService interface -------------------------------------------
-
-	//	@Override
-	//	public void authorise() {
-	//		//		super.getResponse().setAuthorised(true);
-	//
-	//		Booking booking;
-	//		int bookingId;
-	//		int customerId;
-	//
-	//		bookingId = super.getRequest().getData("id", int.class);
-	//		booking = this.repository.findBookingById(bookingId);
-	//		boolean isDraft = booking.getIsDraft();
-	//
-	//		customerId = super.getRequest().getPrincipal().getActiveRealm().getId();
-	//		super.getResponse().setAuthorised(customerId == booking.getCustomer().getId() && isDraft);
-	//
-	//		if (!isDraft)
-	//			super.state(false, "*", "customer.booking.form.error.draftBooking", "booking");
-	//	}
 
 
 	@Override
@@ -71,28 +53,43 @@ public class CustomerBookingPassengerCreateService extends AbstractGuiService<Cu
 
 		bookingPassenger = new BookingPassenger();
 		bookingPassenger.setBooking(booking);
-		bookingPassenger.setPassenger(null);
 
 		super.getBuffer().addData(bookingPassenger);
 	}
 
 	@Override
 	public void bind(final BookingPassenger bookingPassenger) {
-		super.bindObject(bookingPassenger, "booking", "passenger");
+		int passengerId;
+		Passenger passenger;
+
+		passengerId = super.getRequest().getData("passenger", int.class);
+		passenger = this.repository.findPassengerById(passengerId);
+		bookingPassenger.setPassenger(passenger);
+
+		super.bindObject(bookingPassenger, "booking");
 	}
 
 	@Override
 	public void validate(final BookingPassenger bookingPassenger) {
 		assert bookingPassenger != null;
 
-		// Verificar que el pasagero está publicado
-		boolean passengerStatus = this.repository.findPassengerById(bookingPassenger.getPassenger().getId()).getIsDraft() == false;
+		boolean passengerStatus = true;
+		boolean bookingPassengerStatus = true;
+
+		if (bookingPassenger.getPassenger() != null) {
+			// Verificar que el pasagero está publicadods
+			passengerStatus = this.repository.findPassengerById(bookingPassenger.getPassenger().getId()).getIsDraft() == false;
+			// Verificar que el bookingPassenger no existe
+			bookingPassengerStatus = this.repository.findBookingPassengerByBookingIdAndPassengerId(bookingPassenger.getBooking().getId(), bookingPassenger.getPassenger().getId()) == null;
+		}
 		super.state(passengerStatus, "passenger", "acme.validation.booking-passenger.notPublishedPassenger.message");
+		super.state(bookingPassengerStatus, "bookingPassenger", "acme.validation.booking-passenger.notExistingBookingPassenger.message");
 	}
 
 	@Override
 	public void perform(final BookingPassenger bookingPassenger) {
 		assert bookingPassenger != null;
+		bookingPassenger.setPassenger(bookingPassenger.getPassenger());
 		this.repository.save(bookingPassenger);
 	}
 
@@ -106,6 +103,11 @@ public class CustomerBookingPassengerCreateService extends AbstractGuiService<Cu
 		passengers = SelectChoices.from(this.repository.findAllPublishedPassengersByCustomerId(customerId), "fullName", bookingPassenger.getPassenger());
 		dataset = super.unbindObject(bookingPassenger, "booking", "passenger");
 		dataset.put("passenger", passengers);
+		dataset.put("bookingLocatorCode", bookingPassenger.getBooking().getLocatorCode());
+
+		int masterId = super.getRequest().getData("masterId", int.class);
+		super.getResponse().addGlobal("masterId", masterId);
+
 		super.getResponse().addData(dataset);
 	}
 

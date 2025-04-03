@@ -35,10 +35,15 @@ public class CustomerBookingPublishService extends AbstractGuiService<Customer, 
 		booking = this.repository.findBookingById(bookingId);
 
 		userAccountId = super.getRequest().getPrincipal().getAccountId();
-		super.getResponse().setAuthorised(booking.getCustomer().getUserAccount().getId() == userAccountId);
+
+		// Debemos comprobar que hay al menos un pasajero en el booking
+		boolean notValidPassengers = this.repository.findAllPassengersByBookingId(booking.getId()).stream().toList().isEmpty();
+
+		super.getResponse().setAuthorised(booking.getCustomer().getUserAccount().getId() == userAccountId && !notValidPassengers);
 
 		if (!booking.getIsDraft())
 			super.state(booking.getIsDraft(), "*", "customer.booking.form.error.notDraft", "isDraft");
+
 	}
 
 	@Override
@@ -55,11 +60,7 @@ public class CustomerBookingPublishService extends AbstractGuiService<Customer, 
 	@Override
 	public void bind(final Booking booking) {
 		assert booking != null;
-<<<<<<< HEAD
-		super.bindObject(booking, "locatorCode", "flight", "purchaseMoment", "travelClass", "price", "lastNibble", "isDraft");
-=======
 		super.bindObject(booking, "locatorCode", "flight", "purchaseMoment", "travelClass", "lastNibble", "isDraft");
->>>>>>> 43c7b441e8822bccee62898b8f486bddf29461d6
 	}
 
 	@Override
@@ -69,6 +70,13 @@ public class CustomerBookingPublishService extends AbstractGuiService<Customer, 
 		//Tengo que comprobar the last credit card nibble has been stored. 
 		String lastNibble = this.repository.findLastNibbleById(booking.getId());
 		super.state(!lastNibble.isEmpty(), "*", "customer.project.publish.error.lastNibbleNotPublished");
+
+		//Comprobar que el booking no tiene pasajeros
+		List<Passenger> passengers = this.repository.findAllPassengersByBookingId(booking.getId()).stream().toList();
+		super.state(passengers.isEmpty(), "*", "customer.project.publish.error.passengerNotEmpty");
+
+		//Comprobar que el precio no es 0
+		super.state(booking.getPrice().getAmount() != 0.0, "*", "customer.project.publish.error.priceNotNull");
 	}
 
 	@Override

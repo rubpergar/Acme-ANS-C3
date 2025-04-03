@@ -8,6 +8,7 @@ import acme.client.components.views.SelectChoices;
 import acme.client.services.AbstractGuiService;
 import acme.client.services.GuiService;
 import acme.entities.booking.BookingPassenger;
+import acme.entities.passenger.Passenger;
 import acme.realms.Customer;
 
 @GuiService
@@ -22,16 +23,11 @@ public class CustomerBookingPassengerShowService extends AbstractGuiService<Cust
 
 	@Override
 	public void authorise() {
-		//CAMBIAR
-
-		//		Passenger passenger;
-		//		int id;
-		//		id = super.getRequest().getData("id", int.class);
-		//		passenger = this.repository.findPassengerById(id);
-		//		int userAccountId = super.getRequest().getPrincipal().getAccountId();
-		//
-		//		super.getResponse().setAuthorised(passenger.getCustomer().getUserAccount().getId() == userAccountId);
-		super.getResponse().setAuthorised(true);
+		Passenger passenger;
+		int id = super.getRequest().getData("id", int.class);
+		passenger = this.repository.findPassengerByBookingPassengerId(id);
+		int userAccountId = super.getRequest().getPrincipal().getAccountId();
+		super.getResponse().setAuthorised(passenger.getCustomer().getUserAccount().getId() == userAccountId);
 	}
 
 	@Override
@@ -53,7 +49,9 @@ public class CustomerBookingPassengerShowService extends AbstractGuiService<Cust
 		passengers = SelectChoices.from(this.repository.findAllPublishedPassengersByCustomerId(customerId), "fullName", bookingPassenger.getPassenger());
 		dataset = super.unbindObject(bookingPassenger, "booking", "passenger");
 		dataset.put("passenger", passengers);
+		dataset.put("bookingLocatorCode", bookingPassenger.getBooking().getLocatorCode());
 		dataset.put("bookingIsDraft", bookingPassenger.getBooking().getIsDraft());
+
 		super.getResponse().addData(dataset);
 	}
 }

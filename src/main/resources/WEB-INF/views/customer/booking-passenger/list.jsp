@@ -9,9 +9,3 @@
 	<acme:list-column code="customer.passenger.list.label.passportNumber" path="passportNumber" width="20%" />
 	<acme:list-column code="customer.passenger.list.label.dateOfBirth" path="dateOfBirth" width="20%" />
 </acme:list>
-<jstl:if test="${bookingIsDraft == true}">
-	<acme:button code="customer.bookingPassenger.form.button.addPassenger" action="/customer/booking-passenger/create?masterId=${masterId}"/>
-</jstl:if>	
-<jstl:if test="${_command == 'show'}">
-	<acme:button code="customer.bookingPassenger.form.button.addPassenger" action="/customer/booking-passenger/create?masterId=${masterId}"/>
-</jstl:if>	

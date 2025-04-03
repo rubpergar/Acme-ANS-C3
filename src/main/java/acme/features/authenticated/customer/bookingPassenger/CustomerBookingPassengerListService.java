@@ -46,8 +46,8 @@ public class CustomerBookingPassengerListService extends AbstractGuiService<Cust
 		dataset.put("dateOfBirth", bookingPassenger.getPassenger().getDateOfBirth());
 		dataset.put("bookingIsDraft", bookingPassenger.getBooking().getIsDraft());
 
-		int masterId = super.getRequest().getData("masterId", int.class);
-		super.getResponse().addGlobal("masterId", masterId);
+		//		int masterId = super.getRequest().getData("masterId", int.class);
+		//		super.getResponse().addGlobal("masterId", masterId);
 		super.getResponse().addGlobal("bookingIsDraft", bookingPassenger.getBooking().getIsDraft());
 
 		super.getResponse().addData(dataset);

@@ -117,4 +117,13 @@ public class Flight extends AbstractEntity {
 		return numbLay - 1;
 	}
 
+	@Transient
+	public String getFlightDistinction() {
+		String flightDistinction;
+		String originCity = this.getOriginCity();
+		String destinationCity = this.getDestinationCity();
+		flightDistinction = originCity + " -> " + destinationCity;
+		return flightDistinction;
+	}
+
 }
