@@ -36,7 +36,7 @@ public class ManagerLegCreateService extends AbstractGuiService<Manager, Leg> {
 
 		masterId = super.getRequest().getData("masterId", int.class);
 		flight = this.repository.getFlightById(masterId);
-		status = flight != null && (!flight.getIsDraft() || super.getRequest().getPrincipal().hasRealm(flight.getAirlineManager()));
+		status = flight != null && (flight.getIsDraft() || super.getRequest().getPrincipal().hasRealm(flight.getAirlineManager()));
 
 		super.getResponse().setAuthorised(status);
 	}
@@ -112,7 +112,7 @@ public class ManagerLegCreateService extends AbstractGuiService<Manager, Leg> {
 			String label = aircraft.getRegistrationNumber();
 
 			if (aircraft.getAirline() != null)
-				label += " (" + aircraft.getAirline().getCodeIATA() + ")";  // Incluye el airline aquí
+				label += " (" + aircraft.getAirline().getCodeIATA() + ")";
 
 			boolean isSelected = aircraft.equals(leg.getAircraft());
 			selectedAircraft.add(key, label, isSelected);
@@ -128,6 +128,7 @@ public class ManagerLegCreateService extends AbstractGuiService<Manager, Leg> {
 		dataset.put("arrivalAirport", arrivalAirportChoices.getSelected().getKey());
 		dataset.put("aircrafts", selectedAircraft);
 		dataset.put("aircraft", selectedAircraft.getSelected().getKey());
+		dataset.put("isDraftFlight", leg.getFlight().getIsDraft());
 
 		super.getResponse().addData(dataset);
 	}

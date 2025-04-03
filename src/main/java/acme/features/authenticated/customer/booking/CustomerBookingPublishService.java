@@ -1,7 +1,6 @@
 
 package acme.features.authenticated.customer.booking;
 
-import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,7 +55,11 @@ public class CustomerBookingPublishService extends AbstractGuiService<Customer, 
 	@Override
 	public void bind(final Booking booking) {
 		assert booking != null;
+<<<<<<< HEAD
 		super.bindObject(booking, "locatorCode", "flight", "purchaseMoment", "travelClass", "price", "lastNibble", "isDraft");
+=======
+		super.bindObject(booking, "locatorCode", "flight", "purchaseMoment", "travelClass", "lastNibble", "isDraft");
+>>>>>>> 43c7b441e8822bccee62898b8f486bddf29461d6
 	}
 
 	@Override
@@ -71,15 +74,7 @@ public class CustomerBookingPublishService extends AbstractGuiService<Customer, 
 	@Override
 	public void perform(final Booking booking) {
 		assert booking != null;
-		Collection<Passenger> passengers;
-
 		booking.setIsDraft(false);
-		// Cuando se publica el booking, los pasajeros también se publican
-		passengers = this.repository.findAllPassengersByBookingId(booking.getId());
-		for (Passenger p : passengers) {
-			p.setIsDraft(false);
-			this.repository.save(p);
-		}
 		this.repository.save(booking);
 	}
 
@@ -94,6 +89,7 @@ public class CustomerBookingPublishService extends AbstractGuiService<Customer, 
 		dataset.put("travelClass", travelClasses);
 		dataset.put("flight", flights);
 		dataset.put("passenger", !passengers.isEmpty());
+
 		super.getResponse().addData(dataset);
 	}
 

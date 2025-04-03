@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import acme.client.components.models.Dataset;
 import acme.client.services.AbstractGuiService;
 import acme.client.services.GuiService;
-import acme.entities.booking.Booking;
 import acme.entities.passenger.Passenger;
 import acme.realms.Customer;
 
@@ -26,14 +25,14 @@ public class CustomerPassengerListService extends AbstractGuiService<Customer, P
 	public void authorise() {
 		super.getResponse().setAuthorised(true);
 	}
-
 	@Override
 	public void load() {
 		Collection<Passenger> passengers;
-		int masterId;
+		int customerId;
 
-		masterId = super.getRequest().getData("masterId", int.class);
-		passengers = this.repository.findPassengersByBookingId(masterId);
+		customerId = super.getRequest().getPrincipal().getActiveRealm().getId();
+
+		passengers = this.repository.findAllPassengersByCustomerId(customerId);
 
 		super.getBuffer().addData(passengers);
 	}
@@ -47,17 +46,17 @@ public class CustomerPassengerListService extends AbstractGuiService<Customer, P
 		super.getResponse().addData(dataset);
 	}
 
-	@Override
-	public void unbind(final Collection<Passenger> passengers) {
-		int masterId;
-		Booking booking;
-		final boolean showCreate;
-
-		masterId = super.getRequest().getData("masterId", int.class);
-		booking = this.repository.findBookingById(masterId);
-		showCreate = super.getRequest().getPrincipal().hasRealm(booking.getCustomer());
-
-		super.getResponse().addGlobal("masterId", masterId);
-		super.getResponse().addGlobal("showCreate", showCreate);
-	}
+	//	@Override
+	//	public void unbind(final Collection<Passenger> passengers) {
+	//		int masterId;
+	//		Booking booking;
+	//		final boolean showCreate;
+	//
+	//		masterId = super.getRequest().getData("masterId", int.class);
+	//		booking = this.repository.findBookingById(masterId);
+	//		showCreate = super.getRequest().getPrincipal().hasRealm(booking.getCustomer());
+	//
+	//		super.getResponse().addGlobal("masterId", masterId);
+	//		super.getResponse().addGlobal("showCreate", showCreate);
+	//	}
 }

@@ -57,7 +57,25 @@ public class ManagerLegUpdateService extends AbstractGuiService<Manager, Leg> {
 	@Override
 	public void bind(final Leg leg) {
 		assert leg != null;
-		super.bindObject(leg, "flightNumber", "scheduledDeparture", "scheduledArrival", "status", "departureAirport", "arrivalAirport", "aircraft");
+		int departureAirportId;
+		int arrivalAirportId;
+		int aircraftId;
+		Airport departureAirport;
+		Airport arrivalAirport;
+		Aircraft aircraft;
+
+		departureAirportId = super.getRequest().getData("departureAirport", int.class);
+		arrivalAirportId = super.getRequest().getData("arrivalAirport", int.class);
+		aircraftId = super.getRequest().getData("aircraft", int.class);
+		departureAirport = this.repository.findAirportById(departureAirportId);
+		arrivalAirport = this.repository.findAirportById(arrivalAirportId);
+		aircraft = this.repository.findAircraftById(aircraftId);
+
+		super.bindObject(leg, "flightNumber", "scheduledDeparture", "scheduledArrival", "status");
+
+		leg.setDepartureAirport(departureAirport);
+		leg.setArrivalAirport(arrivalAirport);
+		leg.setAircraft(aircraft);
 	}
 
 	@Override
@@ -68,6 +86,16 @@ public class ManagerLegUpdateService extends AbstractGuiService<Manager, Leg> {
 	@Override
 	public void perform(final Leg leg) {
 		assert leg != null;
+		leg.setIsDraft(leg.getIsDraft());
+		leg.setFlight(leg.getFlight());
+		leg.setFlightNumber(leg.getFlightNumber());
+		leg.setScheduledDeparture(leg.getScheduledDeparture());
+		leg.setScheduledArrival(leg.getScheduledArrival());
+		leg.setStatus(leg.getStatus());
+		leg.setDepartureAirport(leg.getDepartureAirport());
+		leg.setArrivalAirport(leg.getArrivalAirport());
+		leg.setAircraft(leg.getAircraft());
+
 		this.repository.save(leg);
 	}
 
@@ -109,6 +137,7 @@ public class ManagerLegUpdateService extends AbstractGuiService<Manager, Leg> {
 		dataset.put("arrivalAirport", arrivalAirportChoices.getSelected().getKey());
 		dataset.put("aircrafts", selectedAircraft);
 		dataset.put("aircraft", selectedAircraft.getSelected().getKey());
+		dataset.put("isDraftFlight", leg.getFlight().getIsDraft());
 
 		super.getResponse().addData(dataset);
 	}

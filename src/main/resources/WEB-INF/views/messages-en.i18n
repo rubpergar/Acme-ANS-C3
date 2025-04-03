@@ -38,6 +38,8 @@ acme.validation.birthday.invalid-date.message=The minimum age to work in Spain i
 
 acme.validation.leg.invalid-airport.message=The arrival airport can't the same that the departure airport. 
 
+acme.validation.leg.duplicate-flight-number.message=The flight number is already in use. Please provide a different one.
+
 
 
 manager.flight.form.label.tag = Tag
@@ -66,6 +68,8 @@ manager.flight.form.error.notDraft = You can not do this action for a flight tha
 manager.flight.publish.error.notAllPublished = Total legs must be published to publish the flight.
 manager.project.publish.error.noLegs = You must have at least one leg to publish a flight.
 manager.flight.publish.error.overlappingLegs = The legs of the flight overlap.
+manager.flight.publish.error.notAfter= The flight must be published before the flight starts.
+manager.leg.publish.error.notAfter= The leg must be published before the flight starts.
 
 manager.flight.list.label.tag = Tag
 manager.flight.list.label.cost = Cost
@@ -230,8 +234,24 @@ customer.passenger.form.button.update = Update
 customer.passenger.form.button.publish = Publish
 
 customer.bookingPassenger.form.button.addPassenger = Add Passenger
-customer.booking-passenger.form.title = Add Passenger to Booking
+customer.booking-passenger.form.title = Passenger of the Booking
 customer.bookingPassenger.form.label.passenger  = Passenger
 customer.bookingPassenger.form.label.booking = Booking
+customer.bookingPassenger.form.button.deleteBookingPassenger = Delete Booking Passenger
 
 customer.project.publish.error.lastNibbleNotPublished = To publish a booking the last credit card nibble must have been stored. 
+
+acme.validation.flight-assignment.incompatible-legs.message = This member cannot be assigned to multiple legs simultaneously
+acme.validation.flight-assignment.has-pilot.message = This duty has been already assigned. Each leg can only have one pilot
+acme.validation.flight-assignment.has-copilot.message = This duty has been already assigned. Each leg can only have one copilot
+acme.validation.flight-assignment.leg-concluded.message = This flight assignment cannot be linked to a leg that have already occurred
+
+acme.validation.booking.repeated-locatorCode.message = The locator code must be unique. This value is already used by another booking.
+customer.booking.form.error.notDraftFlight = You can not do this action for a flight that is not published
+acme.validation.booking.incorrect-purchaseMoment.message = The purchase moment can not be changed
+acme.validation.booking.incorrect-price.message = The price can not be changed
+customer.booking-passenger.list.title = Passengers of the booking
+customer.booking.form.error.draftBooking = You can not do this action for a booking that is already published
+acme.validation.booking-passenger.notPublishedPassenger.message = The passenger must be published to be added to the booking
+acme.validation.booking.flight-departure.message= The flight has already departed. You cannot create a booking for a flight that has already departed.
+acme.validation.booking.notExisting-flight.message = The flight does not exist. Please select a valid flight.

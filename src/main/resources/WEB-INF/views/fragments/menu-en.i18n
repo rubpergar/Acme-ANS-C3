@@ -36,11 +36,13 @@ master.menu.administrator.populate-db-sample = Populate DB (samples)
 master.menu.administrator.shut-system-down = Shut system down
 master.menu.administrator.list-aircrafts = List of aircrafts 
 master.menu.administrator.list-airport = List of airports
+master.menu.administrator.list-airline = List of airlines
 
 # master.menu.customer #######################################################
 
 master.menu.customer = Customer
 master.menu.customer.list-bookings = My bookings
+master.menu.customer.list-passengers = My passengers
 
 # master.menu.provider ########################################################
 
@@ -64,5 +66,5 @@ master.menu.user-account.consumer-profile = Consumer profile
 # master.menu.member ####################################################
 
 master.menu.member = Member
-master.menu.member.listCompleted-flightAssignment = Completed Flight Assignments
-master.menu.member.listUncompleted-flightAssignment = Uncompleted Flight Assignments
+master.menu.member.listCompleted-flightAssignment = Flight assignments for completed legs
+master.menu.member.listUncompleted-flightAssignment = Flight assignments for uncompleted legs
