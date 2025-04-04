@@ -27,7 +27,8 @@ public class AdministratorAircraftCreateService extends AbstractGuiService<Admin
 
 	@Override
 	public void authorise() {
-		super.getResponse().setAuthorised(true);
+		boolean hasAuthority = super.getRequest().getPrincipal().hasRealmOfType(Administrator.class);
+		super.getResponse().setAuthorised(hasAuthority);
 	}
 
 	@Override
@@ -41,6 +42,7 @@ public class AdministratorAircraftCreateService extends AbstractGuiService<Admin
 
 	@Override
 	public void bind(final Aircraft aircraft) {
+		assert aircraft != null;
 		int airlineId;
 		Airline airline;
 
@@ -48,6 +50,7 @@ public class AdministratorAircraftCreateService extends AbstractGuiService<Admin
 		airline = this.repository.findAirlineById(airlineId);
 
 		super.bindObject(aircraft, "model", "registrationNumber", "capacity", "cargoWeight", "status", "details");
+
 		aircraft.setAirline(airline);
 	}
 
@@ -61,6 +64,14 @@ public class AdministratorAircraftCreateService extends AbstractGuiService<Admin
 
 	@Override
 	public void perform(final Aircraft aircraft) {
+		assert aircraft != null;
+		aircraft.setAirline(aircraft.getAirline());
+		aircraft.setStatus(aircraft.getStatus());
+		aircraft.setDetails(aircraft.getDetails());
+		aircraft.setCapacity(aircraft.getCapacity());
+		aircraft.setCargoWeight(aircraft.getCargoWeight());
+		aircraft.setModel(aircraft.getModel());
+		aircraft.setRegistrationNumber(aircraft.getRegistrationNumber());
 		this.repository.save(aircraft);
 	}
 

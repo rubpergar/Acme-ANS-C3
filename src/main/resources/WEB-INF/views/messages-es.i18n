@@ -38,6 +38,8 @@ acme.validation.birthday.invalid-date.message=La edad minima para trabajar en Es
 
 acme.validation.leg.invalid-airport.message=El aeropuerto de llegada no puede ser el mismo que el aeropuerto de salida.
 
+acme.validation.leg.duplicate-flight-number.message=El número de vuelo ya está en uso. Por favor, proporcione uno diferente.
+
 customer.project.publish.error.lastNibbleNotPublished = Para publicar una reserva, el último fragmento de la tarjeta de crédito debe haberse almacenado.
 customer.booking.form.error.notDraft = No puedes realizar esta acción para una reserva que ya está publicada.
 
@@ -67,8 +69,9 @@ customer.booking.passengers = Pasajeros
 
 customer.passenger.list.label.fullName = Nombre completo
 customer.passenger.list.label.email = Email
-customer.passenger.list.label.passportNumber = Numero de pasaporte
+customer.passenger.list.label.passportNumber = Número de pasaporte
 customer.passenger.list.label.dateOfBirth = Fecha de nacimiento
+customer.booking.form.label.lastNibble = Últimos dígitos de la tarjeta de crédito
 customer.passenger.list.label.isDraft = ¿Es un borrador?
 
 customer.passenger.create = Crear Pasajero
@@ -83,11 +86,15 @@ customer.passenger.form.label.passportNumber = Numero de pasaporte
 customer.passenger.form.label.dateOfBirth= Fecha de nacimiento
 customer.passenger.form.label.specialNeeds = Necesidades especiales
 customer.passenger.form.isDraft  = ¿Es un borrador?
+customer.passenger.form.button.create = Crear pasajero
+customer.passenger.form.button.update = Actualizar
+customer.passenger.form.button.publish = Publicar
 
 customer.bookingPassenger.form.button.addPassenger = Añadir pasajero
-customer.booking-passenger.form.title = Añadir pasajero a la reserva
+customer.booking-passenger.form.title = Pasajero de la reserva
 customer.bookingPassenger.form.label.passenger  = Pasajero
 customer.bookingPassenger.form.label.booking = Reserva
+customer.bookingPassenger.form.button.deleteBookingPassenger = Eliminar pasajero de la reserva
 
 manager.flight.form.label.tag = Etiqueta
 manager.flight.form.label.cost = Costo
@@ -115,6 +122,8 @@ manager.flight.form.error.notDraft = No puedes realizar esta acción para un vue
 manager.flight.publish.error.notAllPublished = Para publicar el vuelo, todos sus tramos deben estar publicados.
 manager.project.publish.error.noLegs = Debes tener al menos un tramo para publicar un vuelo.
 manager.flight.publish.error.overlappingLegs = Los tramos del vuelo se solapan.
+manager.flight.publish.error.notAfter = El vuelo no puede ser publicado después de que comience.
+manager.leg.publish.error.notAfter= El tramo no puede ser publicado despues de que el vuelo comience.
 
 manager.flight.list.label.tag = Etiqueta
 manager.flight.list.label.cost = Costo
@@ -151,10 +160,26 @@ manager.leg.list.label.status = Estado
 manager.leg.create.button = Crear tramo
 manager.leg.list.label.departureAirport = Aerop. salida
 manager.leg.list.label.arrivalAirport = Aerop. llegada
-manager.leg.list.label.aircraft = Aeronave (código IATA)
+manager.leg.list.label.aircraft = Aeronave (código IATA de la aerolínea)
 manager.leg.list.label.aircraft2 = Aeronave
 manager.leg.form.title=Detalles del tramo etapa
 manager.leg.form.button.update=Actualizar
 manager.leg.form.button.delete=Eliminar
 manager.leg.form.button.publish=Publicar
 manager.leg.list.label.duration=Duración (horas)
+
+acme.validation.flight-assignment.incompatible-legs.message = Este miembro no puede estar asignado a varios tramos simultáneamente
+acme.validation.flight-assignment.has-pilot.message = Este trabajo ya ha sido asignado. Cada tramo puede solo tener un piloto
+acme.validation.flight-assignment.has-copilot.message = Este trabajo ya ha sido asignado. Cada tramo puede solo tener un copiloto
+acme.validation.flight-assignment.leg-concluded.message = La asignación de vuelo no puede esta vinculada a un tramo que ya ha concluido
+
+acme.validation.booking.repeated-locatorCode.message = El código de localización ya está en uso. Por favor, proporcione uno diferente.
+acme.validation.booking.incorrect-purchaseMoment.message = El momento de compra no puede cambiar.
+acme.validation.booking.incorrect-price.message = El precio no puede cambiar.
+customer.booking-passenger.list.title = Pasajeros de la reserva
+customer.booking.form.error.draftBooking = No puedes realizar esta acción para una reserva que ya está publicada.
+acme.validation.booking-passenger.notPublishedPassenger.message = El pasajero no está publicado. Por favor, publique el pasajero antes de continuar.
+acme.validation.booking.flight-departure.message = El vuelo ya ha salido. No puede realizar esta reserva.
+acme.validation.booking.notExisting-flight.message = El vuelo no existe. Por favor, proporcione un vuelo válido.
+acme.validation.booking-passenger.notExistingBookingPassenger.message= Este pasajero ya está asignado a la reserva. Por favor, proporcione un pasajero diferente.
+customer.project.publish.error.passengerNotEmpty = Para publicar una reserva, al menos debe haber 1 pasajero.

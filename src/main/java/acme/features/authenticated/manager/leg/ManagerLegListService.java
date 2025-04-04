@@ -19,7 +19,7 @@ public class ManagerLegListService extends AbstractGuiService<Manager, Leg> {
 	// Internal state ---------------------------------------------------------
 
 	@Autowired
-	private ManagerLegRepository		repository;
+	private ManagerLegRepository	repository;
 
 	@Autowired
 	private ManagerFlightRepository	flightRepository;

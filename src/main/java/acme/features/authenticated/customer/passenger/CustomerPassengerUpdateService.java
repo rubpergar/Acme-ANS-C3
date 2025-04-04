@@ -22,15 +22,11 @@ public class CustomerPassengerUpdateService extends AbstractGuiService<Customer,
 	@Override
 	public void authorise() {
 		Passenger passenger;
-		int passengerId;
-
-		passengerId = super.getRequest().getData("id", int.class);
-		passenger = this.repository.findPassengerById(passengerId);
-
-		super.getResponse().setAuthorised(true);
-
-		if (passenger.getIsDraft())
-			super.state(passenger.getIsDraft(), "*", "customer.booking.form.error.notDraft", "isDraft");
+		int id;
+		id = super.getRequest().getData("id", int.class);
+		passenger = this.repository.findPassengerById(id);
+		int userAccountId = super.getRequest().getPrincipal().getAccountId();
+		super.getResponse().setAuthorised(passenger.getCustomer().getUserAccount().getId() == userAccountId && passenger.getIsDraft());
 	}
 
 	@Override

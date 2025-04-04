@@ -44,4 +44,7 @@ public interface ManagerLegRepository extends AbstractRepository {
 	@Query("select a from Aircraft a where a.registrationNumber = :registrationNumber")
 	Aircraft getAircraftByRegistrationNumber(String registrationNumber);
 
+	@Query("SELECT a FROM Aircraft a WHERE a.id NOT IN (SELECT l.aircraft.id FROM Leg l) AND a.status = :status")
+	Collection<Aircraft> findAircraftsActivesWithoutLegs(@Param("status") AircraftStatus status);
+
 }

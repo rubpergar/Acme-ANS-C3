@@ -24,7 +24,13 @@ public class CustomerBookingShowService extends AbstractGuiService<Customer, Boo
 
 	@Override
 	public void authorise() {
-		super.getResponse().setAuthorised(true);
+		Booking booking;
+		int id;
+		id = super.getRequest().getData("id", int.class);
+		booking = this.repository.findBookingById(id);
+		int userAccountId = super.getRequest().getPrincipal().getAccountId();
+
+		super.getResponse().setAuthorised(booking.getCustomer().getUserAccount().getId() == userAccountId);
 	}
 
 	@Override
@@ -39,13 +45,13 @@ public class CustomerBookingShowService extends AbstractGuiService<Customer, Boo
 	public void unbind(final Booking booking) {
 		List<Flight> nonDraftFlights = this.repository.findNotDraftFlights().stream().toList();
 		SelectChoices travelClasses = SelectChoices.from(TravelClass.class, booking.getTravelClass());
-		SelectChoices flights = SelectChoices.from(nonDraftFlights, "id", booking.getFlight());
+		SelectChoices flights = SelectChoices.from(nonDraftFlights, "flightDistinction", booking.getFlight());
 		List<Passenger> passengers = this.repository.findAllPassengersByBookingId(booking.getId()).stream().toList();
 		Dataset dataset;
-		dataset = super.unbindObject(booking, "locatorCode", "flight", "purchaseMoment", "travelClass", "price", "lastNibble", "isDraft");
+		dataset = super.unbindObject(booking, "locatorCode", "flight", "purchaseMoment", "travelClass", "lastNibble", "isDraft");
 		dataset.put("travelClass", travelClasses);
 		dataset.put("flight", flights);
-		dataset.put("passenger", !passengers.isEmpty());
+		dataset.put("price", booking.getPrice());
 		super.getResponse().addData(dataset);
 	}
 }

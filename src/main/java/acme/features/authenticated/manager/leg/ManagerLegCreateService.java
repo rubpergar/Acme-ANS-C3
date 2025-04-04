@@ -1,6 +1,7 @@
 
 package acme.features.authenticated.manager.leg;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +37,7 @@ public class ManagerLegCreateService extends AbstractGuiService<Manager, Leg> {
 
 		masterId = super.getRequest().getData("masterId", int.class);
 		flight = this.repository.getFlightById(masterId);
-		status = flight != null && (!flight.getIsDraft() || super.getRequest().getPrincipal().hasRealm(flight.getAirlineManager()));
+		status = flight != null && (flight.getIsDraft() || super.getRequest().getPrincipal().hasRealm(flight.getAirlineManager()));
 
 		super.getResponse().setAuthorised(status);
 	}
@@ -82,6 +83,8 @@ public class ManagerLegCreateService extends AbstractGuiService<Manager, Leg> {
 
 	@Override
 	public void validate(final Leg leg) {
+		assert leg != null;
+
 		;
 	}
 
@@ -107,12 +110,19 @@ public class ManagerLegCreateService extends AbstractGuiService<Manager, Leg> {
 		SelectChoices selectedAircraft = new SelectChoices();
 		selectedAircraft.add("0", "----", leg.getAircraft() == null);
 
-		for (Aircraft aircraft : this.repository.findAllAircraftsByStatus(AircraftStatus.ACTIVE)) {
+		Collection<Aircraft> aircraftsActives = this.repository.findAircraftsActivesWithoutLegs(AircraftStatus.ACTIVE);
+		Collection<Aircraft> finalAircrafts = new ArrayList<Aircraft>();
+		for (Aircraft aircraft : aircraftsActives)
+			if (aircraft.getAirline().getCodeIATA().equals(leg.getFlight().getAirlineManager().getAirline().getCodeIATA()))
+				finalAircrafts.add(aircraft);
+
+		for (Aircraft aircraft : finalAircrafts) {
+
 			String key = Integer.toString(aircraft.getId());
 			String label = aircraft.getRegistrationNumber();
 
 			if (aircraft.getAirline() != null)
-				label += " (" + aircraft.getAirline().getCodeIATA() + ")";  // Incluye el airline aquí
+				label += " (" + aircraft.getAirline().getCodeIATA() + ")";
 
 			boolean isSelected = aircraft.equals(leg.getAircraft());
 			selectedAircraft.add(key, label, isSelected);
@@ -128,6 +138,7 @@ public class ManagerLegCreateService extends AbstractGuiService<Manager, Leg> {
 		dataset.put("arrivalAirport", arrivalAirportChoices.getSelected().getKey());
 		dataset.put("aircrafts", selectedAircraft);
 		dataset.put("aircraft", selectedAircraft.getSelected().getKey());
+		dataset.put("isDraftFlight", leg.getFlight().getIsDraft());
 
 		super.getResponse().addData(dataset);
 	}

@@ -28,7 +28,8 @@ public class CustomerBookingCreateService extends AbstractGuiService<Customer, B
 
 	@Override
 	public void authorise() {
-		super.getResponse().setAuthorised(true);
+		boolean status = super.getRequest().getPrincipal().hasRealmOfType(Customer.class);
+		super.getResponse().setAuthorised(status);
 	}
 
 	@Override
@@ -44,10 +45,8 @@ public class CustomerBookingCreateService extends AbstractGuiService<Customer, B
 
 		booking = new Booking();
 		booking.setLocatorCode("");
-		booking.setFlight(null);
 		booking.setPurchaseMoment(currentMoment);
-		booking.setTravelClass(null);
-		booking.setPrice(null);
+		booking.getPrice();
 		booking.setLastNibble(null);
 		booking.setIsDraft(true);
 		booking.setCustomer(customer);
@@ -57,18 +56,43 @@ public class CustomerBookingCreateService extends AbstractGuiService<Customer, B
 
 	@Override
 	public void bind(final Booking booking) {
-		super.bindObject(booking, "locatorCode", "flight", "purchaseMoment", "travelClass", "price", "lastNibble", "isDraft");
+		int flightId;
+		Flight flight;
+
+		flightId = super.getRequest().getData("flight", int.class);
+		flight = this.repository.findFlightById(flightId);
+		booking.setFlight(flight);
+
+		super.bindObject(booking, "locatorCode", "travelClass", "lastNibble");
 	}
 
-	// ??????
 	@Override
 	public void validate(final Booking booking) {
 		assert booking != null;
+
+		// Verificar que el locatorCode es único
+		boolean locatorCodeStatus = this.repository.findBookingsByLocatorCode(booking.getLocatorCode()).size() == 0;
+		super.state(locatorCodeStatus, "locatorCode", "acme.validation.booking.repeated-locatorCode.message");
+
+		// Verificar que PurchaseMoment no cambia
+		boolean purchaseMomentStatus = booking.getPurchaseMoment().equals(MomentHelper.getCurrentMoment());
+		super.state(purchaseMomentStatus, "purchaseMoment", "acme.validation.booking.incorrect-purchaseMoment.message");
+
+		// Verificar que el flight está publicado
+		boolean flightDraftStatus = true;
+		if (booking.getFlight() != null)
+			flightDraftStatus = booking.getFlight().getIsDraft() == false;
+		super.state(flightDraftStatus, "flight", "acme.validation.booking.flight-draft.message");
+
+		// Verificar que el flight no es null
+		boolean flightNullStatus = this.repository.findNotDraftFlights().contains(booking.getFlight());
+		super.state(flightNullStatus, "flight", "acme.validation.booking.notExisting-flight.message");
 	}
 
 	@Override
 	public void perform(final Booking booking) {
 		assert booking != null;
+		booking.setFlight(booking.getFlight());
 		this.repository.save(booking);
 	}
 
@@ -78,12 +102,12 @@ public class CustomerBookingCreateService extends AbstractGuiService<Customer, B
 
 		List<Flight> nonDraftFlights = this.repository.findNotDraftFlights().stream().toList();
 		SelectChoices travelClasses = SelectChoices.from(TravelClass.class, booking.getTravelClass());
-		SelectChoices flights = SelectChoices.from(nonDraftFlights, "id", booking.getFlight());
+		SelectChoices flights = SelectChoices.from(nonDraftFlights, "flightDistinction", booking.getFlight());
 		Dataset dataset;
-		dataset = super.unbindObject(booking, "locatorCode", "flight", "purchaseMoment", "travelClass", "price", "lastNibble");
+		dataset = super.unbindObject(booking, "locatorCode", "flight", "purchaseMoment", "travelClass", "lastNibble", "isDraft");
 		dataset.put("travelClass", travelClasses);
 		dataset.put("flight", flights);
-		dataset.put("isDraft", true);
+		dataset.put("price", booking.getPrice());
 		super.getResponse().addData(dataset);
 	}
 

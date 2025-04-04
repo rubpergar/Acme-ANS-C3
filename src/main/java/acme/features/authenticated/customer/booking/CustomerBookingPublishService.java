@@ -1,7 +1,6 @@
 
 package acme.features.authenticated.customer.booking;
 
-import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,10 +35,15 @@ public class CustomerBookingPublishService extends AbstractGuiService<Customer, 
 		booking = this.repository.findBookingById(bookingId);
 
 		userAccountId = super.getRequest().getPrincipal().getAccountId();
-		super.getResponse().setAuthorised(booking.getCustomer().getUserAccount().getId() == userAccountId);
+
+		// Debemos comprobar que hay al menos un pasajero en el booking
+		boolean validPassengers = this.repository.findAllPassengersByBookingId(booking.getId()).stream().toList().size() > 0;
+
+		super.getResponse().setAuthorised(booking.getCustomer().getUserAccount().getId() == userAccountId && validPassengers);
 
 		if (!booking.getIsDraft())
 			super.state(booking.getIsDraft(), "*", "customer.booking.form.error.notDraft", "isDraft");
+
 	}
 
 	@Override
@@ -56,7 +60,7 @@ public class CustomerBookingPublishService extends AbstractGuiService<Customer, 
 	@Override
 	public void bind(final Booking booking) {
 		assert booking != null;
-		super.bindObject(booking, "locatorCode", "flight", "purchaseMoment", "travelClass", "price", "lastNibble", "isDraft");
+		super.bindObject(booking, "locatorCode", "flight", "purchaseMoment", "travelClass", "lastNibble", "isDraft");
 	}
 
 	@Override
@@ -66,20 +70,19 @@ public class CustomerBookingPublishService extends AbstractGuiService<Customer, 
 		//Tengo que comprobar the last credit card nibble has been stored. 
 		String lastNibble = this.repository.findLastNibbleById(booking.getId());
 		super.state(!lastNibble.isEmpty(), "*", "customer.project.publish.error.lastNibbleNotPublished");
+
+		//Comprobar que el booking no tiene pasajeros
+		List<Passenger> passengers = this.repository.findAllPassengersByBookingId(booking.getId()).stream().toList();
+		super.state(passengers.size() > 0, "*", "customer.project.publish.error.passengerNotEmpty");
+
+		//Comprobar que el precio no es 0
+		super.state(booking.getPrice().getAmount() != 0.0, "*", "customer.project.publish.error.priceNotNull");
 	}
 
 	@Override
 	public void perform(final Booking booking) {
 		assert booking != null;
-		Collection<Passenger> passengers;
-
 		booking.setIsDraft(false);
-		// Cuando se publica el booking, los pasajeros también se publican
-		passengers = this.repository.findAllPassengersByBookingId(booking.getId());
-		for (Passenger p : passengers) {
-			p.setIsDraft(false);
-			this.repository.save(p);
-		}
 		this.repository.save(booking);
 	}
 
@@ -94,6 +97,7 @@ public class CustomerBookingPublishService extends AbstractGuiService<Customer, 
 		dataset.put("travelClass", travelClasses);
 		dataset.put("flight", flights);
 		dataset.put("passenger", !passengers.isEmpty());
+
 		super.getResponse().addData(dataset);
 	}
 

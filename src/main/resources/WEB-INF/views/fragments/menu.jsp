@@ -37,6 +37,12 @@
     
 		<acme:menu-option code="master.menu.customer" access="hasRealm('Customer')">
 			<acme:menu-suboption code="master.menu.customer.list-bookings" action="/customer/booking/list"/>
+			<acme:menu-suboption code="master.menu.customer.list-passengers" action="/customer/passenger/list"/>
+		</acme:menu-option>
+		
+		<acme:menu-option code="master.menu.member" access="hasRealm('FlightCrewMember')">
+			<acme:menu-suboption code="master.menu.member.listCompleted-flightAssignment" action="/flight-crew-member/flight-assignment/listCompleted"/>
+			<acme:menu-suboption code="master.menu.member.listUncompleted-flightAssignment" action="/flight-crew-member/flight-assignment/listUncompleted"/>
 		</acme:menu-option>
 
 		<acme:menu-option code="master.menu.administrator" access="hasRealm('Administrator')">
@@ -46,8 +52,10 @@
 			<acme:menu-suboption code="master.menu.administrator.populate-db-sample" action="/administrator/system/populate-sample"/>			
 			<acme:menu-separator/>
 			<acme:menu-suboption code="master.menu.administrator.shut-system-down" action="/administrator/system/shut-down"/>
+			<acme:menu-separator/>
 			<acme:menu-suboption code="master.menu.administrator.list-aircrafts" action="/administrator/aircraft/list"/>
-			<acme:menu-suboption code="master.menu.administrator.list-airport" action="/administrator/airport/list"/>			
+			<acme:menu-suboption code="master.menu.administrator.list-airport" action="/administrator/airport/list"/>	
+			<acme:menu-suboption code="master.menu.administrator.list-airline" action="/administrator/airline/list"/>		
 		</acme:menu-option>
 
 		<acme:menu-option code="master.menu.provider" access="hasRealm('Provider')">
