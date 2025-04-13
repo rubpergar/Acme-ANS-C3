@@ -1,11 +1,15 @@
 
 package acme.features.authenticated.manager.leg;
 
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import acme.client.components.models.Dataset;
+import acme.client.components.views.SelectChoices;
 import acme.client.services.AbstractGuiService;
 import acme.client.services.GuiService;
+import acme.entities.airports.Airport;
 import acme.entities.flights.Flight;
 import acme.entities.legs.Leg;
 import acme.realms.Manager;
@@ -49,7 +53,7 @@ public class ManagerLegDeleteService extends AbstractGuiService<Manager, Leg> {
 
 	@Override
 	public void bind(final Leg leg) {
-		super.bindObject(leg, "flightNumber", "scheduledDeparture", "scheduledArrival", "status", "departureAirport", "arrivalAirport", "aircraft");
+		super.bindObject(leg, "flightNumber", "scheduledDeparture", "scheduledArrival", "status");
 	}
 
 	@Override
@@ -66,10 +70,25 @@ public class ManagerLegDeleteService extends AbstractGuiService<Manager, Leg> {
 	public void unbind(final Leg leg) {
 		Dataset dataset;
 
+		SelectChoices departureAirportChoices;
+		SelectChoices arrivalAirportChoices;
+		Collection<Airport> airports;
+		airports = this.repository.findAllAirports();
+
 		dataset = super.unbindObject(leg, "flightNumber", "scheduledDeparture", "scheduledArrival", "status", "departureAirport", "arrivalAirport", "aircraft");
 		dataset.put("masterId", leg.getFlight().getId());
 		dataset.put("isDraft", leg.getIsDraft());
 		dataset.put("isDraftFlight", leg.getFlight().getIsDraft());
+		dataset.put("codeIATA", leg.getFlight().getAirlineManager().getAirline().getCodeIATA());
+
+		if (!airports.isEmpty()) {
+			departureAirportChoices = SelectChoices.from(airports, "IATAcode", leg.getDepartureAirport());
+			arrivalAirportChoices = SelectChoices.from(airports, "IATAcode", leg.getArrivalAirport());
+			dataset.put("departureAirports", departureAirportChoices);
+			//dataset.put("departureAirport", departureAirportChoices.getSelected().getKey());
+			dataset.put("arrivalAirports", arrivalAirportChoices);
+			//dataset.put("arrivalAirport", arrivalAirportChoices.getSelected().getKey());
+		}
 
 		super.getResponse().addData(dataset);
 	}
