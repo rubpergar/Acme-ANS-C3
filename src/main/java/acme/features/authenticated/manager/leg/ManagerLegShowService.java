@@ -68,8 +68,6 @@ public class ManagerLegShowService extends AbstractGuiService<Manager, Leg> {
 		SelectChoices arrivalAirportChoices;
 		Collection<Airport> airports;
 		airports = this.repository.findAllAirports();
-		departureAirportChoices = SelectChoices.from(airports, "IATAcode", leg.getDepartureAirport());
-		arrivalAirportChoices = SelectChoices.from(airports, "IATAcode", leg.getArrivalAirport());
 
 		SelectChoices selectedAircraft = new SelectChoices();
 		selectedAircraft.add("0", "----", leg.getAircraft() == null);
@@ -89,14 +87,20 @@ public class ManagerLegShowService extends AbstractGuiService<Manager, Leg> {
 		dataset.put("masterId", leg.getFlight().getId());
 		dataset.put("isDraft", leg.getIsDraft());
 		dataset.put("status", choices);
-		dataset.put("departureAirports", departureAirportChoices);
-		dataset.put("departureAirport", departureAirportChoices.getSelected().getKey());
-		dataset.put("arrivalAirports", arrivalAirportChoices);
-		dataset.put("arrivalAirport", arrivalAirportChoices.getSelected().getKey());
 		dataset.put("aircrafts", selectedAircraft);
 		dataset.put("aircraft", selectedAircraft.getSelected().getKey());
 		dataset.put("duration", leg.getDuration());
 		dataset.put("isDraftFlight", leg.getFlight().getIsDraft());
+		dataset.put("codeIATA", leg.getFlight().getAirlineManager().getAirline().getCodeIATA());
+
+		if (!airports.isEmpty()) {
+			departureAirportChoices = SelectChoices.from(airports, "IATAcode", leg.getDepartureAirport());
+			arrivalAirportChoices = SelectChoices.from(airports, "IATAcode", leg.getArrivalAirport());
+			dataset.put("departureAirports", departureAirportChoices);
+			//dataset.put("departureAirport", departureAirportChoices.getSelected().getKey());
+			dataset.put("arrivalAirports", arrivalAirportChoices);
+			//dataset.put("arrivalAirport", arrivalAirportChoices.getSelected().getKey());
+		}
 
 		super.getResponse().addData(dataset);
 	}
