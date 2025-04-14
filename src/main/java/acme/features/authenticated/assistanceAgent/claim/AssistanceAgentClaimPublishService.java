@@ -4,9 +4,15 @@ package acme.features.authenticated.assistanceAgent.claim;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import acme.client.components.models.Dataset;
+import acme.client.components.views.SelectChoices;
+import acme.client.helpers.MomentHelper;
 import acme.client.services.AbstractGuiService;
 import acme.client.services.GuiService;
 import acme.entities.claims.Claim;
+import acme.entities.claims.ClaimStatus;
+import acme.entities.claims.claimType;
+import acme.entities.legs.Leg;
+import acme.features.authenticated.manager.leg.ManagerLegRepository;
 import acme.realms.AssistanceAgent;
 
 @GuiService
@@ -15,7 +21,10 @@ public class AssistanceAgentClaimPublishService extends AbstractGuiService<Assis
 	// Internal state ---------------------------------------------------------
 
 	@Autowired
-	private AssistanceAgentClaimRepository repository;
+	private AssistanceAgentClaimRepository	repository;
+
+	@Autowired
+	private ManagerLegRepository			legRepository;
 
 
 	// AbstractGuiService interface -------------------------------------------
@@ -48,18 +57,15 @@ public class AssistanceAgentClaimPublishService extends AbstractGuiService<Assis
 	@Override
 	public void bind(final Claim claim) {
 		assert claim != null;
-		super.bindObject(claim, "registrationMoment", "email", "description", "type", "status", "selectedLeg");
+
+		super.bindObject(claim);
 	}
 
 	@Override
 	public void validate(final Claim claim) {
 		assert claim != null;
-
-		//		Collection<TrackingLog> tls = this.repository.getTrackingLogByClaimId(claim.getId());
-		//		super.state(!tls.isEmpty(), "*", "assistanceAgent.project.publish.error.noTrackingLogs");
-		//
-		//		boolean allLogsPublished = tls.stream().allMatch(TrackingLog::isDraftMode);
-		//		super.state(!allLogsPublished, "*", "assistanceAgent.claim.error.notAllPublished");
+		if (claim.getLeg() != null)
+			assert claim.getLeg().getScheduledArrival().before(MomentHelper.getCurrentMoment()); //? "...linked to a leg that occurred"
 	}
 
 	@Override
@@ -72,8 +78,24 @@ public class AssistanceAgentClaimPublishService extends AbstractGuiService<Assis
 	@Override
 	public void unbind(final Claim claim) {
 		assert claim != null;
+
 		Dataset dataset;
-		dataset = super.unbindObject(claim, "registrationMoment", "email", "description", "type", "status", "selectedLeg", "draftMode");
+
+		SelectChoices typeChoices;
+		typeChoices = SelectChoices.from(claimType.class, claim.getType());
+
+		ClaimStatus status = claim.getStatus();
+
+		SelectChoices legs;
+		legs = SelectChoices.from(this.repository.getAllLegs(), "flightNumber", claim.getLeg());
+
+		dataset = super.unbindObject(claim, "registrationMoment", "email", "description");
+		Leg leg = this.repository.getLegIsByClaimId(claim.getId());
+		dataset.put("status", status);
+		dataset.put("draftMode", claim.isDraftMode());
+		dataset.put("type", typeChoices);
+		dataset.put("legs", legs);
+		dataset.put("selectedLeg", legs.getSelected().getKey());
 		super.getResponse().addData(dataset);
 	}
 

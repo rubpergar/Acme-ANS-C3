@@ -9,7 +9,10 @@ import acme.client.helpers.MomentHelper;
 import acme.client.services.AbstractGuiService;
 import acme.client.services.GuiService;
 import acme.entities.claims.Claim;
+import acme.entities.claims.ClaimStatus;
 import acme.entities.claims.claimType;
+import acme.entities.legs.Leg;
+import acme.features.authenticated.manager.leg.ManagerLegRepository;
 import acme.realms.AssistanceAgent;
 
 @GuiService
@@ -17,7 +20,10 @@ public class AssistanceAgentClaimCreateService extends AbstractGuiService<Assist
 	// Internal state ---------------------------------------------------------
 
 	@Autowired
-	private AssistanceAgentClaimRepository repository;
+	private AssistanceAgentClaimRepository	repository;
+
+	@Autowired
+	private ManagerLegRepository			legRepository;
 
 	// AbstractGuiService interface -------------------------------------------
 
@@ -35,29 +41,41 @@ public class AssistanceAgentClaimCreateService extends AbstractGuiService<Assist
 		claim = new Claim();
 		claim.setAssistanceAgent(this.repository.getAgentById(super.getRequest().getPrincipal().getActiveRealm().getId()));
 		claim.setDraftMode(true);
-		claim.setRegistrationMoment(MomentHelper.getCurrentMoment()); //?
-
+		claim.setRegistrationMoment(MomentHelper.getCurrentMoment());
 		super.getBuffer().addData(claim);
 	}
 
 	@Override
 	public void bind(final Claim claim) {
 		assert claim != null;
+		int legId;
+		Leg leg;
 
-		claim.setAssistanceAgent(this.repository.getAgentById(super.getRequest().getPrincipal().getActiveRealm().getId()));
+		legId = super.getRequest().getData("selectedLeg", int.class);
+		leg = this.legRepository.getLegById(legId);
+		//		claim.setAssistanceAgent(this.repository.getAgentById(super.getRequest().getPrincipal().getActiveRealm().getId()));
 
-		super.bindObject(claim, "email", "description", "type", "leg");
+		super.bindObject(claim, "email", "description", "type");
+
+		claim.setLeg(leg);
 	}
 
 	@Override
 	public void validate(final Claim claim) {
 		assert claim != null;
-		//assert claim.getLeg().getScheduledArrival().before(MomentHelper.getCurrentMoment()); //? "esto tiene que ser que leg este publicado"
+		//assert claim.getLeg().getScheduledArrival().before(MomentHelper.getCurrentMoment()); //? "...linked to a leg that occurred"
 	}
 
 	@Override
 	public void perform(final Claim claim) {
 		assert claim != null;
+		claim.setRegistrationMoment(MomentHelper.getCurrentMoment());
+		claim.setEmail(claim.getEmail());
+		claim.setDescription(claim.getDescription());
+		claim.setType(claim.getType());
+		claim.setAssistanceAgent(this.repository.getAgentById(super.getRequest().getPrincipal().getActiveRealm().getId()));
+		claim.setLeg(claim.getLeg());
+		claim.setDraftMode(true);
 		this.repository.save(claim);
 	}
 
@@ -68,14 +86,17 @@ public class AssistanceAgentClaimCreateService extends AbstractGuiService<Assist
 		SelectChoices typeChoices;
 		SelectChoices legs;
 
+		ClaimStatus status = claim.getStatus();
+
 		typeChoices = SelectChoices.from(claimType.class, claim.getType());
-		legs = SelectChoices.from(this.repository.getAllLegs(), "flightNumber", null);
+		legs = SelectChoices.from(this.repository.getAllLegs(), "flightNumber", claim.getLeg());
 
 		dataset = super.unbindObject(claim, "registrationMoment", "email", "description");
+		dataset.put("status", status);
 		dataset.put("draftMode", true);
 		dataset.put("type", typeChoices);
 		dataset.put("legs", legs);
-		claim.setRegistrationMoment(MomentHelper.getCurrentMoment()); //?
+		dataset.put("selectedLeg", legs.getSelected().getKey());
 		super.getResponse().addData(dataset);
 	}
 
