@@ -12,6 +12,7 @@ import acme.entities.claims.Claim;
 import acme.entities.claims.ClaimStatus;
 import acme.entities.claims.claimType;
 import acme.entities.legs.Leg;
+import acme.features.authenticated.manager.leg.ManagerLegRepository;
 import acme.realms.AssistanceAgent;
 
 @GuiService
@@ -19,7 +20,10 @@ public class AssistanceAgentClaimUpdateService extends AbstractGuiService<Assist
 	// Internal state ---------------------------------------------------------
 
 	@Autowired
-	private AssistanceAgentClaimRepository repository;
+	private AssistanceAgentClaimRepository	repository;
+
+	@Autowired
+	private ManagerLegRepository			legRepository;
 
 	// AbstractGuiService interface -------------------------------------------
 
@@ -51,18 +55,31 @@ public class AssistanceAgentClaimUpdateService extends AbstractGuiService<Assist
 	@Override
 	public void bind(final Claim claim) {
 		assert claim != null;
-		super.bindObject(claim, "email", "description", "type", "selectedLeg");
+		int legId;
+		Leg leg;
+
+		legId = super.getRequest().getData("selectedLeg", int.class);
+		leg = this.legRepository.getLegById(legId);
+
+		super.bindObject(claim, "email", "description", "type");
+
+		claim.setLeg(leg);
 	}
 
 	@Override
 	public void validate(final Claim claim) {
 		assert claim != null;
-		assert claim.getLeg().getScheduledArrival().before(MomentHelper.getCurrentMoment()); //? "...linked to a leg that occurred"
+		if (claim.getLeg() != null)
+			assert claim.getLeg().getScheduledArrival().before(MomentHelper.getCurrentMoment()); //? "...linked to a leg that occurred"
 	}
 
 	@Override
 	public void perform(final Claim claim) {
 		assert claim != null;
+		claim.setEmail(claim.getEmail());
+		claim.setDescription(claim.getDescription());
+		claim.setType(claim.getType());
+		claim.setLeg(claim.getLeg());
 		this.repository.save(claim);
 	}
 
