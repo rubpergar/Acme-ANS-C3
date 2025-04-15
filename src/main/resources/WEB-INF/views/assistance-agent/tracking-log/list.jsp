@@ -12,6 +12,7 @@
 	<acme:list-column code="assistanceAgent.trackingLog.list.label.draftMode" path="draftMode" width="10%"/>
 </acme:list>
 
-<acme:button code="assistanceAgent.trackingLog.form.button.create" action="/assistance-agent/tracking-log/create?masterId=${masterId}"/>
-
+<jstl:if test="${showCreate}">
+	<acme:button code="assistanceAgent.trackingLog.form.button.create" action="/assistance-agent/tracking-log/create?masterId=${masterId}"/>
+</jstl:if>
 
