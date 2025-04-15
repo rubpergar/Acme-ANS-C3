@@ -59,23 +59,26 @@ public class TrackingLogValidator extends AbstractValidator<ValidTrackingLog, Tr
 			if (resolution == null)
 				super.state(context, false, "resolution", "javax.validation.constraints.NotNull.message");
 
-			if (resolutionPercentage == 100 && status == TrackingLogStatus.PENDING)
-				super.state(context, false, "status", "acme.validation.trackinglog.invalid-status.message");
+			if (resolutionPercentage != null && resolution != null) {
 
-			if (resolutionPercentage != 100 && (status == TrackingLogStatus.ACCEPTED || status == TrackingLogStatus.REJECTED))
-				super.state(context, false, "status", "acme.validation.trackinglog.invalid-status.message");
+				if (resolutionPercentage == 100 && status == TrackingLogStatus.PENDING)
+					super.state(context, false, "status", "acme.validation.trackinglog.invalid-status.message");
 
-			if (status != TrackingLogStatus.PENDING && StringHelper.isBlank(resolution))
-				super.state(context, false, "resolution", "acme.validation.trackinglog.resolution-mandatory-if-status-not-pending.message");
+				if (resolutionPercentage != 100 && (status == TrackingLogStatus.ACCEPTED || status == TrackingLogStatus.REJECTED))
+					super.state(context, false, "status", "acme.validation.trackinglog.invalid-status.message");
 
-			int contador = 0;
+				if (status != TrackingLogStatus.PENDING && StringHelper.isBlank(resolution))
+					super.state(context, false, "resolution", "acme.validation.trackinglog.resolution-mandatory-if-status-not-pending.message");
 
-			for (TrackingLog t : orderedTrackingLogs) {
-				if (t.getResolutionPercentage() == 100)
-					contador += 1;
-				if (t.getLastUpdate().before(trackingLog.getLastUpdate()))
-					if (t.getResolutionPercentage() > trackingLog.getResolutionPercentage() || contador > 2)
-						super.state(context, false, "resolutionPercentage", "acme.validation.trackinglog.invalid-percentage.message");
+				int contador = 0;
+
+				for (TrackingLog t : orderedTrackingLogs) {
+					if (t.getResolutionPercentage() == 100)
+						contador += 1;
+					if (t.getLastUpdate().before(trackingLog.getLastUpdate()))
+						if (t.getResolutionPercentage() > trackingLog.getResolutionPercentage() || contador > 2)
+							super.state(context, false, "resolutionPercentage", "acme.validation.trackinglog.invalid-percentage.message");
+				}
 			}
 		}
 		result = !super.hasErrors(context);

@@ -64,10 +64,11 @@ public class AssistanceAgentTrackingLogUpdateService extends AbstractGuiService<
 	public void validate(final TrackingLog tl) {
 		assert tl != null;
 
-		if (tl.getResolutionPercentage() == 100.0)
-			assert tl.getStatus() == TrackingLogStatus.ACCEPTED || tl.getStatus() == TrackingLogStatus.REJECTED;
-		else
-			assert tl.getStatus() == TrackingLogStatus.PENDING;
+		//		if (tl.getResolutionPercentage() != null)
+		//			if (tl.getResolutionPercentage() == 100.0)
+		//				assert tl.getStatus() == TrackingLogStatus.ACCEPTED || tl.getStatus() == TrackingLogStatus.REJECTED;
+		//			else
+		//				assert tl.getStatus() == TrackingLogStatus.PENDING;
 	}
 
 	@Override
