@@ -35,3 +35,7 @@ tracking-log-28,claim-12,2012/07/02 00:00,lorem,100,ACCEPTED,<script>alert(‘Ha
 #draftMode
 tracking-log-29,claim-23,2012/07/03 00:00,lorem,10,PENDING,,false
 tracking-log-30,claim-23,2012/07/05 00:00,lorem,20,PENDING,,true
+#extraTl
+tracking-log-31,claim-24,2012/07/05 00:00,lorem,50,PENDING,,true
+tracking-log-32,claim-24,2012/07/05 00:00,lorem,100,REJECTED,lorem,true
+tracking-log-33,claim-24,2012/07/05 00:00,lorem,100,REJECTED,lorem,true

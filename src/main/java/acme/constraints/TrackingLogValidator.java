@@ -68,12 +68,19 @@ public class TrackingLogValidator extends AbstractValidator<ValidTrackingLog, Tr
 			if (status != TrackingLogStatus.PENDING && StringHelper.isBlank(resolution))
 				super.state(context, false, "resolution", "acme.validation.trackinglog.resolution-mandatory-if-status-not-pending.message");
 
-			for (TrackingLog t : orderedTrackingLogs)
+			int contador = 0;
+
+			for (TrackingLog t : orderedTrackingLogs) {
+				if (t.getResolutionPercentage() == 100)
+					contador += 1;
 				if (t.getLastUpdate().before(trackingLog.getLastUpdate()))
 					if (t.getResolutionPercentage() > trackingLog.getResolutionPercentage())
 						super.state(context, false, "resolutionPercentage", "acme.validation.trackinglog.invalid-percentage.message");
-		}
+			}
+			if (contador > 2)
+				super.state(context, false, "resolutionPercentage", "acme.validation.trackinglog.invalid-percentage.message");
 
+		}
 		result = !super.hasErrors(context);
 
 		return result;
