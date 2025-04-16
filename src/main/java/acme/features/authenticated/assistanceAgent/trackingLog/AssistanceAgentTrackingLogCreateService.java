@@ -1,6 +1,8 @@
 
 package acme.features.authenticated.assistanceAgent.trackingLog;
 
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import acme.client.components.models.Dataset;
@@ -32,10 +34,16 @@ public class AssistanceAgentTrackingLogCreateService extends AbstractGuiService<
 		boolean status;
 		int masterId;
 		Claim claim;
+		Collection<TrackingLog> tls;
+		int contador = 0;
 
 		masterId = super.getRequest().getData("masterId", int.class);
 		claim = this.claimRepository.getClaimById(masterId);
-		status = claim != null && (!claim.isDraftMode() || super.getRequest().getPrincipal().hasRealm(claim.getAssistanceAgent()));
+		tls = this.claimRepository.getTrackingLogByClaimId(masterId);
+		for (TrackingLog tl : tls)
+			if (tl.getResolutionPercentage() == 100)
+				contador += 1;
+		status = claim != null && super.getRequest().getPrincipal().hasRealm(claim.getAssistanceAgent()) && contador < 2;
 
 		super.getResponse().setAuthorised(status);
 	}
@@ -75,15 +83,23 @@ public class AssistanceAgentTrackingLogCreateService extends AbstractGuiService<
 	public void validate(final TrackingLog tl) {
 		assert tl != null;
 
-		if (tl.getResolutionPercentage() == 100.0)
-			assert tl.getStatus() == TrackingLogStatus.ACCEPTED || tl.getStatus() == TrackingLogStatus.REJECTED;
-		else
-			assert tl.getStatus() == TrackingLogStatus.PENDING;
+		//		if (tl.getResolutionPercentage() == 100.0)
+		//			assert tl.getStatus() == TrackingLogStatus.ACCEPTED || tl.getStatus() == TrackingLogStatus.REJECTED;
+		//		else
+		//			assert tl.getStatus() == TrackingLogStatus.PENDING;
 	}
 
 	@Override
 	public void perform(final TrackingLog tl) {
 		assert tl != null;
+
+		tl.setClaim(tl.getClaim());
+		tl.setLastUpdate(MomentHelper.getCurrentMoment());
+		tl.setStepUndergoing(tl.getStepUndergoing());
+		tl.setResolutionPercentage(tl.getResolutionPercentage());
+		tl.setResolution(tl.getResolution());
+		tl.setStatus(tl.getStatus());
+		tl.setDraftMode(tl.isDraftMode());
 
 		this.repository.save(tl);
 	}
