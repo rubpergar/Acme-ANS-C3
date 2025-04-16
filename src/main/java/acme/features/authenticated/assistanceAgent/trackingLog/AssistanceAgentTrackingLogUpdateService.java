@@ -49,6 +49,7 @@ public class AssistanceAgentTrackingLogUpdateService extends AbstractGuiService<
 
 		tlId = super.getRequest().getData("id", int.class);
 		tl = this.repository.getTlById(tlId);
+		tl.setLastUpdate(MomentHelper.getCurrentMoment());
 
 		super.getBuffer().addData(tl);
 	}
@@ -57,7 +58,7 @@ public class AssistanceAgentTrackingLogUpdateService extends AbstractGuiService<
 	public void bind(final TrackingLog tl) {
 		assert tl != null;
 
-		super.bindObject(tl, "lastUpdate", "stepUndergoing", "resolutionPercentage", "status", "resolution");
+		super.bindObject(tl, "stepUndergoing", "resolutionPercentage", "status", "resolution");
 	}
 
 	@Override
@@ -74,7 +75,13 @@ public class AssistanceAgentTrackingLogUpdateService extends AbstractGuiService<
 	@Override
 	public void perform(final TrackingLog tl) {
 		assert tl != null;
+		tl.setClaim(tl.getClaim());
 		tl.setLastUpdate(MomentHelper.getCurrentMoment());
+		tl.setStepUndergoing(tl.getStepUndergoing());
+		tl.setResolutionPercentage(tl.getResolutionPercentage());
+		tl.setResolution(tl.getResolution());
+		tl.setStatus(tl.getStatus());
+		tl.setDraftMode(tl.isDraftMode());
 
 		this.repository.save(tl);
 	}

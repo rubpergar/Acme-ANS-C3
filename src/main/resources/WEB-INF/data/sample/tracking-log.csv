@@ -39,3 +39,8 @@ tracking-log-30,claim-23,2012/07/05 00:00,lorem,20,PENDING,,true
 tracking-log-31,claim-24,2012/07/05 00:00,lorem,50,PENDING,,true
 tracking-log-32,claim-24,2012/07/05 00:00,lorem,100,REJECTED,lorem,true
 tracking-log-33,claim-24,2012/07/05 00:00,lorem,100,REJECTED,lorem,true
+#claim25
+tracking-log-34,claim-25,2017/07/05 00:00,lorem,10,PENDING,,true
+tracking-log-35,claim-25,2017/07/06 00:00,lorem,20,PENDING,,true
+tracking-log-36,claim-25,2017/07/07 00:00,lorem,30,PENDING,,true
+tracking-log-37,claim-25,2017/07/08 00:00,lorem,40,PENDING,,true

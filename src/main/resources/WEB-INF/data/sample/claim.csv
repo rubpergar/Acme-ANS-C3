@@ -28,3 +28,4 @@ claim-22,2012/07/02 00:00,example2@gmail.com,lorem,OTHER_ISSUES,agent-01,leg-01,
 #draftMode
 claim-23,2012/07/02 00:00,example2@gmail.com,lorem,FLIGHT_ISSUES,agent-01,leg-01,false
 claim-24,2012/07/02 00:00,example2@gmail.com,lorem,FLIGHT_ISSUES,agent-01,leg-01,true
+claim-25,2017/07/01 00:00,example2@gmail.com,lorem,FLIGHT_ISSUES,agent-01,leg-01,true
