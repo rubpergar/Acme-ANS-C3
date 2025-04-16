@@ -21,7 +21,7 @@ public class AssistanceAgentTrackingLogListService extends AbstractGuiService<As
 	private AssistanceAgentTrackingLogRepository	repository;
 
 	@Autowired
-	private AssistanceAgentClaimRepository		claimRepository;
+	private AssistanceAgentClaimRepository			claimRepository;
 
 	// AbstractGuiService interface -------------------------------------------
 
@@ -63,11 +63,17 @@ public class AssistanceAgentTrackingLogListService extends AbstractGuiService<As
 	public void unbind(final Collection<TrackingLog> trackingLogs) {
 		int masterId;
 		Claim claim;
+		Collection<TrackingLog> tls;
+		int contador = 0;
 		final boolean showCreate;
 
 		masterId = super.getRequest().getData("masterId", int.class);
 		claim = this.claimRepository.getClaimById(masterId);
-		showCreate = claim.isDraftMode() && super.getRequest().getPrincipal().hasRealm(claim.getAssistanceAgent());
+		tls = this.claimRepository.getTrackingLogByClaimId(masterId);
+		for (TrackingLog tl : tls)
+			if (tl.getResolutionPercentage() == 100)
+				contador += 1;
+		showCreate = contador < 2 && super.getRequest().getPrincipal().hasRealm(claim.getAssistanceAgent());
 
 		super.getResponse().addGlobal("masterId", masterId);
 		super.getResponse().addGlobal("showCreate", showCreate);

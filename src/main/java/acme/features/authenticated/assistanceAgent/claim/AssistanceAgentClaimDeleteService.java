@@ -50,7 +50,7 @@ public class AssistanceAgentClaimDeleteService extends AbstractGuiService<Assist
 	public void bind(final Claim claim) {
 		assert claim != null;
 		claim.setAssistanceAgent(this.repository.getAgentById(super.getRequest().getPrincipal().getActiveRealm().getId()));
-		super.bindObject(claim, "registrationMoment", "email", "description", "type", "status", "selectedLeg");
+		super.bindObject(claim, "email", "description", "type", "status", "selectedLeg");
 	}
 
 	@Override
