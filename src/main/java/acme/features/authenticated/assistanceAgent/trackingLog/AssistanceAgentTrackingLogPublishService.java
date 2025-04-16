@@ -36,7 +36,7 @@ public class AssistanceAgentTrackingLogPublishService extends AbstractGuiService
 		tlId = super.getRequest().getData("id", int.class);
 		tl = this.repository.getTlById(tlId);
 		claim = this.repository.getClaimByTlId(tlId);
-		status = claim != null && super.getRequest().getPrincipal().hasRealm(claim.getAssistanceAgent()) && tl.isDraftMode();
+		status = claim != null && super.getRequest().getPrincipal().hasRealm(claim.getAssistanceAgent()) && tl.isDraftMode() && !claim.isDraftMode();
 
 		super.getResponse().setAuthorised(status);
 	}
@@ -56,25 +56,18 @@ public class AssistanceAgentTrackingLogPublishService extends AbstractGuiService
 	public void bind(final TrackingLog tl) {
 		assert tl != null;
 
-		super.bindObject(tl, "lastUpdate", "stepUndergoing", "resolutionPercentage", "status", "resolution");
+		super.bindObject(tl);
 	}
 
 	@Override
 	public void validate(final TrackingLog tl) {
 		assert tl != null;
-
-		if (tl.getResolutionPercentage() == 100.0)
-			assert tl.getStatus() == TrackingLogStatus.ACCEPTED || tl.getStatus() == TrackingLogStatus.REJECTED;
-		else
-			assert tl.getStatus() == TrackingLogStatus.PENDING;
-
 		assert tl.getClaim().isDraftMode() == false;
 	}
 
 	@Override
 	public void perform(final TrackingLog tl) {
 		assert tl != null;
-		//tl.setLastUpdate(MomentHelper.getCurrentMoment());
 		tl.setDraftMode(false);
 		this.repository.save(tl);
 	}
