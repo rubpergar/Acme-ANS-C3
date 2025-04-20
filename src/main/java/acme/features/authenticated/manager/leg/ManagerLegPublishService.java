@@ -4,6 +4,7 @@ package acme.features.authenticated.manager.leg;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import acme.client.components.models.Dataset;
+import acme.client.helpers.PrincipalHelper;
 import acme.client.services.AbstractGuiService;
 import acme.client.services.GuiService;
 import acme.entities.flights.Flight;
@@ -27,15 +28,15 @@ public class ManagerLegPublishService extends AbstractGuiService<Manager, Leg> {
 
 	@Override
 	public void authorise() {
-		boolean status;
-		int legId;
-		Flight flight;
-		Leg leg;
+		int legId = super.getRequest().getData("id", int.class);
+		Leg leg = this.repository.getLegById(legId);
 
-		legId = super.getRequest().getData("id", int.class);
-		leg = this.repository.getLegById(legId);
-		flight = this.repository.getFlightByLegId(legId);
-		status = flight != null && flight.getIsDraft() && super.getRequest().getPrincipal().hasRealm(flight.getAirlineManager()) || leg.getIsDraft();
+		boolean status = false;
+
+		if (leg != null && leg.getIsDraft()) {
+			Flight flight = leg.getFlight();
+			status = flight != null && flight.getIsDraft() && super.getRequest().getPrincipal().hasRealm(flight.getAirlineManager()) && super.getRequest().getPrincipal().getAccountId() == flight.getAirlineManager().getUserAccount().getId();
+		}
 
 		super.getResponse().setAuthorised(status);
 	}
@@ -87,4 +88,8 @@ public class ManagerLegPublishService extends AbstractGuiService<Manager, Leg> {
 		super.getResponse().addData(dataset);
 	}
 
+	@Override
+	public void onSuccess() {
+		PrincipalHelper.handleUpdate();
+	}
 }

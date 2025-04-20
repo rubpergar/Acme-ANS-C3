@@ -183,3 +183,8 @@ acme.validation.booking.flight-departure.message = El vuelo ya ha salido. No pue
 acme.validation.booking.notExisting-flight.message = El vuelo no existe. Por favor, proporcione un vuelo válido.
 acme.validation.booking-passenger.notExistingBookingPassenger.message= Este pasajero ya está asignado a la reserva. Por favor, proporcione un pasajero diferente.
 customer.project.publish.error.passengerNotEmpty = Para publicar una reserva, al menos debe haber 1 pasajero.
+
+
+
+manager.leg.error.status-required = Estado requerido. El estado no puede ser nulo.
+manager.leg.error.invalid-status = Estado invalido. Debe ser: "CANCELED", "DELAYED", "LANDED", "ON_TIME"
