@@ -24,7 +24,10 @@ public class AdministratorAirportUpdateService extends AbstractGuiService<Admini
 
 	@Override
 	public void authorise() {
-		super.getResponse().setAuthorised(true);
+		int airportId = super.getRequest().getData("id", int.class);
+		Airport airport = this.repository.getAirportById(airportId);
+		boolean hasAuthority = super.getRequest().getPrincipal().hasRealmOfType(Administrator.class) && airport != null;
+		super.getResponse().setAuthorised(hasAuthority);
 	}
 
 	@Override
@@ -41,7 +44,8 @@ public class AdministratorAirportUpdateService extends AbstractGuiService<Admini
 	@Override
 	public void bind(final Airport airport) {
 		assert airport != null;
-		super.bindObject(airport, "name", "IATAcode", "scope", "city", "country", "web", "email", "phone");
+
+		super.bindObject(airport, "name", "codeIATA", "scope", "city", "country", "web", "email", "phone");
 	}
 
 	@Override
@@ -57,6 +61,14 @@ public class AdministratorAirportUpdateService extends AbstractGuiService<Admini
 	public void perform(final Airport airport) {
 		assert airport != null;
 
+		airport.setName(airport.getName());
+		airport.setCodeIATA(airport.getCodeIATA());
+		airport.setScope(airport.getScope());
+		airport.setCity(airport.getCity());
+		airport.setCountry(airport.getCountry());
+		airport.setWeb(airport.getWeb());
+		airport.setEmail(airport.getEmail());
+		airport.setPhone(airport.getPhone());
 		this.repository.save(airport);
 	}
 
@@ -68,10 +80,8 @@ public class AdministratorAirportUpdateService extends AbstractGuiService<Admini
 		SelectChoices choices;
 		choices = SelectChoices.from(AirportType.class, airport.getScope());
 
-		dataset = super.unbindObject(airport, "name", "IATAcode", "city", "country", "web", "email", "phone");
+		dataset = super.unbindObject(airport, "name", "codeIATA", "city", "country", "web", "email", "phone");
 		dataset.put("scope", choices);
-		dataset.put("readOnly", false);
-		dataset.put("confirmation", false);
 
 		super.getResponse().addData(dataset);
 	}

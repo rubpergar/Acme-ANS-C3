@@ -10,6 +10,7 @@ import javax.validation.Constraint;
 import javax.validation.Payload;
 import javax.validation.ReportAsSingleViolation;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 @Target(ElementType.FIELD)
@@ -18,10 +19,9 @@ import javax.validation.constraints.Pattern;
 	IATACodeValidator.class
 })
 @ReportAsSingleViolation
-
+@NotNull
 @NotBlank
 @Pattern(regexp = "^[A-Z]{3}$")
-
 public @interface ValidIATACode {
 
 	// Custom properties ------------------------------------------------------
@@ -30,9 +30,10 @@ public @interface ValidIATACode {
 
 	// Standard validation properties -----------------------------------------
 
-	String message() default "";
-
+	String message() default "{acme.validation.airport.invalid-IATACode.message}";
 	Class<?>[] groups() default {};
-	Class<? extends Payload>[] payload() default {};
 
+	Class<? extends Payload>[] payload() default
+
+	{};
 }
