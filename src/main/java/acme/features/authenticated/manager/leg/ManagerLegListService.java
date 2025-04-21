@@ -55,8 +55,8 @@ public class ManagerLegListService extends AbstractGuiService<Manager, Leg> {
 		Dataset dataset;
 
 		dataset = super.unbindObject(leg, "flightNumber", "scheduledDeparture", "scheduledArrival", "status", "isDraft");
-		dataset.put("departureAirport", leg.getDepartureAirport().getIATAcode());
-		dataset.put("arrivalAirport", leg.getArrivalAirport().getIATAcode());
+		dataset.put("departureAirport", leg.getDepartureAirport().getCodeIATA());
+		dataset.put("arrivalAirport", leg.getArrivalAirport().getCodeIATA());
 		dataset.put("aircraft", leg.getAircraft().getRegistrationNumber());
 		super.addPayload(dataset, leg, "flightNumber", "scheduledDeparture", "scheduledArrival", "status", "isDraft", "departureAirport", "arrivalAirport", "aircraft");
 

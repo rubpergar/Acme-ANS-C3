@@ -5,13 +5,8 @@
 
 <acme:list>
 	<acme:list-column code="administrator.airport.list.label.name" path="name" width="10%"/>
-	<acme:list-column code="administrator.airport.list.label.IATAcode" path="IATAcode" width="10%"/>
+	<acme:list-column code="administrator.airport.list.label.IATAcode" path="codeIATA" width="10%"/>
 	<acme:list-column code="administrator.airport.list.label.scope" path="scope" width="10%"/>
-	<acme:list-column code="administrator.airport.list.label.city" path="city" width="10%"/>
-	<acme:list-column code="administrator.airport.list.label.country" path="country" width="10%"/>
-	<acme:list-column code="administrator.airport.list.label.web" path="web" width="10%"/>
-	<acme:list-column code="administrator.airport.list.label.email" path="email" width="10%"/>
-	<acme:list-column code="administrator.airport.list.label.phone" path="phone" width="10%"/>
 	
 </acme:list>
 <jstl:if test="${_command == 'list'}">

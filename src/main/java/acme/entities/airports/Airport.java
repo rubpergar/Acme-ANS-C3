@@ -36,7 +36,7 @@ public class Airport extends AbstractEntity {
 	@Mandatory
 	@ValidIATACode(type = "airport")
 	@Column(unique = true)
-	private String				IATAcode;
+	private String				codeIATA;
 
 	@Mandatory
 	@Valid

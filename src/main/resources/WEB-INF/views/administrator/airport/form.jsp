@@ -6,7 +6,7 @@
 
 <acme:form>
 		<acme:input-textbox code="administrator.airport.form.label.name" path="name" />
-		<acme:input-textbox code="administrator.airport.form.label.IATAcode" path="IATAcode"/>
+		<acme:input-textbox code="administrator.airport.form.label.IATAcode" path="codeIATA"/>
 		<acme:input-select code="administrator.airport.form.label.scope" path="scope" choices="${scope}"/>
 		<acme:input-textbox code="administrator.airport.form.label.city" path="city"/>
 		<acme:input-textbox code="administrator.airport.form.label.country" path="country"/>
@@ -15,7 +15,7 @@
 		<acme:input-textbox code="administrator.airport.form.label.phone" path="phone"/>
 		
 		<jstl:choose>
-			<jstl:when test="${_command == 'show'}">
+			<jstl:when test="${acme:anyOf(_command, 'show|update')}">
 				<acme:input-checkbox code="administrator.airport.form.label.confirmation" path="confirmation"/>
 				<acme:submit code="administrator.airport.form.button.update" action="/administrator/airport/update"/>
 			</jstl:when>
