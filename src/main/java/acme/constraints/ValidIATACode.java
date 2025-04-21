@@ -15,9 +15,7 @@ import javax.validation.constraints.Pattern;
 
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = {
-	IATACodeValidator.class
-})
+@Constraint(validatedBy = {})
 @ReportAsSingleViolation
 @NotNull
 @NotBlank
