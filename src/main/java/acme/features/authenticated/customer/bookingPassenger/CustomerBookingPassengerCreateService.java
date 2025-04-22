@@ -35,8 +35,19 @@ public class CustomerBookingPassengerCreateService extends AbstractGuiService<Cu
 
 		boolean isCustomer = customerId == booking.getCustomer().getId();
 		boolean isDraft = booking.getIsDraft();
+		boolean validPassenger = true;
 
-		super.getResponse().setAuthorised(isCustomer && isDraft);
+		if (super.getRequest().getMethod().equals("POST")) {
+			Integer passengerId = super.getRequest().getData("passenger", Integer.class);
+			Passenger passenger = passengerId != null ? this.repository.findPassengerByIdAndCustomerId(passengerId, customerId) : null;
+
+			boolean invalidPassenger = (passenger == null || passenger.getIsDraft()) && passengerId != null;
+
+			if (invalidPassenger)
+				validPassenger = false;
+		}
+
+		super.getResponse().setAuthorised(isCustomer && isDraft && validPassenger);
 
 		if (!isDraft)
 			super.state(false, "*", "customer.booking.form.error.publishedBooking", "booking");
