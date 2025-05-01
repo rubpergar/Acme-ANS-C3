@@ -1,6 +1,7 @@
 
 package acme.constraints;
 
+import java.util.Date;
 import java.util.Optional;
 
 import javax.validation.ConstraintValidatorContext;
@@ -57,6 +58,7 @@ public class LegValidator extends AbstractValidator<ValidLeg, Leg> {
 		Optional<Leg> legWithSameFlightNumber = this.repository.findLegByFlightNumber(flightNumber);
 		if (legWithSameFlightNumber.isPresent() && legWithSameFlightNumber.get().getId() != leg.getId())
 			super.state(context, false, "flightNumber", "acme.validation.leg.duplicate-flight-number.message");
+
 
 		return !super.hasErrors(context);
 	}

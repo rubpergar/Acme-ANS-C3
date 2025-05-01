@@ -41,6 +41,8 @@ acme.validation.leg.invalid-airport.message=The arrival airport can't the same t
 acme.validation.length.message = Too long. 
 acme.validation.leg.duplicate-flight-number.message=The flight number is already in use. Please provide a different one.
 
+acme.validation.leg.invalid-departure.message = The scheduled departure must be after than present moment.
+
 manager.flight.form.label.tag = Tag
 manager.flight.form.label.cost = Cost
 manager.flight.form.label.description = Description
