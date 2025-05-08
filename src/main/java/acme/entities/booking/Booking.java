@@ -91,14 +91,9 @@ public class Booking extends AbstractEntity {
 		if (this.flight == null) {
 			money.setAmount(0.0);
 			money.setCurrency("");
-		} else if (this.travelClass.equals(TravelClass.ECONOMY)) {
-			flightCost = this.getFlight().getCost();
-			price = flightCost.getAmount() * numberOfPassengers;
-			money.setAmount(price);
-			money.setCurrency(flightCost.getCurrency());
 		} else {
 			flightCost = this.getFlight().getCost();
-			price = flightCost.getAmount() * numberOfPassengers * 2;
+			price = flightCost.getAmount() * numberOfPassengers;
 			money.setAmount(price);
 			money.setCurrency(flightCost.getCurrency());
 		}

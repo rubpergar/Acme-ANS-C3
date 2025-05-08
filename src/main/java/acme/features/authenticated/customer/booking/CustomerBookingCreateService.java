@@ -31,15 +31,24 @@ public class CustomerBookingCreateService extends AbstractGuiService<Customer, B
 		boolean status = super.getRequest().getPrincipal().hasRealmOfType(Customer.class);
 
 		if (super.getRequest().getMethod().equals("POST")) {
-			Integer flightId = super.getRequest().getData("flight", Integer.class);
-			Flight flight = flightId != null ? this.repository.findFlightById(flightId) : null;
+			Integer flightId = super.getRequest().getData("flight", int.class);
+			//FLIGHT
+			if (flightId != 0) {
+				Flight flight = this.repository.findFlightById(flightId);
 
-			boolean invalidFlight = (flight == null || flight.getIsDraft()) && flightId != null;
+				if (flight == null || flight.getIsDraft())
+					status = false;
+			}
+			// TRAVEL CLASS
+			String travelClass = super.getRequest().getData("travelClass", String.class);
 
-			if (invalidFlight)
-				status = false;
+			if (travelClass != null && !travelClass.equals("0"))
+				try {
+					TravelClass validTravelClass = TravelClass.valueOf(travelClass);
+				} catch (IllegalArgumentException ex) {
+					status = false;
+				}
 		}
-
 		super.getResponse().setAuthorised(status);
 	}
 
@@ -98,6 +107,7 @@ public class CustomerBookingCreateService extends AbstractGuiService<Customer, B
 		// Verificar que el flight no es null
 		boolean flightNullStatus = this.repository.findNotDraftFlights().contains(booking.getFlight());
 		super.state(flightNullStatus, "flight", "acme.validation.booking.notExisting-flight.message");
+
 	}
 
 	@Override

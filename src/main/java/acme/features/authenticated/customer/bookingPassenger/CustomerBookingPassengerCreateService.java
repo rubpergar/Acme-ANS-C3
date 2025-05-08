@@ -1,6 +1,8 @@
 
 package acme.features.authenticated.customer.bookingPassenger;
 
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import acme.client.components.models.Dataset;
@@ -39,12 +41,14 @@ public class CustomerBookingPassengerCreateService extends AbstractGuiService<Cu
 
 		if (super.getRequest().getMethod().equals("POST")) {
 			Integer passengerId = super.getRequest().getData("passenger", Integer.class);
-			Passenger passenger = passengerId != null ? this.repository.findPassengerByIdAndCustomerId(passengerId, customerId) : null;
+			if (passengerId != 0) {
+				Passenger passenger = passengerId != null ? this.repository.findPassengerByIdAndCustomerId(passengerId, customerId) : null;
 
-			boolean invalidPassenger = (passenger == null || passenger.getIsDraft()) && passengerId != null;
+				boolean invalidPassenger = (passenger == null || passenger.getIsDraft()) && passengerId != null;
 
-			if (invalidPassenger)
-				validPassenger = false;
+				if (invalidPassenger)
+					validPassenger = false;
+			}
 		}
 
 		super.getResponse().setAuthorised(isCustomer && isDraft && validPassenger);
@@ -77,7 +81,7 @@ public class CustomerBookingPassengerCreateService extends AbstractGuiService<Cu
 		passenger = this.repository.findPassengerById(passengerId);
 		bookingPassenger.setPassenger(passenger);
 
-		super.bindObject(bookingPassenger, "booking");
+		super.bindObject(bookingPassenger);
 	}
 
 	@Override
@@ -111,10 +115,16 @@ public class CustomerBookingPassengerCreateService extends AbstractGuiService<Cu
 		SelectChoices passengers;
 		int customerId;
 		customerId = super.getRequest().getPrincipal().getActiveRealm().getId();
-		passengers = SelectChoices.from(this.repository.findAllPublishedPassengersByCustomerId(customerId), "fullName", bookingPassenger.getPassenger());
+		Collection<Passenger> publishedPassengers = this.repository.findAllPublishedPassengersByCustomerId(customerId);
+		Collection<Passenger> passengerAlreadyInBooking = this.repository.findPassengersByBookingId(bookingPassenger.getBooking().getId());
+
+		Collection<Passenger> passengersNotInBooking = publishedPassengers.stream().filter(p -> !passengerAlreadyInBooking.contains(p)).toList();
+
+		passengers = SelectChoices.from(passengersNotInBooking, "fullName", bookingPassenger.getPassenger());
 		dataset = super.unbindObject(bookingPassenger, "booking", "passenger");
 		dataset.put("passenger", passengers);
 		dataset.put("bookingLocatorCode", bookingPassenger.getBooking().getLocatorCode());
+		dataset.put("bookingId", bookingPassenger.getBooking().getId());
 
 		int masterId = super.getRequest().getData("masterId", int.class);
 		super.getResponse().addGlobal("masterId", masterId);

@@ -258,6 +258,7 @@ acme.validation.booking.flight-departure.message= The flight has already departe
 acme.validation.booking.notExisting-flight.message = The flight does not exist. Please select a valid flight.
 acme.validation.booking-passenger.notExistingBookingPassenger.message= This passenger is already in the booking. Please select a different passenger.
 customer.project.publish.error.passengerNotEmpty = The booking must have at least one passenger to be published.
+customer.booking.passengerInfo = Passenger Information
 
 
 manager.leg.error.status-required = The leg status is required
