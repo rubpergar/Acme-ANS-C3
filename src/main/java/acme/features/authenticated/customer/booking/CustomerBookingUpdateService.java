@@ -24,31 +24,59 @@ public class CustomerBookingUpdateService extends AbstractGuiService<Customer, B
 
 	// AbstractGuiService interface -------------------------------------------
 
+	//	@Override
+	//	public void authorise() {
+	//		boolean isCustomer = super.getRequest().getPrincipal().hasRealmOfType(Customer.class);
+	//
+	//		Integer bookingId = super.getRequest().getData("id", int.class);
+	//		Booking booking = this.repository.findBookingById(bookingId);
+	//
+	//		boolean validBooking = booking != null && booking.getCustomer().getId() == super.getRequest().getPrincipal().getActiveRealm().getId() && booking.getIsDraft();
+	//
+	//		boolean status = isCustomer && validBooking;
+	//
+	//		Integer flightId = super.getRequest().getData("flight", int.class);
+	//		if (flightId != 0) {
+	//			Flight flight = this.repository.findFlightById(flightId);
+	//			status = status && flight != null && !flight.getIsDraft();
+	//		}
+	//
+	//		super.getResponse().setAuthorised(status);
+	//	}
+
 
 	@Override
 	public void authorise() {
-		Booking booking;
-		int bookingId;
-		int userAccountId;
+		boolean status = super.getRequest().getPrincipal().hasRealmOfType(Customer.class);
 
-		bookingId = super.getRequest().getData("id", int.class);
-		booking = this.repository.findBookingById(bookingId);
+		Integer bookingId = super.getRequest().getData("id", int.class);
+		Booking booking = this.repository.findBookingById(bookingId);
 
-		userAccountId = super.getRequest().getPrincipal().getAccountId();
+		status = status && booking != null;
 
-		boolean status = booking.getCustomer().getUserAccount().getId() == userAccountId && booking.getIsDraft();
+		Integer customerId = super.getRequest().getPrincipal().getActiveRealm().getId();
 
-		//if (super.getRequest().getMethod().equals("POST")) {
-		Integer flightId = super.getRequest().getData("flight", Integer.class);
-		Flight flight = flightId != null ? this.repository.findFlightById(flightId) : null;
+		status = status && booking.getCustomer().getId() == customerId && booking.getIsDraft();
 
-		boolean invalidFlight = flight == null || flight.getIsDraft();
+		// FLIGHT
 
-		if (invalidFlight)
-			status = false;
-		//}
+		Integer flightId = super.getRequest().getData("flight", int.class);
+		if (flightId != 0) {
+			Flight flight = this.repository.findFlightById(flightId);
+			status = status && flight != null && !flight.getIsDraft();
+		}
 
-		//super.getResponse().setAuthorised(booking.getCustomer().getUserAccount().getId() == userAccountId && validDraft && validFlight);
+		// TRAVEL CLASS
+
+		String travelClass = super.getRequest().getData("travelClass", String.class);
+
+		if (travelClass != null && !travelClass.equals("0"))
+			try {
+				TravelClass validTravelClass = TravelClass.valueOf(travelClass);
+			} catch (IllegalArgumentException ex) {
+				status = false;
+			}
+
 		super.getResponse().setAuthorised(status);
 	}
 

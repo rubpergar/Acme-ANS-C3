@@ -14,7 +14,6 @@
     <acme:input-select code="customer.booking.form.label.travelClass" path="travelClass" choices="${travelClass}"/>    
     <acme:input-money code="customer.booking.form.label.price" path="price" readonly="true"/>
     <acme:input-textbox code="customer.booking.form.label.lastNibble" path="lastNibble"/>
-    <acme:input-checkbox code="customer.passenger.form.isDraft" path="isDraft" readonly="true"/>
         
     <jstl:choose>     
         <jstl:when test="${_command == 'show' && isDraft == false}">
@@ -22,7 +21,6 @@
         </jstl:when>
         <jstl:when test="${acme:anyOf(_command, 'show|update|publish')  && isDraft == true}">
             <acme:button code="customer.booking.passengers" action="/customer/booking-passenger/list?masterId=${id}"/>
-            <acme:button code="customer.bookingPassenger.form.button.addPassenger" action="/customer/booking-passenger/create?masterId=${id}"/>
             <acme:submit code="customer.booking.form.button.update" action="/customer/booking/update"/>
             <acme:submit code="customer.booking.form.button.publish" action="/customer/booking/publish"/>
         </jstl:when>

@@ -51,6 +51,7 @@ public class CustomerBookingPassengerShowService extends AbstractGuiService<Cust
 		dataset.put("passenger", passengers);
 		dataset.put("bookingLocatorCode", bookingPassenger.getBooking().getLocatorCode());
 		dataset.put("bookingIsDraft", bookingPassenger.getBooking().getIsDraft());
+		dataset.put("passengerId", bookingPassenger.getPassenger().getId());
 
 		super.getResponse().addData(dataset);
 	}

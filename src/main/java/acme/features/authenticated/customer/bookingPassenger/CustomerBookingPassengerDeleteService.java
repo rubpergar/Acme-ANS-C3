@@ -23,20 +23,19 @@ public class CustomerBookingPassengerDeleteService extends AbstractGuiService<Cu
 	public void authorise() {
 
 		// CAMBIAR
-		//		Booking booking;
-		//		int bookingId;
-		//		int userAccountId;
-		//
-		//		bookingId = super.getRequest().getData("id", int.class);
-		//		booking = this.repository.findBookingById(bookingId);
-		//
-		//		userAccountId = super.getRequest().getPrincipal().getAccountId();
-		//		boolean validFlight = this.repository.findNotDraftFlights().contains(booking.getFlight());
-		//		super.getResponse().setAuthorised(booking.getCustomer().getUserAccount().getId() == userAccountId && validFlight);
-		//
-		//		if (booking.getIsDraft())
-		//			super.state(booking.getIsDraft(), "*", "customer.booking.form.error.notDraft", "isDraft");
-		super.getResponse().setAuthorised(true);
+		BookingPassenger bookingPassenger;
+		int bookingId;
+		int userAccountId;
+		userAccountId = super.getRequest().getPrincipal().getAccountId();
+		bookingId = super.getRequest().getData("id", int.class);
+		bookingPassenger = this.repository.findBookingPassengerById(bookingId);
+
+		boolean status = bookingPassenger.getBooking().getCustomer().getUserAccount().getId() == userAccountId;
+
+		if (!bookingPassenger.getBooking().getIsDraft())
+			status = false;
+
+		super.getResponse().setAuthorised(status);
 	}
 
 	@Override

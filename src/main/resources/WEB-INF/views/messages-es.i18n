@@ -188,3 +188,4 @@ customer.project.publish.error.passengerNotEmpty = Para publicar una reserva, al
 
 manager.leg.error.status-required = Estado requerido. El estado no puede ser nulo.
 manager.leg.error.invalid-status = Estado invalido. Debe ser: "CANCELED", "DELAYED", "LANDED", "ON_TIME"
+customer.booking.passengerInfo = Información del pasajero
