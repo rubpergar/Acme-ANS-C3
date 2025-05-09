@@ -4,7 +4,6 @@ package acme.features.authenticated.manager.leg;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
-import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -48,27 +47,31 @@ public class ManagerLegPublishService extends AbstractGuiService<Manager, Leg> {
 			status = flight != null && flight.getIsDraft() && super.getRequest().getPrincipal().hasRealm(flight.getAirlineManager()) && super.getRequest().getPrincipal().getAccountId() == flight.getAirlineManager().getUserAccount().getId();
 		}
 
-		boolean validAircraft = true;
-		boolean validAirport = true;
+		// Validar solo si aircraftId tiene un valor distinto de 0
+		Integer aircraftId = super.getRequest().getData("aircraft", int.class);
+		if (aircraftId != null && aircraftId != 0) {
+			Aircraft aircraft = this.repository.findAircraftById(aircraftId);
+			if (aircraft == null || aircraft.getStatus() != AircraftStatus.ACTIVE)
+				status = false;
+		}
 
-		Integer aircraftId = super.getRequest().getData("aircraft", Integer.class);
-		Aircraft aircraft = aircraftId != null ? this.repository.findAircraftById(aircraftId) : null;
-		boolean invalidAircraft = (aircraft == null || aircraft.getStatus() != AircraftStatus.ACTIVE || !Objects.equals(aircraft.getAirline().getId(), leg.getFlight().getAirlineManager().getAirline().getId())) && aircraftId != null;
-		if (invalidAircraft)
-			validAircraft = false;
+		// Validar solo si departureAirportId tiene un valor distinto de 0
+		Integer departureAirportId = super.getRequest().getData("departureAirport", int.class);
+		if (departureAirportId != null && departureAirportId != 0) {
+			Airport departureAirport = this.repository.findAirportById(departureAirportId);
+			if (departureAirport == null)
+				status = false;
+		}
 
-		Integer departureAirportId = super.getRequest().getData("departureAirport", Integer.class);
-		Airport departureAirport = departureAirportId != null ? this.repository.findAirportById(departureAirportId) : null;
-		boolean invalidDepartureAirport = departureAirport == null && departureAirportId != null;
-		if (invalidDepartureAirport)
-			validAirport = false;
-		Integer arrivalAirportId = super.getRequest().getData("arrivalAirport", Integer.class);
-		Airport arrivalAirport = arrivalAirportId != null ? this.repository.findAirportById(arrivalAirportId) : null;
-		boolean invalidArrivalAirport = arrivalAirport == null && arrivalAirportId != null;
-		if (invalidArrivalAirport)
-			validAirport = false;
+		// Validar solo si arrivalAirportId tiene un valor distinto de 0
+		Integer arrivalAirportId = super.getRequest().getData("arrivalAirport", int.class);
+		if (arrivalAirportId != null && arrivalAirportId != 0) {
+			Airport arrivalAirport = this.repository.findAirportById(arrivalAirportId);
+			if (arrivalAirport == null)
+				status = false;
+		}
 
-		super.getResponse().setAuthorised(status && validAircraft && validAirport);
+		super.getResponse().setAuthorised(status);
 	}
 
 	@Override
