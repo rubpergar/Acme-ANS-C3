@@ -60,6 +60,14 @@ public class ManagerLegUpdateService extends AbstractGuiService<Manager, Leg> {
 				status = false;
 		}
 
+		String legStatus = super.getRequest().getData("status", String.class);
+		if (legStatus != null && !legStatus.equals("0"))
+			try {
+				LegStatus.valueOf(legStatus);
+			} catch (IllegalArgumentException e) {
+				status = false;
+			}
+
 		super.getResponse().setAuthorised(status);
 	}
 
