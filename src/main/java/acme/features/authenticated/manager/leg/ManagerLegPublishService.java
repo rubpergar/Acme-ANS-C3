@@ -178,8 +178,8 @@ public class ManagerLegPublishService extends AbstractGuiService<Manager, Leg> {
 		dataset.put("codeIATA", leg.getFlight().getAirlineManager().getAirline().getCodeIATA());
 
 		if (!airports.isEmpty()) {
-			departureAirportChoices = SelectChoices.from(airports, "IATAcode", leg.getDepartureAirport());
-			arrivalAirportChoices = SelectChoices.from(airports, "IATAcode", leg.getArrivalAirport());
+			departureAirportChoices = SelectChoices.from(airports, "codeIATA", leg.getDepartureAirport());
+			arrivalAirportChoices = SelectChoices.from(airports, "codeIATA", leg.getArrivalAirport());
 			dataset.put("departureAirports", departureAirportChoices);
 			dataset.put("departureAirport", departureAirportChoices.getSelected().getKey());
 			dataset.put("arrivalAirports", arrivalAirportChoices);
