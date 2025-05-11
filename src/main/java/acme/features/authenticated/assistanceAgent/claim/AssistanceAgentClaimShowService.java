@@ -9,7 +9,7 @@ import acme.client.services.AbstractGuiService;
 import acme.client.services.GuiService;
 import acme.entities.claims.Claim;
 import acme.entities.claims.ClaimStatus;
-import acme.entities.claims.claimType;
+import acme.entities.claims.ClaimType;
 import acme.entities.legs.Leg;
 import acme.realms.AssistanceAgent;
 
@@ -25,7 +25,13 @@ public class AssistanceAgentClaimShowService extends AbstractGuiService<Assistan
 
 	@Override
 	public void authorise() {
-		super.getResponse().setAuthorised(true);
+		Claim claim;
+		int claimId;
+		int userAccountId;
+		claimId = super.getRequest().getData("id", int.class);
+		claim = this.repository.getClaimById(claimId);
+		userAccountId = super.getRequest().getPrincipal().getAccountId();
+		super.getResponse().setAuthorised(claim != null && claim.getAssistanceAgent().getUserAccount().getId() == userAccountId);
 	}
 
 	@Override
@@ -46,7 +52,7 @@ public class AssistanceAgentClaimShowService extends AbstractGuiService<Assistan
 		Dataset dataset;
 
 		SelectChoices typeChoices;
-		typeChoices = SelectChoices.from(claimType.class, claim.getType());
+		typeChoices = SelectChoices.from(ClaimType.class, claim.getType());
 
 		ClaimStatus status = claim.getStatus();
 

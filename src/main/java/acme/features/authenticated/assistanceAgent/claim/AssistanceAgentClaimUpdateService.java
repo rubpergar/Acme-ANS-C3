@@ -5,12 +5,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import acme.client.components.models.Dataset;
 import acme.client.components.views.SelectChoices;
-import acme.client.helpers.MomentHelper;
 import acme.client.services.AbstractGuiService;
 import acme.client.services.GuiService;
 import acme.entities.claims.Claim;
 import acme.entities.claims.ClaimStatus;
-import acme.entities.claims.claimType;
+import acme.entities.claims.ClaimType;
 import acme.entities.legs.Leg;
 import acme.features.authenticated.manager.leg.ManagerLegRepository;
 import acme.realms.AssistanceAgent;
@@ -23,7 +22,7 @@ public class AssistanceAgentClaimUpdateService extends AbstractGuiService<Assist
 	private AssistanceAgentClaimRepository	repository;
 
 	@Autowired
-	private ManagerLegRepository			legRepository;
+	private ManagerLegRepository			legRepo;
 
 	// AbstractGuiService interface -------------------------------------------
 
@@ -33,12 +32,29 @@ public class AssistanceAgentClaimUpdateService extends AbstractGuiService<Assist
 		Claim claim;
 		int claimId;
 		int userAccountId;
+		Integer legId = super.getRequest().getData("selectedLeg", int.class);
 
 		claimId = super.getRequest().getData("id", int.class);
 		claim = this.repository.getClaimById(claimId);
 		userAccountId = super.getRequest().getPrincipal().getAccountId();
 
-		super.getResponse().setAuthorised(claim.isDraftMode() && claim.getAssistanceAgent().getUserAccount().getId() == userAccountId);
+		boolean hasAuthority = claim.isDraftMode() && claim.getAssistanceAgent().getUserAccount().getId() == userAccountId && claim != null;
+
+		if (legId != null && legId != 0) {
+			Leg leg = this.legRepo.getLegById(legId);
+			if (leg == null)
+				hasAuthority = false;
+		}
+
+		String claimType = super.getRequest().getData("type", String.class);
+		if (claimType != null && !claimType.equals("0"))
+			try {
+				ClaimType.valueOf(claimType);
+			} catch (IllegalArgumentException e) {
+				hasAuthority = false;
+			}
+
+		super.getResponse().setAuthorised(hasAuthority);
 	}
 
 	@Override
@@ -59,7 +75,7 @@ public class AssistanceAgentClaimUpdateService extends AbstractGuiService<Assist
 		Leg leg;
 
 		legId = super.getRequest().getData("selectedLeg", int.class);
-		leg = this.legRepository.getLegById(legId);
+		leg = this.legRepo.getLegById(legId);
 
 		super.bindObject(claim, "email", "description", "type");
 
@@ -69,8 +85,9 @@ public class AssistanceAgentClaimUpdateService extends AbstractGuiService<Assist
 	@Override
 	public void validate(final Claim claim) {
 		assert claim != null;
-		if (claim.getLeg() != null)
-			assert claim.getLeg().getScheduledArrival().before(MomentHelper.getCurrentMoment()); //? "...linked to a leg that occurred"
+		Integer legId = super.getRequest().getData("selectedLeg", int.class);
+		if (legId == null || legId == 0)
+			super.state(false, "selectedLeg", "javax.validation.constraints.NotNull.message");
 	}
 
 	@Override
@@ -90,7 +107,7 @@ public class AssistanceAgentClaimUpdateService extends AbstractGuiService<Assist
 		Dataset dataset;
 
 		SelectChoices typeChoices;
-		typeChoices = SelectChoices.from(claimType.class, claim.getType());
+		typeChoices = SelectChoices.from(ClaimType.class, claim.getType());
 
 		ClaimStatus status = claim.getStatus();
 

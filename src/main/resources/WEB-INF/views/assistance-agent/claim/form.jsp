@@ -8,8 +8,8 @@
 	<acme:input-textbox code="assistanceAgent.claim.form.label.email" path="email"/>
 	<acme:input-textarea code="assistanceAgent.claim.form.label.description" path="description"/>
 	<acme:input-select code="assistanceAgent.claim.form.label.type" path="type" choices="${type}"/>
-	<acme:input-textbox code="assistanceAgent.claim.form.label.status" path="status" readonly = "true"/>
 	<acme:input-select code="assistanceAgent.claim.form.label.leg" path="selectedLeg" choices="${legs}"/>
+	<acme:input-textbox code="assistanceAgent.claim.form.label.status" path="status" readonly = "true"/>
 		
 	<jstl:choose>
 		<jstl:when test="${_command == 'show'}">

@@ -10,7 +10,7 @@ import acme.client.services.AbstractGuiService;
 import acme.client.services.GuiService;
 import acme.entities.claims.Claim;
 import acme.entities.claims.ClaimStatus;
-import acme.entities.claims.claimType;
+import acme.entities.claims.ClaimType;
 import acme.entities.legs.Leg;
 import acme.features.authenticated.manager.leg.ManagerLegRepository;
 import acme.realms.AssistanceAgent;
@@ -23,15 +23,34 @@ public class AssistanceAgentClaimCreateService extends AbstractGuiService<Assist
 	private AssistanceAgentClaimRepository	repository;
 
 	@Autowired
-	private ManagerLegRepository			legRepository;
+	private ManagerLegRepository			legRepo;
 
 	// AbstractGuiService interface -------------------------------------------
 
 
 	@Override
 	public void authorise() {
-		super.getResponse().setAuthorised(true);
-		;
+
+		boolean hasAuthority = super.getRequest().getPrincipal().hasRealmOfType(AssistanceAgent.class);
+
+		if (super.getRequest().hasData("id")) {
+
+			Integer legId = super.getRequest().getData("selectedLeg", int.class);
+			if (legId != null && legId != 0) {
+				Leg leg = this.legRepo.getLegById(legId);
+				if (leg == null)
+					hasAuthority = false;
+			}
+			String claimType = super.getRequest().getData("type", String.class);
+			if (claimType != null && !claimType.equals("0"))
+				try {
+					ClaimType.valueOf(claimType);
+				} catch (IllegalArgumentException e) {
+					hasAuthority = false;
+				}
+		}
+		super.getResponse().setAuthorised(hasAuthority);
+
 	}
 
 	@Override
@@ -52,7 +71,7 @@ public class AssistanceAgentClaimCreateService extends AbstractGuiService<Assist
 		Leg leg;
 
 		legId = super.getRequest().getData("selectedLeg", int.class);
-		leg = this.legRepository.getLegById(legId);
+		leg = this.repository.getLegById(legId).orElse(null);
 		//		claim.setAssistanceAgent(this.repository.getAgentById(super.getRequest().getPrincipal().getActiveRealm().getId()));
 
 		super.bindObject(claim, "email", "description", "type");
@@ -63,7 +82,9 @@ public class AssistanceAgentClaimCreateService extends AbstractGuiService<Assist
 	@Override
 	public void validate(final Claim claim) {
 		assert claim != null;
-		//assert claim.getLeg().getScheduledArrival().before(MomentHelper.getCurrentMoment()); //? "...linked to a leg that occurred"
+		Integer legId = super.getRequest().getData("selectedLeg", int.class);
+		if (legId == null || legId == 0)
+			super.state(false, "selectedLeg", "javax.validation.constraints.NotNull.message");
 	}
 
 	@Override
@@ -88,7 +109,7 @@ public class AssistanceAgentClaimCreateService extends AbstractGuiService<Assist
 
 		ClaimStatus status = claim.getStatus();
 
-		typeChoices = SelectChoices.from(claimType.class, claim.getType());
+		typeChoices = SelectChoices.from(ClaimType.class, claim.getType());
 		legs = SelectChoices.from(this.repository.getAllLegs(), "flightNumber", claim.getLeg());
 
 		dataset = super.unbindObject(claim, "registrationMoment", "email", "description");

@@ -31,10 +31,13 @@ public class AssistanceAgentTrackingLogShowService extends AbstractGuiService<As
 		boolean status;
 		int trackingLogId;
 		Claim claim;
+		int userAccountId;
 
 		trackingLogId = super.getRequest().getData("id", int.class);
 		claim = this.repository.getClaimByTlId(trackingLogId);
-		status = claim != null && (!claim.isDraftMode() || super.getRequest().getPrincipal().hasRealm(claim.getAssistanceAgent()));
+		userAccountId = super.getRequest().getPrincipal().getAccountId();
+
+		status = claim != null && super.getRequest().getPrincipal().hasRealm(claim.getAssistanceAgent()) && claim.getAssistanceAgent().getUserAccount().getId() == userAccountId;
 
 		super.getResponse().setAuthorised(status);
 	}
