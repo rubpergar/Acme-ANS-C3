@@ -10,6 +10,7 @@ import acme.client.services.AbstractGuiService;
 import acme.client.services.GuiService;
 import acme.entities.airports.Airport;
 import acme.entities.airports.AirportType;
+import acme.entities.claims.ClaimType;
 
 @GuiService
 public class AdministratorAirportUpdateService extends AbstractGuiService<Administrator, Airport> {
@@ -27,6 +28,15 @@ public class AdministratorAirportUpdateService extends AbstractGuiService<Admini
 		int airportId = super.getRequest().getData("id", int.class);
 		Airport airport = this.repository.getAirportById(airportId);
 		boolean hasAuthority = super.getRequest().getPrincipal().hasRealmOfType(Administrator.class) && airport != null;
+
+		String airpScope = super.getRequest().getData("scope", String.class);
+		if (airpScope != null && !airpScope.equals("0"))
+			try {
+				ClaimType.valueOf(airpScope);
+			} catch (IllegalArgumentException e) {
+				hasAuthority = false;
+			}
+
 		super.getResponse().setAuthorised(hasAuthority);
 	}
 
