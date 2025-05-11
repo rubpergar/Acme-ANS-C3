@@ -10,7 +10,7 @@ import acme.client.services.AbstractGuiService;
 import acme.client.services.GuiService;
 import acme.entities.claims.Claim;
 import acme.entities.claims.ClaimStatus;
-import acme.entities.claims.claimType;
+import acme.entities.claims.ClaimType;
 import acme.entities.legs.Leg;
 import acme.features.authenticated.manager.leg.ManagerLegRepository;
 import acme.realms.AssistanceAgent;
@@ -82,7 +82,7 @@ public class AssistanceAgentClaimPublishService extends AbstractGuiService<Assis
 		Dataset dataset;
 
 		SelectChoices typeChoices;
-		typeChoices = SelectChoices.from(claimType.class, claim.getType());
+		typeChoices = SelectChoices.from(ClaimType.class, claim.getType());
 
 		ClaimStatus status = claim.getStatus();
 

@@ -2,6 +2,7 @@
 package acme.features.authenticated.assistanceAgent.claim;
 
 import java.util.Collection;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -39,5 +40,8 @@ public interface AssistanceAgentClaimRepository extends AbstractRepository {
 
 	@Query("SELECT tl FROM TrackingLog tl WHERE tl.claim.id = :claimId")
 	Collection<TrackingLog> getTrackingLogByClaimId(@Param("claimId") int claimId);
+
+	@Query("select l from Leg l where l.id = :legId")
+	Optional<Leg> getLegById(int legId);
 
 }

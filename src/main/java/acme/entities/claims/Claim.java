@@ -54,7 +54,7 @@ public class Claim extends AbstractEntity {
 	@Mandatory
 	@Valid
 	@Automapped
-	private claimType			type;
+	private ClaimType			type;
 
 	// They are registered by the assistance agent
 	@Mandatory
@@ -69,7 +69,7 @@ public class Claim extends AbstractEntity {
 
 	private boolean				draftMode;
 
-	//Atributos deribados
+	//Atributos 
 
 
 	@Transient

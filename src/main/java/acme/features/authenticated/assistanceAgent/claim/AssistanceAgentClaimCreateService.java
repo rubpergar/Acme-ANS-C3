@@ -10,9 +10,8 @@ import acme.client.services.AbstractGuiService;
 import acme.client.services.GuiService;
 import acme.entities.claims.Claim;
 import acme.entities.claims.ClaimStatus;
-import acme.entities.claims.claimType;
+import acme.entities.claims.ClaimType;
 import acme.entities.legs.Leg;
-import acme.features.authenticated.manager.leg.ManagerLegRepository;
 import acme.realms.AssistanceAgent;
 
 @GuiService
@@ -20,10 +19,7 @@ public class AssistanceAgentClaimCreateService extends AbstractGuiService<Assist
 	// Internal state ---------------------------------------------------------
 
 	@Autowired
-	private AssistanceAgentClaimRepository	repository;
-
-	@Autowired
-	private ManagerLegRepository			legRepository;
+	private AssistanceAgentClaimRepository repository;
 
 	// AbstractGuiService interface -------------------------------------------
 
@@ -52,7 +48,7 @@ public class AssistanceAgentClaimCreateService extends AbstractGuiService<Assist
 		Leg leg;
 
 		legId = super.getRequest().getData("selectedLeg", int.class);
-		leg = this.legRepository.getLegById(legId);
+		leg = this.repository.getLegById(legId).orElse(null);
 		//		claim.setAssistanceAgent(this.repository.getAgentById(super.getRequest().getPrincipal().getActiveRealm().getId()));
 
 		super.bindObject(claim, "email", "description", "type");
@@ -88,7 +84,7 @@ public class AssistanceAgentClaimCreateService extends AbstractGuiService<Assist
 
 		ClaimStatus status = claim.getStatus();
 
-		typeChoices = SelectChoices.from(claimType.class, claim.getType());
+		typeChoices = SelectChoices.from(ClaimType.class, claim.getType());
 		legs = SelectChoices.from(this.repository.getAllLegs(), "flightNumber", claim.getLeg());
 
 		dataset = super.unbindObject(claim, "registrationMoment", "email", "description");
