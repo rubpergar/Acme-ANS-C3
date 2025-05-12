@@ -10,7 +10,7 @@
 	<acme:list-column code="customer.passenger.list.label.dateOfBirth" path="dateOfBirth" width="20%" />
 </acme:list>
 <jstl:choose> 
-	<jstl:when test="${bookingIsDraft}">
+	<jstl:when test="${bookingIsDraft || bookingIsDraft == null}">
 	    <acme:button code="customer.bookingPassenger.form.button.addPassenger" action="/customer/booking-passenger/create?masterId=${masterId}"/>
 	</jstl:when>
 </jstl:choose>
