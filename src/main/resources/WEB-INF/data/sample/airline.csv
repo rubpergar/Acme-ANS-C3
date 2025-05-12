@@ -16,12 +16,12 @@ airline-12,airline,XXX,"http://lorem.com/ipsum",LUXURY,2012/07/02 00:00,"acme@lo
 airline-13,airline,ZZZ,"http://lorem.com/ipsum",LUXURY,2012/07/02 00:00,"acme@lorem-ipsum.org",+123456789
 airline-14,airline,AAA,"http://lorem.com/ipsum",LUXURY,2012/07/02 00:00,"acme@lorem-ipsum.org",+123456789
 # website
-airline-15,airline,ALX,"ftp://a",LUXURY,2012/07/02 00:00,"acme@lorem-ipsum.org",+123456789
-airline-16,airline,AMX,"ftp://a.b",LUXURY,2012/07/02 00:00,"acme@lorem-ipsum.org",+123456789
+airline-15,airline,ALX,"http://a.org",LUXURY,2012/07/02 00:00,"acme@lorem-ipsum.org",+123456789
+airline-16,airline,AMX,"http://a.b",LUXURY,2012/07/02 00:00,"acme@lorem-ipsum.org",+123456789
 airline-17,airline,ANX,"http://www.lorem-ipsum.org/dolor/sit/amet,/consectetur/adipiscing/elit,/sed/do/eiusmod/tempor/incididunt/ut/labore/et/dolore/magna/aliqua/Ut/enim/ad/minim/veniam/quis/nostrud/exercitation/ullamco/laboris/nisi/ut/aliquip/ex/ea/commodo/consequat/duis/aute/",LUXURY,2012/07/02 00:00,"acme@lorem-ipsum.org",+123456789
 airline-18,airline,AOX,"http://www.lorem-ipsum.org/dolor/sit/amet,/consectetur/adipiscing/elit,/sed/do/eiusmod/tempor/incididunt/ut/labore/et/dolore/magna/aliqua/Ut/enim/ad/minim/veniam/quis/nostrud/exercitation/ullamco/laboris/nisi/ut/aliquip/ex/ea/commodo/consequat/duis/aute/X",LUXURY,2012/07/02 00:00,"acme@lorem-ipsum.org",+123456789
 airline-19,airline,APX,"https://www.lorem-ipsum.org",LUXURY,2012/07/02 00:00,"acme@lorem-ipsum.org",+123456789
-airline-20,airline,AQX,"ftp://www.lorem-ipsum.org",LUXURY,2012/07/02 00:00,"acme@lorem-ipsum.org",+123456789
+airline-20,airline,AQX,"http://www.lorem-ipsum.org",LUXURY,2012/07/02 00:00,"acme@lorem-ipsum.org",+123456789
 airline-21,airline,ARX,"http://www.lorem-ipsum.org/dolor/sit.html",LUXURY,2012/07/02 00:00,"acme@lorem-ipsum.org",+123456789
 airline-22,airline,ASX,"http://www.lorem-ipsum.org/dolor/sit.html#dolor",LUXURY,2012/07/02 00:00,"acme@lorem-ipsum.org",+123456789
 airline-23,airline,ATX,"http://example.org?a=1&b=2",LUXURY,2012/07/02 00:00,"acme@lorem-ipsum.org",+123456789

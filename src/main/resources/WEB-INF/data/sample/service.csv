@@ -12,12 +12,12 @@ service-09,Valid Name,http://lorem.com/ipsum,10.00,GHJK-25,5.00
 service-10,Valid Script,http://lorem.com/ipsum,10.00,LMNO-25,5.00
 service-11,Safe Input,http://lorem.com/ipsum,10.00,PQRS-25,5.00
 # imageLink
-service-12,lorem,ftp://a,10.00,TUVW-25,5.00
-service-13,lorem,ftp://a.b,10.00,XYZB-25,5.00
+service-12,lorem,http://a.org,10.00,TUVW-25,5.00
+service-13,lorem,http://a.b,10.00,XYZB-25,5.00
 service-14,lorem,"http://www.lorem-ipsum.org/dolor/sit/amet,/consectetur/adipiscing/elit,/sed/do/eiusmod/tempor/incididunt/ut/labore/et/dolore/magna/aliqua/Ut/enim/ad/minim/veniam/quis/nostrud/exercitation/ullamco/laboris/nisi/ut/aliquip/ex/ea/commodo/consequat/duis/aute/",10.00,ABCE-25,5.00
 service-15,lorem,"http://www.lorem-ipsum.org/dolor/sit/amet,/consectetur/adipiscing/elit,/sed/do/eiusmod/tempor/incididunt/ut/labore/et/dolore/magna/aliqua/Ut/enim/ad/minim/veniam/quis/nostrud/exercitation/ullamco/laboris/nisi/ut/aliquip/ex/ea/commodo/consequat/duis/aute/X",10.00,FGHI-25,5.00
 service-16,lorem,https://www.lorem-ipsum.org,10.00,JKLA-25,5.00
-service-17,lorem,ftp://www.lorem-ipsum.org,10.00,LMNP-25,5.00
+service-17,lorem,http://www.lorem-ipsum.org,10.00,LMNP-25,5.00
 service-18,lorem,http://www.lorem-ipsum.org/dolor/sit.html,10.00,QWRS-25,5.00
 service-19,lorem,http://www.lorem-ipsum.org/dolor/sit.html#dolor,10.00,XYZA-25,5.00
 service-20,lorem,http://example.org?a=1&b=2,10.00,RSTU-25,5.00
