@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>Acme-One-25.3.0</name>
+	<name>Acme-One-25.5.0</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -36,9 +36,14 @@
 	</natures>
 	<linkedResources>
 		<link>
-			<name>acme-framework-25.3.0</name>
+			<name>acme-framework-25.5.0</name>
 			<type>2</type>
-			<location>C:/Workspace-25/Frameworks/Acme-Framework-25.3.0/target/classes</location>
+			<location>C:/Workspace-25/Frameworks/Acme-Framework-25.5.0/target/classes</location>
+		</link>
+		<link>
+			<name>target/classes</name>
+			<type>2</type>
+			<location>//C:/Users/laura/Workspace-25/Projects/Acme-ANS-D04/target/classes/</location>
 		</link>
 	</linkedResources>
 </projectDescription>
