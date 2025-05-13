@@ -36,14 +36,19 @@
 	</natures>
 	<linkedResources>
 		<link>
+			<name>acme-framework</name>
+			<type>2</type>
+			<locationURI>C:/Workspace-25/Frameworks/Acme-Framework-25.5.0/target/classes</locationURI>
+		</link>
+		<link>
 			<name>acme-framework-25.5.0</name>
 			<type>2</type>
-			<location>C:/Workspace-25/Frameworks/Acme-Framework-25.5.0/target/classes</location>
+			<locationURI>C:/Workspace-25/Frameworks/Acme-Framework-25.5.0/target/classes</locationURI>
 		</link>
 		<link>
 			<name>target/classes</name>
 			<type>2</type>
-			<location>//C:/Users/laura/Workspace-25/Projects/Acme-ANS-D04/target/classes/</location>
+			<locationURI>WORSPACE_LOC/Projects/Acme-ANS-D04/target/classes</locationURI>
 		</link>
 	</linkedResources>
 </projectDescription>
