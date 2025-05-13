@@ -1,57 +1,74 @@
-key,name,codeIATA,website,type,foundationMoment,email,phone
+key,name,codeIATA,scope,city,country,web,email,phone
 # name
-airline-01,airline,AAX,"http://lorem.com/ipsum",LUXURY,2012/07/02 00:00,"acme@lorem-ipsum.org",+123456789
-airline-02,L,ABX,"http://lorem.com/ipsum",LUXURY,2012/07/02 00:00,"acme@lorem-ipsum.org",+123456789
-airline-03,Lo,ACX,"http://lorem.com/ipsum",LUXURY,2012/07/02 00:00,"acme@lorem-ipsum.org",+123456789
-airline-04,"Lorem ipsum dolor sit amet, consectetur adipiscin",ADX,"http://lorem.com/ipsum",LUXURY,2012/07/02 00:00,"acme@lorem-ipsum.org",+123456789
-airline-05,"Lorem ipsum dolor sit amet, consectetur adipiscing",AEX,"http://lorem.com/ipsum",LUXURY,2012/07/02 00:00,"acme@lorem-ipsum.org",+123456789
-airline-06,โลเร็ม อิปซัม,AFX,"http://lorem.com/ipsum",LUXURY,2012/07/02 00:00,"acme@lorem-ipsum.org",+123456789
-airline-07,لوريم إيبسوم,AGX,"http://lorem.com/ipsum",LUXURY,2012/07/02 00:00,"acme@lorem-ipsum.org",+123456789
-airline-08,"洛伦·伊普森",AHX,"http://lorem.com/ipsum",LUXURY,2012/07/02 00:00,"acme@lorem-ipsum.org",+123456789
-airline-09,<marquee>Hacked</marquee>,AIX,"http://lorem.com/ipsum",LUXURY,2012/07/02 00:00,"acme@lorem-ipsum.org",+123456789
-airline-10,<script>alert(‘Hacked!’);</script>,AJX,"http://lorem.com/ipsum",LUXURY,2012/07/02 00:00,"acme@lorem-ipsum.org",+123456789
-airline-11,' or 'A' = 'A ,AKX,"http://lorem.com/ipsum",LUXURY,2012/07/02 00:00,"acme@lorem-ipsum.org",+123456789
-# codeIATA
-airline-12,airline,XXX,"http://lorem.com/ipsum",LUXURY,2012/07/02 00:00,"acme@lorem-ipsum.org",+123456789
-airline-13,airline,ZZZ,"http://lorem.com/ipsum",LUXURY,2012/07/02 00:00,"acme@lorem-ipsum.org",+123456789
-airline-14,airline,AAA,"http://lorem.com/ipsum",LUXURY,2012/07/02 00:00,"acme@lorem-ipsum.org",+123456789
-# website
-airline-15,airline,ALX,"http://a.org",LUXURY,2012/07/02 00:00,"acme@lorem-ipsum.org",+123456789
-airline-16,airline,AMX,"http://a.b",LUXURY,2012/07/02 00:00,"acme@lorem-ipsum.org",+123456789
-airline-17,airline,ANX,"http://www.lorem-ipsum.org/dolor/sit/amet,/consectetur/adipiscing/elit,/sed/do/eiusmod/tempor/incididunt/ut/labore/et/dolore/magna/aliqua/Ut/enim/ad/minim/veniam/quis/nostrud/exercitation/ullamco/laboris/nisi/ut/aliquip/ex/ea/commodo/consequat/duis/aute/",LUXURY,2012/07/02 00:00,"acme@lorem-ipsum.org",+123456789
-airline-18,airline,AOX,"http://www.lorem-ipsum.org/dolor/sit/amet,/consectetur/adipiscing/elit,/sed/do/eiusmod/tempor/incididunt/ut/labore/et/dolore/magna/aliqua/Ut/enim/ad/minim/veniam/quis/nostrud/exercitation/ullamco/laboris/nisi/ut/aliquip/ex/ea/commodo/consequat/duis/aute/X",LUXURY,2012/07/02 00:00,"acme@lorem-ipsum.org",+123456789
-airline-19,airline,APX,"https://www.lorem-ipsum.org",LUXURY,2012/07/02 00:00,"acme@lorem-ipsum.org",+123456789
-airline-20,airline,AQX,"http://www.lorem-ipsum.org",LUXURY,2012/07/02 00:00,"acme@lorem-ipsum.org",+123456789
-airline-21,airline,ARX,"http://www.lorem-ipsum.org/dolor/sit.html",LUXURY,2012/07/02 00:00,"acme@lorem-ipsum.org",+123456789
-airline-22,airline,ASX,"http://www.lorem-ipsum.org/dolor/sit.html#dolor",LUXURY,2012/07/02 00:00,"acme@lorem-ipsum.org",+123456789
-airline-23,airline,ATX,"http://example.org?a=1&b=2",LUXURY,2012/07/02 00:00,"acme@lorem-ipsum.org",+123456789
-airline-24,airline,AUX,"http://example.org?",LUXURY,2012/07/02 00:00,"acme@lorem-ipsum.org",+123456789
-airline-25,airline,AVX,"http://example.org?a",LUXURY,2012/07/02 00:00,"acme@lorem-ipsum.org",+123456789
-airline-26,airline,AWX,"http://example.org?a&b",LUXURY,2012/07/02 00:00,"acme@lorem-ipsum.org",+123456789
-airline-27,airline,AXX,"http://example.org/",LUXURY,2012/07/02 00:00,"acme@lorem-ipsum.org",+123456789
-airline-28,airline,AYX,"http://example.org/a",LUXURY,2012/07/02 00:00,"acme@lorem-ipsum.org",+123456789
-airline-29,airline,AZX,"http://example.org/a/b",LUXURY,2012/07/02 00:00,"acme@lorem-ipsum.org",+123456789
-airline-30,airline,BAX,"http://example.org/a/b?",LUXURY,2012/07/02 00:00,"acme@lorem-ipsum.org",+123456789
-airline-31,airline,BBX,"http://example.org/a/b?a&b",LUXURY,2012/07/02 00:00,"acme@lorem-ipsum.org",+123456789
-# type
-#airline-32,airline,BCX,"http://lorem.com/ipsum",LUXURY,2012/07/02 00:00,"acme@lorem-ipsum.org",+123456789
-airline-33,airline,BDX,"http://lorem.com/ipsum",STANDARD,2012/07/02 00:00,"acme@lorem-ipsum.org",+123456789
-airline-34,airline,BEX,"http://lorem.com/ipsum",LOW_COST,2012/07/02 00:00,"acme@lorem-ipsum.org",+123456789
-# foundationMoment
-airline-35,airline,BFX,"http://lorem.com/ipsum",LUXURY,2000/01/01 0:00,"acme@lorem-ipsum.org",+123456789
-airline-36,airline,BGX,"http://lorem.com/ipsum",LUXURY,2000/01/01 0:01,"acme@lorem-ipsum.org",+123456789
-airline-37,airline,BHX,"http://lorem.com/ipsum",LUXURY,2024/12/31 23:59,"acme@lorem-ipsum.org",+123456789
-airline-38,airline,BIX,"http://lorem.com/ipsum",LUXURY,2025/01/01 0:00,"acme@lorem-ipsum.org",+123456789
+airport-01,airport,ZAX,INTERNATIONAL,lorem,lorem,http://lorem.com/ipsum,acme@lorem-ipsum.org,+123456789
+airport-02,L,ZBX,INTERNATIONAL,lorem,lorem,http://lorem.com/ipsum,acme@lorem-ipsum.org,+123456789
+airport-03,Lo,ZCX,INTERNATIONAL,lorem,lorem,http://lorem.com/ipsum,acme@lorem-ipsum.org,+123456789
+airport-04,"Lorem ipsum dolor sit amet, consectetur adipiscin",ZDX,INTERNATIONAL,lorem,lorem,http://lorem.com/ipsum,acme@lorem-ipsum.org,+123456789
+airport-05,"Lorem ipsum dolor sit amet, consectetur adipiscing",ZEX,INTERNATIONAL,lorem,lorem,http://lorem.com/ipsum,acme@lorem-ipsum.org,+123456789
+airport-06,โลเร็ม อิปซัม,ZFX,INTERNATIONAL,lorem,lorem,http://lorem.com/ipsum,acme@lorem-ipsum.org,+123456789
+airport-07,لوريم إيبسوم,ZGX,INTERNATIONAL,lorem,lorem,http://lorem.com/ipsum,acme@lorem-ipsum.org,+123456789
+airport-08,洛伦·伊普森,ZHX,INTERNATIONAL,lorem,lorem,http://lorem.com/ipsum,acme@lorem-ipsum.org,+123456789
+airport-09,<marquee>Hacked</marquee>,ZIX,INTERNATIONAL,lorem,lorem,http://lorem.com/ipsum,acme@lorem-ipsum.org,+123456789
+airport-10,<script>alert(‘Hacked!’);</script>,ZJX,INTERNATIONAL,lorem,lorem,http://lorem.com/ipsum,acme@lorem-ipsum.org,+123456789
+airport-11,' or 'A' = 'A,ZKX,INTERNATIONAL,lorem,lorem,http://lorem.com/ipsum,acme@lorem-ipsum.org,+123456789
+# IATAcode
+airport-12,airport,BBB,INTERNATIONAL,lorem,lorem,http://lorem.com/ipsum,acme@lorem-ipsum.org,+123456789
+airport-13,airport,HHH,INTERNATIONAL,lorem,lorem,http://lorem.com/ipsum,acme@lorem-ipsum.org,+123456789
+airport-14,airport,III,INTERNATIONAL,lorem,lorem,http://lorem.com/ipsum,acme@lorem-ipsum.org,+123456789
+# scope
+airport-15,airport,ZLX,INTERNATIONAL,lorem,lorem,http://lorem.com/ipsum,acme@lorem-ipsum.org,+123456789
+airport-16,airport,ZMX,DOMESTIC,lorem,lorem,http://lorem.com/ipsum,acme@lorem-ipsum.org,+123456789
+airport-17,airport,ZNX,REGIONAL,lorem,lorem,http://lorem.com/ipsum,acme@lorem-ipsum.org,+123456789
+# city
+airport-18,airport,ZOX,INTERNATIONAL,L,lorem,http://lorem.com/ipsum,acme@lorem-ipsum.org,+123456789
+airport-19,airport,ZPX,INTERNATIONAL,Lo,lorem,http://lorem.com/ipsum,acme@lorem-ipsum.org,+123456789
+airport-20,airport,ZQX,INTERNATIONAL,"Lorem ipsum dolor sit amet, consectetur adipiscin",lorem,http://lorem.com/ipsum,acme@lorem-ipsum.org,+123456789
+airport-21,airport,ZRX,INTERNATIONAL,"Lorem ipsum dolor sit amet, consectetur adipiscing",lorem,http://lorem.com/ipsum,acme@lorem-ipsum.org,+123456789
+airport-22,airport,ZSX,INTERNATIONAL,โลเร็ม อิปซัม,lorem,http://lorem.com/ipsum,acme@lorem-ipsum.org,+123456789
+airport-23,airport,ZTX,INTERNATIONAL,لوريم إيبسوم,lorem,http://lorem.com/ipsum,acme@lorem-ipsum.org,+123456789
+airport-24,airport,ZUX,INTERNATIONAL,洛伦·伊普森,lorem,http://lorem.com/ipsum,acme@lorem-ipsum.org,+123456789
+airport-25,airport,ZVX,INTERNATIONAL,<marquee>Hacked</marquee>,lorem,http://lorem.com/ipsum,acme@lorem-ipsum.org,+123456789
+airport-26,airport,ZWX,INTERNATIONAL,<script>alert(‘Hacked!’);</script>,lorem,http://lorem.com/ipsum,acme@lorem-ipsum.org,+123456789
+airport-27,airport,ZXX,INTERNATIONAL,'' or 'A' = 'A,lorem,http://lorem.com/ipsum,acme@lorem-ipsum.org,+123456789
+# country
+airport-28,airport,ZYX,INTERNATIONAL,lorem,L,http://lorem.com/ipsum,acme@lorem-ipsum.org,+123456789
+airport-29,airport,ZZX,INTERNATIONAL,lorem,Lo,http://lorem.com/ipsum,acme@lorem-ipsum.org,+123456789
+airport-30,airport,WAX,INTERNATIONAL,lorem,"Lorem ipsum dolor sit amet, consectetur adipiscin",http://lorem.com/ipsum,acme@lorem-ipsum.org,+123456789
+airport-31,airport,WBX,INTERNATIONAL,lorem,"Lorem ipsum dolor sit amet, consectetur adipiscing",http://lorem.com/ipsum,acme@lorem-ipsum.org,+123456789
+airport-32,airport,WCX,INTERNATIONAL,lorem,โลเร็ม อิปซัม,http://lorem.com/ipsum,acme@lorem-ipsum.org,+123456789
+airport-33,airport,WDX,INTERNATIONAL,lorem,لوريم إيبسوم,http://lorem.com/ipsum,acme@lorem-ipsum.org,+123456789
+airport-34,airport,WEX,INTERNATIONAL,lorem,洛伦·伊普森,http://lorem.com/ipsum,acme@lorem-ipsum.org,+123456789
+airport-35,airport,WFX,INTERNATIONAL,lorem,<marquee>Hacked</marquee>,http://lorem.com/ipsum,acme@lorem-ipsum.org,+123456789
+airport-36,airport,WGX,INTERNATIONAL,lorem,<script>alert(‘Hacked!’);</script>,http://lorem.com/ipsum,acme@lorem-ipsum.org,+123456789
+airport-37,airport,WHX,INTERNATIONAL,lorem,'' or 'A' = 'A,http://lorem.com/ipsum,acme@lorem-ipsum.org,+123456789
+# web
+airport-38,airport,WIX,INTERNATIONAL,lorem,lorem,http://a.org,acme@lorem-ipsum.org,+123456789
+airport-39,airport,WJX,INTERNATIONAL,lorem,lorem,http://a.b,acme@lorem-ipsum.org,+123456789
+airport-40,airport,WKX,INTERNATIONAL,lorem,lorem,"http://www.lorem-ipsum.org/dolor/sit/amet,/consectetur/adipiscing/elit,/sed/do/eiusmod/tempor/incididunt/ut/labore/et/dolore/magna/aliqua/Ut/enim/ad/minim/veniam/quis/nostrud/exercitation/ullamco/laboris/nisi/ut/aliquip/ex/ea/commodo/consequat/duis/aute/",acme@lorem-ipsum.org,+123456789
+airport-41,airport,WLX,INTERNATIONAL,lorem,lorem,"http://www.lorem-ipsum.org/dolor/sit/amet,/consectetur/adipiscing/elit,/sed/do/eiusmod/tempor/incididunt/ut/labore/et/dolore/magna/aliqua/Ut/enim/ad/minim/veniam/quis/nostrud/exercitation/ullamco/laboris/nisi/ut/aliquip/ex/ea/commodo/consequat/duis/aute/X",acme@lorem-ipsum.org,+123456789
+airport-42,airport,WMX,INTERNATIONAL,lorem,lorem,https://www.lorem-ipsum.org,acme@lorem-ipsum.org,+123456789
+airport-43,airport,WNX,INTERNATIONAL,lorem,lorem,http://www.lorem-ipsum.org,acme@lorem-ipsum.org,+123456789
+airport-44,airport,WOX,INTERNATIONAL,lorem,lorem,http://www.lorem-ipsum.org/dolor/sit.html,acme@lorem-ipsum.org,+123456789
+airport-45,airport,WPX,INTERNATIONAL,lorem,lorem,http://www.lorem-ipsum.org/dolor/sit.html#dolor,acme@lorem-ipsum.org,+123456789
+airport-46,airport,WQX,INTERNATIONAL,lorem,lorem,http://example.org?a=1&b=2,acme@lorem-ipsum.org,+123456789
+airport-47,airport,WRX,INTERNATIONAL,lorem,lorem,http://example.org?,acme@lorem-ipsum.org,+123456789
+airport-48,airport,WSX,INTERNATIONAL,lorem,lorem,http://example.org?a,acme@lorem-ipsum.org,+123456789
+airport-49,airport,WTX,INTERNATIONAL,lorem,lorem,http://example.org?a&b,acme@lorem-ipsum.org,+123456789
+airport-50,airport,WUX,INTERNATIONAL,lorem,lorem,http://example.org/,acme@lorem-ipsum.org,+123456789
+airport-51,airport,WVX,INTERNATIONAL,lorem,lorem,http://example.org/a,acme@lorem-ipsum.org,+123456789
+airport-52,airport,WWX,INTERNATIONAL,lorem,lorem,http://example.org/a/b,acme@lorem-ipsum.org,+123456789
+airport-53,airport,WXX,INTERNATIONAL,lorem,lorem,http://example.org/a/b?,acme@lorem-ipsum.org,+123456789
+airport-54,airport,WYX,INTERNATIONAL,lorem,lorem,http://example.org/a/b?a&b,acme@lorem-ipsum.org,+123456789
 # email
-airline-40,airline,BKX,"http://lorem.com/ipsum",LUXURY,2012/07/02 00:00,"a@b.e",+123456789
-airline-41,airline,BLX,"http://lorem.com/ipsum",LUXURY,2012/07/02 00:00,"a@b.es",+123456789
-airline-42,airline,BMX,"http://lorem.com/ipsum",LUXURY,2012/07/02 00:00,"a@b.esx",+123456789
-airline-43,airline,BNX,"http://lorem.com/ipsum",LUXURY,2012/07/02 00:00,"lorem-ipsum@dolor.sit.amet.consectetur.adipiscing.elit.sed.do.eiusmod.tempor.incididunt.ut.labore.et.dolore.magna.aliqua.Ut.enim.ad.minim.veniam.quis.nostrud.exercitation.ullamco.laboris.nisi.ut.aliquip.ex.ea.commodo.consequat.duis.aute.irure.doloris.edu",+123456789
-airline-44,airline,BOX,"http://lorem.com/ipsum",LUXURY,2012/07/02 00:00,"lorem-ipsum@dolor.sit.amet.consectetur.adipiscing.elit.sed.do.eiusmod.tempor.incididunt.ut.labore.et.dolore.magna.aliqua.Ut.enim.ad.minim.veniam.quis.nostrud.exercitation.ullamco.laboris.nisi.ut.aliquip.ex.ea.commodo.consequat.duis.aute.irure.dolor.es.org",+123456789
+airport-56,airport,RAX,INTERNATIONAL,lorem,lorem,http://lorem.com/ipsum,a@b.e,+123456789
+airport-57,airport,RBX,INTERNATIONAL,lorem,lorem,http://lorem.com/ipsum,a@b.es,+123456789
+airport-58,airport,RCX,INTERNATIONAL,lorem,lorem,http://lorem.com/ipsum,a@b.esx,+123456789
+airport-59,airport,RDX,INTERNATIONAL,lorem,lorem,http://lorem.com/ipsum,lorem-ipsum@dolor.sit.amet.consectetur.adipiscing.elit.sed.do.eiusmod.tempor.incididunt.ut.labore.et.dolore.magna.aliqua.Ut.enim.ad.minim.veniam.quis.nostrud.exercitation.ullamco.laboris.nisi.ut.aliquip.ex.ea.commodo.consequat.duis.aute.irure.doloris.edu,+123456789
+airport-60,airport,REX,INTERNATIONAL,lorem,lorem,http://lorem.com/ipsum,lorem-ipsum@dolor.sit.amet.consectetur.adipiscing.elit.sed.do.eiusmod.tempor.incididunt.ut.labore.et.dolore.magna.aliqua.Ut.enim.ad.minim.veniam.quis.nostrud.exercitation.ullamco.laboris.nisi.ut.aliquip.ex.ea.commodo.consequat.duis.aute.irure.dolor.es.org,+123456789
 # phone
-airline-46,airline,BQX,"http://lorem.com/ipsum",LUXURY,2012/07/02 00:00,"acme@lorem-ipsum.org",123456
-airline-47,airline,BRX,"http://lorem.com/ipsum",LUXURY,2012/07/02 00:00,"acme@lorem-ipsum.org",987654321098765
-airline-48,airline,BSX,"http://lorem.com/ipsum",LUXURY,2012/07/02 00:00,"acme@lorem-ipsum.org",+123456
-airline-49,airline,BTX,"http://lorem.com/ipsum",LUXURY,2012/07/02 00:00,"acme@lorem-ipsum.org",+987654321098765
-airline-50,airline,BUX,"http://lorem.com/ipsum",LUXURY,2012/07/02 00:00,"acme@lorem-ipsum.org",+112233445566
-airline-51,airline,BVX,"http://lorem.com/ipsum",LUXURY,2012/07/02 00:00,"acme@lorem-ipsum.org",123456
+airport-62,airport,RGX,INTERNATIONAL,lorem,lorem,http://lorem.com/ipsum,acme@lorem-ipsum.org,123456
+airport-63,airport,RHX,INTERNATIONAL,lorem,lorem,http://lorem.com/ipsum,acme@lorem-ipsum.org,987654321098765
+airport-64,airport,RIX,INTERNATIONAL,lorem,lorem,http://lorem.com/ipsum,acme@lorem-ipsum.org,+123456
+airport-65,airport,RJX,INTERNATIONAL,lorem,lorem,http://lorem.com/ipsum,acme@lorem-ipsum.org,+987654321098765
+airport-66,airport,RKX,INTERNATIONAL,lorem,lorem,http://lorem.com/ipsum,acme@lorem-ipsum.org,+112233445566
+airport-67,airport,RLX,INTERNATIONAL,lorem,lorem,http://lorem.com/ipsum,acme@lorem-ipsum.org,123456
