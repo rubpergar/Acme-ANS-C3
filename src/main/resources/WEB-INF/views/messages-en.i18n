@@ -205,6 +205,7 @@ customer.booking.form.label.isDraft = Is it a draft?
 customer.booking.form.button.create = Create
 customer.booking.form.button.update = Update
 customer.booking.form.button.publish = Publish
+customer.passenger.form.button.delete = Delete Passenger
 
 customer.booking.create = Create
 customer.booking.update = Update
@@ -259,6 +260,7 @@ acme.validation.booking.notExisting-flight.message = The flight does not exist. 
 acme.validation.booking-passenger.notExistingBookingPassenger.message= This passenger is already in the booking. Please select a different passenger.
 customer.project.publish.error.passengerNotEmpty = The booking must have at least one passenger to be published.
 customer.booking.passengerInfo = Passenger Information
+customer.passenger.form.error.booking-passenger.exists = The passenger is already in the booking. Please select a different passenger.
 
 
 manager.leg.error.status-required = The leg status is required
