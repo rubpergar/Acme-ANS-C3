@@ -62,6 +62,7 @@ customer.booking.form.label.isDraft = ¿Es un borrador?
 customer.booking.form.button.create = Crear
 customer.booking.form.button.update = Actualizar
 customer.booking.form.button.publish = Publicar
+customer.passenger.form.button.delete = Eliminar pasajero
 
 customer.booking.create = Crear
 customer.booking.update = Actualizar
@@ -185,7 +186,7 @@ acme.validation.booking.flight-departure.message = El vuelo ya ha salido. No pue
 acme.validation.booking.notExisting-flight.message = El vuelo no existe. Por favor, proporcione un vuelo válido.
 acme.validation.booking-passenger.notExistingBookingPassenger.message= Este pasajero ya está asignado a la reserva. Por favor, proporcione un pasajero diferente.
 customer.project.publish.error.passengerNotEmpty = Para publicar una reserva, al menos debe haber 1 pasajero.
-
+customer.passenger.form.error.booking-passenger.exists = El pasajero ya está asignado a la reserva. Por favor, proporcione un pasajero diferente.
 
 
 manager.leg.error.status-required = Estado requerido. El estado no puede ser nulo.
