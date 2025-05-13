@@ -38,17 +38,8 @@
 		<link>
 			<name>acme-framework</name>
 			<type>2</type>
-			<locationURI>C:/Workspace-25/Frameworks/Acme-Framework-25.5.0/target/classes</locationURI>
+			<locationURI>WORKSPACE_LOC/Frameworks/Acme-Framework-25.5.0/target/classes</locationURI>
 		</link>
-		<link>
-			<name>acme-framework-25.5.0</name>
-			<type>2</type>
-			<locationURI>C:/Workspace-25/Frameworks/Acme-Framework-25.5.0/target/classes</locationURI>
-		</link>
-		<link>
-			<name>target/classes</name>
-			<type>2</type>
-			<locationURI>WORSPACE_LOC/Projects/Acme-ANS-D04/target/classes</locationURI>
 		</link>
 	</linkedResources>
 </projectDescription>
