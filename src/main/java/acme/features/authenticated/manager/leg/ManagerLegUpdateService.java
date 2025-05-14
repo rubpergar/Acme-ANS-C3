@@ -84,7 +84,6 @@ public class ManagerLegUpdateService extends AbstractGuiService<Manager, Leg> {
 
 	@Override
 	public void bind(final Leg leg) {
-		assert leg != null;
 		int departureAirportId;
 		int arrivalAirportId;
 		int aircraftId;
@@ -108,7 +107,6 @@ public class ManagerLegUpdateService extends AbstractGuiService<Manager, Leg> {
 
 	@Override
 	public void validate(final Leg leg) {
-		assert leg != null;
 
 		super.state(leg.getStatus() != null, "status", "manager.leg.error.status-required");
 
@@ -122,20 +120,10 @@ public class ManagerLegUpdateService extends AbstractGuiService<Manager, Leg> {
 			validScheduledDeparture = MomentHelper.isAfter(scheduledDeparture, currentMoment);
 		super.state(validScheduledDeparture, "scheduledDeparture", "acme.validation.leg.invalid-departure.message");
 
-		boolean validAircraft = true;
-		if (leg.getAircraft() != null) {
-			Aircraft aircraft = this.repository.findAircraftById(leg.getAircraft().getId());
-			if (aircraft == null || aircraft.getStatus() != AircraftStatus.ACTIVE)
-				validAircraft = false;
-
-			super.state(validAircraft, "aircraft", "manager.leg.error.invalid-aircraft");
-		}
-
 	}
 
 	@Override
 	public void perform(final Leg leg) {
-		assert leg != null;
 		this.repository.save(leg);
 	}
 

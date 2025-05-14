@@ -51,7 +51,6 @@ public class ManagerLegListService extends AbstractGuiService<Manager, Leg> {
 
 	@Override
 	public void unbind(final Leg leg) {
-		assert leg != null;
 		Dataset dataset;
 
 		dataset = super.unbindObject(leg, "flightNumber", "scheduledDeparture", "scheduledArrival", "status", "isDraft");

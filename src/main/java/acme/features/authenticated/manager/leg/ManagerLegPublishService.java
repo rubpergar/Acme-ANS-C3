@@ -95,7 +95,6 @@ public class ManagerLegPublishService extends AbstractGuiService<Manager, Leg> {
 
 	@Override
 	public void bind(final Leg leg) {
-		assert leg != null;
 		int departureAirportId;
 		int arrivalAirportId;
 		int aircraftId;
@@ -119,7 +118,6 @@ public class ManagerLegPublishService extends AbstractGuiService<Manager, Leg> {
 
 	@Override
 	public void validate(final Leg leg) {
-		assert leg != null;
 
 		boolean validScheduledDeparture = true;
 		Date scheduledDeparture = leg.getScheduledDeparture();
@@ -128,19 +126,26 @@ public class ManagerLegPublishService extends AbstractGuiService<Manager, Leg> {
 			validScheduledDeparture = MomentHelper.isAfter(scheduledDeparture, currentMoment);
 		super.state(validScheduledDeparture, "scheduledDeparture", "acme.validation.leg.invalid-departure.message");
 
-		boolean validAircraft = true;
-		if (leg.getAircraft() != null) {
-			Aircraft aircraft = this.repository.findAircraftById(leg.getAircraft().getId());
-			if (aircraft == null || aircraft.getStatus() != AircraftStatus.ACTIVE)
-				validAircraft = false;
+		boolean nonOverlappingLegs = true;
 
-			super.state(validAircraft, "aircraft", "manager.leg.error.invalid-aircraft");
+		Collection<Leg> sortedLegs = this.legRepository.getLegsByFlight(leg.getFlight().getId());
+		Collection<Leg> legsPublished = sortedLegs.stream().filter(l -> !l.getIsDraft()).toList();
+
+		for (int i = 0; i < legsPublished.size() - 1; i++) {
+			Leg previousLeg = legsPublished.stream().toList().get(i);
+			Leg nextLeg = legsPublished.stream().toList().get(i + 1);
+
+			if (previousLeg.getScheduledArrival() != null && nextLeg.getScheduledDeparture() != null) {
+				boolean validLeg = MomentHelper.isBefore(previousLeg.getScheduledArrival(), nextLeg.getScheduledDeparture());
+				if (!validLeg)
+					nonOverlappingLegs = false;
+			}
 		}
+		super.state(nonOverlappingLegs, "*", "acme.validation.flight.overlapping.message");
 	}
 
 	@Override
 	public void perform(final Leg leg) {
-		assert leg != null;
 		leg.setIsDraft(false);  //publicado
 		this.repository.save(leg);
 	}
