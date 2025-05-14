@@ -42,6 +42,10 @@ acme.validation.leg.duplicate-flight-number.message=El número de vuelo ya está
 
 acme.validation.leg.invalid-departure.message = La fecha de salida tiene que ser posterior a la fecha actual.
 
+acme.validation.leg.invalid-aircraft.message = La aeronave no esta disponible para esta fecha. Por favor, proporcione una aeronave diferente o cambia la fecha.
+
+manager.leg.error.invalid-aircraft = La aeronave no está activa. Por favor, proporcione una aeronave diferente.
+
 customer.project.publish.error.lastNibbleNotPublished = Para publicar una reserva, el último fragmento de la tarjeta de crédito debe haberse almacenado.
 customer.booking.form.error.notDraft = No puedes realizar esta acción para una reserva que ya está publicada.
 
