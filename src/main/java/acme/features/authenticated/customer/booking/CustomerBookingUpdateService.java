@@ -60,8 +60,8 @@ public class CustomerBookingUpdateService extends AbstractGuiService<Customer, B
 
 		// FLIGHT
 
-		Integer flightId = super.getRequest().getData("flight", int.class);
-		if (flightId != 0) {
+		Integer flightId = super.getRequest().getData("selectedFlight", int.class);
+		if (flightId != 0 && flightId != null) {
 			Flight flight = this.repository.findFlightById(flightId);
 			status = status && flight != null && !flight.getIsDraft();
 		}
@@ -94,7 +94,15 @@ public class CustomerBookingUpdateService extends AbstractGuiService<Customer, B
 	@Override
 	public void bind(final Booking booking) {
 		assert booking != null;
-		super.bindObject(booking, "locatorCode", "flight", "travelClass", "lastNibble");
+		int flightId;
+		Flight flight;
+
+		flightId = super.getRequest().getData("selectedFlight", int.class);
+		flight = this.repository.findFlightById(flightId);
+
+		super.bindObject(booking, "locatorCode", "travelClass", "lastNibble");
+
+		booking.setFlight(flight);
 	}
 
 	@Override
@@ -130,7 +138,8 @@ public class CustomerBookingUpdateService extends AbstractGuiService<Customer, B
 		Dataset dataset;
 		dataset = super.unbindObject(booking, "locatorCode", "flight", "purchaseMoment", "travelClass", "lastNibble", "isDraft");
 		dataset.put("travelClass", travelClasses);
-		dataset.put("flight", flights);
+		dataset.put("flights", flights);
+		dataset.put("selectedFlight", flights.getSelected().getKey());
 		dataset.put("passenger", !passengers.isEmpty());
 		dataset.put("price", booking.getPrice());
 		super.getResponse().addData(dataset);
