@@ -34,4 +34,7 @@ public interface LegRepository extends AbstractRepository {
 	@Query("select l from Leg l where l.flightNumber = :flightNumber")
 	Optional<Leg> findLegByFlightNumber(String flightNumber);
 
+	@Query("select l from Leg l")
+	Collection<Leg> findAllLegs();
+
 }

@@ -12,6 +12,7 @@ import acme.client.components.validation.AbstractValidator;
 import acme.client.components.validation.Validator;
 import acme.client.helpers.MomentHelper;
 import acme.client.helpers.StringHelper;
+import acme.entities.aircrafts.Aircraft;
 import acme.entities.legs.Leg;
 import acme.entities.legs.LegRepository;
 
@@ -59,6 +60,28 @@ public class LegValidator extends AbstractValidator<ValidLeg, Leg> {
 		if (legWithSameFlightNumber.isPresent() && legWithSameFlightNumber.get().getId() != leg.getId())
 			super.state(context, false, "flightNumber", "acme.validation.leg.duplicate-flight-number.message");
 
+		if (leg.getIsDraft()) {
+			boolean validAircraft = true;
+			Aircraft aircraft = leg.getAircraft();
+
+			if (aircraft != null) {
+				Date departure = leg.getScheduledDeparture();
+				Date arrival = leg.getScheduledArrival();
+
+				for (Leg l : this.repository.findAllLegs())
+					if (!l.equals(leg) && l.getAircraft() != null && l.getAircraft().equals(aircraft)) {
+						Date otherDeparture = l.getScheduledDeparture();
+						Date otherArrival = l.getScheduledArrival();
+
+						boolean overlap = MomentHelper.isBeforeOrEqual(departure, otherArrival) && MomentHelper.isBeforeOrEqual(otherDeparture, arrival);
+
+						if (overlap)
+							validAircraft = false;
+					}
+			}
+
+			super.state(context, validAircraft, "aircraft", "acme.validation.leg.invalid-aircraft.message");
+		}
 
 		return !super.hasErrors(context);
 	}
