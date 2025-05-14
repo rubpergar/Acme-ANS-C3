@@ -40,7 +40,6 @@ public class ManagerFlightListService extends AbstractGuiService<Manager, Flight
 
 	@Override
 	public void unbind(final Flight flight) {
-		assert flight != null;
 
 		Dataset dataset;
 

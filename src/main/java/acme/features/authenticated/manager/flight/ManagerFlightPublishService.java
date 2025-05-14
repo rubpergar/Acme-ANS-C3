@@ -6,7 +6,6 @@ import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import acme.client.components.models.Dataset;
-import acme.client.helpers.MomentHelper;
 import acme.client.services.AbstractGuiService;
 import acme.client.services.GuiService;
 import acme.entities.flights.Flight;
@@ -52,13 +51,11 @@ public class ManagerFlightPublishService extends AbstractGuiService<Manager, Fli
 
 	@Override
 	public void bind(final Flight flight) {
-		assert flight != null;
 		super.bindObject(flight, "tag", "selfTransfer", "cost", "description");
 	}
 
 	@Override
 	public void validate(final Flight flight) {
-		assert flight != null;
 
 		Collection<Leg> legs = this.repository.getLegsByFlight(flight.getId());
 		super.state(!legs.isEmpty(), "*", "manager.project.publish.error.noLegs");
@@ -66,41 +63,16 @@ public class ManagerFlightPublishService extends AbstractGuiService<Manager, Fli
 		boolean allLegsPublished = legs.stream().allMatch(Leg::getIsDraft);
 		super.state(!allLegsPublished, "*", "manager.flight.publish.error.notAllPublished");
 
-		/*
-		 * Date scheduledDeparture = flight.getScheduledDeparture();
-		 * Date present = MomentHelper.getCurrentMoment();
-		 * boolean isAfter = MomentHelper.isAfter(scheduledDeparture, present);
-		 * super.state(isAfter, "*", "manager.flight.publish.error.notAfter");
-		 */
-
-		boolean nonOverlappingLegs = true;
-
-		Collection<Leg> sortedLegs = this.legRepository.getLegsByFlight(flight.getId());
-
-		for (int i = 0; i < sortedLegs.size() - 1; i++) {
-			Leg previousLeg = sortedLegs.stream().toList().get(i);
-			Leg nextLeg = sortedLegs.stream().toList().get(i + 1);
-
-			if (previousLeg.getScheduledArrival() != null && nextLeg.getScheduledDeparture() != null) {
-				boolean validLeg = MomentHelper.isBefore(previousLeg.getScheduledArrival(), nextLeg.getScheduledDeparture());
-				if (!validLeg)
-					nonOverlappingLegs = false;
-			}
-		}
-		super.state(nonOverlappingLegs, "*", "acme.validation.flight.overlapping.message");
-
 	}
 
 	@Override
 	public void perform(final Flight flight) {
-		assert flight != null;
-		flight.setIsDraft(false);  //publicado
+		flight.setIsDraft(false);
 		this.repository.save(flight);
 	}
 
 	@Override
 	public void unbind(final Flight flight) {
-		assert flight != null;
 
 		Dataset dataset;
 
