@@ -18,3 +18,5 @@ flight-11,Exclusive Adventure,FALSE,EUR 450000.00,"Explore new cultures with our
 # Manager
 flight-12,Express Flight,FALSE,EUR 50.00,Fast and reliable travel,manager-02,TRUE
 flight-13,Business Class Elite,FALSE,EUR 75.00,Designed for executives who value time and comfort,manager-02,TRUE
+flight-14,VIP Charter,FALSE,EUR 185.00,Luxury private jet experience,manager-01,FALSE
+flight-15,Business Class Elite,FALSE,EUR 55.00,Designed for executives who value time and comfort,manager-02,FALSE
