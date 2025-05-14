@@ -24,7 +24,23 @@ public class AdministratorAirlineUpdateService extends AbstractGuiService<Admini
 
 	@Override
 	public void authorise() {
-		super.getResponse().setAuthorised(true);
+		boolean status = super.getRequest().getPrincipal().hasRealmOfType(Administrator.class);
+
+		Integer airlineId = super.getRequest().getData("id", int.class);
+		Airline airline = this.repository.getAirlineById(airlineId);
+
+		status = status && airline != null;
+
+		// TYPE
+		String type = super.getRequest().getData("type", String.class);
+
+		if (type != null && !type.equals("0"))
+			try {
+				AirlineType validType = AirlineType.valueOf(type);
+			} catch (IllegalArgumentException ex) {
+				status = false;
+			}
+		super.getResponse().setAuthorised(status);
 	}
 
 	@Override
@@ -51,7 +67,7 @@ public class AdministratorAirlineUpdateService extends AbstractGuiService<Admini
 
 		Airline existing;
 		existing = this.repository.getAirlineByIATA(airline.getCodeIATA());
-		if (existing != null)
+		if (existing != null && existing.getId() != airline.getId())
 			super.state(false, "codeIATA", "acme.validation.duplicated-iata.message");
 
 		if (airline.getWebsite().length() < 1 || airline.getWebsite().length() > 255)
@@ -76,10 +92,9 @@ public class AdministratorAirlineUpdateService extends AbstractGuiService<Admini
 
 		choices = SelectChoices.from(AirlineType.class, airline.getType());
 
-		dataset = super.unbindObject(airline, "name", "codeIATA", "website", "type", "foundationMoment", "email", "phone");
-		dataset.put("confirmation", false);
-		dataset.put("readonly", false);
+		dataset = super.unbindObject(airline, "name", "codeIATA", "website", "foundationMoment", "email", "phone");
 		dataset.put("type", choices);
+		dataset.put("confirmation", false);
 
 		super.getResponse().addData(dataset);
 	}
