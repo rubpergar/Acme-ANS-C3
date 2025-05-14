@@ -108,6 +108,10 @@ public class CustomerBookingCreateService extends AbstractGuiService<Customer, B
 		boolean flightNullStatus = this.repository.findNotDraftFlights().contains(booking.getFlight());
 		super.state(flightNullStatus, "flight", "acme.validation.booking.notExisting-flight.message");
 
+		// Verificar que el flight es mas tarde que el momento actual
+		boolean flightIsAfterStatus = booking.getFlight().getScheduledDeparture().after(MomentHelper.getCurrentMoment());
+		super.state(flightIsAfterStatus, "flight", "acme.validation.booking.after-flight.message");
+
 	}
 
 	@Override
@@ -122,8 +126,11 @@ public class CustomerBookingCreateService extends AbstractGuiService<Customer, B
 		assert booking != null;
 
 		List<Flight> nonDraftFlights = this.repository.findNotDraftFlights().stream().toList();
+
+		List<Flight> validFlights = nonDraftFlights.stream().filter(f -> f.getScheduledDeparture().after(booking.getPurchaseMoment())).toList();
+
 		SelectChoices travelClasses = SelectChoices.from(TravelClass.class, booking.getTravelClass());
-		SelectChoices flights = SelectChoices.from(nonDraftFlights, "flightDistinction", booking.getFlight());
+		SelectChoices flights = SelectChoices.from(validFlights, "flightDistinction", booking.getFlight());
 		Dataset dataset;
 		dataset = super.unbindObject(booking, "locatorCode", "flight", "purchaseMoment", "travelClass", "lastNibble", "isDraft");
 		dataset.put("travelClass", travelClasses);
