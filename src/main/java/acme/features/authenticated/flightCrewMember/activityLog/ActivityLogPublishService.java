@@ -56,8 +56,6 @@ public class ActivityLogPublishService extends AbstractGuiService<FlightCrewMemb
 
 	@Override
 	public void perform(final ActivityLog activityLog) {
-		assert activityLog != null;
-
 		activityLog.setDraftMode(false);
 		this.repository.save(activityLog);
 	}

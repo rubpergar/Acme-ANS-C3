@@ -57,8 +57,6 @@ public class ActivityLogListService extends AbstractGuiService<FlightCrewMember,
 
 	@Override
 	public void unbind(final ActivityLog activityLog) {
-		assert activityLog != null;
-
 		Dataset dataset;
 
 		dataset = super.unbindObject(activityLog, "type", "description", "severityLevel", "draftMode");
@@ -67,8 +65,6 @@ public class ActivityLogListService extends AbstractGuiService<FlightCrewMember,
 
 	@Override
 	public void unbind(final Collection<ActivityLog> activityLog) {
-		assert activityLog != null;
-
 		int masterId;
 		FlightAssignment flightAssignment;
 		final boolean showCreate;

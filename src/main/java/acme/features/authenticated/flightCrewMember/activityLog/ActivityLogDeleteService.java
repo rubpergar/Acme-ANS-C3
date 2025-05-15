@@ -56,8 +56,6 @@ public class ActivityLogDeleteService extends AbstractGuiService<FlightCrewMembe
 
 	@Override
 	public void perform(final ActivityLog activityLog) {
-		assert activityLog != null;
-
 		this.repository.delete(activityLog);
 	}
 
