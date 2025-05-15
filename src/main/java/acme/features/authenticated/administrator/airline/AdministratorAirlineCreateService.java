@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import acme.client.components.models.Dataset;
 import acme.client.components.principals.Administrator;
 import acme.client.components.views.SelectChoices;
+import acme.client.helpers.MomentHelper;
 import acme.client.services.AbstractGuiService;
 import acme.client.services.GuiService;
 import acme.entities.airline.Airline;
@@ -24,13 +25,28 @@ public class AdministratorAirlineCreateService extends AbstractGuiService<Admini
 
 	@Override
 	public void authorise() {
-		super.getResponse().setAuthorised(true);
+		boolean status = super.getRequest().getPrincipal().hasRealmOfType(Administrator.class);
+
+		if (super.getRequest().getMethod().equals("POST")) {
+
+			// TYPE
+			String type = super.getRequest().getData("type", String.class);
+
+			if (type != null && !type.equals("0"))
+				try {
+					AirlineType validType = AirlineType.valueOf(type);
+				} catch (IllegalArgumentException ex) {
+					status = false;
+				}
+		}
+		super.getResponse().setAuthorised(status);
 	}
 
 	@Override
 	public void load() {
 		Airline airline;
 		airline = new Airline();
+		airline.setFoundationMoment(MomentHelper.getCurrentMoment());
 		super.getBuffer().addData(airline);
 	}
 
@@ -75,10 +91,9 @@ public class AdministratorAirlineCreateService extends AbstractGuiService<Admini
 
 		choices = SelectChoices.from(AirlineType.class, airline.getType());
 
-		dataset = super.unbindObject(airline, "name", "codeIATA", "website", "type", "foundationMoment", "email", "phone");
-		dataset.put("confirmation", false);
-		dataset.put("readonly", false);
+		dataset = super.unbindObject(airline, "name", "codeIATA", "website", "foundationMoment", "email", "phone");
 		dataset.put("type", choices);
+		dataset.put("confirmation", false);
 
 		super.getResponse().addData(dataset);
 	}

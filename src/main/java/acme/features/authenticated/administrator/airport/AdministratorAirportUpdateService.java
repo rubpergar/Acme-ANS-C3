@@ -10,7 +10,6 @@ import acme.client.services.AbstractGuiService;
 import acme.client.services.GuiService;
 import acme.entities.airports.Airport;
 import acme.entities.airports.AirportType;
-import acme.entities.claims.ClaimType;
 
 @GuiService
 public class AdministratorAirportUpdateService extends AbstractGuiService<Administrator, Airport> {
@@ -32,7 +31,7 @@ public class AdministratorAirportUpdateService extends AbstractGuiService<Admini
 		String airpScope = super.getRequest().getData("scope", String.class);
 		if (airpScope != null && !airpScope.equals("0"))
 			try {
-				ClaimType.valueOf(airpScope);
+				AirportType.valueOf(airpScope);
 			} catch (IllegalArgumentException e) {
 				hasAuthority = false;
 			}

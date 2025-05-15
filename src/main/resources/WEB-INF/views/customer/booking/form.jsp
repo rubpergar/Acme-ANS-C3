@@ -19,10 +19,11 @@
         <jstl:when test="${_command == 'show' && isDraft == false}">
             <acme:button code="customer.booking.passengers" action="/customer/booking-passenger/list?masterId=${id}"/>
         </jstl:when>
-        <jstl:when test="${acme:anyOf(_command, 'show|update|publish')  && isDraft == true}">
+        <jstl:when test="${acme:anyOf(_command, 'show|update|publish|delete')  && isDraft == true}">
             <acme:button code="customer.booking.passengers" action="/customer/booking-passenger/list?masterId=${id}"/>
             <acme:submit code="customer.booking.form.button.update" action="/customer/booking/update"/>
             <acme:submit code="customer.booking.form.button.publish" action="/customer/booking/publish"/>
+            <acme:submit code="customer.booking.form.button.delete" action="/customer/booking/delete"/>
         </jstl:when>
         <jstl:when test="${_command == 'create'}">
             <acme:submit code="customer.booking.form.button.create" action="/customer/booking/create"/>
