@@ -56,8 +56,6 @@ public class FlightAssignmentDeleteService extends AbstractGuiService<FlightCrew
 
 	@Override
 	public void perform(final FlightAssignment flightAssignment) {
-		assert flightAssignment != null;
-
 		Collection<ActivityLog> activityLogs = this.repository.getAllActivityLogsFromAssignmentId(flightAssignment.getId());
 
 		this.repository.deleteAll(activityLogs);

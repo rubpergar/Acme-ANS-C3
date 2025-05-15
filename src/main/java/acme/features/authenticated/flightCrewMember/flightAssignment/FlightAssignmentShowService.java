@@ -50,10 +50,8 @@ public class FlightAssignmentShowService extends AbstractGuiService<FlightCrewMe
 
 	@Override
 	public void unbind(final FlightAssignment flightAssignment) {
-		assert flightAssignment != null;
-
 		Collection<Leg> legs = this.repository.findAllLegs();
-		Collection<FlightCrewMember> members = this.repository.findAllAvailableMembers();
+		Collection<FlightCrewMember> members = this.repository.findAllMembers();
 
 		SelectChoices status = SelectChoices.from(FlightAssignmentStatus.class, flightAssignment.getStatus());
 		SelectChoices duty = SelectChoices.from(FlightAssignmentDuty.class, flightAssignment.getDuty());

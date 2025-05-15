@@ -180,6 +180,7 @@ acme.validation.flight-assignment.incompatible-legs.message = Este miembro no pu
 acme.validation.flight-assignment.has-pilot.message = Este trabajo ya ha sido asignado. Cada tramo puede solo tener un piloto
 acme.validation.flight-assignment.has-copilot.message = Este trabajo ya ha sido asignado. Cada tramo puede solo tener un copiloto
 acme.validation.flight-assignment.leg-concluded.message = La asignación de vuelo no puede esta vinculada a un tramo que ya ha concluido
+acme.validation.flight-assignment.unavailable-member.message = Solo se pueden asignar miembros que estén disponibles
 
 acme.validation.booking.repeated-locatorCode.message = El código de localización ya está en uso. Por favor, proporcione uno diferente.
 acme.validation.booking.incorrect-purchaseMoment.message = El momento de compra no puede cambiar.
