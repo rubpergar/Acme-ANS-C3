@@ -18,3 +18,5 @@ leg-10,AAX1010,2000/02/01 10:00,2000/02/01 11:00,CANCELLED,TRUE,flight-10,airpor
 leg-11,AAX1011,2000/02/01 10:00,2000/02/01 11:00,ON_TIME,TRUE,flight-11,airport-11,airport-12,aircraft-11
 leg-12,AAX1012,2000/02/01 10:00,2000/02/01 11:00,ON_TIME,TRUE,flight-12,airport-12,airport-13,aircraft-12
 leg-13,AAX1013,2000/02/01 10:00,2000/02/01 11:00,ON_TIME,TRUE,flight-13,airport-13,airport-14,aircraft-13
+leg-14,AAX1014,2025/02/01 10:00,2025/02/01 11:00,ON_TIME,FALSE,flight-14,airport-14,airport-15,aircraft-14
+leg-15,AAX1015,2026/02/01 10:00,2026/02/01 13:00,ON_TIME,FALSE,flight-15,airport-15,airport-16,aircraft-15
