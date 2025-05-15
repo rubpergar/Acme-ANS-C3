@@ -19,6 +19,7 @@
         </jstl:when>      
         <jstl:when test="${bookingIsDraft == false || bookingIsDraft == null}">
             <acme:input-select code="customer.bookingPassenger.form.label.passenger" path="passenger" choices="${passenger}" readonly="true"/>
+                        <acme:button code="customer.booking.passengerInfo" action="/customer/passenger/show?id=${passengerId}"/>
         </jstl:when>  
     </jstl:choose>
 </acme:form>
