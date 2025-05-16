@@ -34,9 +34,9 @@ public class ActivityLogShowService extends AbstractGuiService<FlightCrewMember,
 		status = super.getRequest().getPrincipal().hasRealm(flightAssignment.getFlightCrewMember());
 
 		if (activityLog.isDraftMode())
-			super.getResponse().setAuthorised(true);
-		else
 			super.getResponse().setAuthorised(status);
+		else
+			super.getResponse().setAuthorised(true);
 	}
 
 	@Override
