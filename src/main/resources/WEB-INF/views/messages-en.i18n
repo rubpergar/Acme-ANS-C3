@@ -45,7 +45,11 @@ acme.validation.leg.invalid-departure.message = The scheduled departure must be 
 
 acme.validation.leg.invalid-aircraft.message = The aircraft is not available for the scheduled. Please select a different aircraft or change the scheduled time.
 
+acme.validation.leg.invalid-airports.message = The previous leg's arrival airport must be the same as the current leg's departure airport. Please select a different airport.
+
 manager.leg.error.invalid-aircraft = The aircraft is not active. Please select a different aircraft.
+
+acme.validation.leg.invalid-dates.message = The time difference between two legs cannot surpass 48 hours.
 
 manager.flight.form.label.tag = Tag
 manager.flight.form.label.cost = Cost
