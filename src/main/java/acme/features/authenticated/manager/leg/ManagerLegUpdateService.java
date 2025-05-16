@@ -110,9 +110,6 @@ public class ManagerLegUpdateService extends AbstractGuiService<Manager, Leg> {
 
 		super.state(leg.getStatus() != null, "status", "manager.leg.error.status-required");
 
-		boolean validStatus = leg.getStatus() == LegStatus.ON_TIME || leg.getStatus() == LegStatus.DELAYED || leg.getStatus() == LegStatus.CANCELLED || leg.getStatus() == LegStatus.LANDED;
-		super.state(validStatus, "status", "manager.leg.error.invalid-status");
-
 		boolean validScheduledDeparture = true;
 		Date scheduledDeparture = leg.getScheduledDeparture();
 		Date currentMoment = MomentHelper.getCurrentMoment();
