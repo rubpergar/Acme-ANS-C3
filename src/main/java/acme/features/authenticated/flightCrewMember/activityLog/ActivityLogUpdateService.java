@@ -47,35 +47,25 @@ public class ActivityLogUpdateService extends AbstractGuiService<FlightCrewMembe
 
 	@Override
 	public void bind(final ActivityLog activityLog) {
-		assert activityLog != null;
 		super.bindObject(activityLog, "type", "description", "severityLevel");
 	}
 
 	@Override
 	public void validate(final ActivityLog activityLog) {
-		assert activityLog != null;
-
 		if (activityLog.getType().length() < 1 || activityLog.getType().length() > 50)
 			super.state(false, "type", "acme.validation.out-1-50-range.message");
 
 		if (activityLog.getDescription().length() < 1 || activityLog.getDescription().length() > 255)
 			super.state(false, "description", "acme.validation.out-1-255-range.message");
-
-		if (activityLog.getSeverityLevel() != null && (activityLog.getSeverityLevel() < 0 || activityLog.getSeverityLevel() > 10))
-			super.state(false, "severityLevel", "acme.validation.out-0-10-range.message");
 	}
 
 	@Override
 	public void perform(final ActivityLog activityLog) {
-		assert activityLog != null;
-
 		this.repository.save(activityLog);
 	}
 
 	@Override
 	public void unbind(final ActivityLog activityLog) {
-		assert activityLog != null;
-
 		Dataset dataset;
 
 		dataset = super.unbindObject(activityLog, "registrationMoment", "type", "description", "severityLevel", "draftMode", "flightAssignment");
