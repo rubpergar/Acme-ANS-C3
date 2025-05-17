@@ -34,9 +34,9 @@ public class ActivityLogShowService extends AbstractGuiService<FlightCrewMember,
 		status = super.getRequest().getPrincipal().hasRealm(flightAssignment.getFlightCrewMember());
 
 		if (activityLog.isDraftMode())
-			super.getResponse().setAuthorised(true);
-		else
 			super.getResponse().setAuthorised(status);
+		else
+			super.getResponse().setAuthorised(true);
 	}
 
 	@Override
@@ -52,8 +52,6 @@ public class ActivityLogShowService extends AbstractGuiService<FlightCrewMember,
 
 	@Override
 	public void unbind(final ActivityLog activityLog) {
-		assert activityLog != null;
-
 		Dataset dataset;
 
 		dataset = super.unbindObject(activityLog, "registrationMoment", "type", "description", "severityLevel", "draftMode", "flightAssignment");

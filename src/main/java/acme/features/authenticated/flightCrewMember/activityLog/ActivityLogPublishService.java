@@ -51,13 +51,12 @@ public class ActivityLogPublishService extends AbstractGuiService<FlightCrewMemb
 
 	@Override
 	public void validate(final ActivityLog activityLog) {
-		assert activityLog != null;
+		if (activityLog.getFlightAssignment().isDraftMode())
+			super.state(false, "*", "acme.validation.flight-assignment.unpublished-assignment.message");
 	}
 
 	@Override
 	public void perform(final ActivityLog activityLog) {
-		assert activityLog != null;
-
 		activityLog.setDraftMode(false);
 		this.repository.save(activityLog);
 	}

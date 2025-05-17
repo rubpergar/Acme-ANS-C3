@@ -27,7 +27,11 @@ public class ActivityLogValidator extends AbstractValidator<ValidActivityLog, Ac
 
 		Boolean registrationAfterArrival = MomentHelper.isAfter(registrationMoment, legFinishMoment);
 
-		super.state(context, registrationAfterArrival, "InvalidMomentRegistration", "acme.validation.activity-log.invalid-moment.message");
+		super.state(context, registrationAfterArrival, "registrationMoment", "acme.validation.activity-log.invalid-moment.message");
+
+		Boolean flightAssignmentDraftMode = activityLog.getFlightAssignment().isDraftMode();
+
+		super.state(context, !flightAssignmentDraftMode, "flightAssignment", "acme.validation.flight-assignment.unpublished-assignment.message");
 
 		boolean result = !super.hasErrors(context);
 		return result;

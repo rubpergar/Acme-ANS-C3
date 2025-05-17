@@ -8,7 +8,7 @@ booking-04,flight-14,customer-01,POI852,2024/08/22 14:00,ECONOMY,7890,false
 booking-05,flight-15,customer-02,ASD741,2024/07/10 16:45,ECONOMY,8901,true
 # purchaseMoment - variations
 booking-06,flight-15,customer-01,GHJ369,2000/01/01 00:00,ECONOMY,9012,false
-booking-07,flight-15,customer-01,QWE258,2024/06/15 12:30,ECONOMY,0123,true
+booking-07,flight-02,customer-01,QWE258,2021/06/15 12:30,ECONOMY,0123,true
 booking-08,flight-15,customer-02,DFG753,2023/12/31 23:59,ECONOMY,1234,false
 # travelClass - variations
 booking-09,flight-15,customer-02,XCV159,2024/11/25 18:20,ECONOMY,2345,true

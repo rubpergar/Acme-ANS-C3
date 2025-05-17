@@ -44,8 +44,8 @@ public interface ManagerLegRepository extends AbstractRepository {
 	@Query("select a from Aircraft a where a.registrationNumber = :registrationNumber")
 	Aircraft getAircraftByRegistrationNumber(String registrationNumber);
 
-	@Query("SELECT a FROM Aircraft a WHERE a.status = :status")
-	Collection<Aircraft> findAircraftsActives(@Param("status") AircraftStatus status);
+	@Query("SELECT a FROM Aircraft a")
+	Collection<Aircraft> findAircrafts();
 
 	@Query("SELECT a FROM Aircraft a WHERE a.id IN (SELECT l.aircraft.id FROM Leg l)")
 	Collection<Aircraft> findAircraftsAssigment();

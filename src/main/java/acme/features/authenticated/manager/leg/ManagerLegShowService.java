@@ -1,8 +1,8 @@
 
 package acme.features.authenticated.manager.leg;
 
-import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -70,14 +70,12 @@ public class ManagerLegShowService extends AbstractGuiService<Manager, Leg> {
 		SelectChoices selectedAircraft = new SelectChoices();
 		selectedAircraft.add("0", "----", leg.getAircraft() == null);
 
-		Collection<Aircraft> aircraftsActives = this.repository.findAircraftsActives(AircraftStatus.ACTIVE);
-		Collection<Aircraft> finalAircrafts = new ArrayList<Aircraft>();
-		for (Aircraft aircraft : aircraftsActives)
-			if (aircraft.getAirline().getCodeIATA().equals(leg.getFlight().getAirlineManager().getAirline().getCodeIATA()))
-				finalAircrafts.add(aircraft);
+		Collection<Aircraft> aircraftsActives = this.repository.findAircrafts();
+
+		List<Aircraft> finalAircrafts = aircraftsActives.stream().filter(a -> a.getAirline().getCodeIATA().equals(leg.getFlight().getAirlineManager().getAirline().getCodeIATA()) && a.getStatus() == AircraftStatus.ACTIVE).toList();
 
 		for (Aircraft aircraft : finalAircrafts) {
-			String key = Integer.toString(aircraft.getId());
+			String key = String.valueOf(aircraft.getId());
 			String label = aircraft.getRegistrationNumber();
 
 			if (aircraft.getAirline() != null)

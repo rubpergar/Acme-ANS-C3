@@ -14,6 +14,6 @@
 	
 </acme:list>
 
-<jstl:if test="${_command == 'listCompleted'}">
+<jstl:if test="${_command == 'listUncompleted'}">
 	<acme:button code="member.flight-assignment.list.button.create" action="/flight-crew-member/flight-assignment/create"/>
 </jstl:if> 
