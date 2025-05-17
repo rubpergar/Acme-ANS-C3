@@ -40,8 +40,6 @@ public class CustomerBookingPassengerShowService extends AbstractGuiService<Cust
 
 	@Override
 	public void unbind(final BookingPassenger bookingPassenger) {
-
-		assert bookingPassenger != null;
 		Dataset dataset;
 		SelectChoices passengers;
 		int customerId;

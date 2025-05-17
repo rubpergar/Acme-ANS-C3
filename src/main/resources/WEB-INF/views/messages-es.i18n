@@ -198,5 +198,5 @@ manager.leg.error.status-required = Estado requerido. El estado no puede ser nul
 manager.leg.error.invalid-status = Estado invalido. Debe ser: "CANCELED", "DELAYED", "LANDED", "ON_TIME"
 customer.booking.passengerInfo = Información del pasajero
 customer.passenger.form.error.booking-passenger.exists = El pasajero ya está asignado a la reserva. Por favor, proporcione un pasajero diferente.
-acme.validation.booking.after-flight.message = La reserva no puede ser realizada después de que el vuelo haya salido.
+acme.validation.booking.after-flight.message = La reserva no puede ser realizada después de que el vuelo haya salido
 customer.validation.booking.form.error.emtyPassengers = No puedes realizar esta acción para una reserva que no tiene pasajeros.

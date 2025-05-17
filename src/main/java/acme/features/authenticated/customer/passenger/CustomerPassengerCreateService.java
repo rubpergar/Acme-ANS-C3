@@ -58,21 +58,17 @@ public class CustomerPassengerCreateService extends AbstractGuiService<Customer,
 		super.bindObject(passenger, "fullName", "email", "passportNumber", "dateOfBirth", "specialNeeds");
 	}
 
-	// ??????
 	@Override
 	public void validate(final Passenger passenger) {
-		assert passenger != null;
 	}
 
 	@Override
 	public void perform(final Passenger passenger) {
-		assert passenger != null;
 		this.repository.save(passenger);
 	}
 
 	@Override
 	public void unbind(final Passenger passenger) {
-		assert passenger != null;
 		Dataset dataset;
 		dataset = super.unbindObject(passenger, "fullName", "email", "passportNumber", "dateOfBirth", "specialNeeds", "isDraft");
 		super.getResponse().addData(dataset);
