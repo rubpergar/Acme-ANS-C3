@@ -31,7 +31,7 @@ flight-assignment-26,PILOT,2012/07/02 00:00,PENDING,' or 'A' = 'A,true,leg-05,me
 # draftMode
 flight-assignment-28,PILOT,2012/07/02 00:00,PENDING,lorem,true,leg-05,member-01
 flight-assignment-29,PILOT,2012/07/02 00:00,PENDING,lorem,false,leg-05,member-01
-# leg,"","","","","",""
+# leg
 flight-assignment-30,PILOT,2012/07/02 00:00,PENDING,lorem,true,leg-04,member-01
 flight-assignment-31,LEAD_ATTENDANT,2012/07/02 00:00,PENDING,lorem,false,leg-06,member-01
 # flightCrewMember
