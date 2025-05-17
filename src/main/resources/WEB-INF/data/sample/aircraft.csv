@@ -1,14 +1,14 @@
 key,model,registrationNumber,capacity,cargoWeight,status,details,key:airline
 # model
 aircraft-01,lorem,lorem01,10,25000,ACTIVE,lorem,airline-01
-aircraft-02,L,lorem02,10,25000,ACTIVE,lorem,airline-01
-aircraft-03,Lo,lorem03,10,25000,ACTIVE,lorem,airline-01
-aircraft-04,"Lorem ipsum dolor sit amet, consectetur adipiscin",lorem04,10,25000,ACTIVE,lorem,airline-01
-aircraft-05,"Lorem ipsum dolor sit amet, consectetur adipiscing",lorem05,10,25000,ACTIVE,lorem,airline-01
-aircraft-06,โลเร็ม อิปซัม,lorem06,10,25000,ACTIVE,lorem,airline-01
-aircraft-07,لوريم إيبسوم,lorem07,10,25000,ACTIVE,lorem,airline-01
-aircraft-08,洛伦·伊普森,lorem08,10,25000,ACTIVE,lorem,airline-01
-aircraft-09,<marquee>Hacked</marquee>,lorem09,10,25000,ACTIVE,lorem,airline-01
+aircraft-02,L,lorem02,10,25000,ACTIVE,lorem,airline-02
+aircraft-03,Lo,lorem03,10,25000,ACTIVE,lorem,airline-03
+aircraft-04,"Lorem ipsum dolor sit amet, consectetur adipiscin",lorem04,10,25000,ACTIVE,lorem,airline-04
+aircraft-05,"Lorem ipsum dolor sit amet, consectetur adipiscing",lorem05,10,25000,ACTIVE,lorem,airline-05
+aircraft-06,โลเร็ม อิปซัม,lorem06,10,25000,ACTIVE,lorem,airline-06
+aircraft-07,لوريم إيبسوم,lorem07,10,25000,ACTIVE,lorem,airline-07
+aircraft-08,洛伦·伊普森,lorem08,10,25000,ACTIVE,lorem,airline-08
+aircraft-09,<marquee>Hacked</marquee>,lorem09,10,25000,ACTIVE,lorem,airline-09
 aircraft-10,<script>alert(‘Hacked!’);</script>,lorem10,10,25000,ACTIVE,lorem,airline-01
 aircraft-11,' or 'A' = 'A,lorem11,10,25000,ACTIVE,lorem,airline-01
 # registrationNumber,airline-01
