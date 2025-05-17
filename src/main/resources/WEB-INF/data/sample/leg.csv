@@ -33,3 +33,11 @@ leg-31,AAX9363,2025/04/19 06:00,2025/04/19 08:00,ON_TIME,airport-03,airport-04,f
 leg-32,AAX1465,2025/04/20 06:00,2025/04/20 08:00,ON_TIME,airport-04,airport-01,flight-01,aircraft-01,False
 leg-33,AAX1749,2025/04/21 06:00,2025/04/21 08:00,ON_TIME,airport-01,airport-02,flight-01,aircraft-01,False
 leg-34,AAX9146,2025/04/22 06:00,2025/04/22 08:00,ON_TIME,airport-02,airport-03,flight-01,aircraft-01,False
+leg-35,AAX1530,2025/04/15 10:00,2025/04/15 12:30,ON_TIME,airport-02,airport-04,flight-15,aircraft-01,false
+leg-36,AAX1531,2025/04/15 14:15,2025/04/15 16:45,ON_TIME,airport-03,airport-01,flight-16,aircraft-01,false
+leg-37,AAX1532,2025/04/16 09:20,2025/04/16 11:50,ON_TIME,airport-01,airport-04,flight-17,aircraft-01,false
+leg-38,AAX1533,2025/04/16 18:30,2025/04/16 21:00,ON_TIME,airport-04,airport-02,flight-18,aircraft-01,false
+leg-39,AAX1534,2025/04/17 07:45,2025/04/17 10:15,ON_TIME,airport-03,airport-02,flight-19,aircraft-01,false
+leg-40,AAX1535,2025/04/17 13:10,2025/04/17 15:40,ON_TIME,airport-01,airport-03,flight-20,aircraft-01,false
+leg-41,AAX1536,2025/04/18 11:25,2025/04/18 13:55,ON_TIME,airport-02,airport-04,flight-21,aircraft-01,false
+
