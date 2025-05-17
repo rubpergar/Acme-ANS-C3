@@ -70,34 +70,21 @@ public class CustomerBookingUpdateService extends AbstractGuiService<Customer, B
 
 	@Override
 	public void bind(final Booking booking) {
-		assert booking != null;
-
 		super.bindObject(booking, "locatorCode", "flight", "travelClass", "lastNibble");
 
 	}
 
 	@Override
 	public void validate(final Booking booking) {
-		assert booking != null;
-
 		// Verificar que el locatorCode es único
-		boolean locatorCodeStatus = this.repository.findBookingsByLocatorCode(booking.getLocatorCode()).size() == 1;
+		Booking bookingExistingLocatorCode = this.repository.findBookingByLocatorCode(booking.getLocatorCode());
+		boolean locatorCodeStatus = bookingExistingLocatorCode == null || bookingExistingLocatorCode.getId() == booking.getId();
 		super.state(locatorCodeStatus, "locatorCode", "acme.validation.booking.repeated-locatorCode.message");
-
-		//		// Verificar que el flight es mas tarde que el momento actual
-		//		boolean flightIsAfterStatus = true;
-		//		Integer flightId = super.getRequest().getData("flight", int.class);
-		//		if (flightId != 0 && flightId != null && booking.getFlight() != null) {
-		//			Flight flight = this.repository.findFlightById(flightId);
-		//			flightIsAfterStatus = flight.getScheduledArrival().after(MomentHelper.getCurrentMoment());
-		//			super.state(flightIsAfterStatus, "flight", "acme.validation.booking.after-flight.message");
-		//		}
 
 	}
 
 	@Override
 	public void perform(final Booking booking) {
-		assert booking != null;
 		this.repository.save(booking);
 	}
 

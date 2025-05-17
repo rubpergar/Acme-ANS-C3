@@ -92,14 +92,6 @@ public class CustomerBookingPassengerCreateService extends AbstractGuiService<Cu
 
 	@Override
 	public void validate(final BookingPassenger bookingPassenger) {
-		//
-		//		boolean passengerStatus = true;
-		//		boolean bookingPassengerStatus = true;
-		//
-		//		if (bookingPassenger.getPassenger() != null)
-		//			// Verificar que el pasagero está publicadods
-		//			passengerStatus = this.repository.findPassengerById(bookingPassenger.getPassenger().getId()).getIsDraft() == false;
-		//		super.state(passengerStatus, "passenger", "acme.validation.booking-passenger.notPublishedPassenger.message");
 
 	}
 
