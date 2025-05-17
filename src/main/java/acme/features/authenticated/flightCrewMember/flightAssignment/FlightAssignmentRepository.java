@@ -28,12 +28,6 @@ public interface FlightAssignmentRepository extends AbstractRepository {
 	@Query("SELECT l from Leg l")
 	Collection<Leg> findAllLegs();
 
-	@Query("SELECT l from Leg l WHERE l.scheduledArrival > CURRENT_TIMESTAMP")
-	Collection<Leg> findAllUncompletedLegs();
-
-	@Query("SELECT fcm from FlightCrewMember fcm WHERE fcm.availabilityStatus = 'AVAILABLE'")
-	Collection<FlightCrewMember> findAllAvailableMembers();
-
 	@Query("SELECT fcm from FlightCrewMember fcm")
 	Collection<FlightCrewMember> findAllMembers();
 
