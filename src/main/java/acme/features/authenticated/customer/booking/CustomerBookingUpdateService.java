@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import acme.client.components.models.Dataset;
 import acme.client.components.views.SelectChoices;
-import acme.client.helpers.MomentHelper;
 import acme.client.services.AbstractGuiService;
 import acme.client.services.GuiService;
 import acme.entities.booking.Booking;
@@ -85,14 +84,14 @@ public class CustomerBookingUpdateService extends AbstractGuiService<Customer, B
 		boolean locatorCodeStatus = this.repository.findBookingsByLocatorCode(booking.getLocatorCode()).size() == 1;
 		super.state(locatorCodeStatus, "locatorCode", "acme.validation.booking.repeated-locatorCode.message");
 
-		// Verificar que el flight es mas tarde que el momento actual
-		boolean flightIsAfterStatus = true;
-		Integer flightId = super.getRequest().getData("flight", int.class);
-		if (flightId != 0 && flightId != null && booking.getFlight() != null) {
-			Flight flight = this.repository.findFlightById(flightId);
-			flightIsAfterStatus = flight.getScheduledArrival().after(MomentHelper.getCurrentMoment());
-			super.state(flightIsAfterStatus, "flight", "acme.validation.booking.after-flight.message");
-		}
+		//		// Verificar que el flight es mas tarde que el momento actual
+		//		boolean flightIsAfterStatus = true;
+		//		Integer flightId = super.getRequest().getData("flight", int.class);
+		//		if (flightId != 0 && flightId != null && booking.getFlight() != null) {
+		//			Flight flight = this.repository.findFlightById(flightId);
+		//			flightIsAfterStatus = flight.getScheduledArrival().after(MomentHelper.getCurrentMoment());
+		//			super.state(flightIsAfterStatus, "flight", "acme.validation.booking.after-flight.message");
+		//		}
 
 	}
 
@@ -104,10 +103,8 @@ public class CustomerBookingUpdateService extends AbstractGuiService<Customer, B
 
 	@Override
 	public void unbind(final Booking booking) {
-		assert booking != null;
-
 		List<Flight> nonDraftFlights = this.repository.findNotDraftFlights().stream().toList();
-		List<Flight> validFlights = nonDraftFlights.stream().filter(f -> f.getScheduledDeparture().after(MomentHelper.getCurrentMoment())).toList();
+		List<Flight> validFlights = nonDraftFlights.stream().filter(f -> f.getScheduledDeparture().after(booking.getPurchaseMoment())).toList();
 
 		SelectChoices travelClasses = SelectChoices.from(TravelClass.class, booking.getTravelClass());
 		SelectChoices flights = SelectChoices.from(validFlights, "flightDistinction", booking.getFlight());

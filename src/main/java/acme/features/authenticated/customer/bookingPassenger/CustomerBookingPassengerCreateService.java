@@ -92,28 +92,25 @@ public class CustomerBookingPassengerCreateService extends AbstractGuiService<Cu
 
 	@Override
 	public void validate(final BookingPassenger bookingPassenger) {
-		assert bookingPassenger != null;
+		//
+		//		boolean passengerStatus = true;
+		//		boolean bookingPassengerStatus = true;
+		//
+		//		if (bookingPassenger.getPassenger() != null)
+		//			// Verificar que el pasagero está publicadods
+		//			passengerStatus = this.repository.findPassengerById(bookingPassenger.getPassenger().getId()).getIsDraft() == false;
+		//		super.state(passengerStatus, "passenger", "acme.validation.booking-passenger.notPublishedPassenger.message");
 
-		boolean passengerStatus = true;
-		boolean bookingPassengerStatus = true;
-
-		if (bookingPassenger.getPassenger() != null)
-			// Verificar que el pasagero está publicadods
-			passengerStatus = this.repository.findPassengerById(bookingPassenger.getPassenger().getId()).getIsDraft() == false;
-		super.state(passengerStatus, "passenger", "acme.validation.booking-passenger.notPublishedPassenger.message");
-		super.state(bookingPassengerStatus, "bookingPassenger", "acme.validation.booking-passenger.notExistingBookingPassenger.message");
 	}
 
 	@Override
 	public void perform(final BookingPassenger bookingPassenger) {
-		assert bookingPassenger != null;
 		bookingPassenger.setPassenger(bookingPassenger.getPassenger());
 		this.repository.save(bookingPassenger);
 	}
 
 	@Override
 	public void unbind(final BookingPassenger bookingPassenger) {
-		assert bookingPassenger != null;
 		Dataset dataset;
 		SelectChoices passengers;
 		int customerId;

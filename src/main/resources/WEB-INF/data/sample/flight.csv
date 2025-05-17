@@ -1,6 +1,6 @@
 key,tag,self-transfer,cost,description,key:airline-manager,isDraft
-flight-15,IB100,true,EUR 400.00,Comfortable flight with great seating,manager-01,true
-flight-02,VY200,false,EUR 350.00,Direct flight with excellent service,manager-02,false
+flight-01,IB100,true,EUR 400.00,Comfortable flight with great seating,manager-01,true
+flight-02,VY200,false,EUR 350.00,Direct flight with excellent service,manager-02,true
 flight-03,IB100,true,EUR 400.00,Newest in town,manager-03,true
 flight-04,X,false,EUR 0.00,Free demo flight with minimal setup,manager-04,true
 flight-05,ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMN,true,EUR 1000000.00,This is a maxed out tag and cost,manager-05,true
@@ -12,8 +12,8 @@ flight-10,WIZ003,false,EUR 1.00,Just description without anything special,manage
 flight-11,SPC-!@#$$%^&*()_+|~`=,true,EUR 99.99,Flight with special chars in tag,manager-11,true
 flight-12,Min,true,EUR 0.01,Minimum valid cost,manager-12,true
 flight-13,Max,false,EUR 1000000.00,Maximum valid cost,manager-13,true
-flight-14,TAG50CHARSLONG-ABCDEFGHIJKLMN12345678901234567890,true,EUR 123.45,Exactly 50-char tag,manager-14,false
-flight-01,DRAFT-ONLY,true,EUR 500.00,This flight is in draft,manager-01,false
+flight-14,TAG50CHARSLONG-ABCDEFGHIJKLMN12345678901234567890,true,EUR 123.45,Exactly 50-char tag,manager-14, false
+flight-15,DRAFT-ONLY,true,EUR 500.00,This flight is in draft,manager-01,false
 flight-16,REAL-FLIGHT,false,EUR 750.00,Published and real,manager-01,true
 flight-17,NEWGEN-100,true,EUR 420.00,New generation airliner with improved engines,manager-01,true
 flight-18,CLASSIC200,false,EUR 300.00,A popular flight with consistent reliability,manager-01,true

@@ -277,6 +277,6 @@ customer.passenger.form.error.booking-passenger.exists = The passenger is alread
 manager.leg.error.status-required = The leg status is required
 manager.leg.error.invalid-status = The leg status is invalid. The status must be one of the following: "CANCELED", "DELAYED", "LANDED", "ON_TIME"
 customer.passenger.form.error.booking-passenger.exists = The passenger is already in the booking. Please select a different passenger.
-acme.validation.booking.after-flight.message = The booking must be created before the flight departs.
+acme.validation.booking.after-flight.message = The booking must be published before the flight departs
 customer.validation.booking.form.error.emtyPassengers = The booking must have at least one passenger to be published.
 customer.project.publish.error.priceNotNull = The price must be set to publish the booking.

@@ -88,15 +88,10 @@ public class CustomerBookingCreateService extends AbstractGuiService<Customer, B
 
 	@Override
 	public void validate(final Booking booking) {
-		assert booking != null;
 
 		// Verificar que el locatorCode es único
 		boolean locatorCodeStatus = this.repository.findBookingsByLocatorCode(booking.getLocatorCode()).size() == 0;
 		super.state(locatorCodeStatus, "locatorCode", "acme.validation.booking.repeated-locatorCode.message");
-
-		// Verificar que PurchaseMoment no cambia
-		boolean purchaseMomentStatus = booking.getPurchaseMoment().equals(MomentHelper.getCurrentMoment());
-		super.state(purchaseMomentStatus, "purchaseMoment", "acme.validation.booking.incorrect-purchaseMoment.message");
 
 		// Verificar que el flight está publicado
 		boolean flightDraftStatus = true;
@@ -108,27 +103,16 @@ public class CustomerBookingCreateService extends AbstractGuiService<Customer, B
 		boolean flightNullStatus = this.repository.findNotDraftFlights().contains(booking.getFlight());
 		super.state(flightNullStatus, "flight", "acme.validation.booking.notExisting-flight.message");
 
-		// Verificar que el flight es mas tarde que el momento actual
-		boolean flightIsAfterStatus = true;
-		Integer flightId = super.getRequest().getData("flight", int.class);
-		if (flightId != 0 && flightId != null && booking.getFlight() != null) {
-			Flight flight = this.repository.findFlightById(flightId);
-			flightIsAfterStatus = flight.getScheduledArrival().after(MomentHelper.getCurrentMoment());
-			super.state(flightIsAfterStatus, "flight", "acme.validation.booking.after-flight.message");
-		}
-
 	}
 
 	@Override
 	public void perform(final Booking booking) {
-		assert booking != null;
 		booking.setFlight(booking.getFlight());
 		this.repository.save(booking);
 	}
 
 	@Override
 	public void unbind(final Booking booking) {
-		assert booking != null;
 
 		List<Flight> nonDraftFlights = this.repository.findNotDraftFlights().stream().toList();
 
