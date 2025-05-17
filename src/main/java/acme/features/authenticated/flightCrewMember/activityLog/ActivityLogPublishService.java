@@ -46,7 +46,6 @@ public class ActivityLogPublishService extends AbstractGuiService<FlightCrewMemb
 
 	@Override
 	public void bind(final ActivityLog activityLog) {
-		assert activityLog != null;
 	}
 
 	@Override
@@ -63,6 +62,5 @@ public class ActivityLogPublishService extends AbstractGuiService<FlightCrewMemb
 
 	@Override
 	public void unbind(final ActivityLog activityLog) {
-		assert activityLog != null;
 	}
 }
