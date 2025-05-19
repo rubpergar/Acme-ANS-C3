@@ -22,15 +22,17 @@ public class ActivityLogDeleteService extends AbstractGuiService<FlightCrewMembe
 
 	@Override
 	public void authorise() {
-		final boolean status;
-		int activityLogId;
-		FlightAssignment flightAssignment;
+		boolean authorised = false;
 
-		activityLogId = super.getRequest().getData("id", int.class);
-		flightAssignment = this.repository.findFlightAssignmentByActivityLogId(activityLogId);
-		status = super.getRequest().getPrincipal().hasRealm(flightAssignment.getFlightCrewMember());
+		try {
+			int activityLogId = super.getRequest().getData("id", int.class);
+			FlightAssignment flightAssignment = this.repository.findFlightAssignmentByActivityLogId(activityLogId);
+			authorised = super.getRequest().getPrincipal().hasRealm(flightAssignment.getFlightCrewMember());
+		} catch (Throwable error) {
+			// No hacemos nada, authorised se mantiene en false
+		}
 
-		super.getResponse().setAuthorised(status);
+		super.getResponse().setAuthorised(authorised);
 	}
 
 	@Override
@@ -57,7 +59,7 @@ public class ActivityLogDeleteService extends AbstractGuiService<FlightCrewMembe
 		this.repository.delete(activityLog);
 	}
 
-	@Override
-	public void unbind(final ActivityLog activityLog) {
-	}
+	//	@Override
+	//	public void unbind(final ActivityLog activityLog) {
+	//	}
 }

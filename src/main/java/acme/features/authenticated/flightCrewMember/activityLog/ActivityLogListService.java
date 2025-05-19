@@ -29,19 +29,22 @@ public class ActivityLogListService extends AbstractGuiService<FlightCrewMember,
 
 	@Override
 	public void authorise() {
-		final boolean status;
-		FlightAssignment flightAssignment;
-		int masterId;
+		boolean authorised = false;
 
-		masterId = super.getRequest().getData("masterId", int.class);
-		flightAssignment = this.flightAssignmentrepository.getFlightAssignmentById(masterId);
-		status = super.getRequest().getPrincipal().hasRealm(flightAssignment.getFlightCrewMember());
+		if (super.getRequest().hasData("masterId"))
+			try {
+				int masterId = super.getRequest().getData("masterId", int.class);
+				FlightAssignment flightAssignment = this.flightAssignmentrepository.getFlightAssignmentById(masterId);
 
-		if (!flightAssignment.isDraftMode())
-			super.getResponse().setAuthorised(true);
-		else
-			super.getResponse().setAuthorised(status);
+				if (flightAssignment != null) {
+					boolean isOwner = super.getRequest().getPrincipal().hasRealm(flightAssignment.getFlightCrewMember());
+					authorised = flightAssignment.isDraftMode() ? isOwner : true;
+				}
+			} catch (Throwable error) {
+				// No hacemos nada, authorised se mantiene en false
+			}
 
+		super.getResponse().setAuthorised(authorised);
 	}
 
 	@Override
