@@ -23,7 +23,6 @@ public class CustomerIdentifierValidator extends AbstractValidator<ValidCustomer
 
 	@Override
 	public void initialize(final ValidCustomerIdentifier annotation) {
-		assert annotation != null;
 	}
 
 	@Override

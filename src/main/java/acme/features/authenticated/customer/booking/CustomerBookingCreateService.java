@@ -93,12 +93,6 @@ public class CustomerBookingCreateService extends AbstractGuiService<Customer, B
 		boolean locatorCodeStatus = this.repository.findBookingsByLocatorCode(booking.getLocatorCode()).size() == 0;
 		super.state(locatorCodeStatus, "locatorCode", "acme.validation.booking.repeated-locatorCode.message");
 
-		// Verificar que el flight está publicado
-		boolean flightDraftStatus = true;
-		if (booking.getFlight() != null)
-			flightDraftStatus = booking.getFlight().getIsDraft() == false;
-		super.state(flightDraftStatus, "flight", "acme.validation.booking.flight-draft.message");
-
 		// Verificar que el flight no es null
 		boolean flightNullStatus = this.repository.findNotDraftFlights().contains(booking.getFlight());
 		super.state(flightNullStatus, "flight", "acme.validation.booking.notExisting-flight.message");
