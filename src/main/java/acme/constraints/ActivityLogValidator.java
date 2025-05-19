@@ -21,20 +21,22 @@ public class ActivityLogValidator extends AbstractValidator<ValidActivityLog, Ac
 
 	@Override
 	public boolean isValid(final ActivityLog activityLog, final ConstraintValidatorContext context) {
+		assert activityLog != null;
 
 		Date registrationMoment = activityLog.getRegistrationMoment();
 		Date legFinishMoment = activityLog.getFlightAssignment().getLeg().getScheduledArrival();
 
+		// Validación de fechas: el registro debe ser después de la llegada
 		Boolean registrationAfterArrival = MomentHelper.isAfter(registrationMoment, legFinishMoment);
-
 		super.state(context, registrationAfterArrival, "registrationMoment", "acme.validation.activity-log.invalid-moment.message");
 
-		Boolean flightAssignmentDraftMode = activityLog.getFlightAssignment().isDraftMode();
+		// Validación de publicación: solo si se intenta publicar el ActivityLog
+		if (!activityLog.isDraftMode()) {
+			Boolean flightAssignmentPublished = !activityLog.getFlightAssignment().isDraftMode();
+			super.state(context, flightAssignmentPublished, "flightAssignment", "acme.validation.flight-assignment.unpublished-assignment.message");
+		}
 
-		super.state(context, !flightAssignmentDraftMode, "flightAssignment", "acme.validation.flight-assignment.unpublished-assignment.message");
-
-		boolean result = !super.hasErrors(context);
-		return result;
+		return !super.hasErrors(context);
 	}
 
 }
