@@ -122,7 +122,10 @@ public class Flight extends AbstractEntity {
 		String flightDistinction;
 		String originCity = this.getOriginCity();
 		String destinationCity = this.getDestinationCity();
-		flightDistinction = originCity + " -> " + destinationCity;
+		String scheduledDeparture = this.getScheduledDeparture().toString();
+		String scheduledArrival = this.getScheduledArrival().toString();
+		flightDistinction = originCity + " (" + scheduledDeparture + ")" + " -> " + destinationCity + " (" + scheduledArrival + ")";
+
 		return flightDistinction;
 	}
 

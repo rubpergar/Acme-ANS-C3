@@ -46,24 +46,19 @@ public class ActivityLogPublishService extends AbstractGuiService<FlightCrewMemb
 
 	@Override
 	public void bind(final ActivityLog activityLog) {
-		assert activityLog != null;
 	}
 
 	@Override
 	public void validate(final ActivityLog activityLog) {
-		assert activityLog != null;
 	}
 
 	@Override
 	public void perform(final ActivityLog activityLog) {
-		assert activityLog != null;
-
 		activityLog.setDraftMode(false);
 		this.repository.save(activityLog);
 	}
 
 	@Override
 	public void unbind(final ActivityLog activityLog) {
-		assert activityLog != null;
 	}
 }

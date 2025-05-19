@@ -12,7 +12,6 @@ import acme.client.services.GuiService;
 import acme.entities.booking.Booking;
 import acme.entities.booking.TravelClass;
 import acme.entities.flights.Flight;
-import acme.entities.passenger.Passenger;
 import acme.realms.Customer;
 
 @GuiService
@@ -21,28 +20,6 @@ public class CustomerBookingUpdateService extends AbstractGuiService<Customer, B
 
 	@Autowired
 	private CustomerBookingRepository repository;
-
-	// AbstractGuiService interface -------------------------------------------
-
-	//	@Override
-	//	public void authorise() {
-	//		boolean isCustomer = super.getRequest().getPrincipal().hasRealmOfType(Customer.class);
-	//
-	//		Integer bookingId = super.getRequest().getData("id", int.class);
-	//		Booking booking = this.repository.findBookingById(bookingId);
-	//
-	//		boolean validBooking = booking != null && booking.getCustomer().getId() == super.getRequest().getPrincipal().getActiveRealm().getId() && booking.getIsDraft();
-	//
-	//		boolean status = isCustomer && validBooking;
-	//
-	//		Integer flightId = super.getRequest().getData("flight", int.class);
-	//		if (flightId != 0) {
-	//			Flight flight = this.repository.findFlightById(flightId);
-	//			status = status && flight != null && !flight.getIsDraft();
-	//		}
-	//
-	//		super.getResponse().setAuthorised(status);
-	//	}
 
 
 	@Override
@@ -60,8 +37,13 @@ public class CustomerBookingUpdateService extends AbstractGuiService<Customer, B
 
 		// FLIGHT
 
+<<<<<<< HEAD
 		Integer flightId = super.getRequest().getData("selectedFlight", int.class);
 		if (flightId != 0 && flightId != null) {
+=======
+		Integer flightId = super.getRequest().getData("flight", int.class);
+		if (flightId != 0 && flightId != null && booking.getFlight() != null) {
+>>>>>>> b520ccaf7066b920f019d96e8c96f9cf48b1f487
 			Flight flight = this.repository.findFlightById(flightId);
 			status = status && flight != null && !flight.getIsDraft();
 		}
@@ -93,6 +75,7 @@ public class CustomerBookingUpdateService extends AbstractGuiService<Customer, B
 
 	@Override
 	public void bind(final Booking booking) {
+<<<<<<< HEAD
 		assert booking != null;
 		int flightId;
 		Flight flight;
@@ -103,44 +86,43 @@ public class CustomerBookingUpdateService extends AbstractGuiService<Customer, B
 		super.bindObject(booking, "locatorCode", "travelClass", "lastNibble");
 
 		booking.setFlight(flight);
+=======
+		super.bindObject(booking, "locatorCode", "flight", "travelClass", "lastNibble");
+
+>>>>>>> b520ccaf7066b920f019d96e8c96f9cf48b1f487
 	}
 
 	@Override
 	public void validate(final Booking booking) {
-		assert booking != null;
-
 		// Verificar que el locatorCode es único
-		boolean locatorCodeStatus = this.repository.findBookingsByLocatorCode(booking.getLocatorCode()).size() == 1;
+		Booking bookingExistingLocatorCode = this.repository.findBookingByLocatorCode(booking.getLocatorCode());
+		boolean locatorCodeStatus = bookingExistingLocatorCode == null || bookingExistingLocatorCode.getId() == booking.getId();
 		super.state(locatorCodeStatus, "locatorCode", "acme.validation.booking.repeated-locatorCode.message");
-
-		// Verificar que el flight está publicado
-		boolean flightDraftStatus = booking.getFlight().getIsDraft() == false;
-		super.state(flightDraftStatus, "flight", "acme.validation.booking.flight-draft.message");
-
-		// Verificar que el flight no es null
-		boolean flightNullStatus = this.repository.findNotDraftFlights().contains(booking.getFlight());
-		super.state(flightNullStatus, "flight", "acme.validation.booking.notExisting-flight.message");
 
 	}
 
 	@Override
 	public void perform(final Booking booking) {
-		assert booking != null;
 		this.repository.save(booking);
 	}
 
 	@Override
 	public void unbind(final Booking booking) {
 		List<Flight> nonDraftFlights = this.repository.findNotDraftFlights().stream().toList();
+		List<Flight> validFlights = nonDraftFlights.stream().filter(f -> f.getScheduledDeparture().after(booking.getPurchaseMoment())).toList();
+
 		SelectChoices travelClasses = SelectChoices.from(TravelClass.class, booking.getTravelClass());
-		SelectChoices flights = SelectChoices.from(nonDraftFlights, "flightDistinction", booking.getFlight());
-		List<Passenger> passengers = this.repository.findAllPassengersByBookingId(booking.getId()).stream().toList();
+		SelectChoices flights = SelectChoices.from(validFlights, "flightDistinction", booking.getFlight());
 		Dataset dataset;
 		dataset = super.unbindObject(booking, "locatorCode", "flight", "purchaseMoment", "travelClass", "lastNibble", "isDraft");
 		dataset.put("travelClass", travelClasses);
+<<<<<<< HEAD
 		dataset.put("flights", flights);
 		dataset.put("selectedFlight", flights.getSelected().getKey());
 		dataset.put("passenger", !passengers.isEmpty());
+=======
+		dataset.put("flight", flights);
+>>>>>>> b520ccaf7066b920f019d96e8c96f9cf48b1f487
 		dataset.put("price", booking.getPrice());
 		super.getResponse().addData(dataset);
 	}

@@ -47,7 +47,6 @@ public class ManagerFlightShowService extends AbstractGuiService<Manager, Flight
 
 	@Override
 	public void unbind(final Flight flight) {
-		assert flight != null;
 		Dataset dataset;
 		dataset = super.unbindObject(flight, "tag", "selfTransfer", "cost", "description", "isDraft");
 		List<Leg> legs = this.repository.getLegsByFlight(flight.getId()).stream().toList();

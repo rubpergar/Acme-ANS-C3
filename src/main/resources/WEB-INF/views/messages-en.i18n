@@ -4,7 +4,7 @@ acme.validation.airline.codeIATA.not-unique.message = IATA code must be unique. 
 
 acme.validation.crew-member.invalid-identifier.message=The identifier is invalid. It must start with their initials (2 or 3 uppercase letters) followed by 6 digits.
 
-acme.validation.activity-log.invalid-moment.message=Activity log can't be registered because its corresponding leg hasn't finished yet.
+acme.validation.activity-log.invalid-moment.message=Activity log can't be registered because its corresponding leg hasn't finished yet
 
 acme.validation.leg.invalid-scheduled-arrival.message=The scheduled arrival time must be after the scheduled departure time.
 acme.validation.leg.invalid-flight-number.message=The flight number must start with the airline's IATA code
@@ -42,6 +42,14 @@ acme.validation.length.message = Too long.
 acme.validation.leg.duplicate-flight-number.message=The flight number is already in use. Please provide a different one.
 
 acme.validation.leg.invalid-departure.message = The scheduled departure must be after than present moment.
+
+acme.validation.leg.invalid-aircraft.message = The aircraft is not available for the scheduled. Please select a different aircraft or change the scheduled time.
+
+acme.validation.leg.invalid-airports.message = The previous leg's arrival airport must be the same as the current leg's departure airport. Please select a different airport.
+
+manager.leg.error.invalid-aircraft = The aircraft is not active. Please select a different aircraft.
+
+acme.validation.leg.invalid-dates.message = The time difference between two legs cannot surpass 48 hours.
 
 manager.flight.form.label.tag = Tag
 manager.flight.form.label.cost = Cost
@@ -248,6 +256,8 @@ acme.validation.flight-assignment.incompatible-legs.message = This member cannot
 acme.validation.flight-assignment.has-pilot.message = This duty has been already assigned. Each leg can only have one pilot
 acme.validation.flight-assignment.has-copilot.message = This duty has been already assigned. Each leg can only have one copilot
 acme.validation.flight-assignment.leg-concluded.message = This flight assignment cannot be linked to a leg that have already occurred
+acme.validation.flight-assignment.unavailable-member.message = Only available members can be assigned
+acme.validation.flight-assignment.unpublished-assignment.message = Activity logs can only be published if its corresponding flight assignment is published
 
 acme.validation.booking.repeated-locatorCode.message = The locator code must be unique. This value is already used by another booking.
 customer.booking.form.error.notDraftFlight = You can not do this action for a flight that is not published
@@ -266,3 +276,7 @@ customer.passenger.form.error.booking-passenger.exists = The passenger is alread
 
 manager.leg.error.status-required = The leg status is required
 manager.leg.error.invalid-status = The leg status is invalid. The status must be one of the following: "CANCELED", "DELAYED", "LANDED", "ON_TIME"
+customer.passenger.form.error.booking-passenger.exists = The passenger is already in the booking. Please select a different passenger.
+acme.validation.booking.after-flight.message = The booking must be published before the flight departs
+customer.validation.booking.form.error.emtyPassengers = The booking must have at least one passenger to be published.
+customer.project.publish.error.priceNotNull = The price must be set to publish the booking.

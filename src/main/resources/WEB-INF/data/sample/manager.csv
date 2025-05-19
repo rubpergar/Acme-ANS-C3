@@ -1,16 +1,15 @@
 key,key:userAccount,identifierNumber,yearsOfExperience,dateOfBirth,pictureLink,key:airline
-# Datos originales
-manager-01,user-account-manager-01,CM123456,10,2004/10/24 00:00,http://example.com/pic1.jpg,airline-01
-manager-02,user-account-manager-02,BM234567,15,2004/09/13 00:00,http://example.com/pic2.jpg,airline-02
-# Límite inferior de identifierNumber (8 caracteres) y yearsOfExperience (0)
-manager-03,user-account-manager-03,CM234567,0,2008/03/22 14:30,http://example.com/pic3.jpg,airline-03
-# Límite superior de identifierNumber (9 caracteres) y máximo posible yearsOfExperience
-manager-04,user-account-manager-04,DM123456,63,1960/01/01 00:00,http://example.com/pic4.jpg,airline-04
-# Límite con yearsOfExperience justo antes de la edad
-manager-05,user-account-manager-05,EM234567,14,2009/03/20 14:30,http://example.com/pic5.jpg,airline-05
-# Límite inferior de fecha de nacimiento (justo en la frontera de validación)
-manager-06,user-account-manager-06,FM345678,1,2008/03/22 14:30,http://example.com/pic6.jpg,airline-06
-# Límite con yearsOfExperience en su mínimo permitido (0)
-manager-07,user-account-manager-07,GM456789,0,2005/06/15 08:45,http://example.com/pic7.jpg,airline-07
-# Sin pictureLink (opcional)
-manager-08,user-account-manager-08,HM567890,10,2003/12/01 10:20,,airline-08
+manager-01,user-account-manager-01,CM321987,5,2003/01/29 00:00,http://example.com/pic1.jpg,airline-01
+manager-02,user-account-manager-02,BM987123,3,2001/03/08 00:00,http://example.com/pic2.jpg,airline-02
+manager-03,user-account-manager-03,CM123456,1,1990/05/15 00:00,http://example.com/image.png,airline-03
+manager-04,user-account-manager-04,DM999999,2,2004/12/31 00:00,https://www.example.com/long/path/to/image.jpeg,airline-04
+manager-05,user-account-manager-05,EM000000,0,1973/01/01 00:00,http://valid.example.com,airline-05
+manager-06,user-account-manager-06,FMA123456,7,1995/07/20 00:00,,airline-06
+manager-07,user-account-manager-07,GMA987654,1,2000/02/28 00:00,http://example.com/pic.gif,airline-07
+manager-08,user-account-manager-08,HML111111,3,1980/10/10 00:00,http://example.com/image.webp,airline-08
+manager-09,user-account-manager-09,AM222222,4,1974/06/15 00:00,http://example.com/pic.svg,airline-09
+manager-10,user-account-manager-10,ZM333333,3,2003/04/01 00:00,http://example.com/pic.bmp,airline-10
+manager-11,user-account-manager-11,AM113333,1,2004/05/01 00:00,http://example.com/pic.bmp,airline-11
+manager-12,user-account-manager-12,CM123333,2,1960/06/01 00:00,http://example.com/pic.bmp,airline-12
+manager-13,user-account-manager-13,BM123456,10,1990/01/01 00:00,http://example.com/pic13.jpg,airline-13
+manager-14,user-account-manager-14,SM654321,20,1985/05/05 00:00,http://example.com/pic14.jpg,airline-14

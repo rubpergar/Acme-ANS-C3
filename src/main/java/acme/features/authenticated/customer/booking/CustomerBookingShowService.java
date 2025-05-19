@@ -12,7 +12,6 @@ import acme.client.services.GuiService;
 import acme.entities.booking.Booking;
 import acme.entities.booking.TravelClass;
 import acme.entities.flights.Flight;
-import acme.entities.passenger.Passenger;
 import acme.realms.Customer;
 
 @GuiService
@@ -44,9 +43,9 @@ public class CustomerBookingShowService extends AbstractGuiService<Customer, Boo
 	@Override
 	public void unbind(final Booking booking) {
 		List<Flight> nonDraftFlights = this.repository.findNotDraftFlights().stream().toList();
+		List<Flight> validFlights = nonDraftFlights.stream().filter(f -> f.getScheduledDeparture().after(booking.getPurchaseMoment())).toList();
 		SelectChoices travelClasses = SelectChoices.from(TravelClass.class, booking.getTravelClass());
-		SelectChoices flights = SelectChoices.from(nonDraftFlights, "flightDistinction", booking.getFlight());
-		List<Passenger> passengers = this.repository.findAllPassengersByBookingId(booking.getId()).stream().toList();
+		SelectChoices flights = SelectChoices.from(validFlights, "flightDistinction", booking.getFlight());
 		Dataset dataset;
 		dataset = super.unbindObject(booking, "locatorCode", "flight", "purchaseMoment", "travelClass", "lastNibble", "isDraft");
 		dataset.put("travelClass", travelClasses);

@@ -40,8 +40,6 @@ public class FlightAssignmentListCompletedService extends AbstractGuiService<Fli
 
 	@Override
 	public void unbind(final FlightAssignment flightAssignment) {
-		assert flightAssignment != null;
-
 		Dataset dataset;
 
 		dataset = super.unbindObject(flightAssignment, "duty", "status", "remarks", "draftMode");

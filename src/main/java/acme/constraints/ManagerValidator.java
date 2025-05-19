@@ -23,9 +23,6 @@ public class ManagerValidator extends AbstractValidator<ValidManager, Manager> {
 	public boolean isValid(final Manager manager, final ConstraintValidatorContext context) {
 		assert context != null;
 
-		if (manager == null)
-			super.state(context, false, "*", "javax.validation.constraints.NotNull.message");
-
 		String identifierNumber = manager.getIdentifierNumber();
 		if (identifierNumber == null || !identifierNumber.matches("^[A-Z]{2,3}\\d{6}$"))
 			super.state(context, false, "identifierNumber", "acme.validation.manager.invalid-identifier.message");

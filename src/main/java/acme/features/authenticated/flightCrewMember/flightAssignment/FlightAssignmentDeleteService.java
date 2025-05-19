@@ -46,18 +46,14 @@ public class FlightAssignmentDeleteService extends AbstractGuiService<FlightCrew
 
 	@Override
 	public void bind(final FlightAssignment flightAssignment) {
-		assert flightAssignment != null;
 	}
 
 	@Override
 	public void validate(final FlightAssignment flightAssignment) {
-		assert flightAssignment != null;
 	}
 
 	@Override
 	public void perform(final FlightAssignment flightAssignment) {
-		assert flightAssignment != null;
-
 		Collection<ActivityLog> activityLogs = this.repository.getAllActivityLogsFromAssignmentId(flightAssignment.getId());
 
 		this.repository.deleteAll(activityLogs);
@@ -66,6 +62,5 @@ public class FlightAssignmentDeleteService extends AbstractGuiService<FlightCrew
 
 	@Override
 	public void unbind(final FlightAssignment flightAssignment) {
-		assert flightAssignment != null;
 	}
 }

@@ -1,10 +1,10 @@
 validation.airline.phone = El número de teléfono puede empezar con '+' y debe tener entre 6 y 15 dígitos sin espacios en blanco ni caracteres especiales
 validation.airline.codeIATA = El código deberá estar formado por 3 letras en mayúscula, donde la útlima letra será normalmente una "X"
-acme.validation.airline.codeIATA.not-unique.message = El código IATA deberá ser único. Esta entrada ya existe para un aeropuerto o aerolínea.
+acme.validation.airline.codeIATA.not-unique.message = El código IATA deberá ser único. Esta entrada ya existe para un aeropuerto o aerolínea
 
-acme.validation.crew-member.invalid-identifier.message=El identificador del miembro es inválido. Debe comenzar con sus iniciales (2 o 3 letras mayúsculas), seguidas de 6 dígitos.
+acme.validation.crew-member.invalid-identifier.message=El identificador del miembro es inválido. Debe comenzar con sus iniciales (2 o 3 letras mayúsculas), seguidas de 6 dígitos
 
-acme.validation.activity-log.invalid-moment.message=El registro de actividad no se puede realizar debido a que su correspondiente tramo no ha concluido aún.
+acme.validation.activity-log.invalid-moment.message=El registro de actividad no se puede realizar debido a que su correspondiente tramo no ha concluido aún
 
 acme.validation.leg.invalid-scheduled-arrival.message=La hora de llegada debe ser posterior a la hora de salida programada.
 acme.validation.leg.invalid-flight-number.message=El número de vuelo debe comenzar con el código IATA de la aerolínea
@@ -41,6 +41,14 @@ acme.validation.leg.invalid-airport.message=El aeropuerto de llegada no puede se
 acme.validation.leg.duplicate-flight-number.message=El número de vuelo ya está en uso. Por favor, proporcione uno diferente.
 
 acme.validation.leg.invalid-departure.message = La fecha de salida tiene que ser posterior a la fecha actual.
+
+acme.validation.leg.invalid-aircraft.message = La aeronave no esta disponible para esta fecha. Por favor, proporcione una aeronave diferente o cambia la fecha.
+
+acme.validation.leg.invalid-airports.message = El aeropuerto de llegada del tramo previo debe ser el mismo que el de salida del actual.
+
+manager.leg.error.invalid-aircraft = La aeronave no está activa. Por favor, proporcione una aeronave diferente.
+
+acme.validation.leg.invalid-dates.message = La diferencia entre dos legs continuos no puede ser menor a 2 dias.
 
 customer.project.publish.error.lastNibbleNotPublished = Para publicar una reserva, el último fragmento de la tarjeta de crédito debe haberse almacenado.
 customer.booking.form.error.notDraft = No puedes realizar esta acción para una reserva que ya está publicada.
@@ -176,6 +184,8 @@ acme.validation.flight-assignment.incompatible-legs.message = Este miembro no pu
 acme.validation.flight-assignment.has-pilot.message = Este trabajo ya ha sido asignado. Cada tramo puede solo tener un piloto
 acme.validation.flight-assignment.has-copilot.message = Este trabajo ya ha sido asignado. Cada tramo puede solo tener un copiloto
 acme.validation.flight-assignment.leg-concluded.message = La asignación de vuelo no puede esta vinculada a un tramo que ya ha concluido
+acme.validation.flight-assignment.unavailable-member.message = Solo se pueden asignar miembros que estén disponibles
+acme.validation.flight-assignment.unpublished-assignment.message = Los registros de actividad solo se pueden publicar si su asignación de vuelo correspondiente está publicado
 
 acme.validation.booking.repeated-locatorCode.message = El código de localización ya está en uso. Por favor, proporcione uno diferente.
 acme.validation.booking.incorrect-purchaseMoment.message = El momento de compra no puede cambiar.
@@ -193,3 +203,6 @@ customer.passenger.form.error.booking-passenger.exists = El pasajero ya está as
 manager.leg.error.status-required = Estado requerido. El estado no puede ser nulo.
 manager.leg.error.invalid-status = Estado invalido. Debe ser: "CANCELED", "DELAYED", "LANDED", "ON_TIME"
 customer.booking.passengerInfo = Información del pasajero
+customer.passenger.form.error.booking-passenger.exists = El pasajero ya está asignado a la reserva. Por favor, proporcione un pasajero diferente.
+acme.validation.booking.after-flight.message = La reserva no puede ser realizada después de que el vuelo haya salido
+customer.validation.booking.form.error.emtyPassengers = No puedes realizar esta acción para una reserva que no tiene pasajeros.

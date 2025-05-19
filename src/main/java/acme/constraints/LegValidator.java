@@ -1,7 +1,6 @@
 
 package acme.constraints;
 
-import java.util.Date;
 import java.util.Optional;
 
 import javax.validation.ConstraintValidatorContext;
@@ -31,9 +30,6 @@ public class LegValidator extends AbstractValidator<ValidLeg, Leg> {
 	public boolean isValid(final Leg leg, final ConstraintValidatorContext context) {
 		assert context != null;
 
-		if (leg == null)
-			super.state(context, false, "*", "javax.validation.constraints.NotNull.message");
-
 		// La fecha de salida y llegada programada no pueden ser nulas y la fecha de salida debe ser anterior a la fecha de llegada
 		boolean isScheduleCorrect = leg.getScheduledDeparture() != null && leg.getScheduledArrival() != null && MomentHelper.isBefore(leg.getScheduledDeparture(), leg.getScheduledArrival());
 
@@ -58,7 +54,6 @@ public class LegValidator extends AbstractValidator<ValidLeg, Leg> {
 		Optional<Leg> legWithSameFlightNumber = this.repository.findLegByFlightNumber(flightNumber);
 		if (legWithSameFlightNumber.isPresent() && legWithSameFlightNumber.get().getId() != leg.getId())
 			super.state(context, false, "flightNumber", "acme.validation.leg.duplicate-flight-number.message");
-
 
 		return !super.hasErrors(context);
 	}
