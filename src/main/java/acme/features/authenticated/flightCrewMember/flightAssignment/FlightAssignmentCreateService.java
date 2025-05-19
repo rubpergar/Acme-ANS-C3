@@ -56,13 +56,14 @@ public class FlightAssignmentCreateService extends AbstractGuiService<FlightCrew
 		if (flightAssignment.getRemarks().length() < 1 || flightAssignment.getRemarks().length() > 255)
 			super.state(false, "remarks", "acme.validation.out-1-255-range.message");
 
+		// No se puede publicar una asignación con un member no disponible
 		if (flightAssignment.getFlightCrewMember() != null) {
-
-			// No se puede publicar una asignación con un member no disponible
 			boolean availableMember = flightAssignment.getFlightCrewMember().getAvailabilityStatus() == CrewAvailabilityStatus.AVAILABLE;
 			super.state(availableMember, "flightCrewMember", "acme.validation.flight-assignment.unavailable-member.message");
+		}
 
-			// Los miembros no pueden tener varios leg asignados simultáneamente
+		// Los miembros no pueden tener varios leg asignados simultáneamente
+		if (flightAssignment.getFlightCrewMember() != null && flightAssignment.getLeg() != null) {
 			List<Leg> legsByMember = this.repository.getAllLegsByMemberId(flightAssignment.getFlightCrewMember().getId());
 
 			for (Leg leg : legsByMember) {
@@ -74,8 +75,10 @@ public class FlightAssignmentCreateService extends AbstractGuiService<FlightCrew
 					break;
 				}
 			}
+		}
 
-			// Solo 1 piloto y 1 co-piloto por leg
+		// Solo 1 piloto y 1 co-piloto por leg
+		if (flightAssignment.getLeg() != null && flightAssignment.getDuty() != null) {
 			List<FlightAssignment> flightAssignmentsInLeg = this.repository.getAllFlightAssignmentsByLegId(flightAssignment.getLeg().getId());
 
 			boolean hasPilot = false;
@@ -89,12 +92,13 @@ public class FlightAssignmentCreateService extends AbstractGuiService<FlightCrew
 			super.state(!(flightAssignment.getDuty().equals(FlightAssignmentDuty.PILOT) && hasPilot), "duty", "acme.validation.flight-assignment.has-pilot.message");
 			super.state(!(flightAssignment.getDuty().equals(FlightAssignmentDuty.CO_PILOT) && hasCopilot), "duty", "acme.validation.flight-assignment.has-copilot.message");
 
-			// No se puede publicar una asignación con leg que ya hayan ocurrido
-			boolean legConcluded = this.repository.isLegConcluded(flightAssignment.getLeg().getId());
-			super.state(!legConcluded, "leg", "acme.validation.flight-assignment.leg-concluded.message");
-
 		}
 
+		// No se puede publicar una asignación con leg que ya hayan ocurrido
+		if (flightAssignment.getLeg() != null) {
+			boolean legConcluded = this.repository.isLegConcluded(flightAssignment.getLeg().getId());
+			super.state(!legConcluded, "leg", "acme.validation.flight-assignment.leg-concluded.message");
+		}
 	}
 
 	@Override

@@ -21,13 +21,15 @@ public class FlightAssignmentPublishService extends AbstractGuiService<FlightCre
 
 	@Override
 	public void authorise() {
-		FlightAssignment flightAssignment;
-		int id;
-		int userAccountId;
-		id = super.getRequest().getData("id", int.class);
-		flightAssignment = this.repository.getFlightAssignmentById(id);
-		userAccountId = super.getRequest().getPrincipal().getAccountId();
-		super.getResponse().setAuthorised(flightAssignment.isDraftMode() && flightAssignment.getFlightCrewMember().getUserAccount().getId() == userAccountId);
+		boolean authorised = false;
+
+		if (super.getRequest().hasData("id", int.class)) {
+			int id = super.getRequest().getData("id", int.class);
+			FlightAssignment flightAssignment = this.repository.getFlightAssignmentById(id);
+			authorised = flightAssignment.isDraftMode();
+		}
+
+		super.getResponse().setAuthorised(authorised);
 	}
 
 	@Override
@@ -55,7 +57,7 @@ public class FlightAssignmentPublishService extends AbstractGuiService<FlightCre
 		this.repository.save(flightAssignment);
 	}
 
-	@Override
-	public void unbind(final FlightAssignment flightAssignment) {
-	}
+	//	@Override
+	//	public void unbind(final FlightAssignment flightAssignment) {
+	//	}
 }
