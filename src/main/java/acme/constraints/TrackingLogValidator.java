@@ -8,6 +8,7 @@ import javax.validation.ConstraintValidatorContext;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import acme.client.components.validation.AbstractValidator;
+import acme.client.helpers.MomentHelper;
 import acme.client.helpers.StringHelper;
 import acme.entities.claims.Claim;
 import acme.entities.trackingLogs.TrackingLog;
@@ -80,7 +81,7 @@ public class TrackingLogValidator extends AbstractValidator<ValidTrackingLog, Tr
 							super.state(context, false, "status", "acme.validation.trackinglog.wrong-status.message");
 
 					} else if (trackingLog.getResolutionPercentage() != 100)
-						if (t.getLastUpdate().before(trackingLog.getLastUpdate()))
+						if (MomentHelper.isBeforeOrEqual(t.getLastUpdate(), trackingLog.getLastUpdate()))
 							if (t.getResolutionPercentage() > trackingLog.getResolutionPercentage())
 								super.state(context, false, "resolutionPercentage", "acme.validation.trackinglog.invalid-percentage.message");
 				}

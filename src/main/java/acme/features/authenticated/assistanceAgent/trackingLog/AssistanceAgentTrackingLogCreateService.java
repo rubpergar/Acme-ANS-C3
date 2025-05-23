@@ -11,7 +11,6 @@ import acme.client.helpers.MomentHelper;
 import acme.client.services.AbstractGuiService;
 import acme.client.services.GuiService;
 import acme.entities.claims.Claim;
-import acme.entities.claims.ClaimType;
 import acme.entities.trackingLogs.TrackingLog;
 import acme.entities.trackingLogs.TrackingLogStatus;
 import acme.features.authenticated.assistanceAgent.claim.AssistanceAgentClaimRepository;
@@ -32,31 +31,38 @@ public class AssistanceAgentTrackingLogCreateService extends AbstractGuiService<
 
 	@Override
 	public void authorise() {
-		boolean status;
+		int contador = 0;
 		int masterId;
 		Claim claim;
 		Collection<TrackingLog> tls;
-		int contador = 0;
 
 		masterId = super.getRequest().getData("masterId", int.class);
 		claim = this.claimRepository.getClaimById(masterId);
-		tls = this.claimRepository.getTrackingLogByClaimId(masterId);
-		for (TrackingLog tl : tls)
-			if (tl.getResolutionPercentage() == 100)
-				contador += 1;
-		status = claim != null && super.getRequest().getPrincipal().hasRealm(claim.getAssistanceAgent()) && contador < 2;
 
-		if (super.getRequest().hasData("id")) {
+		boolean hasAuthority = super.getRequest().getPrincipal().hasRealmOfType(AssistanceAgent.class) && claim != null;
+
+		if (claim != null) {
+			tls = this.claimRepository.getTrackingLogByClaimId(masterId);
+
+			for (TrackingLog tl : tls)
+				if (tl.getResolutionPercentage() == 100)
+					contador += 1;
+			if (contador >= 2)
+				hasAuthority = false;
+		}
+
+		if (super.getRequest().hasData("status")) {
 			String tlStatus = super.getRequest().getData("status", String.class);
 			if (tlStatus != null && !tlStatus.equals("0"))
 				try {
-					ClaimType.valueOf(tlStatus);
+					TrackingLogStatus.valueOf(tlStatus);
 				} catch (IllegalArgumentException e) {
-					status = false;
+					hasAuthority = false;
 				}
+
 		}
 
-		super.getResponse().setAuthorised(true);
+		super.getResponse().setAuthorised(hasAuthority);
 	}
 
 	@Override
@@ -78,8 +84,6 @@ public class AssistanceAgentTrackingLogCreateService extends AbstractGuiService<
 
 	@Override
 	public void bind(final TrackingLog tl) {
-		assert tl != null;
-
 		int masterId;
 		Claim claim;
 
@@ -92,7 +96,6 @@ public class AssistanceAgentTrackingLogCreateService extends AbstractGuiService<
 
 	@Override
 	public void validate(final TrackingLog tl) {
-		assert tl != null;
 
 		//		if (tl.getResolutionPercentage() == 100.0)
 		//			assert tl.getStatus() == TrackingLogStatus.ACCEPTED || tl.getStatus() == TrackingLogStatus.REJECTED;

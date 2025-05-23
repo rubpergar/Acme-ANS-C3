@@ -39,7 +39,10 @@ public class AssistanceAgentClaimPublishService extends AbstractGuiService<Assis
 		claim = this.repository.getClaimById(claimId);
 		userAccountId = super.getRequest().getPrincipal().getAccountId();
 
-		boolean hasAuthority = claim.isDraftMode() && claim.getAssistanceAgent().getUserAccount().getId() == userAccountId && claim != null;
+		boolean hasAuthority = claim.getAssistanceAgent().getUserAccount().getId() == userAccountId && claim != null;
+
+		if (!claim.isDraftMode())
+			hasAuthority = false;
 
 		if (legId != null && legId != 0) {
 			Leg leg = this.legRepo.getLegById(legId);

@@ -39,13 +39,20 @@ public class AssistanceAgentClaimUpdateService extends AbstractGuiService<Assist
 		claim = this.repository.getClaimById(claimId);
 		userAccountId = super.getRequest().getPrincipal().getAccountId();
 
-		boolean hasAuthority = claim.isDraftMode() && claim.getAssistanceAgent().getUserAccount().getId() == userAccountId && claim != null;
+		boolean hasAuthority = claim.getAssistanceAgent().getUserAccount().getId() == userAccountId && claim != null;
+
+		String method = super.getRequest().getMethod();
+		if (!"POST".equalsIgnoreCase(method))
+			hasAuthority = false;
+
+		if (!claim.isDraftMode())
+			hasAuthority = false;
 
 		if (legId != null && legId != 0) {
 			Leg leg = this.legRepo.getLegById(legId);
 			if (leg == null)
 				hasAuthority = false;
-			if (leg.getIsDraft())
+			else if (leg.getIsDraft())
 				hasAuthority = false;
 		}
 
@@ -91,8 +98,9 @@ public class AssistanceAgentClaimUpdateService extends AbstractGuiService<Assist
 		if (legId == null || legId == 0)
 			super.state(false, "selectedLeg", "javax.validation.constraints.NotNull.message");
 		Leg leg = this.legRepo.getLegById(legId);
-		if (leg.getScheduledArrival().after(MomentHelper.getCurrentMoment()))
-			super.state(false, "selectedLeg", "javax.validation.constraints.invalid-leg.message");
+		if (leg != null)
+			if (leg.getScheduledArrival().after(MomentHelper.getCurrentMoment()))
+				super.state(false, "selectedLeg", "javax.validation.constraints.invalid-leg.message");
 	}
 
 	@Override

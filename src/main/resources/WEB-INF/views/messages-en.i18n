@@ -280,3 +280,10 @@ customer.passenger.form.error.booking-passenger.exists = The passenger is alread
 acme.validation.booking.after-flight.message = The booking must be published before the flight departs
 customer.validation.booking.form.error.emtyPassengers = The booking must have at least one passenger to be published.
 customer.project.publish.error.priceNotNull = The price must be set to publish the booking.
+
+javax.validation.constraints.invalid-leg.message = Leg must have occurred 
+acme.validation.trackinglog.invalid-status.message = Invalid status, please choose another one
+acme.validation.trackinglog.resolution-mandatory-if-status-not-pending.message = Must have resolution
+acme.validation.trackinglog.invalid-percentage.message = Percentage must be greater than the previous one
+acme.validation.trackinglog.wrong-status.message = When creating an extra tracking log, status must be the same
+acme.validation.trackinglog.percentage-cant-be-100.message = Maximum number of 100% resolution logs reached

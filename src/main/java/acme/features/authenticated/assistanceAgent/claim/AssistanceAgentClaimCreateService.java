@@ -40,7 +40,7 @@ public class AssistanceAgentClaimCreateService extends AbstractGuiService<Assist
 				Leg leg = this.legRepo.getLegById(legId);
 				if (leg == null)
 					hasAuthority = false;
-				if (leg.getIsDraft())
+				else if (leg.getIsDraft())
 					hasAuthority = false;
 			}
 			String claimType = super.getRequest().getData("type", String.class);
@@ -88,13 +88,13 @@ public class AssistanceAgentClaimCreateService extends AbstractGuiService<Assist
 		if (legId == null || legId == 0)
 			super.state(false, "selectedLeg", "javax.validation.constraints.NotNull.message");
 		Leg leg = this.legRepo.getLegById(legId);
-		if (leg.getScheduledArrival().after(MomentHelper.getCurrentMoment()))
-			super.state(false, "selectedLeg", "javax.validation.constraints.invalid-leg.message");
+		if (leg != null)
+			if (leg.getScheduledArrival().after(MomentHelper.getCurrentMoment()))
+				super.state(false, "selectedLeg", "javax.validation.constraints.invalid-leg.message");
 	}
 
 	@Override
 	public void perform(final Claim claim) {
-		assert claim != null;
 		claim.setRegistrationMoment(MomentHelper.getCurrentMoment());
 		claim.setEmail(claim.getEmail());
 		claim.setDescription(claim.getDescription());

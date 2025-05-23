@@ -9,7 +9,6 @@ import acme.client.helpers.MomentHelper;
 import acme.client.services.AbstractGuiService;
 import acme.client.services.GuiService;
 import acme.entities.claims.Claim;
-import acme.entities.claims.ClaimType;
 import acme.entities.trackingLogs.TrackingLog;
 import acme.entities.trackingLogs.TrackingLogStatus;
 import acme.features.authenticated.assistanceAgent.claim.AssistanceAgentClaimRepository;
@@ -43,7 +42,7 @@ public class AssistanceAgentTrackingLogUpdateService extends AbstractGuiService<
 		String tlStatus = super.getRequest().getData("status", String.class);
 		if (tlStatus != null && !tlStatus.equals("0"))
 			try {
-				ClaimType.valueOf(tlStatus);
+				TrackingLogStatus.valueOf(tlStatus);
 			} catch (IllegalArgumentException e) {
 				status = false;
 			}
