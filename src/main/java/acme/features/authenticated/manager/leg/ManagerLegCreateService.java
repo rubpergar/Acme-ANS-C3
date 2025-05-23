@@ -41,7 +41,7 @@ public class ManagerLegCreateService extends AbstractGuiService<Manager, Leg> {
 		boolean isDraftFlight = flight != null && flight.getIsDraft();
 		boolean status = isOwner && isDraftFlight;
 
-		if (super.getRequest().hasData("id")) {
+		if (super.getRequest().getMethod().equals("POST")) {
 
 			// Validar solo si aircraftId tiene un valor distinto de 0
 			Integer aircraftId = super.getRequest().getData("aircraft", int.class);

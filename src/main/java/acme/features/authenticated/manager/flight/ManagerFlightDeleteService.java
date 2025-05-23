@@ -1,12 +1,15 @@
 
 package acme.features.authenticated.manager.flight;
 
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import acme.client.components.models.Dataset;
 import acme.client.services.AbstractGuiService;
 import acme.client.services.GuiService;
 import acme.entities.flights.Flight;
+import acme.entities.legs.Leg;
 import acme.realms.Manager;
 
 @GuiService
@@ -50,7 +53,11 @@ public class ManagerFlightDeleteService extends AbstractGuiService<Manager, Flig
 
 	@Override
 	public void validate(final Flight flight) {
+		Collection<Leg> legs = this.repository.getLegsByFlight(flight.getId());
 
+		boolean allLegsAreDraft = legs.stream().allMatch(Leg::getIsDraft);
+
+		super.state(allLegsAreDraft, "*", "acme.validation.leg.published-legs-not-allowed.message");
 	}
 
 	@Override
