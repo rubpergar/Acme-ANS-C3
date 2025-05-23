@@ -87,6 +87,9 @@ public class AssistanceAgentClaimCreateService extends AbstractGuiService<Assist
 		Integer legId = super.getRequest().getData("selectedLeg", int.class);
 		if (legId == null || legId == 0)
 			super.state(false, "selectedLeg", "javax.validation.constraints.NotNull.message");
+		Leg leg = this.legRepo.getLegById(legId);
+		if (leg.getScheduledArrival().after(MomentHelper.getCurrentMoment()))
+			super.state(false, "selectedLeg", "javax.validation.constraints.invalid-leg.message");
 	}
 
 	@Override

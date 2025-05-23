@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import acme.client.components.models.Dataset;
 import acme.client.components.views.SelectChoices;
+import acme.client.helpers.MomentHelper;
 import acme.client.services.AbstractGuiService;
 import acme.client.services.GuiService;
 import acme.entities.claims.Claim;
@@ -43,6 +44,8 @@ public class AssistanceAgentClaimUpdateService extends AbstractGuiService<Assist
 		if (legId != null && legId != 0) {
 			Leg leg = this.legRepo.getLegById(legId);
 			if (leg == null)
+				hasAuthority = false;
+			if (leg.getIsDraft())
 				hasAuthority = false;
 		}
 
@@ -84,10 +87,12 @@ public class AssistanceAgentClaimUpdateService extends AbstractGuiService<Assist
 
 	@Override
 	public void validate(final Claim claim) {
-		assert claim != null;
 		Integer legId = super.getRequest().getData("selectedLeg", int.class);
 		if (legId == null || legId == 0)
 			super.state(false, "selectedLeg", "javax.validation.constraints.NotNull.message");
+		Leg leg = this.legRepo.getLegById(legId);
+		if (leg.getScheduledArrival().after(MomentHelper.getCurrentMoment()))
+			super.state(false, "selectedLeg", "javax.validation.constraints.invalid-leg.message");
 	}
 
 	@Override

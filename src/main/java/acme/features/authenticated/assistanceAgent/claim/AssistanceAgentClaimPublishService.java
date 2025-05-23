@@ -24,7 +24,7 @@ public class AssistanceAgentClaimPublishService extends AbstractGuiService<Assis
 	private AssistanceAgentClaimRepository	repository;
 
 	@Autowired
-	private ManagerLegRepository			legRepository;
+	private ManagerLegRepository			legRepo;
 
 
 	// AbstractGuiService interface -------------------------------------------
@@ -33,14 +33,31 @@ public class AssistanceAgentClaimPublishService extends AbstractGuiService<Assis
 		Claim claim;
 		int claimId;
 		int userAccountId;
-		boolean status;
+		Integer legId = super.getRequest().getData("selectedLeg", int.class);
 
 		claimId = super.getRequest().getData("id", int.class);
 		claim = this.repository.getClaimById(claimId);
 		userAccountId = super.getRequest().getPrincipal().getAccountId();
-		status = claim.isDraftMode() && claim.getAssistanceAgent().getUserAccount().getId() == userAccountId;
 
-		super.getResponse().setAuthorised(status);
+		boolean hasAuthority = claim.isDraftMode() && claim.getAssistanceAgent().getUserAccount().getId() == userAccountId && claim != null;
+
+		if (legId != null && legId != 0) {
+			Leg leg = this.legRepo.getLegById(legId);
+			if (leg == null)
+				hasAuthority = false;
+			if (leg.getIsDraft())
+				hasAuthority = false;
+		}
+
+		String claimType = super.getRequest().getData("type", String.class);
+		if (claimType != null && !claimType.equals("0"))
+			try {
+				ClaimType.valueOf(claimType);
+			} catch (IllegalArgumentException e) {
+				hasAuthority = false;
+			}
+
+		super.getResponse().setAuthorised(hasAuthority);
 	}
 
 	@Override
@@ -63,9 +80,12 @@ public class AssistanceAgentClaimPublishService extends AbstractGuiService<Assis
 
 	@Override
 	public void validate(final Claim claim) {
-		assert claim != null;
-		if (claim.getLeg() != null)
-			assert claim.getLeg().getScheduledArrival().before(MomentHelper.getCurrentMoment()); //? "...linked to a leg that occurred"
+		Integer legId = super.getRequest().getData("selectedLeg", int.class);
+		if (legId == null || legId == 0)
+			super.state(false, "selectedLeg", "javax.validation.constraints.NotNull.message");
+		Leg leg = this.legRepo.getLegById(legId);
+		if (leg.getScheduledArrival().after(MomentHelper.getCurrentMoment()))
+			super.state(false, "selectedLeg", "javax.validation.constraints.invalid-leg.message");
 	}
 
 	@Override
