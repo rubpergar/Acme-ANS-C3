@@ -36,37 +36,36 @@ public class ManagerLegUpdateService extends AbstractGuiService<Manager, Leg> {
 		Leg leg = this.repository.getLegById(legId);
 		boolean status = leg != null && leg.getIsDraft() && super.getRequest().getPrincipal().hasRealmOfType(Manager.class) && super.getRequest().getPrincipal().getAccountId() == leg.getFlight().getAirlineManager().getUserAccount().getId();
 
-		// Validar solo si aircraftId tiene un valor distinto de 0
-		Integer aircraftId = super.getRequest().getData("aircraft", int.class);
-		if (aircraftId != null && aircraftId != 0) {
-			Aircraft aircraft = this.repository.findAircraftById(aircraftId);
-			if (aircraft == null || aircraft.getStatus() != AircraftStatus.ACTIVE)
-				status = false;
-		}
-
-		// Validar solo si departureAirportId tiene un valor distinto de 0
-		Integer departureAirportId = super.getRequest().getData("departureAirport", int.class);
-		if (departureAirportId != null && departureAirportId != 0) {
-			Airport departureAirport = this.repository.findAirportById(departureAirportId);
-			if (departureAirport == null)
-				status = false;
-		}
-
-		// Validar solo si arrivalAirportId tiene un valor distinto de 0
-		Integer arrivalAirportId = super.getRequest().getData("arrivalAirport", int.class);
-		if (arrivalAirportId != null && arrivalAirportId != 0) {
-			Airport arrivalAirport = this.repository.findAirportById(arrivalAirportId);
-			if (arrivalAirport == null)
-				status = false;
-		}
-
-		String legStatus = super.getRequest().getData("status", String.class);
-		if (legStatus != null && !legStatus.equals("0"))
-			try {
-				LegStatus.valueOf(legStatus);
-			} catch (IllegalArgumentException e) {
-				status = false;
+		if (super.getRequest().getMethod().equals("POST")) {
+			Integer aircraftId = super.getRequest().getData("aircraft", int.class);
+			if (aircraftId != null && aircraftId != 0) {
+				Aircraft aircraft = this.repository.findAircraftById(aircraftId);
+				if (aircraft == null || aircraft.getStatus() != AircraftStatus.ACTIVE)
+					status = false;
 			}
+
+			Integer departureAirportId = super.getRequest().getData("departureAirport", int.class);
+			if (departureAirportId != null && departureAirportId != 0) {
+				Airport departureAirport = this.repository.findAirportById(departureAirportId);
+				if (departureAirport == null)
+					status = false;
+			}
+
+			Integer arrivalAirportId = super.getRequest().getData("arrivalAirport", int.class);
+			if (arrivalAirportId != null && arrivalAirportId != 0) {
+				Airport arrivalAirport = this.repository.findAirportById(arrivalAirportId);
+				if (arrivalAirport == null)
+					status = false;
+			}
+
+			String legStatus = super.getRequest().getData("status", String.class);
+			if (legStatus != null && !legStatus.equals("0"))
+				try {
+					LegStatus.valueOf(legStatus);
+				} catch (IllegalArgumentException e) {
+					status = false;
+				}
+		}
 
 		super.getResponse().setAuthorised(status);
 	}

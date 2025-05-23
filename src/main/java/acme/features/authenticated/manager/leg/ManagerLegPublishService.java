@@ -50,38 +50,37 @@ public class ManagerLegPublishService extends AbstractGuiService<Manager, Leg> {
 			status = flight != null && flight.getIsDraft() && super.getRequest().getPrincipal().hasRealm(flight.getAirlineManager()) && super.getRequest().getPrincipal().getAccountId() == flight.getAirlineManager().getUserAccount().getId();
 		}
 
-		// Validar solo si aircraftId tiene un valor distinto de 0
-		Integer aircraftId = super.getRequest().getData("aircraft", int.class);
-		if (aircraftId != null && aircraftId != 0) {
-			Aircraft aircraft = this.repository.findAircraftById(aircraftId);
-			if (aircraft == null || aircraft.getStatus() != AircraftStatus.ACTIVE)
-				status = false;
-		}
+		if (super.getRequest().getMethod().equals("POST")) {
 
-		// Validar solo si departureAirportId tiene un valor distinto de 0
-		Integer departureAirportId = super.getRequest().getData("departureAirport", int.class);
-		if (departureAirportId != null && departureAirportId != 0) {
-			Airport departureAirport = this.repository.findAirportById(departureAirportId);
-			if (departureAirport == null)
-				status = false;
-		}
-
-		// Validar solo si arrivalAirportId tiene un valor distinto de 0
-		Integer arrivalAirportId = super.getRequest().getData("arrivalAirport", int.class);
-		if (arrivalAirportId != null && arrivalAirportId != 0) {
-			Airport arrivalAirport = this.repository.findAirportById(arrivalAirportId);
-			if (arrivalAirport == null)
-				status = false;
-		}
-
-		String legStatus = super.getRequest().getData("status", String.class);
-		if (legStatus != null && !legStatus.equals("0"))
-			try {
-				LegStatus.valueOf(legStatus);
-			} catch (IllegalArgumentException e) {
-				status = false;
+			Integer aircraftId = super.getRequest().getData("aircraft", int.class);
+			if (aircraftId != null && aircraftId != 0) {
+				Aircraft aircraft = this.repository.findAircraftById(aircraftId);
+				if (aircraft == null || aircraft.getStatus() != AircraftStatus.ACTIVE)
+					status = false;
 			}
 
+			Integer departureAirportId = super.getRequest().getData("departureAirport", int.class);
+			if (departureAirportId != null && departureAirportId != 0) {
+				Airport departureAirport = this.repository.findAirportById(departureAirportId);
+				if (departureAirport == null)
+					status = false;
+			}
+
+			Integer arrivalAirportId = super.getRequest().getData("arrivalAirport", int.class);
+			if (arrivalAirportId != null && arrivalAirportId != 0) {
+				Airport arrivalAirport = this.repository.findAirportById(arrivalAirportId);
+				if (arrivalAirport == null)
+					status = false;
+			}
+
+			String legStatus = super.getRequest().getData("status", String.class);
+			if (legStatus != null && !legStatus.equals("0"))
+				try {
+					LegStatus.valueOf(legStatus);
+				} catch (IllegalArgumentException e) {
+					status = false;
+				}
+		}
 		super.getResponse().setAuthorised(status);
 	}
 
@@ -129,22 +128,21 @@ public class ManagerLegPublishService extends AbstractGuiService<Manager, Leg> {
 			validScheduledDeparture = MomentHelper.isAfter(scheduledDeparture, currentMoment);
 		super.state(validScheduledDeparture, "scheduledDeparture", "acme.validation.leg.invalid-departure.message");
 
-		boolean nonOverlappingLegs = true;
-
 		// Tomamos tramos publicados del vuelo
 		Collection<Leg> legs = this.legRepository.getLegsByFlight2(leg.getFlight().getId());
 		List<Leg> legsToValidate = legs.stream().filter(l -> !l.getIsDraft()).collect(Collectors.toList());
-
-		// Añadimos el tramo actual a la lista 
-		if (!legsToValidate.contains(leg))
-			legsToValidate.add(leg);
-
 		// Ordenamos por salida
 		List<Leg> sortedLegs = ManagerLegPublishService.sortLegsByDeparture(legsToValidate);
 
-		for (int i = 0; i < sortedLegs.size() - 1; i++) {
-			Leg previousLeg = sortedLegs.stream().toList().get(i);
-			Leg nextLeg = sortedLegs.stream().toList().get(i + 1);
+		List<Leg> legsToValidateOverlap = new ArrayList<>(legsToValidate);
+		if (!legsToValidateOverlap.contains(leg))
+			legsToValidateOverlap.add(leg);
+		List<Leg> sortedLegsOverlap = ManagerLegPublishService.sortLegsByDeparture(legsToValidateOverlap);
+
+		boolean nonOverlappingLegs = true;
+		for (int i = 0; i < sortedLegsOverlap.size() - 1; i++) {
+			Leg previousLeg = sortedLegsOverlap.stream().toList().get(i);
+			Leg nextLeg = sortedLegsOverlap.stream().toList().get(i + 1);
 
 			if (previousLeg.getScheduledArrival() != null && nextLeg.getScheduledDeparture() != null) {
 				boolean validLeg = MomentHelper.isBefore(previousLeg.getScheduledArrival(), nextLeg.getScheduledDeparture());
@@ -155,25 +153,20 @@ public class ManagerLegPublishService extends AbstractGuiService<Manager, Leg> {
 		super.state(nonOverlappingLegs, "*", "acme.validation.flight.overlapping.message");
 
 		boolean validAirports = true;
-		boolean validDate = true;
+		Leg previousLeg = null;
 
-		for (int i = 0; i < sortedLegs.size() - 1; i++) {
-			Leg previousLeg = sortedLegs.get(i);
-			Leg nextLeg = sortedLegs.get(i + 1);
+		for (Leg candidate : sortedLegs)
+			if (candidate.getScheduledDeparture() != null && leg.getDepartureAirport() != null)
+				if (candidate.getScheduledDeparture().before(leg.getScheduledDeparture()))
+					if (previousLeg == null || candidate.getScheduledDeparture().after(previousLeg.getScheduledDeparture()))
+						previousLeg = candidate;
 
-			if (previousLeg.getArrivalAirport() != null && nextLeg.getDepartureAirport() != null)
-				if (!previousLeg.getArrivalAirport().getCodeIATA().equals(nextLeg.getDepartureAirport().getCodeIATA()))
+		if (previousLeg != null)
+			if (previousLeg.getArrivalAirport() != null && leg.getDepartureAirport() != null)
+				if (!previousLeg.getArrivalAirport().getCodeIATA().equals(leg.getDepartureAirport().getCodeIATA()))
 					validAirports = false;
 
-			if (previousLeg.getScheduledArrival() != null && nextLeg.getScheduledDeparture() != null) {
-				long hoursBetween = MomentHelper.computeDuration(previousLeg.getScheduledArrival(), nextLeg.getScheduledDeparture()).toHours();
-				if (hoursBetween >= 48)
-					validDate = false;
-			}
-		}
-
 		super.state(validAirports, "*", "acme.validation.leg.invalid-airports.message");
-		super.state(validDate, "*", "acme.validation.leg.invalid-dates.message");
 
 		if (leg.getIsDraft()) {
 			boolean validAircraft = true;
