@@ -56,7 +56,7 @@ public class AssistanceAgentTrackingLogCreateService extends AbstractGuiService<
 				}
 		}
 
-		super.getResponse().setAuthorised(status);
+		super.getResponse().setAuthorised(true);
 	}
 
 	@Override

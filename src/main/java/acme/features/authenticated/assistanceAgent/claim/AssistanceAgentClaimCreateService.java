@@ -40,6 +40,8 @@ public class AssistanceAgentClaimCreateService extends AbstractGuiService<Assist
 				Leg leg = this.legRepo.getLegById(legId);
 				if (leg == null)
 					hasAuthority = false;
+				if (leg.getIsDraft())
+					hasAuthority = false;
 			}
 			String claimType = super.getRequest().getData("type", String.class);
 			if (claimType != null && !claimType.equals("0"))
@@ -110,7 +112,7 @@ public class AssistanceAgentClaimCreateService extends AbstractGuiService<Assist
 		ClaimStatus status = claim.getStatus();
 
 		typeChoices = SelectChoices.from(ClaimType.class, claim.getType());
-		legs = SelectChoices.from(this.repository.getAllLegs(), "flightNumber", claim.getLeg());
+		legs = SelectChoices.from(this.repository.getAllPublishedLegs(), "flightNumber", claim.getLeg());
 
 		dataset = super.unbindObject(claim, "registrationMoment", "email", "description");
 		dataset.put("status", status);
