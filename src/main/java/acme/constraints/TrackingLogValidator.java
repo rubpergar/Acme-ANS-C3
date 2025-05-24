@@ -72,15 +72,15 @@ public class TrackingLogValidator extends AbstractValidator<ValidTrackingLog, Tr
 				int contador = 0;
 
 				for (TrackingLog t : orderedTrackingLogs) {
-					if (t.getResolutionPercentage() == 100)
-						contador += 1;
-					if (trackingLog.getResolutionPercentage() == 100) {
-						if (contador >= 2)
-							super.state(context, false, "resolutionPercentage", "acme.validation.trackinglog.percentage-cant-be-100.message");
-						if (t.getResolutionPercentage() == 100 && t.getStatus() != trackingLog.getStatus())
-							super.state(context, false, "status", "acme.validation.trackinglog.wrong-status.message");
+//					if (t.getResolutionPercentage() == 100)
+//						contador += 1;
+//					if (trackingLog.getResolutionPercentage() == 100) {
+//						if (contador >= 2)
+//							super.state(context, false, "resolutionPercentage", "acme.validation.trackinglog.percentage-cant-be-100.message");
+//						if (t.getResolutionPercentage() == 100 && t.getStatus() != trackingLog.getStatus())
+//							super.state(context, false, "status", "acme.validation.trackinglog.wrong-status.message");
 
-					} else if (trackingLog.getResolutionPercentage() != 100)
+					if (trackingLog.getResolutionPercentage() != 100)
 						if (MomentHelper.isBeforeOrEqual(t.getLastUpdate(), trackingLog.getLastUpdate()))
 							if (t.getResolutionPercentage() > trackingLog.getResolutionPercentage())
 								super.state(context, false, "resolutionPercentage", "acme.validation.trackinglog.invalid-percentage.message");
