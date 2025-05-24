@@ -31,25 +31,30 @@ public class AssistanceAgentTrackingLogUpdateService extends AbstractGuiService<
 
 	@Override
 	public void authorise() {
-		boolean status;
-		int tlId;
-		Claim claim;
-		TrackingLog tl;
+		int tlId = super.getRequest().getData("id", int.class);
+		TrackingLog tl = this.repository.getTlById(tlId);
 
-		tlId = super.getRequest().getData("id", int.class);
-		tl = this.repository.getTlById(tlId);
-		claim = this.repository.getClaimByTlId(tlId);
-		status = claim != null && super.getRequest().getPrincipal().hasRealm(claim.getAssistanceAgent()) && tl.isDraftMode();
+		Claim claim = this.repository.getClaimByTlId(tlId);
 
-		String tlStatus = super.getRequest().getData("status", String.class);
-		if (tlStatus != null && !tlStatus.equals("0"))
-			try {
-				TrackingLogStatus.valueOf(tlStatus);
-			} catch (IllegalArgumentException e) {
-				status = false;
-			}
+		boolean hasAuthority = tl != null && tl.isDraftMode() && super.getRequest().getPrincipal().hasRealmOfType(AssistanceAgent.class) && super.getRequest().getPrincipal().getAccountId() == claim.getAssistanceAgent().getUserAccount().getId();
 
-		super.getResponse().setAuthorised(status);
+		if (super.getRequest().getMethod().equals("POST"))
+			hasAuthority = hasAuthority && this.validateStatus();
+
+		super.getResponse().setAuthorised(hasAuthority);
+	}
+
+	private boolean validateStatus() {
+		if (super.getRequest().hasData("status")) {
+			String tlStatus = super.getRequest().getData("status", String.class);
+			if (tlStatus != null && !tlStatus.equals("0"))
+				try {
+					TrackingLogStatus.valueOf(tlStatus);
+				} catch (IllegalArgumentException e) {
+					return false;
+				}
+		}
+		return true;
 	}
 
 	@Override

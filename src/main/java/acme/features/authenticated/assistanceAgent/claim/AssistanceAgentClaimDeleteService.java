@@ -4,9 +4,12 @@ package acme.features.authenticated.assistanceAgent.claim;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import acme.client.components.models.Dataset;
+import acme.client.components.views.SelectChoices;
 import acme.client.services.AbstractGuiService;
 import acme.client.services.GuiService;
 import acme.entities.claims.Claim;
+import acme.entities.claims.ClaimStatus;
+import acme.entities.claims.ClaimType;
 import acme.realms.AssistanceAgent;
 
 @GuiService
@@ -68,9 +71,22 @@ public class AssistanceAgentClaimDeleteService extends AbstractGuiService<Assist
 
 	@Override
 	public void unbind(final Claim claim) {
-		assert claim != null;
 		Dataset dataset;
-		dataset = super.unbindObject(claim, "registrationMoment", "email", "description", "type", "status", "selectedLeg", "draftMode");
+
+		SelectChoices typeChoices;
+		typeChoices = SelectChoices.from(ClaimType.class, claim.getType());
+
+		ClaimStatus status = claim.getStatus();
+
+		SelectChoices legs;
+		legs = SelectChoices.from(this.repository.getAllPublishedLegs(), "flightNumber", claim.getLeg());
+
+		dataset = super.unbindObject(claim, "registrationMoment", "email", "description");
+		dataset.put("status", status);
+		dataset.put("draftMode", claim.isDraftMode());
+		dataset.put("type", typeChoices);
+		dataset.put("legs", legs);
+		dataset.put("selectedLeg", legs.getSelected().getKey());
 		super.getResponse().addData(dataset);
 
 	}

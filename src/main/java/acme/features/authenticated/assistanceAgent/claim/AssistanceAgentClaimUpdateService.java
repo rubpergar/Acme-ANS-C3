@@ -32,39 +32,42 @@ public class AssistanceAgentClaimUpdateService extends AbstractGuiService<Assist
 	public void authorise() {
 		Claim claim;
 		int claimId;
-		int userAccountId;
-		Integer legId = super.getRequest().getData("selectedLeg", int.class);
 
 		claimId = super.getRequest().getData("id", int.class);
 		claim = this.repository.getClaimById(claimId);
-		userAccountId = super.getRequest().getPrincipal().getAccountId();
 
-		boolean hasAuthority = claim.getAssistanceAgent().getUserAccount().getId() == userAccountId && claim != null;
+		boolean hasAuthority = claim != null && claim.isDraftMode() && claim.getAssistanceAgent().getUserAccount().getId() == super.getRequest().getPrincipal().getAccountId() && super.getRequest().getPrincipal().hasRealmOfType(AssistanceAgent.class);
 
-		String method = super.getRequest().getMethod();
-		if (!"POST".equalsIgnoreCase(method))
-			hasAuthority = false;
+		if (super.getRequest().getMethod().equals("POST"))
+			hasAuthority = hasAuthority && this.validatePostFields();
 
-		if (!claim.isDraftMode())
-			hasAuthority = false;
+		super.getResponse().setAuthorised(hasAuthority);
+	}
 
+	private boolean validatePostFields() {
+		return this.validateStatus() && this.validateLeg();
+	}
+
+	private boolean validateLeg() {
+		Integer legId = super.getRequest().getData("selectedLeg", int.class);
 		if (legId != null && legId != 0) {
 			Leg leg = this.legRepo.getLegById(legId);
-			if (leg == null)
-				hasAuthority = false;
-			else if (leg.getIsDraft())
-				hasAuthority = false;
-		}
+			if (leg == null || leg.getIsDraft())
+				return false;
 
+		}
+		return true;
+	}
+
+	private boolean validateStatus() {
 		String claimType = super.getRequest().getData("type", String.class);
 		if (claimType != null && !claimType.equals("0"))
 			try {
 				ClaimType.valueOf(claimType);
 			} catch (IllegalArgumentException e) {
-				hasAuthority = false;
+				return false;
 			}
-
-		super.getResponse().setAuthorised(hasAuthority);
+		return true;
 	}
 
 	@Override
@@ -80,7 +83,6 @@ public class AssistanceAgentClaimUpdateService extends AbstractGuiService<Assist
 
 	@Override
 	public void bind(final Claim claim) {
-		assert claim != null;
 		int legId;
 		Leg leg;
 
@@ -105,7 +107,6 @@ public class AssistanceAgentClaimUpdateService extends AbstractGuiService<Assist
 
 	@Override
 	public void perform(final Claim claim) {
-		assert claim != null;
 		claim.setEmail(claim.getEmail());
 		claim.setDescription(claim.getDescription());
 		claim.setType(claim.getType());
@@ -115,8 +116,6 @@ public class AssistanceAgentClaimUpdateService extends AbstractGuiService<Assist
 
 	@Override
 	public void unbind(final Claim claim) {
-		assert claim != null;
-
 		Dataset dataset;
 
 		SelectChoices typeChoices;
@@ -128,7 +127,6 @@ public class AssistanceAgentClaimUpdateService extends AbstractGuiService<Assist
 		legs = SelectChoices.from(this.repository.getAllPublishedLegs(), "flightNumber", claim.getLeg());
 
 		dataset = super.unbindObject(claim, "registrationMoment", "email", "description");
-		Leg leg = this.repository.getLegIsByClaimId(claim.getId());
 		dataset.put("status", status);
 		dataset.put("draftMode", claim.isDraftMode());
 		dataset.put("type", typeChoices);
