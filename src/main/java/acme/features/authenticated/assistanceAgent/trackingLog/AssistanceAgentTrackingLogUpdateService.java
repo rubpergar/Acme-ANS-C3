@@ -64,14 +64,11 @@ public class AssistanceAgentTrackingLogUpdateService extends AbstractGuiService<
 
 	@Override
 	public void bind(final TrackingLog tl) {
-		assert tl != null;
-
 		super.bindObject(tl, "stepUndergoing", "resolutionPercentage", "status", "resolution");
 	}
 
 	@Override
 	public void validate(final TrackingLog tl) {
-		assert tl != null;
 
 		//		if (tl.getResolutionPercentage() != null)
 		//			if (tl.getResolutionPercentage() == 100.0)
@@ -82,7 +79,6 @@ public class AssistanceAgentTrackingLogUpdateService extends AbstractGuiService<
 
 	@Override
 	public void perform(final TrackingLog tl) {
-		assert tl != null;
 		tl.setClaim(tl.getClaim());
 		tl.setLastUpdate(MomentHelper.getCurrentMoment());
 		tl.setStepUndergoing(tl.getStepUndergoing());
@@ -96,8 +92,6 @@ public class AssistanceAgentTrackingLogUpdateService extends AbstractGuiService<
 
 	@Override
 	public void unbind(final TrackingLog tl) {
-		assert tl != null;
-
 		Dataset dataset;
 		SelectChoices statusChoices;
 
@@ -105,7 +99,7 @@ public class AssistanceAgentTrackingLogUpdateService extends AbstractGuiService<
 
 		dataset = super.unbindObject(tl, "lastUpdate", "stepUndergoing", "resolutionPercentage", "resolution");
 		dataset.put("masterId", tl.getClaim().getId());
-		dataset.put("draftMode", true);
+		dataset.put("draftMode", tl.isDraftMode());
 		dataset.put("status", statusChoices);
 
 		super.getResponse().addData(dataset);

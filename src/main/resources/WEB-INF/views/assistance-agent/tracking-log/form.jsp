@@ -11,12 +11,10 @@
 	<acme:input-textarea code="assistanceAgent.trackingLog.form.label.resolution" path="resolution"/>
 		
 	<jstl:choose>
-		<jstl:when test="${acme:anyOf(_command, 'show|update|delete')  && draftMode == true}">
+		<jstl:when test="${acme:anyOf(_command, 'show|update|delete|publish')  && draftMode == true}">
 			<acme:submit code="assistanceAgent.trackingLog.form.button.update" action="/assistance-agent/tracking-log/update"/>
 			<acme:submit code="assistanceAgent.trackingLog.form.button.delete" action="/assistance-agent/tracking-log/delete"/>
-			<jstl:if test="${showPublish}">
-				<acme:submit code="assistanceAgent.trackingLog.form.button.publish" action="/assistance-agent/tracking-log/publish"/>
-			</jstl:if>
+			<acme:submit code="assistanceAgent.trackingLog.form.button.publish" action="/assistance-agent/tracking-log/publish"/>
 		</jstl:when>
 		
 		<jstl:when test="${_command == 'create'}">
