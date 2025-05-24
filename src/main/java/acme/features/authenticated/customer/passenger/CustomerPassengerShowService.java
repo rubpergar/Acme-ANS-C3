@@ -26,8 +26,9 @@ public class CustomerPassengerShowService extends AbstractGuiService<Customer, P
 		id = super.getRequest().getData("id", int.class);
 		passenger = this.repository.findPassengerById(id);
 		int userAccountId = super.getRequest().getPrincipal().getAccountId();
+		boolean status = passenger.getCustomer().getUserAccount().getId() == userAccountId;
 
-		super.getResponse().setAuthorised(passenger.getCustomer().getUserAccount().getId() == userAccountId);
+		super.getResponse().setAuthorised(status);
 	}
 
 	@Override
@@ -40,7 +41,6 @@ public class CustomerPassengerShowService extends AbstractGuiService<Customer, P
 
 	@Override
 	public void unbind(final Passenger passenger) {
-		assert passenger != null;
 		Dataset dataset;
 		dataset = super.unbindObject(passenger, "fullName", "email", "passportNumber", "dateOfBirth", "specialNeeds", "isDraft");
 		super.getResponse().addData(dataset);

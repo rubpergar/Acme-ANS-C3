@@ -23,20 +23,23 @@ public class ActivityLogShowService extends AbstractGuiService<FlightCrewMember,
 
 	@Override
 	public void authorise() {
-		final boolean status;
-		int activityLogId;
-		ActivityLog activityLog;
-		FlightAssignment flightAssignment;
+		boolean authorised = false;
 
-		activityLogId = super.getRequest().getData("id", int.class);
-		activityLog = this.repository.getActivityLogById(activityLogId);
-		flightAssignment = this.repository.findFlightAssignmentByActivityLogId(activityLogId);
-		status = super.getRequest().getPrincipal().hasRealm(flightAssignment.getFlightCrewMember());
+		if (super.getRequest().hasData("id"))
+			try {
+				int activityLogId = super.getRequest().getData("id", int.class);
+				ActivityLog activityLog = this.repository.getActivityLogById(activityLogId);
+				FlightAssignment flightAssignment = this.repository.findFlightAssignmentByActivityLogId(activityLogId);
 
-		if (activityLog.isDraftMode())
-			super.getResponse().setAuthorised(true);
-		else
-			super.getResponse().setAuthorised(status);
+				if (activityLog != null) {
+					boolean isOwner = super.getRequest().getPrincipal().hasRealm(flightAssignment.getFlightCrewMember());
+					authorised = activityLog.isDraftMode() ? isOwner : true;
+				}
+			} catch (Throwable error) {
+				// No hacemos nada, authorised se mantiene en false
+			}
+
+		super.getResponse().setAuthorised(authorised);
 	}
 
 	@Override
@@ -52,8 +55,6 @@ public class ActivityLogShowService extends AbstractGuiService<FlightCrewMember,
 
 	@Override
 	public void unbind(final ActivityLog activityLog) {
-		assert activityLog != null;
-
 		Dataset dataset;
 
 		dataset = super.unbindObject(activityLog, "registrationMoment", "type", "description", "severityLevel", "draftMode", "flightAssignment");

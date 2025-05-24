@@ -24,13 +24,15 @@ public class FlightAssignmentDeleteService extends AbstractGuiService<FlightCrew
 
 	@Override
 	public void authorise() {
-		FlightAssignment flightAssignment;
-		int id;
-		int userAccountId;
-		id = super.getRequest().getData("id", int.class);
-		flightAssignment = this.repository.getFlightAssignmentById(id);
-		userAccountId = super.getRequest().getPrincipal().getAccountId();
-		super.getResponse().setAuthorised(flightAssignment.isDraftMode() && flightAssignment.getFlightCrewMember().getUserAccount().getId() == userAccountId);
+		boolean authorised = false;
+
+		if (super.getRequest().hasData("id", int.class)) {
+			int id = super.getRequest().getData("id", int.class);
+			FlightAssignment flightAssignment = this.repository.getFlightAssignmentById(id);
+			authorised = flightAssignment.isDraftMode();
+		}
+
+		super.getResponse().setAuthorised(authorised);
 	}
 
 	@Override
@@ -46,26 +48,21 @@ public class FlightAssignmentDeleteService extends AbstractGuiService<FlightCrew
 
 	@Override
 	public void bind(final FlightAssignment flightAssignment) {
-		assert flightAssignment != null;
 	}
 
 	@Override
 	public void validate(final FlightAssignment flightAssignment) {
-		assert flightAssignment != null;
 	}
 
 	@Override
 	public void perform(final FlightAssignment flightAssignment) {
-		assert flightAssignment != null;
-
 		Collection<ActivityLog> activityLogs = this.repository.getAllActivityLogsFromAssignmentId(flightAssignment.getId());
 
 		this.repository.deleteAll(activityLogs);
 		this.repository.delete(flightAssignment);
 	}
 
-	@Override
-	public void unbind(final FlightAssignment flightAssignment) {
-		assert flightAssignment != null;
-	}
+	//	@Override
+	//	public void unbind(final FlightAssignment flightAssignment) {
+	//	}
 }

@@ -1,14 +1,11 @@
 
 package acme.features.authenticated.customer.passenger;
 
-import java.util.Collection;
-
 import org.springframework.beans.factory.annotation.Autowired;
 
 import acme.client.components.models.Dataset;
 import acme.client.services.AbstractGuiService;
 import acme.client.services.GuiService;
-import acme.entities.booking.BookingPassenger;
 import acme.entities.passenger.Passenger;
 import acme.realms.Customer;
 
@@ -29,7 +26,8 @@ public class CustomerPassengerDeleteService extends AbstractGuiService<Customer,
 		int passengerId = super.getRequest().getData("id", int.class);
 		Passenger passenger = this.repository.findPassengerById(passengerId);
 
-		super.getResponse().setAuthorised(customerId == passenger.getCustomer().getId() && passenger.getIsDraft());
+		status = passenger.getCustomer().getId() == customerId && passenger.getIsDraft();
+		super.getResponse().setAuthorised(status);
 	}
 
 	@Override
@@ -45,8 +43,6 @@ public class CustomerPassengerDeleteService extends AbstractGuiService<Customer,
 
 	@Override
 	public void validate(final Passenger passenger) {
-		Collection<BookingPassenger> passengerHasBookingPassenger = this.repository.findAllBookingPassengersByPassengerId(passenger.getId());
-		super.state(passengerHasBookingPassenger.isEmpty(), "*", "customer.passenger.form.error.booking-passenger.exists");
 
 	}
 

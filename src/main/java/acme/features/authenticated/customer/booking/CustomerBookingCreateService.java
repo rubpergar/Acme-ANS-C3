@@ -39,15 +39,6 @@ public class CustomerBookingCreateService extends AbstractGuiService<Customer, B
 				if (flight == null || flight.getIsDraft())
 					status = false;
 			}
-			// TRAVEL CLASS
-			String travelClass = super.getRequest().getData("travelClass", String.class);
-
-			if (travelClass != null && !travelClass.equals("0"))
-				try {
-					TravelClass validTravelClass = TravelClass.valueOf(travelClass);
-				} catch (IllegalArgumentException ex) {
-					status = false;
-				}
 		}
 		super.getResponse().setAuthorised(status);
 	}
@@ -88,42 +79,25 @@ public class CustomerBookingCreateService extends AbstractGuiService<Customer, B
 
 	@Override
 	public void validate(final Booking booking) {
-		assert booking != null;
 
 		// Verificar que el locatorCode es único
 		boolean locatorCodeStatus = this.repository.findBookingsByLocatorCode(booking.getLocatorCode()).size() == 0;
 		super.state(locatorCodeStatus, "locatorCode", "acme.validation.booking.repeated-locatorCode.message");
 
-		// Verificar que PurchaseMoment no cambia
-		boolean purchaseMomentStatus = booking.getPurchaseMoment().equals(MomentHelper.getCurrentMoment());
-		super.state(purchaseMomentStatus, "purchaseMoment", "acme.validation.booking.incorrect-purchaseMoment.message");
-
-		// Verificar que el flight está publicado
-		boolean flightDraftStatus = true;
-		if (booking.getFlight() != null)
-			flightDraftStatus = booking.getFlight().getIsDraft() == false;
-		super.state(flightDraftStatus, "flight", "acme.validation.booking.flight-draft.message");
-
 		// Verificar que el flight no es null
 		boolean flightNullStatus = this.repository.findNotDraftFlights().contains(booking.getFlight());
 		super.state(flightNullStatus, "flight", "acme.validation.booking.notExisting-flight.message");
-
-		// Verificar que el flight es mas tarde que el momento actual
-		boolean flightIsAfterStatus = booking.getFlight().getScheduledDeparture().after(MomentHelper.getCurrentMoment());
-		super.state(flightIsAfterStatus, "flight", "acme.validation.booking.after-flight.message");
 
 	}
 
 	@Override
 	public void perform(final Booking booking) {
-		assert booking != null;
 		booking.setFlight(booking.getFlight());
 		this.repository.save(booking);
 	}
 
 	@Override
 	public void unbind(final Booking booking) {
-		assert booking != null;
 
 		List<Flight> nonDraftFlights = this.repository.findNotDraftFlights().stream().toList();
 

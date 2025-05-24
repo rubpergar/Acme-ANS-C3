@@ -24,15 +24,20 @@ public class ActivityLogCreateService extends AbstractGuiService<FlightCrewMembe
 
 	@Override
 	public void authorise() {
-		final boolean status;
-		int activityLogId;
-		FlightAssignment flightAssignment;
+		boolean authorised = false;
 
-		activityLogId = super.getRequest().getData("id", int.class);
-		flightAssignment = this.repository.findFlightAssignmentByActivityLogId(activityLogId);
-		status = super.getRequest().getPrincipal().hasRealm(flightAssignment.getFlightCrewMember());
+		if (super.getRequest().hasData("masterId"))
+			try {
+				int masterId = super.getRequest().getData("masterId", int.class);
+				FlightAssignment flightAssignment = this.repository.findFlightAssignmentById(masterId);
 
-		super.getResponse().setAuthorised(status);
+				if (flightAssignment != null)
+					authorised = super.getRequest().getPrincipal().hasRealm(flightAssignment.getFlightCrewMember());
+			} catch (Throwable error) {
+				// No hacemos nada, authorised se mantiene en false
+			}
+
+		super.getResponse().setAuthorised(authorised);
 	}
 
 	@Override
@@ -54,49 +59,29 @@ public class ActivityLogCreateService extends AbstractGuiService<FlightCrewMembe
 
 	@Override
 	public void bind(final ActivityLog activityLog) {
-		assert activityLog != null;
-		int masterId;
-		FlightAssignment flightAssignment;
-
-		masterId = super.getRequest().getData("masterId", int.class);
-		flightAssignment = this.repository.findFlightAssignmentById(masterId);
-
 		super.bindObject(activityLog, "type", "description", "severityLevel");
-
-		activityLog.setRegistrationMoment(MomentHelper.getCurrentMoment());
-		activityLog.setDraftMode(true);
-		activityLog.setFlightAssignment(flightAssignment);
 	}
 
 	@Override
 	public void validate(final ActivityLog activityLog) {
-		assert activityLog != null;
-
 		if (activityLog.getType().length() < 1 || activityLog.getType().length() > 50)
 			super.state(false, "type", "acme.validation.out-1-50-range.message");
 
 		if (activityLog.getDescription().length() < 1 || activityLog.getDescription().length() > 255)
 			super.state(false, "description", "acme.validation.out-1-255-range.message");
-
-		if (activityLog.getSeverityLevel() != null && (activityLog.getSeverityLevel() < 0 || activityLog.getSeverityLevel() > 10))
-			super.state(false, "severityLevel", "acme.validation.out-0-10-range.message");
-
 	}
 
 	@Override
 	public void perform(final ActivityLog activityLog) {
-		assert activityLog != null;
-
+		activityLog.setDraftMode(true);
 		this.repository.save(activityLog);
 	}
 
 	@Override
 	public void unbind(final ActivityLog activityLog) {
-		assert activityLog != null;
-
 		Dataset dataset;
 
-		dataset = super.unbindObject(activityLog, "registrationMoment", "type", "description", "severityLevel", "draftMode", "flightAssignment");
+		dataset = super.unbindObject(activityLog, "type", "description", "severityLevel", "draftMode", "flightAssignment");
 		dataset.put("masterId", activityLog.getFlightAssignment().getId());
 		dataset.put("registrationMoment", MomentHelper.getCurrentMoment());
 		dataset.put("draftMode", activityLog.isDraftMode());

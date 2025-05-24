@@ -46,17 +46,4 @@ public class CustomerPassengerListService extends AbstractGuiService<Customer, P
 		super.getResponse().addData(dataset);
 	}
 
-	//	@Override
-	//	public void unbind(final Collection<Passenger> passengers) {
-	//		int masterId;
-	//		Booking booking;
-	//		final boolean showCreate;
-	//
-	//		masterId = super.getRequest().getData("masterId", int.class);
-	//		booking = this.repository.findBookingById(masterId);
-	//		showCreate = super.getRequest().getPrincipal().hasRealm(booking.getCustomer());
-	//
-	//		super.getResponse().addGlobal("masterId", masterId);
-	//		super.getResponse().addGlobal("showCreate", showCreate);
-	//	}
 }
