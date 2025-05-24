@@ -71,9 +71,8 @@ public class AssistanceAgentTrackingLogUpdateService extends AbstractGuiService<
 
 	@Override
 	public void validate(final TrackingLog tl) {
-		int masterId = super.getRequest().getData("masterId", int.class);
-		Claim claim = this.claimRepository.getClaimById(masterId);
-		Collection<TrackingLog> tls = this.repository.findTrackingLogsByClaimId(masterId);
+		Claim claim = this.repository.getClaimByTlId(tl.getId());
+		Collection<TrackingLog> tls = this.repository.findTrackingLogsByClaimId(claim.getId());
 		int contador = 0;
 
 		for (TrackingLog t : tls) {
