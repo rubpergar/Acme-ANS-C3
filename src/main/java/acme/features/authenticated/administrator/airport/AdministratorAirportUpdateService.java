@@ -24,9 +24,7 @@ public class AdministratorAirportUpdateService extends AbstractGuiService<Admini
 
 	@Override
 	public void authorise() {
-		int airportId = super.getRequest().getData("id", int.class);
-		Airport airport = this.repository.getAirportById(airportId);
-		boolean hasAuthority = super.getRequest().getPrincipal().hasRealmOfType(Administrator.class) && airport != null;
+		boolean hasAuthority = super.getRequest().getPrincipal().hasRealmOfType(Administrator.class);
 
 		String airpScope = super.getRequest().getData("scope", String.class);
 		if (airpScope != null && !airpScope.equals("0"))
@@ -52,14 +50,12 @@ public class AdministratorAirportUpdateService extends AbstractGuiService<Admini
 
 	@Override
 	public void bind(final Airport airport) {
-		assert airport != null;
 
 		super.bindObject(airport, "name", "codeIATA", "scope", "city", "country", "web", "email", "phone");
 	}
 
 	@Override
 	public void validate(final Airport airport) {
-		assert airport != null;
 
 		boolean confirmation;
 		confirmation = super.getRequest().getData("confirmation", boolean.class);
@@ -68,7 +64,6 @@ public class AdministratorAirportUpdateService extends AbstractGuiService<Admini
 
 	@Override
 	public void perform(final Airport airport) {
-		assert airport != null;
 
 		airport.setName(airport.getName());
 		airport.setCodeIATA(airport.getCodeIATA());
@@ -83,7 +78,6 @@ public class AdministratorAirportUpdateService extends AbstractGuiService<Admini
 
 	@Override
 	public void unbind(final Airport airport) {
-		assert airport != null;
 		Dataset dataset;
 
 		SelectChoices choices;
