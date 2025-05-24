@@ -106,7 +106,6 @@ public class AssistanceAgentClaimUpdateService extends AbstractGuiService<Assist
 
 	@Override
 	public void perform(final Claim claim) {
-		assert claim != null;
 		claim.setEmail(claim.getEmail());
 		claim.setDescription(claim.getDescription());
 		claim.setType(claim.getType());
@@ -116,8 +115,6 @@ public class AssistanceAgentClaimUpdateService extends AbstractGuiService<Assist
 
 	@Override
 	public void unbind(final Claim claim) {
-		assert claim != null;
-
 		Dataset dataset;
 
 		SelectChoices typeChoices;
@@ -129,7 +126,6 @@ public class AssistanceAgentClaimUpdateService extends AbstractGuiService<Assist
 		legs = SelectChoices.from(this.repository.getAllPublishedLegs(), "flightNumber", claim.getLeg());
 
 		dataset = super.unbindObject(claim, "registrationMoment", "email", "description");
-		Leg leg = this.repository.getLegIsByClaimId(claim.getId());
 		dataset.put("status", status);
 		dataset.put("draftMode", claim.isDraftMode());
 		dataset.put("type", typeChoices);
