@@ -60,15 +60,16 @@ public class CustomerBookingPublishService extends AbstractGuiService<Customer, 
 
 	@Override
 	public void bind(final Booking booking) {
-		super.bindObject(booking, "locatorCode", "flight", "purchaseMoment", "travelClass", "lastNibble");
+		super.bindObject(booking, "locatorCode", "flight", "travelClass", "lastNibble");
 	}
 
 	@Override
 	public void validate(final Booking booking) {
 
 		//Tengo que comprobar the last credit card nibble has been stored. 
-		String lastNibble = this.repository.findLastNibbleById(booking.getId());
-		super.state(!lastNibble.isEmpty(), "*", "customer.project.publish.error.lastNibbleNotPublished");
+		//String lastNibble = this.repository.findLastNibbleById(booking.getId());
+		String lastNibble = this.getRequest().getData("lastNibble", String.class);
+		super.state(!lastNibble.isBlank(), "*", "customer.project.publish.error.lastNibbleNotPublished");
 
 		//Comprobar que el booking no tiene pasajeros
 		List<Passenger> passengers = this.repository.findAllPassengersByBookingId(booking.getId()).stream().toList();

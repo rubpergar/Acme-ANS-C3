@@ -7,13 +7,13 @@
 	<acme:input-moment code="manager.leg.list.label.scheduledDeparture" path="scheduledDeparture"/>	
 	<acme:input-moment code="manager.leg.list.label.scheduledArrival" path="scheduledArrival"/>	
 	<acme:input-select code="manager.leg.list.label.status" path="status" choices="${status}"/>
-	<acme:input-select code="manager.leg.list.label.arrivalAirport" path="arrivalAirport" choices="${arrivalAirports}"/>
 	<acme:input-select code="manager.leg.list.label.departureAirport" path="departureAirport" choices="${departureAirports}"/>
+	<acme:input-select code="manager.leg.list.label.arrivalAirport" path="arrivalAirport" choices="${arrivalAirports}"/>
 	<acme:input-select code="manager.leg.list.label.aircraft" path="aircraft" choices="${aircrafts}"/>
 	<acme:input-integer code="manager.leg.list.label.duration" path="duration" readonly="true"/>	
 	
 	<jstl:choose>
-		<jstl:when test="${acme:anyOf(_command, 'show|update|delete|publish') && isDraft == true && isDraftFlight == true}">
+		<jstl:when test="${acme:anyOf(_command, 'show|update|delete|publish') && isDraft == true}">
 			<acme:submit code="manager.leg.form.button.update" action="/manager/leg/update"/>
 			<acme:submit code="manager.leg.form.button.delete" action="/manager/leg/delete"/>
 			<acme:submit code="manager.leg.form.button.publish" action="/manager/leg/publish"/>

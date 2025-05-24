@@ -1,3 +1,4 @@
 key,key:userAccount,identifier,phoneNumber,physicalAddress,city,country,earnedPoints
 customer-01,user-account-customer-01,LPF123456,+34615859674,C/Tetuán 12,Sevilla,Spain,234
 customer-02,user-account-customer-02,MPE234567,+47852741850,12345 Avenida de la Independencia Edificio Torre del Sol Piso 12 Apartamento 34B Colonia Vista Hermosa Ciudad Central Estado Nueva Esperanza Código Postal 98765 País de la Montaña Brillante Zona Metropolitana Norte Sector Empresarial,Oslo,Norway,0
+customer-03,user-account-customer-03,LPO345678,+34615859674,C/Tetuán 13,Sevilla,Spain,0

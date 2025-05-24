@@ -51,6 +51,8 @@ manager.leg.error.invalid-aircraft = The aircraft is not active. Please select a
 
 acme.validation.leg.invalid-dates.message = The time difference between two legs cannot surpass 48 hours.
 
+acme.validation.leg.published-legs-not-allowed.message = The flight cannot be deleted because one of his legs are published. 
+
 manager.flight.form.label.tag = Tag
 manager.flight.form.label.cost = Cost
 manager.flight.form.label.description = Description

@@ -3,6 +3,7 @@ package acme.features.authenticated.flightCrewMember.activityLog;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import acme.client.components.models.Dataset;
 import acme.client.services.AbstractGuiService;
 import acme.client.services.GuiService;
 import acme.entities.activityLog.ActivityLog;
@@ -22,15 +23,18 @@ public class ActivityLogPublishService extends AbstractGuiService<FlightCrewMemb
 
 	@Override
 	public void authorise() {
-		final boolean status;
-		int activityLogId;
-		FlightAssignment flightAssignment;
+		boolean authorised = false;
 
-		activityLogId = super.getRequest().getData("id", int.class);
-		flightAssignment = this.repository.findFlightAssignmentByActivityLogId(activityLogId);
-		status = super.getRequest().getPrincipal().hasRealm(flightAssignment.getFlightCrewMember()) && !flightAssignment.isDraftMode();
+		try {
+			int activityLogId = super.getRequest().getData("id", int.class);
+			FlightAssignment flightAssignment = this.repository.findFlightAssignmentByActivityLogId(activityLogId);
+			boolean isOwner = super.getRequest().getPrincipal().hasRealm(flightAssignment.getFlightCrewMember());
+			authorised = isOwner;
+		} catch (Throwable error) {
+			// No hacemos nada, authorised se mantiene en false
+		}
 
-		super.getResponse().setAuthorised(status);
+		super.getResponse().setAuthorised(authorised);
 	}
 
 	@Override
@@ -50,6 +54,8 @@ public class ActivityLogPublishService extends AbstractGuiService<FlightCrewMemb
 
 	@Override
 	public void validate(final ActivityLog activityLog) {
+		boolean flightAssignmentPublished = !activityLog.getFlightAssignment().isDraftMode();
+		super.state(flightAssignmentPublished, "flightAssignment", "acme.validation.flight-assignment.unpublished-assignment.message");
 	}
 
 	@Override
@@ -60,5 +66,13 @@ public class ActivityLogPublishService extends AbstractGuiService<FlightCrewMemb
 
 	@Override
 	public void unbind(final ActivityLog activityLog) {
+		Dataset dataset;
+
+		dataset = super.unbindObject(activityLog, "registrationMoment", "type", "description", "severityLevel", "draftMode", "flightAssignment");
+		dataset.put("masterId", activityLog.getFlightAssignment().getId());
+		dataset.put("draftMode", activityLog.isDraftMode());
+		dataset.put("flightAssignment", activityLog.getFlightAssignment().getId());
+
+		super.getResponse().addData(dataset);
 	}
 }
