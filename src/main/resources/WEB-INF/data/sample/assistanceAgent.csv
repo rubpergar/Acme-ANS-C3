@@ -1,3 +1,4 @@
 key,key:userAccount,code,languages,key:airline,moment,bio,salary,photo
 agent-01,user-account-agent-01,CM123456,Spanish English Chinese,airline-02,2012/07/02 00:00,biografia1,EUR 25.00,http://example.org/pic1.jpg
 agent-02,user-account-agent-02,AC123456,Spanish English Chinese,airline-02,2012/07/02 00:00,biografia2,EUR 15.00,http://example.org/pic2.jpg
+agent-03,user-account-agent-03,BA123456,Spanish English Chinese,airline-02,2012/07/02 00:00,biografia2,EUR 35.00,http://example.org/pic2.jpg
