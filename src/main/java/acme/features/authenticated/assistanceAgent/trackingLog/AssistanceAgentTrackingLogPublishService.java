@@ -38,6 +38,16 @@ public class AssistanceAgentTrackingLogPublishService extends AbstractGuiService
 		claim = this.repository.getClaimByTlId(tlId);
 		status = claim != null && super.getRequest().getPrincipal().hasRealm(claim.getAssistanceAgent()) && tl.isDraftMode() && !claim.isDraftMode();
 
+		if (super.getRequest().hasData("id")) {
+			String tlStatus = super.getRequest().getData("status", String.class);
+			if (tlStatus != null && !tlStatus.equals("0"))
+				try {
+					TrackingLogStatus.valueOf(tlStatus);
+				} catch (IllegalArgumentException e) {
+					status = false;
+				}
+		}
+
 		super.getResponse().setAuthorised(status);
 	}
 

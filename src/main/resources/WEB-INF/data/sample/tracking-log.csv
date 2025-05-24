@@ -18,11 +18,11 @@ tracking-log-13,claim-02,2012/07/02 00:00,lorem,0,PENDING,,true
 tracking-log-14,claim-02,2012/07/03 00:00,lorem,1,PENDING,,true
 tracking-log-15,claim-02,2012/07/03 18:00,lorem,50,PENDING,,true
 tracking-log-16,claim-02,2012/07/04 00:00,lorem,99,PENDING,,true
-tracking-log-17,claim-02,2012/07/05 00:00,lorem,100,ACCEPTED,lorem,true
+tracking-log-17,claim-02,2012/07/05 00:01,lorem,100,ACCEPTED,lorem,true
 #status
 tracking-log-18,claim-04,2012/07/02 00:00,lorem,50,PENDING,,true
-tracking-log-19,claim-04,2012/07/02 00:00,lorem,100,ACCEPTED,Lorem,true
-tracking-log-20,claim-05,2012/07/04 00:00,lorem,100,REJECTED,Lorem,true
+tracking-log-19,claim-04,2012/07/02 00:01,lorem,100,ACCEPTED,Lorem,true
+tracking-log-20,claim-05,2012/07/04 00:02,lorem,100,REJECTED,Lorem,true
 #resolution
 tracking-log-21,claim-06,2012/07/01 00:00,lorem,50,PENDING,,true
 tracking-log-22,claim-06,2012/07/02 00:00,lorem,100,ACCEPTED,L,true

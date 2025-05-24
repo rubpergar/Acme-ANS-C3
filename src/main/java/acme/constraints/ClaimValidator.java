@@ -35,11 +35,16 @@ public class ClaimValidator extends AbstractValidator<ValidClaim, Claim> {
 		if (claim == null)
 			super.state(context, false, "*", "javax.validation.constraints.NotNull.message");
 		else {
-			Leg leg = this.repo.getLegByClaim(claim.getId());
+			Leg leg = claim.getLeg();
 			if (leg == null)
 				super.state(context, false, "leg", "javax.validation.constraints.NotNull.message");
-			else if (leg != null && leg.getScheduledArrival().after(MomentHelper.getCurrentMoment()))
-				super.state(context, false, "leg", "acme.validation.claim.invalid-leg");
+			else {
+				if (leg.getScheduledArrival().after(MomentHelper.getCurrentMoment()))
+					super.state(context, false, "leg", "acme.validation.claim.invalid-leg");
+				if (leg.getIsDraft())
+					super.state(context, false, "leg", "acme.validation.claim.leg-must-be-published");
+
+			}
 		}
 		result = !super.hasErrors(context);
 

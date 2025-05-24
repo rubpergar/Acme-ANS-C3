@@ -38,6 +38,9 @@ public interface AssistanceAgentClaimRepository extends AbstractRepository {
 	@Query("SELECT l FROM Leg l")
 	Collection<Leg> getAllLegs();
 
+	@Query("SELECT l FROM Leg l WHERE l.isDraft = false")
+	Collection<Leg> getAllPublishedLegs();
+
 	@Query("SELECT tl FROM TrackingLog tl WHERE tl.claim.id = :claimId")
 	Collection<TrackingLog> getTrackingLogByClaimId(@Param("claimId") int claimId);
 
