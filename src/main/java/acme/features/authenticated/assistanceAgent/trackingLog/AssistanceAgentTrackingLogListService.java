@@ -52,8 +52,6 @@ public class AssistanceAgentTrackingLogListService extends AbstractGuiService<As
 
 	@Override
 	public void unbind(final TrackingLog trackingLog) {
-		assert trackingLog != null;
-
 		Dataset dataset;
 
 		dataset = super.unbindObject(trackingLog, "lastUpdate", "stepUndergoing", "resolutionPercentage", "status", "resolution", "draftMode");

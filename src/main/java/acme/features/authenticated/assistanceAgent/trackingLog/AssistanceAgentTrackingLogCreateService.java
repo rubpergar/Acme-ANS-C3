@@ -128,8 +128,6 @@ public class AssistanceAgentTrackingLogCreateService extends AbstractGuiService<
 
 	@Override
 	public void perform(final TrackingLog tl) {
-		assert tl != null;
-
 		tl.setClaim(tl.getClaim());
 		tl.setLastUpdate(MomentHelper.getCurrentMoment());
 		tl.setStepUndergoing(tl.getStepUndergoing());
@@ -143,8 +141,6 @@ public class AssistanceAgentTrackingLogCreateService extends AbstractGuiService<
 
 	@Override
 	public void unbind(final TrackingLog tl) {
-		assert tl != null;
-
 		Dataset dataset;
 		SelectChoices statusChoices;
 
