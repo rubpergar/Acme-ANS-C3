@@ -32,7 +32,11 @@ public class CustomerPassengerDeleteService extends AbstractGuiService<Customer,
 
 	@Override
 	public void load() {
-		Passenger passenger = new Passenger();
+		Passenger passenger;
+		int passengerId;
+
+		passengerId = this.getRequest().getData("id", int.class);
+		passenger = this.repository.findPassengerById(passengerId);
 		super.getBuffer().addData(passenger);
 	}
 
