@@ -47,7 +47,6 @@ public class CustomerBookingPassengerDeleteService extends AbstractGuiService<Cu
 
 	@Override
 	public void bind(final BookingPassenger bookingPassenger) {
-		assert bookingPassenger != null;
 		super.bindObject(bookingPassenger, "passenger");
 	}
 
@@ -62,8 +61,6 @@ public class CustomerBookingPassengerDeleteService extends AbstractGuiService<Cu
 
 	@Override
 	public void unbind(final BookingPassenger bookingPassenger) {
-
-		assert bookingPassenger != null;
 		Dataset dataset;
 		dataset = super.unbindObject(bookingPassenger, "booking", "passenger");
 		super.getResponse().addData(dataset);

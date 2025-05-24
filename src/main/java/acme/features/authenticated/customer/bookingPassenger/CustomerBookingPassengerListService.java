@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import acme.client.components.models.Dataset;
 import acme.client.services.AbstractGuiService;
 import acme.client.services.GuiService;
+import acme.entities.booking.Booking;
 import acme.entities.booking.BookingPassenger;
 import acme.realms.Customer;
 
@@ -22,7 +23,13 @@ public class CustomerBookingPassengerListService extends AbstractGuiService<Cust
 
 	@Override
 	public void authorise() {
-		super.getResponse().setAuthorised(true);
+		Booking booking;
+		int id;
+		id = super.getRequest().getData("masterId", int.class);
+		booking = this.repository.findBookingById(id);
+		int userAccountId = super.getRequest().getPrincipal().getAccountId();
+
+		super.getResponse().setAuthorised(booking.getCustomer().getUserAccount().getId() == userAccountId);
 	}
 
 	@Override
