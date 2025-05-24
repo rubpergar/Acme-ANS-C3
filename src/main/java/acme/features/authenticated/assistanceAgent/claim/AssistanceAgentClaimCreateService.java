@@ -30,7 +30,7 @@ public class AssistanceAgentClaimCreateService extends AbstractGuiService<Assist
 
 	@Override
 	public void authorise() {
-		boolean hasAuthority = true;
+		boolean hasAuthority = super.getRequest().getPrincipal().hasRealmOfType(AssistanceAgent.class);
 
 		if (super.getRequest().getMethod().equals("POST"))
 			hasAuthority = hasAuthority && this.validatePostFields();
@@ -44,7 +44,7 @@ public class AssistanceAgentClaimCreateService extends AbstractGuiService<Assist
 
 	private boolean validateLeg() {
 		Integer legId = super.getRequest().getData("selectedLeg", int.class);
-		if (legId != null && legId != 0) {
+		if (legId != 0) {
 			Leg leg = this.legRepo.getLegById(legId);
 			if (leg == null || leg.getIsDraft())
 				return false;
@@ -54,7 +54,7 @@ public class AssistanceAgentClaimCreateService extends AbstractGuiService<Assist
 
 	private boolean validateStatus() {
 		String claimType = super.getRequest().getData("type", String.class);
-		if (claimType != null && !claimType.equals("0"))
+		if (!claimType.equals("0"))
 			try {
 				ClaimType.valueOf(claimType);
 			} catch (IllegalArgumentException e) {
@@ -81,7 +81,6 @@ public class AssistanceAgentClaimCreateService extends AbstractGuiService<Assist
 
 		legId = super.getRequest().getData("selectedLeg", int.class);
 		leg = this.repository.getLegById(legId).orElse(null);
-		//		claim.setAssistanceAgent(this.repository.getAgentById(super.getRequest().getPrincipal().getActiveRealm().getId()));
 
 		super.bindObject(claim, "email", "description", "type");
 
@@ -91,7 +90,7 @@ public class AssistanceAgentClaimCreateService extends AbstractGuiService<Assist
 	@Override
 	public void validate(final Claim claim) {
 		Integer legId = super.getRequest().getData("selectedLeg", int.class);
-		if (legId == null || legId == 0)
+		if (legId == 0)
 			super.state(false, "selectedLeg", "javax.validation.constraints.NotNull.message");
 		Leg leg = this.legRepo.getLegById(legId);
 		if (leg != null)
