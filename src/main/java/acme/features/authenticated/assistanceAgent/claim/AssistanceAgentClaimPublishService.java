@@ -32,35 +32,41 @@ public class AssistanceAgentClaimPublishService extends AbstractGuiService<Assis
 	public void authorise() {
 		Claim claim;
 		int claimId;
-		int userAccountId;
-		Integer legId = super.getRequest().getData("selectedLeg", int.class);
 
 		claimId = super.getRequest().getData("id", int.class);
 		claim = this.repository.getClaimById(claimId);
-		userAccountId = super.getRequest().getPrincipal().getAccountId();
 
-		boolean hasAuthority = claim.getAssistanceAgent().getUserAccount().getId() == userAccountId && claim != null;
+		boolean hasAuthority = claim != null && claim.isDraftMode() && claim.getAssistanceAgent().getUserAccount().getId() == super.getRequest().getPrincipal().getAccountId() && super.getRequest().getPrincipal().hasRealmOfType(AssistanceAgent.class);
 
-		if (!claim.isDraftMode())
-			hasAuthority = false;
+		if (super.getRequest().getMethod().equals("POST"))
+			hasAuthority = hasAuthority && this.validatePostFields();
 
+		super.getResponse().setAuthorised(hasAuthority);
+	}
+
+	private boolean validatePostFields() {
+		return this.validateStatus() && this.validateLeg();
+	}
+
+	private boolean validateLeg() {
+		Integer legId = super.getRequest().getData("selectedLeg", int.class);
 		if (legId != null && legId != 0) {
 			Leg leg = this.legRepo.getLegById(legId);
-			if (leg == null)
-				hasAuthority = false;
-			if (leg.getIsDraft())
-				hasAuthority = false;
+			if (leg == null || leg.getIsDraft())
+				return false;
 		}
+		return true;
+	}
 
+	private boolean validateStatus() {
 		String claimType = super.getRequest().getData("type", String.class);
 		if (claimType != null && !claimType.equals("0"))
 			try {
 				ClaimType.valueOf(claimType);
 			} catch (IllegalArgumentException e) {
-				hasAuthority = false;
+				return false;
 			}
-
-		super.getResponse().setAuthorised(hasAuthority);
+		return true;
 	}
 
 	@Override
@@ -76,9 +82,16 @@ public class AssistanceAgentClaimPublishService extends AbstractGuiService<Assis
 
 	@Override
 	public void bind(final Claim claim) {
-		assert claim != null;
+		int legId;
+		Leg leg;
 
-		super.bindObject(claim);
+		legId = super.getRequest().getData("selectedLeg", int.class);
+		leg = this.legRepo.getLegById(legId);
+
+		super.bindObject(claim, "email", "description", "type");
+
+		claim.setLeg(leg);
+
 	}
 
 	@Override

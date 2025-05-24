@@ -33,25 +33,27 @@ public class AssistanceAgentClaimCreateService extends AbstractGuiService<Assist
 
 		boolean hasAuthority = super.getRequest().getPrincipal().hasRealmOfType(AssistanceAgent.class);
 
-		if (super.getRequest().hasData("id")) {
+		if (super.getRequest().getMethod().equals("POST")) {
+			if (super.getRequest().hasData("id")) {
 
-			Integer legId = super.getRequest().getData("selectedLeg", int.class);
-			if (legId != null && legId != 0) {
-				Leg leg = this.legRepo.getLegById(legId);
-				if (leg == null)
-					hasAuthority = false;
-				else if (leg.getIsDraft())
-					hasAuthority = false;
-			}
-			String claimType = super.getRequest().getData("type", String.class);
-			if (claimType != null && !claimType.equals("0"))
-				try {
-					ClaimType.valueOf(claimType);
-				} catch (IllegalArgumentException e) {
-					hasAuthority = false;
+				Integer legId = super.getRequest().getData("selectedLeg", int.class);
+				if (legId != null && legId != 0) {
+					Leg leg = this.legRepo.getLegById(legId);
+					if (leg == null)
+						hasAuthority = false;
+					else if (leg.getIsDraft())
+						hasAuthority = false;
 				}
+				String claimType = super.getRequest().getData("type", String.class);
+				if (claimType != null && !claimType.equals("0"))
+					try {
+						ClaimType.valueOf(claimType);
+					} catch (IllegalArgumentException e) {
+						hasAuthority = false;
+					}
+			}
+			super.getResponse().setAuthorised(hasAuthority);
 		}
-		super.getResponse().setAuthorised(hasAuthority);
 
 	}
 
