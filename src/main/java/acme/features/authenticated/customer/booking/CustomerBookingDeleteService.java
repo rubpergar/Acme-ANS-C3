@@ -1,12 +1,17 @@
 
 package acme.features.authenticated.customer.booking;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import acme.client.components.models.Dataset;
+import acme.client.components.views.SelectChoices;
 import acme.client.services.AbstractGuiService;
 import acme.client.services.GuiService;
 import acme.entities.booking.Booking;
+import acme.entities.booking.TravelClass;
+import acme.entities.flights.Flight;
 import acme.realms.Customer;
 
 @GuiService
@@ -43,7 +48,7 @@ public class CustomerBookingDeleteService extends AbstractGuiService<Customer, B
 
 	@Override
 	public void bind(final Booking booking) {
-		super.bindObject(booking, "locatorCode", "flight", "purchaseMoment", "travelClass", "lastNibble");
+		super.bindObject(booking, "locatorCode", "flight", "travelClass", "lastNibble");
 	}
 
 	@Override
@@ -61,7 +66,17 @@ public class CustomerBookingDeleteService extends AbstractGuiService<Customer, B
 	@Override
 	public void unbind(final Booking booking) {
 		Dataset dataset;
-		dataset = super.unbindObject(booking, "locatorCode", "flight", "purchaseMoment", "travelClass", "lastNibble", "price", "isDraft");
+		List<Flight> nonDraftFlights = this.repository.findNotDraftFlights().stream().toList();
+		List<Flight> validFlights = nonDraftFlights.stream().filter(f -> f.getScheduledDeparture().after(booking.getPurchaseMoment())).toList();
+		SelectChoices travelClasses = SelectChoices.from(TravelClass.class, booking.getTravelClass());
+		dataset = super.unbindObject(booking, "locatorCode", "customer", "flight", "purchaseMoment", "travelClass", "lastNibble", "price", "isDraft");
+
+		dataset.put("travelClass", travelClasses);
+
+		if (!validFlights.isEmpty()) {
+			SelectChoices flights = SelectChoices.from(validFlights, "flightDistinction", booking.getFlight());
+			dataset.put("flight", flights);
+		}
 		super.getResponse().addData(dataset);
 	}
 

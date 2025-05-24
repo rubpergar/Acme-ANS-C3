@@ -40,3 +40,4 @@ leg-38,AAX1533,2025/04/16 18:30,2025/04/16 21:00,ON_TIME,airport-04,airport-02,f
 leg-39,AAX1534,2025/04/17 07:45,2025/04/17 10:15,ON_TIME,airport-03,airport-02,flight-19,aircraft-01,true
 leg-40,AAX1535,2025/04/17 13:10,2025/04/17 15:40,ON_TIME,airport-01,airport-03,flight-20,aircraft-01,true
 leg-41,AAX1536,2025/04/18 11:25,2025/04/18 13:55,ON_TIME,airport-02,airport-04,flight-21,aircraft-01,false
+leg-42,AAX1537,2022/04/18 15:50,2022/04/18 18:20,LANDED,airport-03,airport-01,flight-14,aircraft-01,false
