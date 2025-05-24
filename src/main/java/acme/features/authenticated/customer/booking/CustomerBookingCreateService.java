@@ -39,15 +39,6 @@ public class CustomerBookingCreateService extends AbstractGuiService<Customer, B
 				if (flight == null || flight.getIsDraft())
 					status = false;
 			}
-			// TRAVEL CLASS
-			String travelClass = super.getRequest().getData("travelClass", String.class);
-
-			if (travelClass != null && !travelClass.equals("0"))
-				try {
-					TravelClass validTravelClass = TravelClass.valueOf(travelClass);
-				} catch (IllegalArgumentException ex) {
-					status = false;
-				}
 		}
 		super.getResponse().setAuthorised(status);
 	}

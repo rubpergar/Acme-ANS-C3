@@ -29,32 +29,21 @@ public class CustomerBookingUpdateService extends AbstractGuiService<Customer, B
 		Integer bookingId = super.getRequest().getData("id", int.class);
 		Booking booking = this.repository.findBookingById(bookingId);
 
-		status = status && booking != null;
-
 		Integer customerId = super.getRequest().getPrincipal().getActiveRealm().getId();
 
 		status = status && booking.getCustomer().getId() == customerId && booking.getIsDraft();
 
 		// FLIGHT
-
-		Integer flightId = super.getRequest().getData("flight", int.class);
-		if (flightId != 0 && flightId != null && booking.getFlight() != null) {
-			Flight flight = this.repository.findFlightById(flightId);
-			status = status && flight != null && !flight.getIsDraft();
+		if (super.getRequest().getMethod().equals("POST")) {
+			Integer flightId = super.getRequest().getData("flight", int.class);
+			if (flightId != 0 && flightId != null && booking.getFlight() != null) {
+				Flight flight = this.repository.findFlightById(flightId);
+				status = status && flight != null && !flight.getIsDraft();
+			}
 		}
 
-		// TRAVEL CLASS
-
-		String travelClass = super.getRequest().getData("travelClass", String.class);
-
-		if (travelClass != null && !travelClass.equals("0"))
-			try {
-				TravelClass validTravelClass = TravelClass.valueOf(travelClass);
-			} catch (IllegalArgumentException ex) {
-				status = false;
-			}
-
 		super.getResponse().setAuthorised(status);
+
 	}
 
 	@Override
