@@ -54,6 +54,7 @@ public class AssistanceAgentClaimUpdateService extends AbstractGuiService<Assist
 			Leg leg = this.legRepo.getLegById(legId);
 			if (leg == null || leg.getIsDraft())
 				return false;
+
 		}
 		return true;
 	}

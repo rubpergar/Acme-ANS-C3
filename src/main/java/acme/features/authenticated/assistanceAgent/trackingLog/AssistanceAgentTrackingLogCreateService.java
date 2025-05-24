@@ -37,7 +37,7 @@ public class AssistanceAgentTrackingLogCreateService extends AbstractGuiService<
 		masterId = super.getRequest().getData("masterId", int.class);
 		claim = this.claimRepository.getClaimById(masterId);
 
-		boolean hasAuthority = claim != null && super.getRequest().getPrincipal().hasRealmOfType(AssistanceAgent.class) && super.getRequest().getPrincipal().getAccountId() == claim.getAssistanceAgent().getId();
+		boolean hasAuthority = claim != null && super.getRequest().getPrincipal().hasRealmOfType(AssistanceAgent.class) && super.getRequest().getPrincipal().getAccountId() == claim.getAssistanceAgent().getUserAccount().getId();
 
 		if (super.getRequest().getMethod().equals("POST"))
 			hasAuthority = hasAuthority && this.validatePostFields();
