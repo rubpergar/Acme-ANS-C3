@@ -100,21 +100,32 @@ public class AssistanceAgentClaimPublishService extends AbstractGuiService<Assis
 		if (legId == null || legId == 0)
 			super.state(false, "selectedLeg", "javax.validation.constraints.NotNull.message");
 		Leg leg = this.legRepo.getLegById(legId);
-		if (leg.getScheduledArrival().after(MomentHelper.getCurrentMoment()))
+		if (leg != null && leg.getScheduledArrival().after(MomentHelper.getCurrentMoment()))
 			super.state(false, "selectedLeg", "javax.validation.constraints.invalid-leg.message");
+
+		boolean hasChanges = true;
+
+		Claim claimOriginal = this.repository.getClaimById(claim.getId());
+
+		if (claim.getEmail() != null && !claim.getEmail().equals(claimOriginal.getEmail()))
+			hasChanges = false;
+		if (claim.getDescription() != null && !claim.getDescription().equals(claimOriginal.getDescription()))
+			hasChanges = false;
+		if (claim.getType() != null && !claim.getType().equals(claimOriginal.getType()))
+			hasChanges = false;
+
+		super.state(hasChanges, "*", "javax.validation.constraints.mustUpdate-first.message");
+
 	}
 
 	@Override
 	public void perform(final Claim claim) {
-		assert claim != null;
 		claim.setDraftMode(false);
 		this.repository.save(claim);
 	}
 
 	@Override
 	public void unbind(final Claim claim) {
-		assert claim != null;
-
 		Dataset dataset;
 
 		SelectChoices typeChoices;

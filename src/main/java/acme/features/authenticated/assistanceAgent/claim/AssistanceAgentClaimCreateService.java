@@ -30,31 +30,37 @@ public class AssistanceAgentClaimCreateService extends AbstractGuiService<Assist
 
 	@Override
 	public void authorise() {
+		boolean hasAuthority = true;
 
-		boolean hasAuthority = super.getRequest().getPrincipal().hasRealmOfType(AssistanceAgent.class);
+		if (super.getRequest().getMethod().equals("POST"))
+			hasAuthority = hasAuthority && this.validatePostFields();
 
-		if (super.getRequest().getMethod().equals("POST")) {
-			if (super.getRequest().hasData("id")) {
+		super.getResponse().setAuthorised(hasAuthority);
+	}
 
-				Integer legId = super.getRequest().getData("selectedLeg", int.class);
-				if (legId != null && legId != 0) {
-					Leg leg = this.legRepo.getLegById(legId);
-					if (leg == null)
-						hasAuthority = false;
-					else if (leg.getIsDraft())
-						hasAuthority = false;
-				}
-				String claimType = super.getRequest().getData("type", String.class);
-				if (claimType != null && !claimType.equals("0"))
-					try {
-						ClaimType.valueOf(claimType);
-					} catch (IllegalArgumentException e) {
-						hasAuthority = false;
-					}
-			}
-			super.getResponse().setAuthorised(hasAuthority);
+	private boolean validatePostFields() {
+		return this.validateStatus() && this.validateLeg();
+	}
+
+	private boolean validateLeg() {
+		Integer legId = super.getRequest().getData("selectedLeg", int.class);
+		if (legId != null && legId != 0) {
+			Leg leg = this.legRepo.getLegById(legId);
+			if (leg == null || leg.getIsDraft())
+				return false;
 		}
+		return true;
+	}
 
+	private boolean validateStatus() {
+		String claimType = super.getRequest().getData("type", String.class);
+		if (claimType != null && !claimType.equals("0"))
+			try {
+				ClaimType.valueOf(claimType);
+			} catch (IllegalArgumentException e) {
+				return false;
+			}
+		return true;
 	}
 
 	@Override
