@@ -26,12 +26,11 @@ public class LegValidator extends AbstractValidator<ValidLeg, Leg> {
 
 	@Override
 	protected void initialise(final ValidLeg annotation) {
-		assert annotation != null;
+
 	}
 
 	@Override
 	public boolean isValid(final Leg leg, final ConstraintValidatorContext context) {
-		assert context != null;
 
 		// La fecha de salida y llegada programada no pueden ser nulas y la fecha de salida debe ser anterior a la fecha de llegada
 		boolean isScheduleCorrect = leg.getScheduledDeparture() != null && leg.getScheduledArrival() != null && MomentHelper.isBefore(leg.getScheduledDeparture(), leg.getScheduledArrival());
@@ -40,10 +39,9 @@ public class LegValidator extends AbstractValidator<ValidLeg, Leg> {
 
 		// El número de vuelo debe comenzar con el código IATA de la aerolínea
 		boolean isFlightNumberCorrect = true;
-		if (leg.getAircraft() != null && leg.getAircraft().getAirline() != null) {
+		if (leg.getAircraft() != null) {
 			String airlineIATACode = leg.getAircraft().getAirline().getCodeIATA();
-			if (airlineIATACode != null)
-				isFlightNumberCorrect = StringHelper.startsWith(leg.getFlightNumber(), airlineIATACode, true);
+			isFlightNumberCorrect = StringHelper.startsWith(leg.getFlightNumber(), airlineIATACode, true);
 		}
 		super.state(context, isFlightNumberCorrect, "flightNumber", "acme.validation.leg.invalid-flight-number.message");
 
