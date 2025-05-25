@@ -47,7 +47,7 @@ public class AssistanceAgentTrackingLogUpdateService extends AbstractGuiService<
 	private boolean validateStatus() {
 		if (super.getRequest().hasData("status")) {
 			String tlStatus = super.getRequest().getData("status", String.class);
-			if (tlStatus != null && !tlStatus.equals("0"))
+			if (!tlStatus.equals("0"))
 				try {
 					TrackingLogStatus.valueOf(tlStatus);
 				} catch (IllegalArgumentException e) {
@@ -83,7 +83,7 @@ public class AssistanceAgentTrackingLogUpdateService extends AbstractGuiService<
 		for (TrackingLog t : tls) {
 			if (t.getResolutionPercentage() == 100)
 				contador += 1;
-			if (tl.getResolutionPercentage() == 100) {
+			if (tl.getResolutionPercentage() != null && tl.getResolutionPercentage() == 100) {
 				if (contador >= 2)
 					super.state(false, "resolutionPercentage", "acme.validation.trackinglog.percentage-cant-be-100.message");
 				if (t.getResolutionPercentage() == 100 && t.getStatus() != tl.getStatus())
