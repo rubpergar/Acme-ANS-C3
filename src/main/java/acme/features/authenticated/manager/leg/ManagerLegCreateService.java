@@ -33,14 +33,14 @@ public class ManagerLegCreateService extends AbstractGuiService<Manager, Leg> {
 
 	@Override
 	public void authorise() {
+
 		int flightId = super.getRequest().getData("masterId", int.class);
 		Flight flight = this.repository.getFlightById(flightId);
-		Manager manager = (Manager) super.getRequest().getPrincipal().getActiveRealm();
-
-		boolean status = flight != null && flight.getIsDraft() && super.getRequest().getPrincipal().hasRealm(manager) && super.getRequest().getPrincipal().getAccountId() == flight.getAirlineManager().getUserAccount().getId();
-
-		if (super.getRequest().getMethod().equals("POST"))
-			status = status && this.validatePostFields();
+		boolean isDraftMode = flight.getIsDraft();
+		boolean isOwner = super.getRequest().getPrincipal().getAccountId() == flight.getAirlineManager().getUserAccount().getId();
+		boolean status = isDraftMode && isOwner;
+		if (status && super.getRequest().getMethod().equals("POST"))
+			status = this.validatePostFields();
 
 		super.getResponse().setAuthorised(status);
 	}
@@ -138,9 +138,9 @@ public class ManagerLegCreateService extends AbstractGuiService<Manager, Leg> {
 
 		SelectChoices selectedAircraft = new SelectChoices();
 
-		Collection<Aircraft> aircraftsActives = this.repository.findAircrafts();
+		Collection<Aircraft> aircraftsActives = this.repository.findAllAircraftsByStatus(AircraftStatus.ACTIVE);
 
-		List<Aircraft> finalAircrafts = aircraftsActives.stream().filter(a -> a.getAirline().getCodeIATA().equals(leg.getFlight().getAirlineManager().getAirline().getCodeIATA()) && a.getStatus() == AircraftStatus.ACTIVE).toList();
+		List<Aircraft> finalAircrafts = aircraftsActives.stream().filter(a -> a.getAirline().getCodeIATA().equals(leg.getFlight().getAirlineManager().getAirline().getCodeIATA())).toList();
 
 		dataset = super.unbindObject(leg, "flightNumber", "scheduledDeparture", "scheduledArrival");
 		dataset.put("masterId", leg.getFlight().getId());

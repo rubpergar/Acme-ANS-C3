@@ -34,10 +34,11 @@ public class ManagerLegUpdateService extends AbstractGuiService<Manager, Leg> {
 	public void authorise() {
 		int legId = super.getRequest().getData("id", int.class);
 		Leg leg = this.repository.getLegById(legId);
-		boolean status = leg.getIsDraft() && super.getRequest().getPrincipal().hasRealmOfType(Manager.class) && super.getRequest().getPrincipal().getAccountId() == leg.getFlight().getAirlineManager().getUserAccount().getId();
-
-		if (super.getRequest().getMethod().equals("POST"))
-			status = status && this.validatePostFields();
+		boolean isDraftMode = leg.getIsDraft();
+		boolean isOwner = super.getRequest().getPrincipal().getAccountId() == leg.getFlight().getAirlineManager().getUserAccount().getId();
+		boolean status = isDraftMode && isOwner;
+		if (status && super.getRequest().getMethod().equals("POST"))
+			status = this.validatePostFields();
 
 		super.getResponse().setAuthorised(status);
 	}
@@ -131,9 +132,9 @@ public class ManagerLegUpdateService extends AbstractGuiService<Manager, Leg> {
 
 		SelectChoices selectedAircraft = new SelectChoices();
 
-		Collection<Aircraft> aircraftsActives = this.repository.findAircrafts();
+		Collection<Aircraft> aircraftsActives = this.repository.findAllAircraftsByStatus(AircraftStatus.ACTIVE);
 
-		List<Aircraft> finalAircrafts = aircraftsActives.stream().filter(a -> a.getAirline().getCodeIATA().equals(leg.getFlight().getAirlineManager().getAirline().getCodeIATA()) && a.getStatus() == AircraftStatus.ACTIVE).toList();
+		List<Aircraft> finalAircrafts = aircraftsActives.stream().filter(a -> a.getAirline().getCodeIATA().equals(leg.getFlight().getAirlineManager().getAirline().getCodeIATA())).toList();
 
 		dataset = super.unbindObject(leg, "flightNumber", "scheduledDeparture", "scheduledArrival");
 		dataset.put("masterId", leg.getFlight().getId());
