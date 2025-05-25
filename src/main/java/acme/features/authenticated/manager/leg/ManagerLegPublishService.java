@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -118,11 +119,13 @@ public class ManagerLegPublishService extends AbstractGuiService<Manager, Leg> {
 
 	private void validateScheduledDeparture(final Leg leg) {
 		Date scheduledDeparture = leg.getScheduledDeparture();
-		Date currentMoment = MomentHelper.getCurrentMoment();
+		if (scheduledDeparture != null) {
+			Date currentMoment = MomentHelper.getCurrentMoment();
 
-		boolean validScheduledDeparture = MomentHelper.isAfter(scheduledDeparture, currentMoment);
+			boolean validScheduledDeparture = MomentHelper.isAfter(scheduledDeparture, currentMoment);
 
-		super.state(validScheduledDeparture, "scheduledDeparture", "acme.validation.leg.invalid-departure.message");
+			super.state(validScheduledDeparture, "scheduledDeparture", "acme.validation.leg.invalid-departure.message");
+		}
 	}
 
 	private void validateOverlappingLegs(final Leg leg) {
@@ -147,20 +150,13 @@ public class ManagerLegPublishService extends AbstractGuiService<Manager, Leg> {
 	}
 
 	private void validateAirportSequence(final Leg leg) {
-		Collection<Leg> legs = this.legRepository.getLegsByFlight2(leg.getFlight().getId());
-		List<Leg> legsToValidate = legs.stream().filter(l -> !l.getIsDraft()).collect(Collectors.toList());
-		List<Leg> sortedLegs = ManagerLegPublishService.sortLegsByDeparture(legsToValidate);
+		Collection<Leg> allLegs = this.legRepository.getLegsByFlight2(leg.getFlight().getId());
 
-		Leg previousLeg = null;
-		for (Leg candidate : sortedLegs)
-			if (candidate.getScheduledDeparture().before(leg.getScheduledDeparture()))
-				if (previousLeg == null || candidate.getScheduledDeparture().after(previousLeg.getScheduledDeparture()))
-					previousLeg = candidate;
+		List<Leg> previousLegs = allLegs.stream().filter(l -> !l.getIsDraft()).filter(l -> l.getScheduledDeparture().before(leg.getScheduledDeparture())).collect(Collectors.toList());
 
-		boolean validAirports = true;
-		if (previousLeg != null)
-			if (!previousLeg.getArrivalAirport().getCodeIATA().equals(leg.getDepartureAirport().getCodeIATA()))
-				validAirports = false;
+		Optional<Leg> maybePreviousLeg = previousLegs.stream().max(Comparator.comparing(Leg::getScheduledDeparture));
+
+		boolean validAirports = maybePreviousLeg.map(prev -> prev.getArrivalAirport().getCodeIATA().equals(leg.getDepartureAirport().getCodeIATA())).orElse(true);
 
 		super.state(validAirports, "*", "acme.validation.leg.invalid-airports.message");
 	}
@@ -227,7 +223,6 @@ public class ManagerLegPublishService extends AbstractGuiService<Manager, Leg> {
 		selectedAircraft = SelectChoices.from(finalAircrafts, "registrationNumber", leg.getAircraft());
 		dataset.put("aircrafts", selectedAircraft);
 		dataset.put("aircraft", selectedAircraft.getSelected().getKey());
-		dataset.put("duration", leg.getDuration());
 		dataset.put("isDraftFlight", leg.getFlight().getIsDraft());
 		dataset.put("codeIATA", leg.getFlight().getAirlineManager().getAirline().getCodeIATA());
 
@@ -237,6 +232,10 @@ public class ManagerLegPublishService extends AbstractGuiService<Manager, Leg> {
 		dataset.put("departureAirport", departureAirportChoices.getSelected().getKey());
 		dataset.put("arrivalAirports", arrivalAirportChoices);
 		dataset.put("arrivalAirport", arrivalAirportChoices.getSelected().getKey());
+		if (leg.getScheduledDeparture() != null && leg.getScheduledArrival() != null)
+			dataset.put("duration", leg.getDuration());
+		else
+			dataset.put("duration", null);
 
 		super.getResponse().addData(dataset);
 	}
