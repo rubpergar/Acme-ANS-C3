@@ -43,7 +43,7 @@ public class CustomerBookingPassengerCreateService extends AbstractGuiService<Cu
 			Integer passengerId = super.getRequest().getData("passenger", Integer.class);
 			if (passengerId != 0) {
 				// Pasajero no existente o es borrador
-				Passenger passenger = passengerId != null ? this.repository.findPassengerByIdAndCustomerId(passengerId, customerId) : null;
+				Passenger passenger = this.repository.findPassengerByIdAndCustomerId(passengerId, customerId);
 
 				boolean invalidPassenger = (passenger == null || passenger.getIsDraft()) && passengerId != null;
 
