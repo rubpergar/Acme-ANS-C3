@@ -37,22 +37,11 @@ public class AssistanceAgentTrackingLogCreateService extends AbstractGuiService<
 		masterId = super.getRequest().getData("masterId", int.class);
 		claim = this.claimRepository.getClaimById(masterId);
 
-		boolean hasAuthority = claim != null && super.getRequest().getPrincipal().hasRealmOfType(AssistanceAgent.class) && super.getRequest().getPrincipal().getAccountId() == claim.getAssistanceAgent().getUserAccount().getId();
-
-		if (super.getRequest().getMethod().equals("POST"))
-			hasAuthority = hasAuthority && this.validatePostFields();
-
-		super.getResponse().setAuthorised(hasAuthority);
-	}
-
-	private boolean validatePostFields() {
-		return this.validate100() && this.validateStatus();
-	}
-
-	private boolean validate100() {
-		int masterId = super.getRequest().getData("masterId", int.class);
 		int contador = 0;
+
 		Collection<TrackingLog> tls;
+
+		boolean hasAuthority = claim != null && super.getRequest().getPrincipal().hasRealmOfType(AssistanceAgent.class) && super.getRequest().getPrincipal().getAccountId() == claim.getAssistanceAgent().getUserAccount().getId();
 
 		tls = this.claimRepository.getTrackingLogByClaimId(masterId);
 
@@ -60,21 +49,22 @@ public class AssistanceAgentTrackingLogCreateService extends AbstractGuiService<
 			if (tl.getResolutionPercentage() == 100)
 				contador += 1;
 		if (contador >= 2)
-			return false;
+			hasAuthority = false;
 
-		return true;
+		if (super.getRequest().getMethod().equals("POST"))
+			hasAuthority = hasAuthority && this.validateStatus();
+
+		super.getResponse().setAuthorised(hasAuthority);
 	}
 
 	private boolean validateStatus() {
-		if (super.getRequest().hasData("status")) {
-			String tlStatus = super.getRequest().getData("status", String.class);
-			if (tlStatus != null && !tlStatus.equals("0"))
-				try {
-					TrackingLogStatus.valueOf(tlStatus);
-				} catch (IllegalArgumentException e) {
-					return false;
-				}
-		}
+		String tlStatus = super.getRequest().getData("status", String.class);
+		if (!tlStatus.equals("0"))
+			try {
+				TrackingLogStatus.valueOf(tlStatus);
+			} catch (IllegalArgumentException e) {
+				return false;
+			}
 		return true;
 	}
 
@@ -110,20 +100,12 @@ public class AssistanceAgentTrackingLogCreateService extends AbstractGuiService<
 	@Override
 	public void validate(final TrackingLog tl) {
 		int masterId = super.getRequest().getData("masterId", int.class);
-		Claim claim = this.claimRepository.getClaimById(masterId);
 		Collection<TrackingLog> tls = this.repository.findTrackingLogsByClaimId(masterId);
-		int contador = 0;
 
-		for (TrackingLog t : tls) {
-			if (t.getResolutionPercentage() == 100)
-				contador += 1;
-			if (tl.getResolutionPercentage() == 100) {
-				if (contador >= 2)
-					super.state(false, "resolutionPercentage", "acme.validation.trackinglog.percentage-cant-be-100.message");
+		for (TrackingLog t : tls)
+			if (tl.getResolutionPercentage() == 100)
 				if (t.getResolutionPercentage() == 100 && t.getStatus() != tl.getStatus())
 					super.state(false, "status", "acme.validation.trackinglog.wrong-status.message");
-			}
-		}
 	}
 
 	@Override
