@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import acme.client.components.models.Dataset;
 import acme.client.components.views.SelectChoices;
-import acme.client.helpers.MomentHelper;
 import acme.client.services.AbstractGuiService;
 import acme.client.services.GuiService;
 import acme.entities.claims.Claim;
@@ -32,35 +31,41 @@ public class AssistanceAgentClaimPublishService extends AbstractGuiService<Assis
 	public void authorise() {
 		Claim claim;
 		int claimId;
-		int userAccountId;
-		Integer legId = super.getRequest().getData("selectedLeg", int.class);
 
 		claimId = super.getRequest().getData("id", int.class);
 		claim = this.repository.getClaimById(claimId);
-		userAccountId = super.getRequest().getPrincipal().getAccountId();
 
-		boolean hasAuthority = claim.getAssistanceAgent().getUserAccount().getId() == userAccountId && claim != null;
+		boolean hasAuthority = claim != null && claim.isDraftMode() && claim.getAssistanceAgent().getUserAccount().getId() == super.getRequest().getPrincipal().getAccountId() && super.getRequest().getPrincipal().hasRealmOfType(AssistanceAgent.class);
 
-		if (!claim.isDraftMode())
-			hasAuthority = false;
+		if (super.getRequest().getMethod().equals("POST"))
+			hasAuthority = hasAuthority && this.validatePostFields();
 
+		super.getResponse().setAuthorised(hasAuthority);
+	}
+
+	private boolean validatePostFields() {
+		return this.validateStatus() && this.validateLeg();
+	}
+
+	private boolean validateLeg() {
+		Integer legId = super.getRequest().getData("selectedLeg", int.class);
 		if (legId != null && legId != 0) {
 			Leg leg = this.legRepo.getLegById(legId);
-			if (leg == null)
-				hasAuthority = false;
-			if (leg.getIsDraft())
-				hasAuthority = false;
+			if (leg == null || leg.getIsDraft())
+				return false;
 		}
+		return true;
+	}
 
+	private boolean validateStatus() {
 		String claimType = super.getRequest().getData("type", String.class);
 		if (claimType != null && !claimType.equals("0"))
 			try {
 				ClaimType.valueOf(claimType);
 			} catch (IllegalArgumentException e) {
-				hasAuthority = false;
+				return false;
 			}
-
-		super.getResponse().setAuthorised(hasAuthority);
+		return true;
 	}
 
 	@Override
@@ -76,32 +81,45 @@ public class AssistanceAgentClaimPublishService extends AbstractGuiService<Assis
 
 	@Override
 	public void bind(final Claim claim) {
-		assert claim != null;
+		int legId;
+		Leg leg;
 
-		super.bindObject(claim);
+		legId = super.getRequest().getData("selectedLeg", int.class);
+		leg = this.legRepo.getLegById(legId);
+
+		super.bindObject(claim, "email", "description", "type");
+
+		claim.setLeg(leg);
+
 	}
 
 	@Override
 	public void validate(final Claim claim) {
-		Integer legId = super.getRequest().getData("selectedLeg", int.class);
-		if (legId == null || legId == 0)
-			super.state(false, "selectedLeg", "javax.validation.constraints.NotNull.message");
-		Leg leg = this.legRepo.getLegById(legId);
-		if (leg.getScheduledArrival().after(MomentHelper.getCurrentMoment()))
-			super.state(false, "selectedLeg", "javax.validation.constraints.invalid-leg.message");
+		boolean hasChanges = true;
+
+		Claim claimOriginal = this.repository.getClaimById(claim.getId());
+
+		if (claim.getEmail() != null && !claim.getEmail().equals(claimOriginal.getEmail()))
+			hasChanges = false;
+		if (claim.getDescription() != null && !claim.getDescription().equals(claimOriginal.getDescription()))
+			hasChanges = false;
+		if (claim.getType() != null && !claim.getType().equals(claimOriginal.getType()))
+			hasChanges = false;
+		if (claim.getLeg() != null && !claim.getLeg().equals(claimOriginal.getLeg()))
+			hasChanges = false;
+
+		super.state(hasChanges, "*", "javax.validation.constraints.mustUpdate-first.message");
+
 	}
 
 	@Override
 	public void perform(final Claim claim) {
-		assert claim != null;
 		claim.setDraftMode(false);
 		this.repository.save(claim);
 	}
 
 	@Override
 	public void unbind(final Claim claim) {
-		assert claim != null;
-
 		Dataset dataset;
 
 		SelectChoices typeChoices;

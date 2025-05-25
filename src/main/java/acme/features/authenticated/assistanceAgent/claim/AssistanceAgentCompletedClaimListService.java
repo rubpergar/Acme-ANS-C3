@@ -46,7 +46,6 @@ public class AssistanceAgentCompletedClaimListService extends AbstractGuiService
 
 	@Override
 	public void unbind(final Claim claim) {
-		assert claim != null;
 		Dataset dataset;
 
 		ClaimStatus status = claim.getStatus();

@@ -55,23 +55,14 @@ public class AssistanceAgentTrackingLogShowService extends AbstractGuiService<As
 
 	@Override
 	public void unbind(final TrackingLog tl) {
-		assert tl != null;
-
 		Dataset dataset;
 		SelectChoices statusChoices;
-		final boolean showPublish;
-		Claim claim;
 
-		claim = this.repository.getClaimByTlId(tl.getId());
 		statusChoices = SelectChoices.from(TrackingLogStatus.class, tl.getStatus());
 
 		dataset = super.unbindObject(tl, "lastUpdate", "stepUndergoing", "resolutionPercentage", "resolution");
 		dataset.put("draftMode", tl.isDraftMode());
 		dataset.put("status", statusChoices);
-
-		showPublish = claim.isDraftMode() == false;
-
-		super.getResponse().addGlobal("showPublish", showPublish);
 
 		super.getResponse().addData(dataset);
 	}

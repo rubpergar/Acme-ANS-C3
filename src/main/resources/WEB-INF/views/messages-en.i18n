@@ -291,3 +291,6 @@ acme.validation.trackinglog.resolution-mandatory-if-status-not-pending.message =
 acme.validation.trackinglog.invalid-percentage.message = Percentage must be greater than the previous one
 acme.validation.trackinglog.wrong-status.message = When creating an extra tracking log, status must be the same
 acme.validation.trackinglog.percentage-cant-be-100.message = Maximum number of 100% resolution logs reached
+javax.validation.constraints.mustUpdate-first.message = Must update first
+java.constraint.trackinglog.update-first = Must update first
+java.constraint.trackinglog.claim-not-published = Claim must be updated first

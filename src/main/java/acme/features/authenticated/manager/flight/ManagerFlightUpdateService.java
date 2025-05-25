@@ -28,7 +28,7 @@ public class ManagerFlightUpdateService extends AbstractGuiService<Manager, Flig
 		flightId = super.getRequest().getData("id", int.class);
 		flight = this.repository.getFlightById(flightId);
 		userAccountId = super.getRequest().getPrincipal().getAccountId();
-		super.getResponse().setAuthorised(flight != null && flight.getIsDraft() && flight.getAirlineManager().getUserAccount().getId() == userAccountId); //el usuario es el manager del vuelo
+		super.getResponse().setAuthorised(flight.getIsDraft() && flight.getAirlineManager().getUserAccount().getId() == userAccountId); //el usuario es el manager del vuelo
 
 	}
 

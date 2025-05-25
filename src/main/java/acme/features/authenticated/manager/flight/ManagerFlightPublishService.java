@@ -10,7 +10,6 @@ import acme.client.services.AbstractGuiService;
 import acme.client.services.GuiService;
 import acme.entities.flights.Flight;
 import acme.entities.legs.Leg;
-import acme.entities.legs.LegRepository;
 import acme.realms.Manager;
 
 @GuiService
@@ -19,10 +18,7 @@ public class ManagerFlightPublishService extends AbstractGuiService<Manager, Fli
 	// Internal state ---------------------------------------------------------
 
 	@Autowired
-	private ManagerFlightRepository	repository;
-
-	@Autowired
-	private LegRepository			legRepository;
+	private ManagerFlightRepository repository;
 
 	// AbstractGuiService interface -------------------------------------------
 

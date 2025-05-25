@@ -47,8 +47,6 @@ public class AssistanceAgentClaimShowService extends AbstractGuiService<Assistan
 
 	@Override
 	public void unbind(final Claim claim) {
-		assert claim != null;
-
 		Dataset dataset;
 
 		SelectChoices typeChoices;

@@ -31,38 +31,41 @@ public class AssistanceAgentTrackingLogCreateService extends AbstractGuiService<
 
 	@Override
 	public void authorise() {
-		int contador = 0;
 		int masterId;
 		Claim claim;
-		Collection<TrackingLog> tls;
 
 		masterId = super.getRequest().getData("masterId", int.class);
 		claim = this.claimRepository.getClaimById(masterId);
 
-		boolean hasAuthority = super.getRequest().getPrincipal().hasRealmOfType(AssistanceAgent.class) && claim != null;
+		int contador = 0;
 
-		if (claim != null) {
-			tls = this.claimRepository.getTrackingLogByClaimId(masterId);
+		Collection<TrackingLog> tls;
 
-			for (TrackingLog tl : tls)
-				if (tl.getResolutionPercentage() == 100)
-					contador += 1;
-			if (contador >= 2)
-				hasAuthority = false;
-		}
+		boolean hasAuthority = claim != null && super.getRequest().getPrincipal().hasRealmOfType(AssistanceAgent.class) && super.getRequest().getPrincipal().getAccountId() == claim.getAssistanceAgent().getUserAccount().getId();
 
-		if (super.getRequest().hasData("status")) {
-			String tlStatus = super.getRequest().getData("status", String.class);
-			if (tlStatus != null && !tlStatus.equals("0"))
-				try {
-					TrackingLogStatus.valueOf(tlStatus);
-				} catch (IllegalArgumentException e) {
-					hasAuthority = false;
-				}
+		tls = this.claimRepository.getTrackingLogByClaimId(masterId);
 
-		}
+		for (TrackingLog tl : tls)
+			if (tl.getResolutionPercentage() == 100)
+				contador += 1;
+		if (contador >= 2)
+			hasAuthority = false;
+
+		if (super.getRequest().getMethod().equals("POST"))
+			hasAuthority = hasAuthority && this.validateStatus();
 
 		super.getResponse().setAuthorised(hasAuthority);
+	}
+
+	private boolean validateStatus() {
+		String tlStatus = super.getRequest().getData("status", String.class);
+		if (!tlStatus.equals("0"))
+			try {
+				TrackingLogStatus.valueOf(tlStatus);
+			} catch (IllegalArgumentException e) {
+				return false;
+			}
+		return true;
 	}
 
 	@Override
@@ -97,26 +100,16 @@ public class AssistanceAgentTrackingLogCreateService extends AbstractGuiService<
 	@Override
 	public void validate(final TrackingLog tl) {
 		int masterId = super.getRequest().getData("masterId", int.class);
-		Claim claim = this.claimRepository.getClaimById(masterId);
 		Collection<TrackingLog> tls = this.repository.findTrackingLogsByClaimId(masterId);
-		int contador = 0;
 
-		for (TrackingLog t : tls) {
-			if (t.getResolutionPercentage() == 100)
-				contador += 1;
-			if (tl.getResolutionPercentage() == 100) {
-				if (contador >= 2)
-					super.state(false, "resolutionPercentage", "acme.validation.trackinglog.percentage-cant-be-100.message");
+		for (TrackingLog t : tls)
+			if (tl.getResolutionPercentage() == 100)
 				if (t.getResolutionPercentage() == 100 && t.getStatus() != tl.getStatus())
 					super.state(false, "status", "acme.validation.trackinglog.wrong-status.message");
-			}
-		}
 	}
 
 	@Override
 	public void perform(final TrackingLog tl) {
-		assert tl != null;
-
 		tl.setClaim(tl.getClaim());
 		tl.setLastUpdate(MomentHelper.getCurrentMoment());
 		tl.setStepUndergoing(tl.getStepUndergoing());
@@ -130,8 +123,6 @@ public class AssistanceAgentTrackingLogCreateService extends AbstractGuiService<
 
 	@Override
 	public void unbind(final TrackingLog tl) {
-		assert tl != null;
-
 		Dataset dataset;
 		SelectChoices statusChoices;
 

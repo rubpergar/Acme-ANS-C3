@@ -30,29 +30,37 @@ public class AssistanceAgentClaimCreateService extends AbstractGuiService<Assist
 
 	@Override
 	public void authorise() {
-
 		boolean hasAuthority = super.getRequest().getPrincipal().hasRealmOfType(AssistanceAgent.class);
 
-		if (super.getRequest().hasData("id")) {
+		if (super.getRequest().getMethod().equals("POST"))
+			hasAuthority = hasAuthority && this.validatePostFields();
 
-			Integer legId = super.getRequest().getData("selectedLeg", int.class);
-			if (legId != null && legId != 0) {
-				Leg leg = this.legRepo.getLegById(legId);
-				if (leg == null)
-					hasAuthority = false;
-				else if (leg.getIsDraft())
-					hasAuthority = false;
-			}
-			String claimType = super.getRequest().getData("type", String.class);
-			if (claimType != null && !claimType.equals("0"))
-				try {
-					ClaimType.valueOf(claimType);
-				} catch (IllegalArgumentException e) {
-					hasAuthority = false;
-				}
-		}
 		super.getResponse().setAuthorised(hasAuthority);
+	}
 
+	private boolean validatePostFields() {
+		return this.validateStatus() && this.validateLeg();
+	}
+
+	private boolean validateLeg() {
+		Integer legId = super.getRequest().getData("selectedLeg", int.class);
+		if (legId != 0) {
+			Leg leg = this.legRepo.getLegById(legId);
+			if (leg == null || leg.getIsDraft())
+				return false;
+		}
+		return true;
+	}
+
+	private boolean validateStatus() {
+		String claimType = super.getRequest().getData("type", String.class);
+		if (!claimType.equals("0"))
+			try {
+				ClaimType.valueOf(claimType);
+			} catch (IllegalArgumentException e) {
+				return false;
+			}
+		return true;
 	}
 
 	@Override
@@ -68,13 +76,11 @@ public class AssistanceAgentClaimCreateService extends AbstractGuiService<Assist
 
 	@Override
 	public void bind(final Claim claim) {
-		assert claim != null;
 		int legId;
 		Leg leg;
 
 		legId = super.getRequest().getData("selectedLeg", int.class);
 		leg = this.repository.getLegById(legId).orElse(null);
-		//		claim.setAssistanceAgent(this.repository.getAgentById(super.getRequest().getPrincipal().getActiveRealm().getId()));
 
 		super.bindObject(claim, "email", "description", "type");
 
@@ -83,9 +89,8 @@ public class AssistanceAgentClaimCreateService extends AbstractGuiService<Assist
 
 	@Override
 	public void validate(final Claim claim) {
-		assert claim != null;
 		Integer legId = super.getRequest().getData("selectedLeg", int.class);
-		if (legId == null || legId == 0)
+		if (legId == 0)
 			super.state(false, "selectedLeg", "javax.validation.constraints.NotNull.message");
 		Leg leg = this.legRepo.getLegById(legId);
 		if (leg != null)
@@ -107,7 +112,6 @@ public class AssistanceAgentClaimCreateService extends AbstractGuiService<Assist
 
 	@Override
 	public void unbind(final Claim claim) {
-		assert claim != null;
 		Dataset dataset;
 		SelectChoices typeChoices;
 		SelectChoices legs;
