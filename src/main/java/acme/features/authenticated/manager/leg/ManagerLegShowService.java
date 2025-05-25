@@ -16,7 +16,6 @@ import acme.entities.airports.Airport;
 import acme.entities.flights.Flight;
 import acme.entities.legs.Leg;
 import acme.entities.legs.LegStatus;
-import acme.features.authenticated.manager.flight.ManagerFlightRepository;
 import acme.realms.Manager;
 
 @GuiService
@@ -25,22 +24,19 @@ public class ManagerLegShowService extends AbstractGuiService<Manager, Leg> {
 	// Internal state ---------------------------------------------------------
 
 	@Autowired
-	private ManagerLegRepository	repository;
-
-	@Autowired
-	private ManagerFlightRepository	repositoryFlight;
+	private ManagerLegRepository repository;
 
 	// AbstractGuiService interface ------------------------------------------
 
 
 	@Override
 	public void authorise() {
-		boolean status;
+		boolean status = true;
 		int legId = super.getRequest().getData("id", int.class);
 		Flight flight = this.repository.getFlightByLegId(legId);
-
-		status = flight != null && (!flight.getIsDraft() || super.getRequest().getPrincipal().hasRealm(flight.getAirlineManager()) && super.getRequest().getPrincipal().getAccountId() == flight.getAirlineManager().getUserAccount().getId());
-
+		boolean isOwner = super.getRequest().getPrincipal().getAccountId() == flight.getAirlineManager().getUserAccount().getId();
+		if (!isOwner)
+			status = false;
 		super.getResponse().setAuthorised(status);
 	}
 
@@ -69,9 +65,9 @@ public class ManagerLegShowService extends AbstractGuiService<Manager, Leg> {
 
 		SelectChoices selectedAircraft = new SelectChoices();
 
-		Collection<Aircraft> aircraftsActives = this.repository.findAircrafts();
+		Collection<Aircraft> aircraftsActives = this.repository.findAllAircraftsByStatus(AircraftStatus.ACTIVE);
 
-		List<Aircraft> finalAircrafts = aircraftsActives.stream().filter(a -> a.getAirline().getCodeIATA().equals(leg.getFlight().getAirlineManager().getAirline().getCodeIATA()) && a.getStatus() == AircraftStatus.ACTIVE).toList();
+		List<Aircraft> finalAircrafts = aircraftsActives.stream().filter(a -> a.getAirline().getCodeIATA().equals(leg.getFlight().getAirlineManager().getAirline().getCodeIATA())).toList();
 
 		dataset = super.unbindObject(leg, "flightNumber", "scheduledDeparture", "scheduledArrival");
 		dataset.put("masterId", leg.getFlight().getId());

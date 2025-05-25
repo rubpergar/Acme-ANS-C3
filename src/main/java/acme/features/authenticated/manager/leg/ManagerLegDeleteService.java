@@ -37,7 +37,7 @@ public class ManagerLegDeleteService extends AbstractGuiService<Manager, Leg> {
 		boolean status = false;
 
 		Flight flight = leg.getFlight();
-		status = leg.getIsDraft() && super.getRequest().getPrincipal().hasRealm(flight.getAirlineManager()) && super.getRequest().getPrincipal().getAccountId() == flight.getAirlineManager().getUserAccount().getId();
+		status = leg.getIsDraft() && super.getRequest().getPrincipal().getAccountId() == flight.getAirlineManager().getUserAccount().getId();
 
 		super.getResponse().setAuthorised(status);
 	}
@@ -82,9 +82,9 @@ public class ManagerLegDeleteService extends AbstractGuiService<Manager, Leg> {
 
 		SelectChoices selectedAircraft = new SelectChoices();
 
-		Collection<Aircraft> aircraftsActives = this.repository.findAircrafts();
+		Collection<Aircraft> aircraftsActives = this.repository.findAllAircraftsByStatus(AircraftStatus.ACTIVE);
 
-		List<Aircraft> finalAircrafts = aircraftsActives.stream().filter(a -> a.getAirline().getCodeIATA().equals(leg.getFlight().getAirlineManager().getAirline().getCodeIATA()) && a.getStatus() == AircraftStatus.ACTIVE).toList();
+		List<Aircraft> finalAircrafts = aircraftsActives.stream().filter(a -> a.getAirline().getCodeIATA().equals(leg.getFlight().getAirlineManager().getAirline().getCodeIATA())).toList();
 
 		dataset = super.unbindObject(leg, "flightNumber", "scheduledDeparture", "scheduledArrival");
 		dataset.put("masterId", leg.getFlight().getId());
