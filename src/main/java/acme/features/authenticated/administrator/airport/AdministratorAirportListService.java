@@ -36,7 +36,6 @@ public class AdministratorAirportListService extends AbstractGuiService<Administ
 
 	@Override
 	public void unbind(final Airport airport) {
-		assert airport != null;
 
 		Dataset dataset;
 
