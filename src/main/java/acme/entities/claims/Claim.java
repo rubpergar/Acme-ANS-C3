@@ -33,7 +33,7 @@ import lombok.Setter;
 @Setter
 @ValidClaim
 @Table(indexes = {
-	@Index(columnList = "assistance_agent_id"), @Index(columnList = "leg_id")
+	@Index(columnList = "assistance_agent_id")
 })
 public class Claim extends AbstractEntity {
 
