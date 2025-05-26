@@ -58,3 +58,8 @@ master.menu.user-account.consumer-profile = Perfil de consumidor
 master.menu.member = Miembro
 master.menu.member.listCompleted-flightAssignment = Asignaciones de vuelos para tramos completados
 master.menu.member.listUncompleted-flightAssignment = Asignaciones de vuelos para tramos incompletos
+
+# master.menu.agent #############################################################
+master.menu.assistanceAgent = Agente de asistencia
+master.menu.assistanceAgent.completed-list-claims = Lista de quejas completadas
+master.menu.assistanceAgent.pending-list-claims = Lista de quejas pendientes

@@ -148,6 +148,47 @@ manager.flight.list.label.selfTransfer = ¿Tienes que hacer el cambio de vuelo p
 manager.flight.list.label.isDraft = ¿Es un borrador?
 manager.flight.legs = Etapas del vuelo
 
+assistance-agent.claim.list.title = Lista de quejas
+assistanceAgent.claim.list.label.registrationMoment = Hora de registro
+assistanceAgent.claim.list.label.email = Email
+assistanceAgent.claim.list.label.description = Descripción
+assistanceAgent.claim.list.label.type = Tipo
+assistanceAgent.claim.list.label.status = Estado
+assistanceAgent.claim.list.label.draftMode = Modo borrador
+
+assistance-agent.claim.form.title = Queja
+assistanceAgent.claim.create = Crear
+assistanceAgent.claim.form.button.create = Crear
+assistanceAgent.claim.form.button.update = Actualizar
+assistanceAgent.claim.form.button.delete = Borrar
+assistanceAgent.claim.form.button.publish = Publicar
+assistanceAgent.claim.trackingLogs = Registros de seguimiento de la queja
+assistanceAgent.claim.form.label.registrationMoment = Hora de registro
+assistanceAgent.claim.form.label.email = Email
+assistanceAgent.claim.form.label.description = Descripción
+assistanceAgent.claim.form.label.type = Tipo
+assistanceAgent.claim.form.label.status = Estado
+assistanceAgent.claim.form.label.leg = Tramo de vuelo
+
+assistance-agent.tracking-log.list.title = Registros de Seguimiento
+assistanceAgent.trackingLog.list.label.lastUpdate = Última actualización
+assistanceAgent.trackingLog.list.label.stepUndergoing = Etapa en curso
+assistanceAgent.trackingLog.list.label.resolutionPercentage = Porcentaje de resolución
+assistanceAgent.trackingLog.list.label.status = Estado
+assistanceAgent.trackingLog.list.label.resolution = Resolución
+assistanceAgent.trackingLog.list.label.draftMode = Modo borrador
+
+assistance-agent.tracking-log.form.title = Registro de seguimiento
+assistanceAgent.trackingLog.form.button.create = Crear
+assistanceAgent.trackingLog.form.button.update = Actualizar
+assistanceAgent.trackingLog.form.button.delete = Borrar
+assistanceAgent.trackingLog.form.button.publish = Publicar
+assistanceAgent.trackingLog.form.label.lastUpdate = Última actualización
+assistanceAgent.trackingLog.form.label.stepUndergoing  = Etapa en curso
+assistanceAgent.trackingLog.form.label.resolutionPercentage = Porcentaje de resolución
+assistanceAgent.trackingLog.form.label.status = Estado
+assistanceAgent.trackingLog.form.label.resolution = Resolución 
+
 master.menu.administrator.list-aircrafts = Listar aeronaves
 administrator.aircraft.list.title = Aeronaves
 administrator.aircraft.form.title = Aeronave
@@ -166,6 +207,33 @@ administrator.aircraft.list.button.create = Crear aeronave
 administrator.airport.form.button.update = Actualizar
 administrator.airport.form.button.disable = Deshabilitar
 administrator.aircraft.form.button.create = Crear aeronave
+
+master.menu.administrator.list-airport = Lista de aeropuertos
+administrator.airport.list.title = Aeropuertos
+administrator.airport.list.label.name = Nombre
+administrator.airport.list.label.IATAcode = IATA
+administrator.airport.list.label.scope = Alcance
+administrator.airport.list.label.city = Ciudad
+administrator.airport.list.label.country = País
+administrator.airport.list.label.web = Web
+administrator.airport.list.label.email = Email
+administrator.airport.list.label.phone = Número de teléfono
+
+administrator.airport.list.button.create = Crear aeropuerto
+
+administrator.airport.form.title = Aeropuerto
+administrator.airport.form.label.name = Nombre
+administrator.airport.form.label.IATAcode = IATA
+administrator.airport.form.label.scope = Alcance
+administrator.airport.form.label.city = Ciudad
+administrator.airport.form.label.country = País
+administrator.airport.form.label.web = Web
+administrator.airport.form.label.email = Email
+administrator.airport.form.label.phone = Número de teléfono
+
+administrator.airport.form.label.confirmation = ¿Seguro que quiere continuar con esta acción?
+administrator.airport.form.button.update = Actualizar
+administrator.airport.form.button.create = Crear
 
 manager.leg.list.title = Tramos del vuelo
 manager.leg.list.label.flightNumber = Número de vuelo (Debe comenzar con el código IATA de la aerolínea. Ej: AAX)
@@ -210,3 +278,13 @@ customer.booking.passengerInfo = Información del pasajero
 customer.passenger.form.error.booking-passenger.exists = El pasajero ya está asignado a la reserva. Por favor, proporcione un pasajero diferente.
 acme.validation.booking.after-flight.message = La reserva no puede ser realizada después de que el vuelo haya salido
 customer.validation.booking.form.error.emtyPassengers = No puedes realizar esta acción para una reserva que no tiene pasajeros.
+
+javax.validation.constraints.invalid-leg.message = El tramo de vuelo debe haber ocurrido
+acme.validation.trackinglog.invalid-status.message = Estado inválido, por favor eliga otro
+acme.validation.trackinglog.resolution-mandatory-if-status-not-pending.message = Debe tener resolución
+acme.validation.trackinglog.invalid-percentage.message = El porcentaje debe ser mayor que el anterior
+acme.validation.trackinglog.wrong-status.message = Cuando se crea un registro de seguimiento extra, el estado debe de ser el mismo
+acme.validation.trackinglog.percentage-cant-be-100.message = Numero máximo de registros de seguimiento al 100% alcanzado
+javax.validation.constraints.mustUpdate-first.message = Debe actualizar primero
+java.constraint.trackinglog.update-first = Debe actualizar primero
+javax.validation.constraints.claim-must-be-published = La queja debe estar publicada
