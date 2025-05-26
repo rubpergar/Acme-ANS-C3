@@ -86,7 +86,7 @@ public class AssistanceAgentTrackingLogUpdateService extends AbstractGuiService<
 			if (tl.getResolutionPercentage() != null && tl.getResolutionPercentage() == 100) {
 				if (contador >= 2)
 					super.state(false, "resolutionPercentage", "acme.validation.trackinglog.percentage-cant-be-100.message");
-				if (t.getResolutionPercentage() == 100 && t.getStatus() != tl.getStatus())
+				if (t.getResolutionPercentage() == 100 && t.getStatus() != tl.getStatus() && t.getId() != tl.getId())
 					super.state(false, "status", "acme.validation.trackinglog.wrong-status.message");
 			}
 		}
