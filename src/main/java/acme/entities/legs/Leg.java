@@ -5,7 +5,9 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Index;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
@@ -27,6 +29,9 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
+@Table(indexes = {
+	@Index(columnList = "flight_id"), @Index(columnList = "aircraft_id"), @Index(columnList = "departure_airport_id"), @Index(columnList = "arrival_airport_id"), @Index(columnList = "status"), @Index(columnList = "flightNumber")
+})
 @ValidLeg
 public class Leg extends AbstractEntity {
 
