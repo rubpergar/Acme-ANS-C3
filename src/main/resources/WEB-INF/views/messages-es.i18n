@@ -11,8 +11,8 @@ acme.validation.leg.invalid-flight-number.message=El número de vuelo debe comen
 
 acme.validation.flight.overlapping.message=Los tramos del vuelo no pueden solaparse
 
-acme.validation.manager.null-identity.message=La identidad del manager no puede estar vacía. Asegúrese de proporcionar un nombre y apellidos válidos.
-acme.validation.manager.invalid-identifier.message=El identificador del manager es inválido. Debe comenzar con sus iniciales (2 o 3 letras mayúsculas), seguidas de 6 dígitos.
+acme.validation.manager.null-identity.message=La identidad del gerente no puede estar vacía. Asegúrese de proporcionar un nombre y apellidos válidos.
+acme.validation.manager.invalid-identifier.message=El identificador del gerente es inválido. Debe comenzar con sus iniciales (2 o 3 letras mayúsculas), seguidas de 6 dígitos.
 
 acme.validation.PromotionCode.message=El código de promoción no es válido. Debe seguir un patrón de cuatro letras mayúsculas seguidas de dos dígitos que representen el año actual.
 
@@ -26,7 +26,6 @@ acme.validation.manager.invalid-identifier-not-duplication.message= El identific
 
 acme.validation.manager.invalid-identifier-notNull.message= El identificador del cliente no es válido. El identificador del cliente no puede ser nulo.
 
-acme.validation.manager.invalid-identifier.message = El identificador del cliente no es válido. Debe comenzar con 2 o 3 letras mayúsculas, seguidas de exactamente 6 dígitos, sin espacios ni caracteres especiales.
 
 acme.validation.LastNibbleWrongFormat.message = El formato del último nibble no es válido. El sistema debe registrar los últimos 4 números de la tarjeta de crédito.
 
@@ -147,6 +146,9 @@ manager.flight.list.label.description = Descripción
 manager.flight.list.label.selfTransfer = ¿Tienes que hacer el cambio de vuelo por tu cuenta?
 manager.flight.list.label.isDraft = ¿Es un borrador?
 manager.flight.legs = Etapas del vuelo
+
+master.menu.manager=Gerente
+master.menu.manager.list-flights = Listar vuelos
 
 assistance-agent.claim.list.title = Lista de quejas
 assistanceAgent.claim.list.label.registrationMoment = Hora de registro
