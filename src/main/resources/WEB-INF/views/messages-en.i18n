@@ -32,7 +32,7 @@ acme.validation.birthday.invalid-date.message=The minimum age to work in Spain i
 
 acme.validation.leg.invalid-airport.message=The arrival airport can't the same that the departure airport. 
 
-acme.validation.leg.invalid-flight-number-manager.message =The flight number is invalid. It must start with the airline's IATA code, followed by a hyphen and a sequence of digits (e.g., AAX-1234).
+acme.validation.leg.invalid-flight-number-manager.message =The flight number is invalid. It must start with the airline's IATA code, followed by four digits (e.g., AAX-1234).
 
 acme.validation.length.message = Too long. 
 acme.validation.leg.duplicate-flight-number.message=The flight number is already in use. Please provide a different one.
@@ -48,6 +48,8 @@ manager.leg.error.invalid-aircraft = The aircraft is not active. Please select a
 acme.validation.leg.invalid-dates.message = The time difference between two legs cannot surpass 48 hours.
 
 acme.validation.leg.published-legs-not-allowed.message = The flight cannot be deleted because one of his legs are published. 
+
+acme.validation.flight-number.message = The flight number is invalid. It must start with the airline's IATA code, followed by a hyphen and a sequence of digits (e.g., AAX1234).
 
 manager.flight.form.label.tag = Tag
 manager.flight.form.label.cost = Cost
@@ -177,7 +179,7 @@ administrator.airport.form.button.update = Update
 administrator.airport.form.button.create = Create
 
 manager.leg.list.title = Legs of the flight
-manager.leg.list.label.flightNumber = Flight number (It must start with IATAcode of airline.Ej:AAX)
+manager.leg.list.label.flightNumber = Flight number (Replace 'abcd' with four digits)
 manager.leg.list.label.flightNumber2 = Flight number
 manager.leg.list.label.scheduledDeparture = Sche.dep
 manager.leg.list.label.scheduledArrival = Sche.arr
@@ -185,7 +187,7 @@ manager.leg.list.label.status = Status
 manager.leg.create.button = Create Leg
 manager.leg.list.label.departureAirport = Dep.airp
 manager.leg.list.label.arrivalAirport = Arr.airp
-manager.leg.list.label.aircraft = Aircraft (Airline's IATAcode)
+manager.leg.list.label.aircraft = Aircraft 
 manager.leg.list.label.aircraft2 = Aircraft
 manager.leg.form.title=Leg details
 manager.leg.form.button.update=Update

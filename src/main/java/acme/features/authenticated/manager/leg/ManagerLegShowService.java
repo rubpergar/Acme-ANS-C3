@@ -2,7 +2,6 @@
 package acme.features.authenticated.manager.leg;
 
 import java.util.Collection;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -31,12 +30,13 @@ public class ManagerLegShowService extends AbstractGuiService<Manager, Leg> {
 
 	@Override
 	public void authorise() {
-		boolean status = true;
+		boolean status;
+		Leg leg;
 		int legId = super.getRequest().getData("id", int.class);
 		Flight flight = this.repository.getFlightByLegId(legId);
+		leg = this.repository.getLegById(legId);
 		boolean isOwner = super.getRequest().getPrincipal().getAccountId() == flight.getAirlineManager().getUserAccount().getId();
-		if (!isOwner)
-			status = false;
+		status = leg != null && (!leg.getIsDraft() || isOwner);
 		super.getResponse().setAuthorised(status);
 	}
 
@@ -67,13 +67,13 @@ public class ManagerLegShowService extends AbstractGuiService<Manager, Leg> {
 
 		Collection<Aircraft> aircraftsActives = this.repository.findAllAircraftsByStatus(AircraftStatus.ACTIVE);
 
-		List<Aircraft> finalAircrafts = aircraftsActives.stream().filter(a -> a.getAirline().getCodeIATA().equals(leg.getFlight().getAirlineManager().getAirline().getCodeIATA())).toList();
+		//List<Aircraft> finalAircrafts = aircraftsActives.stream().filter(a -> a.getAirline().getCodeIATA().equals(leg.getFlight().getAirlineManager().getAirline().getCodeIATA())).toList();
 
 		dataset = super.unbindObject(leg, "flightNumber", "scheduledDeparture", "scheduledArrival");
 		dataset.put("masterId", leg.getFlight().getId());
 		dataset.put("isDraft", leg.getIsDraft());
 		dataset.put("status", choices);
-		selectedAircraft = SelectChoices.from(finalAircrafts, "registrationNumber", leg.getAircraft());
+		selectedAircraft = SelectChoices.from(aircraftsActives, "registrationNumber", leg.getAircraft());
 		dataset.put("aircrafts", selectedAircraft);
 		dataset.put("aircraft", selectedAircraft.getSelected().getKey());
 		dataset.put("duration", leg.getDuration());

@@ -14,10 +14,10 @@ import acme.client.components.basis.AbstractRole;
 import acme.client.components.mappings.Automapped;
 import acme.client.components.validation.Mandatory;
 import acme.client.components.validation.Optional;
+import acme.client.components.validation.ValidMoment;
 import acme.client.components.validation.ValidNumber;
 import acme.client.components.validation.ValidString;
 import acme.client.components.validation.ValidUrl;
-import acme.constraints.ValidBirthday;
 import acme.constraints.ValidManager;
 import acme.entities.airline.Airline;
 import lombok.Getter;
@@ -46,7 +46,7 @@ public class Manager extends AbstractRole {
 	private Integer				yearsOfExperience;
 
 	@Mandatory
-	@ValidBirthday
+	@ValidMoment(past = true)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date				dateOfBirth;
 
