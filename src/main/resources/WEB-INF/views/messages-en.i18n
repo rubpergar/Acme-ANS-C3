@@ -32,7 +32,7 @@ acme.validation.birthday.invalid-date.message=The minimum age to work in Spain i
 
 acme.validation.leg.invalid-airport.message=The arrival airport can't the same that the departure airport. 
 
-acme.validation.leg.invalid-flight-number-manager.message =The flight number is invalid. It must start with the airline's IATA code, followed by a hyphen and a sequence of digits (e.g., AAX-1234).
+acme.validation.leg.invalid-flight-number-manager.message =The flight number is invalid. It must start with the airline's IATA code, followed by four digits (e.g., AAX-1234).
 
 acme.validation.length.message = Too long. 
 acme.validation.leg.duplicate-flight-number.message=The flight number is already in use. Please provide a different one.
@@ -187,7 +187,7 @@ manager.leg.list.label.status = Status
 manager.leg.create.button = Create Leg
 manager.leg.list.label.departureAirport = Dep.airp
 manager.leg.list.label.arrivalAirport = Arr.airp
-manager.leg.list.label.aircraft = Aircraft (Airline's IATAcode)
+manager.leg.list.label.aircraft = Aircraft 
 manager.leg.list.label.aircraft2 = Aircraft
 manager.leg.form.title=Leg details
 manager.leg.form.button.update=Update

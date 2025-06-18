@@ -23,7 +23,7 @@ acme.validation.manager.invalid-identifier-not-duplication.message= El identific
 
 acme.validation.manager.invalid-identifier-notNull.message= El identificador del cliente no es válido. El identificador del cliente no puede ser nulo.
 
-acme.validation.flight-number.message = El número de vuelo debe comenzar con el código IATA de la aerolínea, seguido de una secuencia de dígitos (ej, AAX1234). 
+acme.validation.flight-number.message = El número de vuelo debe comenzar con el código IATA de la aerolínea, seguido de cuatro dígitos (ej, AAX1234). 
 
 acme.validation.LastNibbleWrongFormat.message = El formato del último nibble no es válido. El sistema debe registrar los últimos 4 números de la tarjeta de crédito.
 
@@ -244,7 +244,7 @@ manager.leg.list.label.status = Estado
 manager.leg.create.button = Crear tramo
 manager.leg.list.label.departureAirport = Aerop. salida
 manager.leg.list.label.arrivalAirport = Aerop. llegada
-manager.leg.list.label.aircraft = Aeronave (código IATA de la aerolínea)
+manager.leg.list.label.aircraft = Aeronave
 manager.leg.list.label.aircraft2 = Aeronave
 manager.leg.form.title=Detalles del tramo etapa
 manager.leg.form.button.update=Actualizar
