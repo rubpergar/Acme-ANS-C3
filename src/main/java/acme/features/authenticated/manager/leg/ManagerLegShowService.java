@@ -31,12 +31,13 @@ public class ManagerLegShowService extends AbstractGuiService<Manager, Leg> {
 
 	@Override
 	public void authorise() {
-		boolean status = true;
+		boolean status;
+		Leg leg;
 		int legId = super.getRequest().getData("id", int.class);
 		Flight flight = this.repository.getFlightByLegId(legId);
+		leg = this.repository.getLegById(legId);
 		boolean isOwner = super.getRequest().getPrincipal().getAccountId() == flight.getAirlineManager().getUserAccount().getId();
-		if (!isOwner)
-			status = false;
+		status = leg != null && (!leg.getIsDraft() || isOwner);
 		super.getResponse().setAuthorised(status);
 	}
 
