@@ -11,11 +11,8 @@ import acme.client.components.validation.AbstractValidator;
 import acme.client.components.validation.Validator;
 import acme.client.helpers.MomentHelper;
 import acme.client.helpers.StringHelper;
-import acme.entities.airline.Airline;
-import acme.entities.flights.Flight;
 import acme.entities.legs.Leg;
 import acme.entities.legs.LegRepository;
-import acme.realms.Manager;
 
 @Validator
 public class LegValidator extends AbstractValidator<ValidLeg, Leg> {
@@ -40,7 +37,7 @@ public class LegValidator extends AbstractValidator<ValidLeg, Leg> {
 		// El número de vuelo debe comenzar con el código IATA de la aerolínea
 		boolean isFlightNumberCorrect = true;
 		if (leg.getAircraft() != null) {
-			String airlineIATACode = leg.getAircraft().getAirline().getCodeIATA();
+			String airlineIATACode = leg.getFlight().getAirlineManager().getAirline().getCodeIATA();
 			isFlightNumberCorrect = StringHelper.startsWith(leg.getFlightNumber(), airlineIATACode, true);
 		}
 		super.state(context, isFlightNumberCorrect, "flightNumber", "acme.validation.leg.invalid-flight-number.message");
@@ -56,11 +53,11 @@ public class LegValidator extends AbstractValidator<ValidLeg, Leg> {
 		if (legWithSameFlightNumber.isPresent() && legWithSameFlightNumber.get().getId() != leg.getId())
 			super.state(context, false, "flightNumber", "acme.validation.leg.duplicate-flight-number.message");
 
-		Flight flight = leg.getFlight();
-		Manager manager = flight.getAirlineManager();
-		Airline airline = manager.getAirline();
-		if (!StringHelper.startsWith(leg.getFlightNumber(), airline.getCodeIATA(), true))
-			super.state(context, false, "flightNumber", "acme.validation.leg.invalid-flight-number-manager.message");
+		//Flight flight = leg.getFlight();
+		//Manager manager = flight.getAirlineManager();
+		//Airline airline = manager.getAirline();
+		//if (!StringHelper.startsWith(leg.getFlightNumber(), airline.getCodeIATA(), true))
+		//super.state(context, false, "flightNumber", "acme.validation.leg.invalid-flight-number-manager.message");
 
 		return !super.hasErrors(context);
 	}

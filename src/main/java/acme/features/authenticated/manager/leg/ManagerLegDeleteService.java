@@ -2,7 +2,6 @@
 package acme.features.authenticated.manager.leg;
 
 import java.util.Collection;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -84,13 +83,13 @@ public class ManagerLegDeleteService extends AbstractGuiService<Manager, Leg> {
 
 		Collection<Aircraft> aircraftsActives = this.repository.findAllAircraftsByStatus(AircraftStatus.ACTIVE);
 
-		List<Aircraft> finalAircrafts = aircraftsActives.stream().filter(a -> a.getAirline().getCodeIATA().equals(leg.getFlight().getAirlineManager().getAirline().getCodeIATA())).toList();
+		//List<Aircraft> finalAircrafts = aircraftsActives.stream().filter(a -> a.getAirline().getCodeIATA().equals(leg.getFlight().getAirlineManager().getAirline().getCodeIATA())).toList();
 
 		dataset = super.unbindObject(leg, "flightNumber", "scheduledDeparture", "scheduledArrival");
 		dataset.put("masterId", leg.getFlight().getId());
 		dataset.put("isDraft", leg.getIsDraft());
 		dataset.put("status", choices);
-		selectedAircraft = SelectChoices.from(finalAircrafts, "registrationNumber", leg.getAircraft());
+		selectedAircraft = SelectChoices.from(aircraftsActives, "registrationNumber", leg.getAircraft());
 		dataset.put("aircrafts", selectedAircraft);
 		dataset.put("aircraft", selectedAircraft.getSelected().getKey());
 		dataset.put("duration", leg.getDuration());
