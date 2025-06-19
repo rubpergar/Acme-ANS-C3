@@ -1,5 +1,6 @@
 key,name,codeIATA,website,type,foundationMoment,email,phone
 # name
+airline-00,Spanish Airlines,CCC,https://www.spanishairlines.es/intl/es/index.jsp,STANDARD,"2012/07/02 00:00",acme@lorem-ipsum.org,+123456789
 airline-01,airline,AAX,"http://lorem.com/ipsum",LUXURY,2012/07/02 00:00,"acme@lorem-ipsum.org",+123456789
 airline-02,L,ABX,"http://lorem.com/ipsum",LUXURY,2012/07/02 00:00,"acme@lorem-ipsum.org",+123456789
 airline-03,Lo,ACX,"http://lorem.com/ipsum",LUXURY,2012/07/02 00:00,"acme@lorem-ipsum.org",+123456789

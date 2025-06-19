@@ -1,5 +1,6 @@
 key,name,codeIATA,scope,city,country,web,email,phone
 # name
+airport-00,Aeropuerto de Sevilla,SVQ,INTERNATIONAL,Sevilla,España,https://www.aena.es/es/sevilla.html,acme@lorem-ipsum.org,913211000
 airport-01,airport,ZAX,INTERNATIONAL,lorem,lorem,http://lorem.com/ipsum,acme@lorem-ipsum.org,+123456789
 airport-02,L,ZBX,INTERNATIONAL,lorem,lorem,http://lorem.com/ipsum,acme@lorem-ipsum.org,+123456789
 airport-03,Lo,ZCX,INTERNATIONAL,lorem,lorem,http://lorem.com/ipsum,acme@lorem-ipsum.org,+123456789
