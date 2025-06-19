@@ -6,6 +6,8 @@ acme.validation.crew-member.invalid-identifier.message=The identifier is invalid
 
 acme.validation.activity-log.invalid-moment.message=Activity log can't be registered because its corresponding leg hasn't finished yet
 
+acme.validation.airport.invalid-IATACode.message =The IATA code must be formed by 3 capital letters.
+
 acme.validation.leg.invalid-scheduled-arrival.message=The scheduled arrival time must be after the scheduled departure time.
 acme.validation.leg.invalid-flight-number.message=The flight number must start with the airline's IATA code
 
@@ -19,6 +21,7 @@ acme.validation.PromotionCode.message=The promotion code is invalid. It must fol
 acme.validation.PromotionCodeLength.message = The promotion code is invalid. It cannot be null or have a length less than one.
 
 acme.validation.wrongPhoneNumber.message=The phone number is invalid. It must follow a pattern. This pattern matches an optional + followed by 6 to 15 digits, ensuring the entire string consists only of numbers.
+acme.validation.phone-number.message =The phone number is invalid.It must follow a pattern. This pattern matches an optional + followed by 6 to 15 digits, ensuring the entire string consists only of numbers.
 
 acme.validation.aircraft.duplicate-registration-number.message=The registration number is already in use. Please provide a different one.
 

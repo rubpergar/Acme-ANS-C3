@@ -1,21 +1,24 @@
-validation.airline.phone = El número de teléfono puede empezar con '+' y debe tener entre 6 y 15 dígitos sin espacios en blanco ni caracteres especiales
-validation.airline.codeIATA = El código deberá estar formado por 3 letras en mayúscula, donde la útlima letra será normalmente una "X"
-acme.validation.airline.codeIATA.not-unique.message = El código IATA deberá ser único. Esta entrada ya existe para un aeropuerto o aerolínea
+validation.airline.phone = El número de teléfono puede empezar con '+' y debe tener entre 6 y 15 dígitos sin espacios en blanco ni carácteres especiales.
+validation.airline.codeIATA = El código deberá estar formado por 3 letras en mayúsculas, donde la útlima letra será normalmente una "X".
+acme.validation.airline.codeIATA.not-unique.message = El código IATA deberá ser único. Esta entrada ya existe para un aeropuerto o aerolínea.
 
-acme.validation.crew-member.invalid-identifier.message=El identificador del miembro es inválido. Debe comenzar con sus iniciales (2 o 3 letras mayúsculas), seguidas de 6 dígitos
+acme.validation.crew-member.invalid-identifier.message=El identificador del miembro es inválido. Debe comenzar con sus iniciales (2 o 3 letras mayúsculas), seguidas de 6 dígitos.
 
-acme.validation.activity-log.invalid-moment.message=El registro de actividad no se puede realizar debido a que su correspondiente tramo no ha concluido aún
+acme.validation.activity-log.invalid-moment.message=El registro de actividad no se puede realizar debido a que su correspondiente tramo no ha concluido aún.
 
 acme.validation.leg.invalid-scheduled-arrival.message=La hora de llegada debe ser posterior a la hora de salida programada.
-acme.validation.leg.invalid-flight-number.message=El número de vuelo debe comenzar con el código IATA de la aerolínea
+acme.validation.leg.invalid-flight-number.message=El número de vuelo debe comenzar con el código IATA de la aerolínea.
 
-acme.validation.flight.overlapping.message=Los tramos del vuelo no pueden solaparse
+acme.validation.airport.invalid-IATACode.message = El código IATA del aeropuerto debe tener exactamente 3 letras mayúsculas. Por favor, proporcione un código válido.
+
+acme.validation.flight.overlapping.message=Los tramos del vuelo no pueden solaparse.
 
 acme.validation.PromotionCode.message=El código de promoción no es válido. Debe seguir un patrón de cuatro letras mayúsculas seguidas de dos dígitos que representen el año actual.
 
 acme.validation.PromotionCodeLength.message = El código de promoción no es válido. No puede ser nulo ni tener una longitud inferior a uno.
 
 acme.validation.wrongPhoneNumber.message=El número de teléfono no es válido. Debe seguir un patrón. Este patrón coincide con un + opcional seguido de 6 a 15 dígitos, asegurando que toda la cadena consista solo en números.
+acme.validation.phone-number.message=El número de teléfono no es válido. Debe seguir un patrón. Este patrón coincide con un + opcional seguido de 6 a 15 dígitos, asegurando que toda la cadena consista solo en números.
 
 acme.validation.aircraft.duplicate-registration-number.message=El número de registro ya está en uso. Por favor, proporcione uno diferente.
 
@@ -52,7 +55,7 @@ acme.validation.leg.published-legs-not-allowed.message = El vuelo no puede ser b
 acme.validation.leg.invalid-flight-number-manager.message = El número de vuelo debe comenzar con el código IATA de la aerolínea. Por favor, proporcione un número de vuelo válido.
 
 customer.project.publish.error.lastNibbleNotPublished = Para publicar una reserva, el último fragmento de la tarjeta de crédito debe haberse almacenado.
-customer.booking.form.error.notDraft = No puedes realizar esta acción para una reserva que ya está publicada.
+customer.booking.form.error.notDraft = No puede realizar esta acción para una reserva que ya está publicada.
 
 customer.booking.list.label.locatorCode = Código de localización
 customer.booking.list.label.flight = Vuelo
@@ -112,7 +115,7 @@ customer.bookingPassenger.form.button.deleteBookingPassenger = Eliminar pasajero
 manager.flight.form.label.tag = Etiqueta
 manager.flight.form.label.cost = Costo
 manager.flight.form.label.description = Descripción
-manager.flight.form.label.selfTransfer = ¿Tienes que hacer el cambio de vuelo por tu cuenta?
+manager.flight.form.label.selfTransfer = ¿Tiene que hacer el cambio de vuelo por su cuenta?
 manager.flight.form.label.isDraft = ¿Es un borrador?
 
 manager.flight.create = Crear
@@ -131,9 +134,9 @@ manager.flight.form.label.originCity = Ciudad de origen
 manager.flight.form.label.destinationCity = Ciudad de destino
 manager.flight.form.label.layovers = Número de escalas
 
-manager.flight.form.error.notDraft = No puedes realizar esta acción para un vuelo que ya está publicado.
+manager.flight.form.error.notDraft = No puede realizar esta acción para un vuelo que ya está publicado.
 manager.flight.publish.error.notAllPublished = Para publicar el vuelo, todos sus tramos deben estar publicados.
-manager.project.publish.error.noLegs = Debes tener al menos un tramo para publicar un vuelo.
+manager.project.publish.error.noLegs = Debe tener al menos un tramo para publicar un vuelo.
 manager.flight.publish.error.overlappingLegs = Los tramos del vuelo se solapan.
 manager.flight.publish.error.notAfter = El vuelo no puede ser publicado después de que comience.
 manager.leg.publish.error.notAfter= El tramo no puede ser publicado despues de que el vuelo comience.
@@ -141,7 +144,7 @@ manager.leg.publish.error.notAfter= El tramo no puede ser publicado despues de q
 manager.flight.list.label.tag = Etiqueta
 manager.flight.list.label.cost = Costo
 manager.flight.list.label.description = Descripción
-manager.flight.list.label.selfTransfer = ¿Tienes que hacer el cambio de vuelo por tu cuenta?
+manager.flight.list.label.selfTransfer = ¿Tiene que hacer el cambio de vuelo por su cuenta?
 manager.flight.list.label.isDraft = ¿Es un borrador?
 manager.flight.legs = Etapas del vuelo
 
@@ -193,14 +196,14 @@ master.menu.administrator.list-aircrafts = Listar aeronaves
 administrator.aircraft.list.title = Aeronaves
 administrator.aircraft.form.title = Aeronave
 
-acme.validation.confirmation.message = Estas operaciones requieren confirmación. Por favor, confirma tu acción.
+acme.validation.confirmation.message = Estas operaciones requieren confirmación. Por favor, confirme su acción.
 administrator.aircraft.list.label.model = Modelo
 administrator.aircraft.list.label.registrationNumber = Número de registro
 administrator.aircraft.list.label.capacity = Capacidad
 administrator.aircraft.list.label.cargoWeight = Peso de carga
 administrator.aircraft.list.label.status = Estado
 administrator.aircraft.list.label.details = Detalles
-administrator.aircraft.form.label.confirmation = ¿Estás seguro de que deseas continuar con esta acción para esta aeronave?
+administrator.aircraft.form.label.confirmation = ¿Está seguro de que desea continuar con esta acción para esta aeronave?
 administrator.aircraft.form.label.airline = Aerolínea
 
 administrator.aircraft.list.button.create = Crear aeronave
@@ -231,7 +234,7 @@ administrator.airport.form.label.web = Web
 administrator.airport.form.label.email = Email
 administrator.airport.form.label.phone = Número de teléfono
 
-administrator.airport.form.label.confirmation = ¿Seguro que quiere continuar con esta acción?
+administrator.airport.form.label.confirmation = ¿Está eguro de que quiere continuar con esta acción?
 administrator.airport.form.button.update = Actualizar
 administrator.airport.form.button.create = Crear
 
@@ -252,18 +255,18 @@ manager.leg.form.button.delete=Eliminar
 manager.leg.form.button.publish=Publicar
 manager.leg.list.label.duration=Duración (horas)
 
-acme.validation.flight-assignment.incompatible-legs.message = Este miembro no puede estar asignado a varios tramos simultáneamente
-acme.validation.flight-assignment.has-pilot.message = Este trabajo ya ha sido asignado. Cada tramo puede solo tener un piloto
-acme.validation.flight-assignment.has-copilot.message = Este trabajo ya ha sido asignado. Cada tramo puede solo tener un copiloto
-acme.validation.flight-assignment.leg-concluded.message = La asignación de vuelo no puede esta vinculada a un tramo que ya ha concluido
-acme.validation.flight-assignment.unavailable-member.message = Solo se pueden asignar miembros que estén disponibles
-acme.validation.flight-assignment.unpublished-assignment.message = Los registros de actividad solo se pueden publicar si su asignación de vuelo correspondiente está publicado
+acme.validation.flight-assignment.incompatible-legs.message = Este miembro no puede estar asignado a varios tramos simultáneamente.
+acme.validation.flight-assignment.has-pilot.message = Este trabajo ya ha sido asignado. Cada tramo puede solo tener un piloto.
+acme.validation.flight-assignment.has-copilot.message = Este trabajo ya ha sido asignado. Cada tramo puede solo tener un copiloto.
+acme.validation.flight-assignment.leg-concluded.message = La asignación de vuelo no puede esta vinculada a un tramo que ya ha concluido.
+acme.validation.flight-assignment.unavailable-member.message = Solo se pueden asignar miembros que estén disponibles.
+acme.validation.flight-assignment.unpublished-assignment.message = Los registros de actividad solo se pueden publicar si su asignación de vuelo correspondiente está publicado-
 
 acme.validation.booking.repeated-locatorCode.message = El código de localización ya está en uso. Por favor, proporcione uno diferente.
 acme.validation.booking.incorrect-purchaseMoment.message = El momento de compra no puede cambiar.
 acme.validation.booking.incorrect-price.message = El precio no puede cambiar.
 customer.booking-passenger.list.title = Pasajeros de la reserva
-customer.booking.form.error.draftBooking = No puedes realizar esta acción para una reserva que ya está publicada.
+customer.booking.form.error.draftBooking = No puede realizar esta acción para una reserva que ya está publicada.
 acme.validation.booking-passenger.notPublishedPassenger.message = El pasajero no está publicado. Por favor, publique el pasajero antes de continuar.
 acme.validation.booking.flight-departure.message = El vuelo ya ha salido. No puede realizar esta reserva.
 acme.validation.booking.notExisting-flight.message = El vuelo no existe. Por favor, proporcione un vuelo válido.
@@ -279,14 +282,14 @@ customer.passenger.form.error.booking-passenger.exists = El pasajero ya está as
 acme.validation.booking.after-flight.message = La reserva no puede ser realizada después de que el vuelo haya salido
 customer.validation.booking.form.error.emtyPassengers = No puedes realizar esta acción para una reserva que no tiene pasajeros.
 
-javax.validation.constraints.invalid-leg.message = El tramo de vuelo debe haber ocurrido
-acme.validation.trackinglog.invalid-status.message = Estado inválido, por favor eliga otro
-acme.validation.trackinglog.resolution-mandatory-if-status-not-pending.message = Debe tener resolución
-acme.validation.trackinglog.invalid-percentage.message = El porcentaje debe ser mayor que el anterior
-acme.validation.trackinglog.wrong-status.message = Cuando se crea un registro de seguimiento extra, el estado debe de ser el mismo
-acme.validation.trackinglog.percentage-cant-be-100.message = Numero máximo de registros de seguimiento al 100% alcanzado
-javax.validation.constraints.mustUpdate-first.message = Debe actualizar primero
-java.constraint.trackinglog.update-first = Debe actualizar primero
-javax.validation.constraints.claim-must-be-published = La queja debe estar publicada
+javax.validation.constraints.invalid-leg.message = El tramo de vuelo debe haber ocurrido.
+acme.validation.trackinglog.invalid-status.message = Estado inválido, por favor elija otro.
+acme.validation.trackinglog.resolution-mandatory-if-status-not-pending.message = Debe tener resolución.
+acme.validation.trackinglog.invalid-percentage.message = El porcentaje debe ser mayor que el anterior.
+acme.validation.trackinglog.wrong-status.message = Cuando se crea un registro de seguimiento extra, el estado debe de ser el mismo.
+acme.validation.trackinglog.percentage-cant-be-100.message = Número máximo de registros de seguimiento al 100% alcanzado.
+javax.validation.constraints.mustUpdate-first.message = Debe actualizar primero.
+java.constraint.trackinglog.update-first = Debe actualizar primero.
+javax.validation.constraints.claim-must-be-published = La queja debe estar publicada.
 acme.validation.manager.null-identity.message=La identidad del manager no puede estar vacía. Asegúrese de proporcionar un nombre y apellidos válidos.
 acme.validation.manager.invalid-identifier.message=El identificador del manager es inválido. Debe comenzar con sus iniciales (2 o 3 letras mayúsculas), seguidas de 6 dígitos.

@@ -33,8 +33,6 @@ public class IATACodeValidator extends AbstractValidator<ValidIATACode, String> 
 	@Override
 	public void initialize(final ValidIATACode annotation) {
 		assert annotation != null;
-
-		this.type = annotation.type();
 	}
 
 	@Override
