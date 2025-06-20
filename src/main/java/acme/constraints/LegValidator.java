@@ -36,10 +36,8 @@ public class LegValidator extends AbstractValidator<ValidLeg, Leg> {
 
 		// El número de vuelo debe comenzar con el código IATA de la aerolínea
 		boolean isFlightNumberCorrect = true;
-		if (leg.getAircraft() != null) {
-			String airlineIATACode = leg.getFlight().getAirlineManager().getAirline().getCodeIATA();
-			isFlightNumberCorrect = StringHelper.startsWith(leg.getFlightNumber(), airlineIATACode, true);
-		}
+		String airlineIATACode = leg.getFlight().getAirlineManager().getAirline().getCodeIATA();
+		isFlightNumberCorrect = StringHelper.startsWith(leg.getFlightNumber(), airlineIATACode, true);
 		super.state(context, isFlightNumberCorrect, "flightNumber", "acme.validation.leg.invalid-flight-number.message");
 
 		boolean isValidAirport = true;
