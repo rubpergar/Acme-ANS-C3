@@ -43,22 +43,13 @@ public class TrackingLogValidator extends AbstractValidator<ValidTrackingLog, Tr
 		else {
 
 			Double resolutionPercentage = trackingLog.getResolutionPercentage();
-			if (resolutionPercentage == null)
-				super.state(context, false, "resolutionPercentage", "javax.validation.constraints.NotNull.message");
-
 			TrackingLogStatus status = trackingLog.getStatus();
-			if (status == null)
-				super.state(context, false, "status", "javax.validation.constraints.NotNull.message");
-
 			Claim claim = trackingLog.getClaim();
-			if (claim == null)
-				super.state(context, false, "claim", "javax.validation.constraints.NotNull.message");
-
 			List<TrackingLog> orderedTrackingLogs = this.tl.getLastTrackingLog(claim.getId());
 
 			String resolution = trackingLog.getResolution();
 
-			if (resolutionPercentage != null && status != null) {
+			if (resolutionPercentage != null && status != null && claim != null) {
 
 				if (resolutionPercentage == 100 && status == TrackingLogStatus.PENDING)
 					super.state(context, false, "status", "acme.validation.trackinglog.invalid-status.message");
@@ -71,20 +62,11 @@ public class TrackingLogValidator extends AbstractValidator<ValidTrackingLog, Tr
 
 				int contador = 0;
 
-				for (TrackingLog t : orderedTrackingLogs) {
-//					if (t.getResolutionPercentage() == 100)
-//						contador += 1;
-//					if (trackingLog.getResolutionPercentage() == 100) {
-//						if (contador >= 2)
-//							super.state(context, false, "resolutionPercentage", "acme.validation.trackinglog.percentage-cant-be-100.message");
-//						if (t.getResolutionPercentage() == 100 && t.getStatus() != trackingLog.getStatus())
-//							super.state(context, false, "status", "acme.validation.trackinglog.wrong-status.message");
-
+				for (TrackingLog t : orderedTrackingLogs)
 					if (trackingLog.getResolutionPercentage() != 100)
 						if (MomentHelper.isBeforeOrEqual(t.getLastUpdate(), trackingLog.getLastUpdate()))
 							if (t.getResolutionPercentage() > trackingLog.getResolutionPercentage())
 								super.state(context, false, "resolutionPercentage", "acme.validation.trackinglog.invalid-percentage.message");
-				}
 			}
 		}
 		result = !super.hasErrors(context);
