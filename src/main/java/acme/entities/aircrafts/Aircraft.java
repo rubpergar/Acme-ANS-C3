@@ -24,7 +24,7 @@ import lombok.Setter;
 @Setter
 @ValidRegistrationNumber
 @Table(indexes = {
-	@Index(columnList = "status"), @Index(columnList = "registrationNumber")
+	@Index(columnList = "status")
 })
 public class Aircraft extends AbstractEntity {
 
