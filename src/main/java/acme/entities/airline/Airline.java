@@ -28,7 +28,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Table(indexes = {
-	@Index(columnList = "codeIATA"), @Index(columnList = "name")
+	@Index(columnList = "name")
 })
 public class Airline extends AbstractEntity {
 
@@ -69,7 +69,7 @@ public class Airline extends AbstractEntity {
 	private String				email;
 
 	@Optional
-	@ValidPhoneNumber
+	@ValidPhoneNumber(message = "{acme.validation.wrongPhoneNumber.message}")
 	@Automapped
 	private String				phone;
 

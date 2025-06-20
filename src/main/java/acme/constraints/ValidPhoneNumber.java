@@ -15,12 +15,12 @@ import javax.validation.constraints.Pattern;
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = {})
-@ReportAsSingleViolation
 @NotBlank
+//@ReportAsSingleViolation
 @Pattern(regexp = "^\\+?\\d{6,15}$")
 public @interface ValidPhoneNumber {
 
-	String message() default "{acme.validation.phone-number.message}";
+	String message() default "";
 
 	Class<?>[] groups() default {};
 	Class<? extends Payload>[] payload() default {};

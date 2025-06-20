@@ -6,7 +6,6 @@ import java.util.Collection;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -113,7 +112,7 @@ public class ManagerLegPublishService extends AbstractGuiService<Manager, Leg> {
 	public void validate(final Leg leg) {
 		this.validateScheduledDeparture(leg);
 		this.validateOverlappingLegs(leg);
-		this.validateAirportSequence(leg);
+		//this.validateAirportSequence(leg);
 		this.validateAircraftAvailability(leg);
 	}
 
@@ -149,17 +148,19 @@ public class ManagerLegPublishService extends AbstractGuiService<Manager, Leg> {
 		super.state(nonOverlappingLegs, "*", "acme.validation.flight.overlapping.message");
 	}
 
-	private void validateAirportSequence(final Leg leg) {
-		Collection<Leg> allLegs = this.legRepository.getLegsByFlight2(leg.getFlight().getId());
-
-		List<Leg> previousLegs = allLegs.stream().filter(l -> !l.getIsDraft()).filter(l -> l.getScheduledDeparture().before(leg.getScheduledDeparture())).collect(Collectors.toList());
-
-		Optional<Leg> maybePreviousLeg = previousLegs.stream().max(Comparator.comparing(Leg::getScheduledDeparture));
-
-		boolean validAirports = maybePreviousLeg.map(prev -> prev.getArrivalAirport().getCodeIATA().equals(leg.getDepartureAirport().getCodeIATA())).orElse(true);
-
-		super.state(validAirports, "*", "acme.validation.leg.invalid-airports.message");
-	}
+	/*
+	 * private void validateAirportSequence(final Leg leg) {
+	 * Collection<Leg> allLegs = this.legRepository.getLegsByFlight2(leg.getFlight().getId());
+	 * 
+	 * List<Leg> previousLegs = allLegs.stream().filter(l -> !l.getIsDraft()).filter(l -> l.getScheduledDeparture().before(leg.getScheduledDeparture())).collect(Collectors.toList());
+	 * 
+	 * Optional<Leg> maybePreviousLeg = previousLegs.stream().max(Comparator.comparing(Leg::getScheduledDeparture));
+	 * 
+	 * boolean validAirports = maybePreviousLeg.map(prev -> prev.getArrivalAirport().getCodeIATA().equals(leg.getDepartureAirport().getCodeIATA())).orElse(true);
+	 * 
+	 * super.state(validAirports, "*", "acme.validation.leg.invalid-airports.message");
+	 * }
+	 */
 
 	private void validateAircraftAvailability(final Leg leg) {
 		boolean validAircraft = true;
