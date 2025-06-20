@@ -236,7 +236,7 @@ administrator.airport.form.button.update = Actualizar
 administrator.airport.form.button.create = Crear
 
 manager.leg.list.title = Tramos del vuelo
-manager.leg.list.label.flightNumber = Número de vuelo (Reemplace 'abcd' por cuatro dígitos)
+manager.leg.list.label.flightNumber = Número de vuelo (Código IATA + 4 dígitos. Ej: AAX1234)
 manager.leg.list.label.flightNumber2 = Número de vuelo
 manager.leg.list.label.scheduledDeparture = Salida prog.
 manager.leg.list.label.scheduledArrival = Llegada prog.

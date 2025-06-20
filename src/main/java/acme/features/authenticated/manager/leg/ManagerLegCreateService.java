@@ -52,7 +52,7 @@ public class ManagerLegCreateService extends AbstractGuiService<Manager, Leg> {
 		Integer aircraftId = super.getRequest().getData("aircraft", int.class);
 		if (aircraftId != 0) {
 			Aircraft aircraft = this.repository.findAircraftById(aircraftId);
-			if (aircraft == null)
+			if (aircraft == null || !aircraft.getStatus().equals(AircraftStatus.ACTIVE))
 				return false;
 		}
 		return true;
@@ -146,7 +146,7 @@ public class ManagerLegCreateService extends AbstractGuiService<Manager, Leg> {
 		dataset = super.unbindObject(leg, "scheduledDeparture", "scheduledArrival");
 		String iata = leg.getFlight().getAirlineManager().getAirline().getCodeIATA();
 		if (leg.getFlightNumber() == null || leg.getFlightNumber().isBlank())
-			dataset.put("flightNumber", iata + "abcd");
+			dataset.put("flightNumber", iata);
 		else
 			dataset.put("flightNumber", leg.getFlightNumber());
 

@@ -50,7 +50,7 @@ public class ManagerLegUpdateService extends AbstractGuiService<Manager, Leg> {
 		Integer aircraftId = super.getRequest().getData("aircraft", int.class);
 		if (aircraftId != 0) {
 			Aircraft aircraft = this.repository.findAircraftById(aircraftId);
-			if (aircraft == null)
+			if (aircraft == null || !aircraft.getStatus().equals(AircraftStatus.ACTIVE))
 				return false;
 		}
 		return true;
