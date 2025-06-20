@@ -33,7 +33,7 @@ public class AssistanceAgentClaimDeleteService extends AbstractGuiService<Assist
 		claimId = super.getRequest().getData("id", int.class);
 		claim = this.repository.getClaimById(claimId);
 		userAccountId = super.getRequest().getPrincipal().getAccountId();
-		authorised = claim.isDraftMode() && claim.getAssistanceAgent().getUserAccount().getId() == userAccountId;
+		authorised = claim.getDraftMode() && claim.getAssistanceAgent().getUserAccount().getId() == userAccountId;
 
 		super.getResponse().setAuthorised(authorised);
 	}
@@ -83,7 +83,7 @@ public class AssistanceAgentClaimDeleteService extends AbstractGuiService<Assist
 
 		dataset = super.unbindObject(claim, "registrationMoment", "email", "description");
 		dataset.put("status", status);
-		dataset.put("draftMode", claim.isDraftMode());
+		dataset.put("draftMode", claim.getDraftMode());
 		dataset.put("type", typeChoices);
 		dataset.put("legs", legs);
 		dataset.put("selectedLeg", legs.getSelected().getKey());

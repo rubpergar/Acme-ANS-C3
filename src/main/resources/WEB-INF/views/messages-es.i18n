@@ -189,6 +189,8 @@ assistanceAgent.trackingLog.form.label.resolutionPercentage = Porcentaje de reso
 assistanceAgent.trackingLog.form.label.status = Estado
 assistanceAgent.trackingLog.form.label.resolution = Resolución 
 
+acme.validation.code.notPattern.message = El código de empleado debe tener 2 o 3 letras mayúsculas seguidas de 6 dígitos (por ejemplo, AB123456 o ABC654321).
+
 master.menu.administrator.list-aircrafts = Listar aeronaves
 administrator.aircraft.list.title = Aeronaves
 administrator.aircraft.form.title = Aeronave

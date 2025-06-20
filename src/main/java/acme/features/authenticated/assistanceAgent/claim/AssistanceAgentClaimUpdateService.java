@@ -36,7 +36,7 @@ public class AssistanceAgentClaimUpdateService extends AbstractGuiService<Assist
 		claimId = super.getRequest().getData("id", int.class);
 		claim = this.repository.getClaimById(claimId);
 
-		boolean hasAuthority = claim != null && claim.isDraftMode() && claim.getAssistanceAgent().getUserAccount().getId() == super.getRequest().getPrincipal().getAccountId() && super.getRequest().getPrincipal().hasRealmOfType(AssistanceAgent.class);
+		boolean hasAuthority = claim != null && claim.getDraftMode() && claim.getAssistanceAgent().getUserAccount().getId() == super.getRequest().getPrincipal().getAccountId() && super.getRequest().getPrincipal().hasRealmOfType(AssistanceAgent.class);
 
 		if (super.getRequest().getMethod().equals("POST"))
 			hasAuthority = hasAuthority && this.validatePostFields();
@@ -128,7 +128,7 @@ public class AssistanceAgentClaimUpdateService extends AbstractGuiService<Assist
 
 		dataset = super.unbindObject(claim, "registrationMoment", "email", "description");
 		dataset.put("status", status);
-		dataset.put("draftMode", claim.isDraftMode());
+		dataset.put("draftMode", claim.getDraftMode());
 		dataset.put("type", typeChoices);
 		dataset.put("legs", legs);
 		dataset.put("selectedLeg", legs.getSelected().getKey());

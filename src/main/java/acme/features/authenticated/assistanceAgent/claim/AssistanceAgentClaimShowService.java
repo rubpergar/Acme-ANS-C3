@@ -60,7 +60,7 @@ public class AssistanceAgentClaimShowService extends AbstractGuiService<Assistan
 		dataset = super.unbindObject(claim, "registrationMoment", "email", "description");
 		Leg leg = this.repository.getLegIsByClaimId(claim.getId());
 		dataset.put("status", status);
-		dataset.put("draftMode", claim.isDraftMode());
+		dataset.put("draftMode", claim.getDraftMode());
 		dataset.put("type", typeChoices);
 		dataset.put("legs", legs);
 		dataset.put("selectedLeg", legs.getSelected().getKey());
