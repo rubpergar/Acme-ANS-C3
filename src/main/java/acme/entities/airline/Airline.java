@@ -69,7 +69,7 @@ public class Airline extends AbstractEntity {
 	private String				email;
 
 	@Optional
-	@ValidPhoneNumber
+	@ValidPhoneNumber(message = "{acme.validation.wrongPhoneNumber.message}")
 	@Automapped
 	private String				phone;
 
