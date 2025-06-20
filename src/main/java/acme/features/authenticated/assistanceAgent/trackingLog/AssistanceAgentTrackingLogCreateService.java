@@ -116,7 +116,7 @@ public class AssistanceAgentTrackingLogCreateService extends AbstractGuiService<
 		tl.setResolutionPercentage(tl.getResolutionPercentage());
 		tl.setResolution(tl.getResolution());
 		tl.setStatus(tl.getStatus());
-		tl.setDraftMode(tl.isDraftMode());
+		tl.setDraftMode(tl.getDraftMode());
 
 		this.repository.save(tl);
 	}

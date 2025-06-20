@@ -35,7 +35,7 @@ public class AssistanceAgentTrackingLogDeleteService extends AbstractGuiService<
 		tlId = super.getRequest().getData("id", int.class);
 		tl = this.repository.getTlById(tlId);
 		claim = this.repository.getClaimByTlId(tlId);
-		status = tl != null && tl.isDraftMode() && super.getRequest().getPrincipal().hasRealmOfType(AssistanceAgent.class) && super.getRequest().getPrincipal().getAccountId() == claim.getAssistanceAgent().getUserAccount().getId();
+		status = tl != null && tl.getDraftMode() && super.getRequest().getPrincipal().hasRealmOfType(AssistanceAgent.class) && super.getRequest().getPrincipal().getAccountId() == claim.getAssistanceAgent().getUserAccount().getId();
 
 		super.getResponse().setAuthorised(status);
 	}

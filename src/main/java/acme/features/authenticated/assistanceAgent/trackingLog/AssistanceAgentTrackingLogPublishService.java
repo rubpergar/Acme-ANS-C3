@@ -33,7 +33,7 @@ public class AssistanceAgentTrackingLogPublishService extends AbstractGuiService
 
 		Claim claim = this.repository.getClaimByTlId(tlId);
 
-		boolean hasAuthority = tl != null && tl.isDraftMode() && super.getRequest().getPrincipal().hasRealmOfType(AssistanceAgent.class) && super.getRequest().getPrincipal().getAccountId() == claim.getAssistanceAgent().getUserAccount().getId();
+		boolean hasAuthority = tl != null && tl.getDraftMode() && super.getRequest().getPrincipal().hasRealmOfType(AssistanceAgent.class) && super.getRequest().getPrincipal().getAccountId() == claim.getAssistanceAgent().getUserAccount().getId();
 
 		if (super.getRequest().getMethod().equals("POST"))
 			hasAuthority = hasAuthority && this.validateStatus();
@@ -85,7 +85,7 @@ public class AssistanceAgentTrackingLogPublishService extends AbstractGuiService
 		super.state(noChanges, "*", "javax.validation.constraints.mustUpdate-first.message");
 
 		Claim claim = this.repository.getClaimByTlId(tl.getId());
-		if (claim.isDraftMode())
+		if (claim.getDraftMode())
 			super.state(false, "*", "javax.validation.constraints.claim-must-be-published");
 
 	}
