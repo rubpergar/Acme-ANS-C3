@@ -34,6 +34,17 @@ master.menu.administrator.list-aircrafts = Lista de aeronave
 master.menu.administrator.list-airport = Lista de aeropuertos
 master.menu.administrator.list-airline = Lista de aerolineas
 
+# master.menu.manager #######################################################
+
+master.menu.manager = Gerente
+master.menu.manager.list-flights = Mis vuelos
+master.menu.manager.dashboard = Tablero del gerente
+
+# master.menu.any ##########################################################
+
+master.menu.any = Cualquiera
+master.menu.any.flights = Vuelos publicados
+
 # master.menu.provider ########################################################
 
 master.menu.provider = Proveedor
@@ -52,6 +63,8 @@ master.menu.user-account.become-provider = Hacerse proveedor
 master.menu.user-account.provider-profile = Perfil de proveedor
 master.menu.user-account.become-consumer = Hazte consumidor
 master.menu.user-account.consumer-profile = Perfil de consumidor
+master.menu.user-account.become-manager = Hacerse gerente
+master.menu.user-account.manager-profile =  Perfil de gerente
 
 # master.menu.member ####################################################
 

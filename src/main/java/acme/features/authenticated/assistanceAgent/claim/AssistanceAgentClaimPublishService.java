@@ -11,7 +11,7 @@ import acme.entities.claims.Claim;
 import acme.entities.claims.ClaimStatus;
 import acme.entities.claims.ClaimType;
 import acme.entities.legs.Leg;
-import acme.features.authenticated.manager.leg.ManagerLegRepository;
+import acme.features.manager.leg.ManagerLegRepository;
 import acme.realms.AssistanceAgent;
 
 @GuiService

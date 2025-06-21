@@ -26,6 +26,7 @@ master.menu.assistanceAgent.pending-list-claims = Pending Claims
 
 master.menu.manager = Manager
 master.menu.manager.list-flights = My flights
+master.menu.manager.dashboard = Manager dashboard
 
 # master.menu.administrator ###################################################
 
@@ -43,6 +44,11 @@ master.menu.administrator.list-airline = List of airlines
 master.menu.customer = Customer
 master.menu.customer.list-bookings = My bookings
 master.menu.customer.list-passengers = My passengers
+
+# master.menu.any ##########################################################
+
+master.menu.any = Any
+master.menu.any.flights = Publish Flights
 
 # master.menu.provider ########################################################
 
@@ -62,6 +68,8 @@ master.menu.user-account.become-provider = Become a provider
 master.menu.user-account.provider-profile = Provider profile
 master.menu.user-account.become-consumer = Become a consumer
 master.menu.user-account.consumer-profile = Consumer profile
+master.menu.user-account.become-manager = Become a manager
+master.menu.user-account.manager-profile = Manager profile
 
 # master.menu.member ####################################################
 
