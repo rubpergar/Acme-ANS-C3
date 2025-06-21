@@ -1,42 +1,38 @@
 
-package acme.features.authenticated.manager.leg;
+package acme.features.any.flight.leg;
 
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 import acme.client.components.models.Dataset;
+import acme.client.components.principals.Any;
 import acme.client.components.views.SelectChoices;
 import acme.client.services.AbstractGuiService;
 import acme.client.services.GuiService;
 import acme.entities.aircrafts.Aircraft;
-import acme.entities.aircrafts.AircraftStatus;
 import acme.entities.airports.Airport;
-import acme.entities.flights.Flight;
 import acme.entities.legs.Leg;
 import acme.entities.legs.LegStatus;
-import acme.realms.Manager;
 
 @GuiService
-public class ManagerLegShowService extends AbstractGuiService<Manager, Leg> {
+public class AnyLegShowService extends AbstractGuiService<Any, Leg> {
 
 	// Internal state ---------------------------------------------------------
 
 	@Autowired
-	private ManagerLegRepository repository;
+	private AnyLegRepository repository;
 
-	// AbstractGuiService interface ------------------------------------------
+	// AbstractGuiService interface -------------------------------------------
 
 
 	@Override
 	public void authorise() {
 		boolean status;
-		Leg leg;
 		int legId = super.getRequest().getData("id", int.class);
-		Flight flight = this.repository.getFlightByLegId(legId);
-		leg = this.repository.getLegById(legId);
-		boolean isOwner = super.getRequest().getPrincipal().getAccountId() == flight.getAirlineManager().getUserAccount().getId();
-		status = leg != null && (!leg.getIsDraft() || isOwner);
+		Leg leg = this.repository.findLegById(legId);
+		status = leg != null;
+
 		super.getResponse().setAuthorised(status);
 	}
 
@@ -46,13 +42,14 @@ public class ManagerLegShowService extends AbstractGuiService<Manager, Leg> {
 		int id;
 
 		id = super.getRequest().getData("id", int.class);
-		leg = this.repository.getLegById(id);
+		leg = this.repository.findLegById(id);
 
 		super.getBuffer().addData(leg);
 	}
 
 	@Override
 	public void unbind(final Leg leg) {
+
 		Dataset dataset;
 
 		SelectChoices choices;
@@ -61,13 +58,11 @@ public class ManagerLegShowService extends AbstractGuiService<Manager, Leg> {
 		SelectChoices departureAirportChoices;
 		SelectChoices arrivalAirportChoices;
 		Collection<Airport> airports;
-		airports = this.repository.findAllAirports();
+		airports = this.repository.findAirports();
 
 		SelectChoices selectedAircraft = new SelectChoices();
 
-		Collection<Aircraft> aircraftsActives = this.repository.findAllAircraftsByStatus(AircraftStatus.ACTIVE);
-
-		//List<Aircraft> finalAircrafts = aircraftsActives.stream().filter(a -> a.getAirline().getCodeIATA().equals(leg.getFlight().getAirlineManager().getAirline().getCodeIATA())).toList();
+		Collection<Aircraft> aircraftsActives = this.repository.findActiveAircrafts();
 
 		dataset = super.unbindObject(leg, "flightNumber", "scheduledDeparture", "scheduledArrival");
 		dataset.put("masterId", leg.getFlight().getId());
@@ -86,7 +81,7 @@ public class ManagerLegShowService extends AbstractGuiService<Manager, Leg> {
 		dataset.put("departureAirport", departureAirportChoices.getSelected().getKey());
 		dataset.put("arrivalAirports", arrivalAirportChoices);
 		dataset.put("arrivalAirport", arrivalAirportChoices.getSelected().getKey());
-
 		super.getResponse().addData(dataset);
 	}
+
 }

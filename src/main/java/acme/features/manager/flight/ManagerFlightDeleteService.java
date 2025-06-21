@@ -1,5 +1,5 @@
 
-package acme.features.authenticated.manager.flight;
+package acme.features.manager.flight;
 
 import java.util.Collection;
 
@@ -13,7 +13,7 @@ import acme.entities.legs.Leg;
 import acme.realms.Manager;
 
 @GuiService
-public class ManagerFlightPublishService extends AbstractGuiService<Manager, Flight> {
+public class ManagerFlightDeleteService extends AbstractGuiService<Manager, Flight> {
 
 	// Internal state ---------------------------------------------------------
 
@@ -31,7 +31,7 @@ public class ManagerFlightPublishService extends AbstractGuiService<Manager, Fli
 		flightId = super.getRequest().getData("id", int.class);
 		flight = this.repository.getFlightById(flightId);
 		userAccountId = super.getRequest().getPrincipal().getAccountId();
-		super.getResponse().setAuthorised(flight.getIsDraft() && flight.getAirlineManager().getUserAccount().getId() == userAccountId); //el usuario es el manager del vuelo
+		super.getResponse().setAuthorised(flight.getIsDraft() && flight.getAirlineManager().getUserAccount().getId() == userAccountId);
 	}
 
 	@Override
@@ -47,33 +47,33 @@ public class ManagerFlightPublishService extends AbstractGuiService<Manager, Fli
 
 	@Override
 	public void bind(final Flight flight) {
+		flight.setAirlineManager(this.repository.getManagerById(super.getRequest().getPrincipal().getActiveRealm().getId()));
 		super.bindObject(flight, "tag", "selfTransfer", "cost", "description");
 	}
 
 	@Override
 	public void validate(final Flight flight) {
-
 		Collection<Leg> legs = this.repository.getLegsByFlight(flight.getId());
-		super.state(!legs.isEmpty(), "*", "manager.project.publish.error.noLegs");
 
-		boolean allLegsPublished = legs.stream().allMatch(leg -> !leg.getIsDraft());
-		super.state(allLegsPublished, "*", "manager.flight.publish.error.notAllPublished");
+		boolean allLegsAreDraft = legs.stream().allMatch(Leg::getIsDraft);
 
+		super.state(allLegsAreDraft, "*", "acme.validation.leg.published-legs-not-allowed.message");
 	}
 
 	@Override
 	public void perform(final Flight flight) {
-		flight.setIsDraft(false);
-		this.repository.save(flight);
+
+		this.repository.getLegsByFlight(flight.getId()).forEach(leg -> {
+			this.repository.delete(leg);
+		});
+
+		this.repository.delete(flight);
 	}
 
 	@Override
 	public void unbind(final Flight flight) {
-
 		Dataset dataset;
-
 		dataset = super.unbindObject(flight, "tag", "selfTransfer", "cost", "description", "isDraft");
 		super.getResponse().addData(dataset);
 	}
-
 }

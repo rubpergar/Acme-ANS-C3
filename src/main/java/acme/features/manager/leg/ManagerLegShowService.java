@@ -1,5 +1,5 @@
 
-package acme.features.authenticated.manager.leg;
+package acme.features.manager.leg;
 
 import java.util.Collection;
 
@@ -18,26 +18,25 @@ import acme.entities.legs.LegStatus;
 import acme.realms.Manager;
 
 @GuiService
-public class ManagerLegDeleteService extends AbstractGuiService<Manager, Leg> {
+public class ManagerLegShowService extends AbstractGuiService<Manager, Leg> {
 
 	// Internal state ---------------------------------------------------------
 
 	@Autowired
 	private ManagerLegRepository repository;
 
-	// AbstractGuiService interface -------------------------------------------
+	// AbstractGuiService interface ------------------------------------------
 
 
 	@Override
 	public void authorise() {
+		boolean status;
+		Leg leg;
 		int legId = super.getRequest().getData("id", int.class);
-		Leg leg = this.repository.getLegById(legId);
-
-		boolean status = false;
-
-		Flight flight = leg.getFlight();
-		status = leg.getIsDraft() && super.getRequest().getPrincipal().getAccountId() == flight.getAirlineManager().getUserAccount().getId();
-
+		Flight flight = this.repository.getFlightByLegId(legId);
+		leg = this.repository.getLegById(legId);
+		boolean isOwner = super.getRequest().getPrincipal().getAccountId() == flight.getAirlineManager().getUserAccount().getId();
+		status = leg != null && (!leg.getIsDraft() || isOwner);
 		super.getResponse().setAuthorised(status);
 	}
 
@@ -50,21 +49,6 @@ public class ManagerLegDeleteService extends AbstractGuiService<Manager, Leg> {
 		leg = this.repository.getLegById(id);
 
 		super.getBuffer().addData(leg);
-	}
-
-	@Override
-	public void bind(final Leg leg) {
-		super.bindObject(leg, "flightNumber", "scheduledDeparture", "scheduledArrival", "status");
-	}
-
-	@Override
-	public void validate(final Leg leg) {
-		;
-	}
-
-	@Override
-	public void perform(final Leg leg) {
-		this.repository.delete(leg);
 	}
 
 	@Override
