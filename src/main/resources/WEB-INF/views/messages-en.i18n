@@ -311,13 +311,12 @@ authenticated.manager.form.button.update = Update Manager
 any.leg.form.title = Leg
 any.leg.list.title= Legs of the flight
 any.flight.form.title = Flight
-any.flight.list.title = Publish Flights
+any.flight.list.title = Flights
 
 
 manager.dashboard.form.label.rankingPosition = Ranking Position
 manager.dashboard.form.label.yearsToRetirement = Years to Retirement
-manager.dashboard.form.label.onTimeLegsRatio = On Time Legs Ratio
-manager.dashboard.form.label.delayedLegsRatio = Delayed Legs Ratio
+manager.dashboard.form.label.onTimeDelayedLegsRatio = On Time Delayed Legs Ratio
 manager.dashboard.form.label.mostPopularAirport = Most Popular Airport
 manager.dashboard.form.label.leastPopularAirport = Least Popular Airport
 manager.dashboard.form.label.numberofLegsByStatus = Number of Legs by Status
@@ -326,3 +325,14 @@ manager.dashboard.form.label.deviationFlightCost = Deviation Flight Cost
 manager.dashboard.form.label.maximumFlightCost = Maximum Flight Cost
 manager.dashboard.form.label.minimumFlightCost = Minimum Flight Cost
 manager.manager-dashboard.form.title = Manager Dashboard
+
+master.menu.any.weather = Weather Dashboard
+master.menu.any.badWeather = Bad Weather Flights
+any.weather-dashboard.list.label.city = City
+any.weather-dashboard.list.label.temperature = Temperature
+any.weather-dashboard.list.label.humidity = Humidity
+any.weather-dashboard.list.label.windSpeed = Wind Speed
+any.weather-dashboard.list.title = Weather Dashboard
+any.weather-dashboard.list.label.country = Country
+any.weather-dashboard.list.label.date = Date
+any.weather-dashboard.form.title = Weather Details

@@ -6,8 +6,7 @@
 <acme:form>
 	<acme:input-textbox code="manager.dashboard.form.label.rankingPosition" path="rankingPosition"/>
 	<acme:input-textbox code="manager.dashboard.form.label.yearsToRetirement" path="yearsToRetirement"/>
-	<acme:input-double code="manager.dashboard.form.label.onTimeLegsRatio" path="onTimeLegsRatio"/>
-	<acme:input-double code="manager.dashboard.form.label.delayedLegsRatio" path="delayedLegsRatio"/>
+	<acme:input-double code="manager.dashboard.form.label.onTimeDelayedLegsRatio" path="onTimeDelayedLegsRatio"/>
 	<acme:input-textbox code="manager.dashboard.form.label.mostPopularAirport" path="mostPopularAirport"/>
 	<acme:input-textbox code="manager.dashboard.form.label.leastPopularAirport" path="leastPopularAirport"/>
 	<acme:input-textbox code="manager.dashboard.form.label.numberofLegsByStatus" path="numberofLegsByStatus"/>

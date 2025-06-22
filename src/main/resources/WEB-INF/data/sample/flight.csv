@@ -1,7 +1,5 @@
 key,tag,self-transfer,cost,description,key:airline-manager,isDraft
-
-flight-01,Lorem ipsum dolor sit ame,false,EUR 500000.00,"Lorem ipsum dolor sit amet, consectetur adipiscing",manager-01,true
-
+flight-01,Lorem ipsum dolor sit ame,false,EUR 500000.00,"Lorem ipsum dolor sit amet, consectetur adipiscing",manager-01,false
 # tag - standard variations
 flight-02,L,false,EUR 500000.00,"Lorem ipsum dolor sit amet, consectetur adipiscing",manager-01,true
 flight-03,Lo,false,EUR 500000.00,"Lorem ipsum dolor sit amet, consectetur adipiscing",manager-01,true
@@ -14,11 +12,9 @@ flight-09,<marquee>Hacked</marquee>,false,EUR 500000.00,"Lorem ipsum dolor sit a
 flight-10,<script>alert('Hacked!');</script>,false,EUR 500000.00,"Lorem ipsum dolor sit amet, consectetur adipiscing",manager-01,true
 flight-11,' or 'A' = 'A,false,EUR 500000.00,"Lorem ipsum dolor sit amet, consectetur adipiscing",manager-01,true
 # tag - no singular values
-
 # requires-self-transfer - standard variations
 flight-12,Lorem ipsum dolor sit ame,true,EUR 500000.00,"Lorem ipsum dolor sit amet, consectetur adipiscing",manager-01,true
 # requires-self-transfer - no singular values
-
 # cost - standard variations
 flight-13,Lorem ipsum dolor sit ame,false,EUR 0.00,"Lorem ipsum dolor sit amet, consectetur adipiscing",manager-01,true
 flight-14,Lorem ipsum dolor sit ame,false,EUR 0.01,"Lorem ipsum dolor sit amet, consectetur adipiscing",manager-01,true
@@ -26,10 +22,9 @@ flight-15,Lorem ipsum dolor sit ame,false,EUR 999999.99,"Lorem ipsum dolor sit a
 flight-16,Lorem ipsum dolor sit ame,false,EUR 1000000.00,"Lorem ipsum dolor sit amet, consectetur adipiscing",manager-01,true
 # cost - singular values
 flight-17,Lorem ipsum dolor sit ame,false,USD 9.99,"Lorem ipsum dolor sit amet, consectetur adipiscing",manager-01,true
-
 # description - standard variations
 flight-18,Lorem ipsum dolor sit ame,false,EUR 500000.00,,manager-01,true
-flight-19,Lorem ipsum dolor sit ame,false,EUR 500000.00,L,manager-01,true
+flight-19,Lorem ipsum dolor sit ame,false,EUR 500000.00,L,manager-01,false
 flight-20,Lorem ipsum dolor sit ame,false,EUR 500000.00,Lo,manager-01,true
 flight-21,Lorem ipsum dolor sit ame,false,EUR 500000.00,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut enim ad minim veniam? Quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor",manager-01,true
 flight-22,Lorem ipsum dolor sit ame,false,EUR 500000.00,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut enim ad minim veniam? Quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor*",manager-01,true
@@ -40,11 +35,9 @@ flight-26,Lorem ipsum dolor sit ame,false,EUR 500000.00,<marquee>Hacked</marquee
 flight-27,Lorem ipsum dolor sit ame,false,EUR 500000.00,<script>alert('Hacked!');</script>,manager-01,true
 flight-28,Lorem ipsum dolor sit ame,false,EUR 500000.00,' or 'A' = 'A,manager-01,true
 # description - no singular values
-
 # draft-mode - standard variations
 flight-29,Lorem ipsum dolor sit ame,false,EUR 500000.00,"Lorem ipsum dolor sit amet, consectetur adipiscing",manager-01,true
 # draft-mode - no singular values
-
 # manager - standard variations
 flight-30,Lorem ipsum dolor sit ame,false,EUR 500000.00,"Lorem ipsum dolor sit amet, consectetur adipiscing",manager-02,true
 # manager - no singular values

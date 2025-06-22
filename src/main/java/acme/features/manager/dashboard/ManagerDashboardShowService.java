@@ -75,14 +75,15 @@ public class ManagerDashboardShowService extends AbstractGuiService<Manager, Man
 	}
 
 	private void setLegsRatios(final ManagerDashboard dashboard, final List<Flight> flights) {
-		double total = flights.size();
+		//double total = flights.size();
 
 		long onTime = flights.stream().filter(f -> this.hasLegWithStatus(f, LegStatus.ON_TIME)).count();
 
 		long delayed = flights.stream().filter(f -> this.hasLegWithStatus(f, LegStatus.DELAYED)).count();
 
-		dashboard.setOnTimeLegsRatio(total == 0 ? 0 : onTime / total);
-		dashboard.setDelayedLegsRatio(total == 0 ? 0 : delayed / total);
+		dashboard.setOnTimeDelayedLegsRatio((double) (onTime / delayed));
+		//dashboard.setOnTimeLegsRatio(total == 0 ? 0 : onTime / total);
+		//dashboard.setDelayedLegsRatio(total == 0 ? 0 : delayed / total);
 	}
 
 	private boolean hasLegWithStatus(final Flight flight, final LegStatus status) {
@@ -167,7 +168,7 @@ public class ManagerDashboardShowService extends AbstractGuiService<Manager, Man
 
 	@Override
 	public void unbind(final ManagerDashboard object) {
-		Dataset dataset = super.unbindObject(object, "rankingPosition", "yearsToRetirement", "onTimeLegsRatio", "delayedLegsRatio");
+		Dataset dataset = super.unbindObject(object, "rankingPosition", "yearsToRetirement", "onTimeDelayedLegsRatio");
 		dataset.put("mostPopularAirport", this.formatAirportCode(object.getMostPopularAirport()));
 		dataset.put("leastPopularAirport", this.formatAirportCode(object.getLeastPopularAirport()));
 		dataset.put("numberofLegsByStatus", this.formatLegStatusCounts(object.getNumberofLegsByStatus()));
