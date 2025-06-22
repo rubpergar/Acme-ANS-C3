@@ -24,8 +24,9 @@ public class ManagerDashboard extends AbstractForm {
 	private int						rankingPosition;
 	private int						yearsToRetirement;
 
-	private Double					onTimeLegsRatio;
-	private Double					delayedLegsRatio;
+	//private Double					onTimeLegsRatio;
+	//private Double					delayedLegsRatio;
+	private Double					onTimeDelayedLegsRatio;
 
 	private Airport					mostPopularAirport;
 	private Airport					leastPopularAirport;
