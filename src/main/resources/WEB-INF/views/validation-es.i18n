@@ -189,6 +189,8 @@ assistanceAgent.trackingLog.form.label.resolutionPercentage = Porcentaje de reso
 assistanceAgent.trackingLog.form.label.status = Estado
 assistanceAgent.trackingLog.form.label.resolution = Resolución 
 
+acme.validation.code.notPattern.message = El código de empleado debe tener 2 o 3 letras mayúsculas seguidas de 6 dígitos (por ejemplo, AB123456 o ABC654321).
+
 master.menu.administrator.list-aircrafts = Listar aeronaves
 administrator.aircraft.list.title = Aeronaves
 administrator.aircraft.form.title = Aeronave
@@ -236,7 +238,7 @@ administrator.airport.form.button.update = Actualizar
 administrator.airport.form.button.create = Crear
 
 manager.leg.list.title = Tramos del vuelo
-manager.leg.list.label.flightNumber = Número de vuelo (Reemplace 'abcd' por cuatro dígitos)
+manager.leg.list.label.flightNumber = Número de vuelo (Código IATA + 4 dígitos. Ej: AAX1234)
 manager.leg.list.label.flightNumber2 = Número de vuelo
 manager.leg.list.label.scheduledDeparture = Salida prog.
 manager.leg.list.label.scheduledArrival = Llegada prog.
@@ -290,3 +292,39 @@ java.constraint.trackinglog.update-first = Debe actualizar primero
 javax.validation.constraints.claim-must-be-published = La queja debe estar publicada
 acme.validation.manager.null-identity.message=La identidad del manager no puede estar vacía. Asegúrese de proporcionar un nombre y apellidos válidos.
 acme.validation.manager.invalid-identifier.message=El identificador del manager es inválido. Debe comenzar con sus iniciales (2 o 3 letras mayúsculas), seguidas de 6 dígitos.
+
+authenticated.manager.form.label.identifierNumber = Número de Identificación
+authenticated.manager.form.label.yearsOfExperience = Años de Experiencia
+authenticated.manager.form.label.birthDate = Edad de Nacimiento
+authenticated.airline-manager.form.label.pictureLink = Enlace a la Imagen
+authenticated.manager.form.label.airline = Aerolínea
+authenticated.manager.form.button.create = Crear Gerente
+authenticated.manager.form.button.update = Actualizar Gerente
+any.leg.form.title = Tramo de vuelo
+any.leg.list.title = Tramos de vuelo
+any.flight.form.title = Vuelo
+any.flight.list.title = Vuelos publicados
+
+
+manager.dashboard.form.label.rankingPosition = Posición en el Ranking
+manager.dashboard.form.label.yearsToRetirement = Años hasta la Jubilación
+manager.dashboard.form.label.onTimeDelayedLegsRatio = Relación de Tramos a Tiempo/Retardados
+manager.dashboard.form.label.mostPopularAirport = Aeropuerto Más Popular
+manager.dashboard.form.label.leastPopularAirport = Aeropuerto Menos Popular
+manager.dashboard.form.label.numberofLegsByStatus = Número de Tramos por Estado
+manager.dashboard.form.label.averageFlightCost = Costo Promedio del Vuelo
+manager.dashboard.form.label.deviationFlightCost = Desviación del Costo del Vuelo
+manager.dashboard.form.label.maximumFlightCost = Máximo Costo del Vuelo
+manager.dashboard.form.label.minimumFlightCost = Mínimo Costo del Vuelo
+manager.manager-dashboard.form.title = Panel de Control del Gerente
+
+master.menu.any.weather = Tabla de Clima
+master.menu.any.badWeather = Vuelo con Mal Clima
+any.weather-dashboard.list.label.city = Ciudad
+any.weather-dashboard.list.label.temperature = Temperatura
+any.weather-dashboard.list.label.humidity = Humedad
+any.weather-dashboard.list.label.windSpeed = Velocidad del Viento
+any.weather-dashboard.list.title = Tabla de Clima
+any.weather-dashboard.list.label.country = País
+any.weather-dashboard.list.label.date = Fecha
+any.weather-dashboard.form.title = Detalles del Clima

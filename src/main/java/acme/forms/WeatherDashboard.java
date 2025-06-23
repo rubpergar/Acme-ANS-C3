@@ -1,7 +1,7 @@
 
 package acme.forms;
 
-import java.util.List;
+import java.util.Date;
 
 import acme.client.components.basis.AbstractForm;
 import lombok.Getter;
@@ -17,38 +17,32 @@ public class WeatherDashboard extends AbstractForm {
 
 	private static final long	serialVersionUID	= 1L;
 
-	// Attributes -------------------------------------------------------------
+	private int					id;
+	private Double				temperature;
+	private Double				humidity;
+	private Double				windSpeed;
+	private String				city;
+	private String				country;
+	private Date				date;
 
-	//la api almacena toda esta info -> ya veremos cuales son necesarios
 
-	String						city;
-	Double						currentTemperature;
-	int							humidity;
-	String						weatherDescription;
-	Double						minTemperature;
-	Double						maxTemperature;
-	Double						pressure;
-	Double						windSpeed;
-	Double						windDegree;
-	int							cloudiness;
-	Double						rainVolume;
-	Double						snowVolume;
-	Long						sunrise;
-	Long						sunset;
-	int							weatherCode;
+	public static WeatherDashboard of(final Double temperature, final Double humidity, final Double windSpeed, final String city, final String country, final Date date) {
+		return new WeatherDashboard(temperature, humidity, windSpeed, city, country, date);
+	}
 
-	//pronosticos de varios dias -> mi api -> pronóstico de 5 días con 3 horas de intervalo (con la version gratuita)
+	public WeatherDashboard() {
 
-	List<Double>				forecastMinTemperatures;
-	List<Double>				forecastMaxTemperatures;
-	List<String>				forecastWeatherDescriptions;
-	List<Integer>				forecastHumidity;
-	List<Double>				forecastWindSpeed;
-	List<Double>				forecastWindDegree;
-	List<Double>				forecastRainVolume;
-	List<Double>				forecastSnowVolume;
-	List<String>				forecastDates;
+	}
 
+	public WeatherDashboard(final Double temperature, final Double humidity, final Double windSpeed, final String city, final String country, final Date date) {
+		super();
+		this.temperature = temperature;
+		this.humidity = humidity;
+		this.windSpeed = windSpeed;
+		this.city = city;
+		this.country = country;
+		this.date = date;
+	}
 	// Relationships ----------------------------------------------------------
 
 	// Derived attributes -----------------------------------------------------

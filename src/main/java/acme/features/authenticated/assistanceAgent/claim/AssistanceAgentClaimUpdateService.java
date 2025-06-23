@@ -12,7 +12,7 @@ import acme.entities.claims.Claim;
 import acme.entities.claims.ClaimStatus;
 import acme.entities.claims.ClaimType;
 import acme.entities.legs.Leg;
-import acme.features.authenticated.manager.leg.ManagerLegRepository;
+import acme.features.manager.leg.ManagerLegRepository;
 import acme.realms.AssistanceAgent;
 
 @GuiService
@@ -36,7 +36,7 @@ public class AssistanceAgentClaimUpdateService extends AbstractGuiService<Assist
 		claimId = super.getRequest().getData("id", int.class);
 		claim = this.repository.getClaimById(claimId);
 
-		boolean hasAuthority = claim != null && claim.isDraftMode() && claim.getAssistanceAgent().getUserAccount().getId() == super.getRequest().getPrincipal().getAccountId() && super.getRequest().getPrincipal().hasRealmOfType(AssistanceAgent.class);
+		boolean hasAuthority = claim != null && claim.getDraftMode() && claim.getAssistanceAgent().getUserAccount().getId() == super.getRequest().getPrincipal().getAccountId() && super.getRequest().getPrincipal().hasRealmOfType(AssistanceAgent.class);
 
 		if (super.getRequest().getMethod().equals("POST"))
 			hasAuthority = hasAuthority && this.validatePostFields();
@@ -52,7 +52,7 @@ public class AssistanceAgentClaimUpdateService extends AbstractGuiService<Assist
 		Integer legId = super.getRequest().getData("selectedLeg", int.class);
 		if (legId != null && legId != 0) {
 			Leg leg = this.legRepo.getLegById(legId);
-			if (leg == null || leg.getIsDraft())
+			if (leg == null || leg.getIsDraft() || leg.getScheduledArrival().after(MomentHelper.getCurrentMoment()))
 				return false;
 
 		}
@@ -99,10 +99,10 @@ public class AssistanceAgentClaimUpdateService extends AbstractGuiService<Assist
 		Integer legId = super.getRequest().getData("selectedLeg", int.class);
 		if (legId == 0)
 			super.state(false, "selectedLeg", "javax.validation.constraints.NotNull.message");
-		Leg leg = this.legRepo.getLegById(legId);
-		if (leg != null)
-			if (leg.getScheduledArrival().after(MomentHelper.getCurrentMoment()))
-				super.state(false, "selectedLeg", "javax.validation.constraints.invalid-leg.message");
+		//		Leg leg = this.legRepo.getLegById(legId);
+		//		if (leg != null)
+		//			if (leg.getScheduledArrival().after(MomentHelper.getCurrentMoment()))
+		//				super.state(false, "selectedLeg", "javax.validation.constraints.invalid-leg.message");
 	}
 
 	@Override
@@ -124,11 +124,11 @@ public class AssistanceAgentClaimUpdateService extends AbstractGuiService<Assist
 		ClaimStatus status = claim.getStatus();
 
 		SelectChoices legs;
-		legs = SelectChoices.from(this.repository.getAllPublishedLegs(), "flightNumber", claim.getLeg());
+		legs = SelectChoices.from(this.repository.getAllPublishedLegs(MomentHelper.getCurrentMoment()), "flightNumber", claim.getLeg());
 
 		dataset = super.unbindObject(claim, "registrationMoment", "email", "description");
 		dataset.put("status", status);
-		dataset.put("draftMode", claim.isDraftMode());
+		dataset.put("draftMode", claim.getDraftMode());
 		dataset.put("type", typeChoices);
 		dataset.put("legs", legs);
 		dataset.put("selectedLeg", legs.getSelected().getKey());

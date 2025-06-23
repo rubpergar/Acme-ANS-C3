@@ -1,8 +1,13 @@
 
 package acme.forms;
 
+import java.util.List;
+import java.util.Map;
+
 import acme.client.components.basis.AbstractForm;
+import acme.client.components.datatypes.Money;
 import acme.entities.airports.Airport;
+import acme.entities.legs.LegStatus;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,27 +17,29 @@ public class ManagerDashboard extends AbstractForm {
 
 	// Serialisation version --------------------------------------------------
 
-	private static final long	serialVersionUID	= 1L;
+	private static final long		serialVersionUID	= 1L;
 
 	// Attributes -------------------------------------------------------------
 
-	int							rankingPosition;
-	int							yearsToRetirement;
+	private int						rankingPosition;
+	private int						yearsToRetirement;
 
-	Double						onTimeLegsRatio;
-	Double						delayedLegsRatio;
+	//private Double					onTimeLegsRatio;
+	//private Double					delayedLegsRatio;
+	private Double					onTimeDelayedLegsRatio;
 
-	Airport						mostPopularAirport;
-	Airport						leastPopularAirport;
+	private Airport					mostPopularAirport;
+	private Airport					leastPopularAirport;
 
-	int							completedLegs;
-	int							pendingLegs;
-	int							cancelledLegs;
+	private int						completedLegs;
+	private int						pendingLegs;
+	private int						cancelledLegs;
 
-	Double						avgFlightCost;
-	Double						minFlightCost;
-	Double						maxFlightCost;
-	Double						devFlightCost;
+	private Map<LegStatus, Integer>	numberofLegsByStatus;
+	private List<Money>				averageFlightCost;
+	private List<Money>				deviationFlightCost;
+	private List<Money>				maximumFlightCost;
+	private List<Money>				minimumFlightCost;
 
 	// Derived attributes -----------------------------------------------------
 

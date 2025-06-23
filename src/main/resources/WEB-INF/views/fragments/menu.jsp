@@ -28,6 +28,7 @@
 		
 		<acme:menu-option code="master.menu.manager" access="hasRealm('Manager')">
 			<acme:menu-suboption code="master.menu.manager.list-flights" action="/manager/flight/list"/>
+			<acme:menu-suboption code="master.menu.manager.dashboard" action="/manager/manager-dashboard/show"/>
 		</acme:menu-option>
 		
 		<acme:menu-option code="master.menu.assistanceAgent" access="hasRealm('AssistanceAgent')">
@@ -57,6 +58,13 @@
 			<acme:menu-suboption code="master.menu.administrator.list-airport" action="/administrator/airport/list"/>	
 			<acme:menu-suboption code="master.menu.administrator.list-airline" action="/administrator/airline/list"/>		
 		</acme:menu-option>
+		
+		
+		<acme:menu-option code="master.menu.any">
+      		<acme:menu-suboption code="master.menu.any.flights" action="/any/flight/list"/>
+      		<acme:menu-suboption code="master.menu.any.weather" action="/any/weather-dashboard/list"/>
+      		<acme:menu-suboption code="master.menu.any.badWeather" action="/any/flight/list-under-bad-weather"/>
+		</acme:menu-option>
 
 		<acme:menu-option code="master.menu.provider" access="hasRealm('Provider')">
 			<acme:menu-suboption code="master.menu.provider.favourite-link" action="http://www.example.com/"/>
@@ -74,6 +82,8 @@
 			<acme:menu-suboption code="master.menu.user-account.provider-profile" action="/authenticated/provider/update" access="hasRealm('Provider')"/>
 			<acme:menu-suboption code="master.menu.user-account.become-consumer" action="/authenticated/consumer/create" access="!hasRealm('Consumer')"/>
 			<acme:menu-suboption code="master.menu.user-account.consumer-profile" action="/authenticated/consumer/update" access="hasRealm('Consumer')"/>
+			<acme:menu-suboption code="master.menu.user-account.become-manager" action="/authenticated/manager/create" access="!hasRealm('Manager')"/>
+			<acme:menu-suboption code="master.menu.user-account.manager-profile" action="/authenticated/manager/update" access="hasRealm('Manager')"/>
 		</acme:menu-option>
 	</acme:menu-right>
 </acme:menu-bar>

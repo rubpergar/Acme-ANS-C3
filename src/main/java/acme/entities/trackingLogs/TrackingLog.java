@@ -4,9 +4,7 @@ package acme.entities.trackingLogs;
 import java.util.Date;
 
 import javax.persistence.Entity;
-import javax.persistence.Index;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.Valid;
@@ -27,9 +25,9 @@ import lombok.Setter;
 @Getter
 @Setter
 @ValidTrackingLog
-@Table(indexes = {
-	@Index(columnList = "claim_id")
-})
+//@Table(indexes = {
+//	@Index(columnList = "claim_id")
+//})
 public class TrackingLog extends AbstractEntity {
 
 	// Serialisation version --------------------------------------------------
@@ -54,7 +52,7 @@ public class TrackingLog extends AbstractEntity {
 	private String				stepUndergoing;
 
 	@Mandatory
-	@ValidScore		// *?
+	@ValidScore
 	@Automapped
 	private Double				resolutionPercentage;
 
@@ -68,6 +66,9 @@ public class TrackingLog extends AbstractEntity {
 	@Automapped
 	private String				resolution;
 
-	boolean						draftMode;
+	@Mandatory
+	@Valid
+	@Automapped
+	private Boolean				draftMode;
 
 }
