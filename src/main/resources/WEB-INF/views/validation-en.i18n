@@ -19,6 +19,7 @@ acme.validation.PromotionCode.message=The promotion code is invalid. It must fol
 acme.validation.PromotionCodeLength.message = The promotion code is invalid. It cannot be null or have a length less than one.
 
 acme.validation.wrongPhoneNumber.message=The phone number is invalid. It must follow a pattern. This pattern matches an optional + followed by 6 to 15 digits, ensuring the entire string consists only of numbers.
+acme.validation.wrongIATACode.message =The IATA code is invalid. It must consist of exactly three uppercase letters, with no spaces or special characters.
 
 acme.validation.aircraft.duplicate-registration-number.message=The registration number is already in use. Please provide a different one.
 
