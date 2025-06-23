@@ -49,7 +49,7 @@ acme.validation.leg.invalid-dates.message = The time difference between two legs
 
 acme.validation.leg.published-legs-not-allowed.message = The flight cannot be deleted because one of his legs are published. 
 
-acme.validation.flight-number.message = The flight number is invalid. It must start with the airline's IATA code, followed by a hyphen and a sequence of digits (e.g., AAX1234).
+acme.validation.flight-number.message = The flight number is invalid. It must start with the airline's IATA code, followed by four of digits (e.g., AAX1234).
 
 manager.flight.form.label.tag = Tag
 manager.flight.form.label.cost = Cost
@@ -341,3 +341,4 @@ any.weather-dashboard.list.title = Weather Dashboard
 any.weather-dashboard.list.label.country = Country
 any.weather-dashboard.list.label.date = Date
 any.weather-dashboard.form.title = Weather Details
+master.menu.administrator.populate-weathers = Populate Weathers

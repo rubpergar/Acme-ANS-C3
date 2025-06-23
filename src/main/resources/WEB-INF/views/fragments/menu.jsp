@@ -56,7 +56,8 @@
 			<acme:menu-separator/>
 			<acme:menu-suboption code="master.menu.administrator.list-aircrafts" action="/administrator/aircraft/list"/>
 			<acme:menu-suboption code="master.menu.administrator.list-airport" action="/administrator/airport/list"/>	
-			<acme:menu-suboption code="master.menu.administrator.list-airline" action="/administrator/airline/list"/>		
+			<acme:menu-suboption code="master.menu.administrator.list-airline" action="/administrator/airline/list"/>	
+			<acme:menu-suboption code="master.menu.administrator.populate-weathers" action="/administrator/weather/populate"/>		
 		</acme:menu-option>
 		
 		
