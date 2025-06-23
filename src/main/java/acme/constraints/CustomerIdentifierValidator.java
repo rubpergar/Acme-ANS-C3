@@ -54,9 +54,9 @@ public class CustomerIdentifierValidator extends AbstractValidator<ValidCustomer
 		if (duplicateIdentifierCustomers.size() > 1)
 			validNotDuplication = false;
 
-		super.state(context, validNotNull, "identifierNumber", "acme.validation.manager.invalid-identifier-notNull.message");
-		super.state(context, validIdentifier, "identifierNumber", "acme.validation.manager.invalid-identifier.message");
-		super.state(context, validNotDuplication, "identifierNumber", "acme.validation.manager.invalid-identifier-not-duplication.message");
+		super.state(context, validNotNull, "identifierNumber", "acme.validation.customer.invalid-identifier-notNull.message");
+		super.state(context, validIdentifier, "identifierNumber", "acme.validation.customer.invalid-identifier.message");
+		super.state(context, validNotDuplication, "identifierNumber", "acme.validation.customer.invalid-identifier-not-duplication.message");
 
 		result = !super.hasErrors(context);
 
