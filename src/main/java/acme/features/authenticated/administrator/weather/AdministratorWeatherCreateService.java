@@ -25,7 +25,7 @@ import acme.entities.weathers.Weather;
 @GuiService
 public class AdministratorWeatherCreateService extends AbstractGuiService<Administrator, Weather> {
 
-	@Value("${openweather.api.key}")
+	@Value("${virtualCrossing.api.key}")
 	private String							apiKey;
 
 	@Autowired

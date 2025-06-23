@@ -44,7 +44,7 @@ public class Airline extends AbstractEntity {
 	private String				name;
 
 	@Mandatory
-	@ValidIATACode(type = "airline")
+	@ValidIATACode
 	@Column(unique = true)
 	private String				codeIATA;
 
@@ -69,7 +69,7 @@ public class Airline extends AbstractEntity {
 	private String				email;
 
 	@Optional
-	@ValidPhoneNumber(message = "{acme.validation.wrongPhoneNumber.message}")
+	@ValidPhoneNumber
 	@Automapped
 	private String				phone;
 

@@ -8,6 +8,7 @@ import java.lang.annotation.Target;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
+import javax.validation.ReportAsSingleViolation;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -15,19 +16,15 @@ import javax.validation.constraints.Pattern;
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = {})
-//@ReportAsSingleViolation
+@ReportAsSingleViolation
 @NotNull
 @NotBlank
 @Pattern(regexp = "^[A-Z]{3}$")
 public @interface ValidIATACode {
 
-	// Custom properties ------------------------------------------------------
-
-	String type() default "";
-
 	// Standard validation properties -----------------------------------------
 
-	String message() default "";
+	String message() default "{acme.validation.wrongIATACode.message}";
 	Class<?>[] groups() default {};
 
 	Class<? extends Payload>[] payload() default

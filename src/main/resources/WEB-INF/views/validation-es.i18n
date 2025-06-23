@@ -16,6 +16,7 @@ acme.validation.PromotionCode.message=El código de promoción no es válido. De
 acme.validation.PromotionCodeLength.message = El código de promoción no es válido. No puede ser nulo ni tener una longitud inferior a uno.
 
 acme.validation.wrongPhoneNumber.message=El número de teléfono no es válido. Debe seguir un patrón. Este patrón coincide con un + opcional seguido de 6 a 15 dígitos, asegurando que toda la cadena consista solo en números.
+acme.validation.wrongIATACode.message=El código IATA no es válido. Debe seguir un patrón de 3 letras mayúsculas.
 
 acme.validation.aircraft.duplicate-registration-number.message=El número de registro ya está en uso. Por favor, proporcione uno diferente.
 
@@ -39,7 +40,7 @@ acme.validation.leg.duplicate-flight-number.message=El número de vuelo ya está
 
 acme.validation.leg.invalid-departure.message = La fecha de salida tiene que ser posterior a la fecha actual.
 
-acme.validation.leg.invalid-aircraft.message = La aeronave no esta disponible para esta fecha. Por favor, proporcione una aeronave diferente o cambia la fecha.
+acme.validation.leg.invalid-aircraft.message = La aeronave no esta disponible para esta fecha. Por favor, proporcione una aeronave diferente o cambie la fecha.
 
 acme.validation.leg.invalid-airports.message = El aeropuerto de llegada del tramo previo debe ser el mismo que el de salida del actual.
 
@@ -52,7 +53,7 @@ acme.validation.leg.published-legs-not-allowed.message = El vuelo no puede ser b
 acme.validation.leg.invalid-flight-number-manager.message = El número de vuelo debe comenzar con el código IATA de la aerolínea. Por favor, proporcione un número de vuelo válido.
 
 customer.project.publish.error.lastNibbleNotPublished = Para publicar una reserva, el último fragmento de la tarjeta de crédito debe haberse almacenado.
-customer.booking.form.error.notDraft = No puedes realizar esta acción para una reserva que ya está publicada.
+customer.booking.form.error.notDraft = No puede realizar esta acción para una reserva que ya está publicada.
 
 customer.booking.list.label.locatorCode = Código de localización
 customer.booking.list.label.flight = Vuelo
@@ -112,7 +113,7 @@ customer.bookingPassenger.form.button.deleteBookingPassenger = Eliminar pasajero
 manager.flight.form.label.tag = Etiqueta
 manager.flight.form.label.cost = Costo
 manager.flight.form.label.description = Descripción
-manager.flight.form.label.selfTransfer = ¿Tienes que hacer el cambio de vuelo por tu cuenta?
+manager.flight.form.label.selfTransfer = ¿Tiene que hacer el cambio de vuelo por su cuenta?
 manager.flight.form.label.isDraft = ¿Es un borrador?
 
 manager.flight.create = Crear
@@ -131,9 +132,9 @@ manager.flight.form.label.originCity = Ciudad de origen
 manager.flight.form.label.destinationCity = Ciudad de destino
 manager.flight.form.label.layovers = Número de escalas
 
-manager.flight.form.error.notDraft = No puedes realizar esta acción para un vuelo que ya está publicado.
+manager.flight.form.error.notDraft = No puede realizar esta acción para un vuelo que ya está publicado.
 manager.flight.publish.error.notAllPublished = Para publicar el vuelo, todos sus tramos deben estar publicados.
-manager.project.publish.error.noLegs = Debes tener al menos un tramo para publicar un vuelo.
+manager.project.publish.error.noLegs = Debe tener al menos un tramo para publicar un vuelo.
 manager.flight.publish.error.overlappingLegs = Los tramos del vuelo se solapan.
 manager.flight.publish.error.notAfter = El vuelo no puede ser publicado después de que comience.
 manager.leg.publish.error.notAfter= El tramo no puede ser publicado despues de que el vuelo comience.
@@ -141,7 +142,7 @@ manager.leg.publish.error.notAfter= El tramo no puede ser publicado despues de q
 manager.flight.list.label.tag = Etiqueta
 manager.flight.list.label.cost = Costo
 manager.flight.list.label.description = Descripción
-manager.flight.list.label.selfTransfer = ¿Tienes que hacer el cambio de vuelo por tu cuenta?
+manager.flight.list.label.selfTransfer = ¿Tiene que hacer el cambio de vuelo por su cuenta?
 manager.flight.list.label.isDraft = ¿Es un borrador?
 manager.flight.legs = Etapas del vuelo
 
@@ -195,14 +196,14 @@ master.menu.administrator.list-aircrafts = Listar aeronaves
 administrator.aircraft.list.title = Aeronaves
 administrator.aircraft.form.title = Aeronave
 
-acme.validation.confirmation.message = Estas operaciones requieren confirmación. Por favor, confirma tu acción.
+acme.validation.confirmation.message = Estas operaciones requieren confirmación. Por favor, confirme su acción.
 administrator.aircraft.list.label.model = Modelo
 administrator.aircraft.list.label.registrationNumber = Número de registro
 administrator.aircraft.list.label.capacity = Capacidad
 administrator.aircraft.list.label.cargoWeight = Peso de carga
 administrator.aircraft.list.label.status = Estado
 administrator.aircraft.list.label.details = Detalles
-administrator.aircraft.form.label.confirmation = ¿Estás seguro de que deseas continuar con esta acción para esta aeronave?
+administrator.aircraft.form.label.confirmation = ¿Está seguro de que desea continuar con esta acción para esta aeronave?
 administrator.aircraft.form.label.airline = Aerolínea
 
 administrator.aircraft.list.button.create = Crear aeronave
@@ -265,7 +266,7 @@ acme.validation.booking.repeated-locatorCode.message = El código de localizaci�
 acme.validation.booking.incorrect-purchaseMoment.message = El momento de compra no puede cambiar.
 acme.validation.booking.incorrect-price.message = El precio no puede cambiar.
 customer.booking-passenger.list.title = Pasajeros de la reserva
-customer.booking.form.error.draftBooking = No puedes realizar esta acción para una reserva que ya está publicada.
+customer.booking.form.error.draftBooking = No puede realizar esta acción para una reserva que ya está publicada.
 acme.validation.booking-passenger.notPublishedPassenger.message = El pasajero no está publicado. Por favor, publique el pasajero antes de continuar.
 acme.validation.booking.flight-departure.message = El vuelo ya ha salido. No puede realizar esta reserva.
 acme.validation.booking.notExisting-flight.message = El vuelo no existe. Por favor, proporcione un vuelo válido.
@@ -279,7 +280,7 @@ manager.leg.error.invalid-status = Estado invalido. Debe ser: "CANCELED", "DELAY
 customer.booking.passengerInfo = Información del pasajero
 customer.passenger.form.error.booking-passenger.exists = El pasajero ya está asignado a la reserva. Por favor, proporcione un pasajero diferente.
 acme.validation.booking.after-flight.message = La reserva no puede ser realizada después de que el vuelo haya salido
-customer.validation.booking.form.error.emtyPassengers = No puedes realizar esta acción para una reserva que no tiene pasajeros.
+customer.validation.booking.form.error.emtyPassengers = No puede realizar esta acción para una reserva que no tiene pasajeros.
 acme.validation.invalid-locatorCode.message = El código de localización es inválido.  El valor debe tener entre 6 y 8 caracteres y solo puede contener letras mayúsculas (A-Z) y dígitos (0-9), sin espacios ni caracteres especiales.
 acme.validation.passenger.invalid-passportNumber.message = El número de pasaporte es inválido. El valor debe tener entre 6 y 9 caracteres y solo puede contener letras mayúsculas (A-Z) y dígitos (0-9), sin espacios ni caracteres especiales.
 
