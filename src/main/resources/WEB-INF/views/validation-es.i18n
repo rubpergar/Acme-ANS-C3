@@ -19,9 +19,9 @@ acme.validation.wrongPhoneNumber.message=El número de teléfono no es válido. 
 
 acme.validation.aircraft.duplicate-registration-number.message=El número de registro ya está en uso. Por favor, proporcione uno diferente.
 
-acme.validation.manager.invalid-identifier-not-duplication.message= El identificador del cliente no es válido. Varios clientes no pueden tener el mismo identificador.
+acme.validation.customer.invalid-identifier-not-duplication.message= El identificador del cliente no es válido. Varios clientes no pueden tener el mismo identificador.
 
-acme.validation.manager.invalid-identifier-notNull.message= El identificador del cliente no es válido. El identificador del cliente no puede ser nulo.
+acme.validation.customer.invalid-identifier-notNull.message= El identificador del cliente no es válido. El identificador del cliente no puede ser nulo.
 
 acme.validation.flight-number.message = El número de vuelo debe comenzar con el código IATA de la aerolínea, seguido de cuatro dígitos (ej, AAX1234). 
 
@@ -189,6 +189,8 @@ assistanceAgent.trackingLog.form.label.resolutionPercentage = Porcentaje de reso
 assistanceAgent.trackingLog.form.label.status = Estado
 assistanceAgent.trackingLog.form.label.resolution = Resolución 
 
+acme.validation.code.notPattern.message = El código de empleado debe tener 2 o 3 letras mayúsculas seguidas de 6 dígitos (por ejemplo, AB123456 o ABC654321).
+
 master.menu.administrator.list-aircrafts = Listar aeronaves
 administrator.aircraft.list.title = Aeronaves
 administrator.aircraft.form.title = Aeronave
@@ -278,6 +280,8 @@ customer.booking.passengerInfo = Información del pasajero
 customer.passenger.form.error.booking-passenger.exists = El pasajero ya está asignado a la reserva. Por favor, proporcione un pasajero diferente.
 acme.validation.booking.after-flight.message = La reserva no puede ser realizada después de que el vuelo haya salido
 customer.validation.booking.form.error.emtyPassengers = No puedes realizar esta acción para una reserva que no tiene pasajeros.
+acme.validation.invalid-locatorCode.message = El código de localización es inválido.  El valor debe tener entre 6 y 8 caracteres y solo puede contener letras mayúsculas (A-Z) y dígitos (0-9), sin espacios ni caracteres especiales.
+acme.validation.passenger.invalid-passportNumber.message = El número de pasaporte es inválido. El valor debe tener entre 6 y 9 caracteres y solo puede contener letras mayúsculas (A-Z) y dígitos (0-9), sin espacios ni caracteres especiales.
 
 javax.validation.constraints.invalid-leg.message = El tramo de vuelo debe haber ocurrido
 acme.validation.trackinglog.invalid-status.message = Estado inválido, por favor eliga otro
@@ -290,6 +294,7 @@ java.constraint.trackinglog.update-first = Debe actualizar primero
 javax.validation.constraints.claim-must-be-published = La queja debe estar publicada
 acme.validation.manager.null-identity.message=La identidad del manager no puede estar vacía. Asegúrese de proporcionar un nombre y apellidos válidos.
 acme.validation.manager.invalid-identifier.message=El identificador del manager es inválido. Debe comenzar con sus iniciales (2 o 3 letras mayúsculas), seguidas de 6 dígitos.
+acme.validation.customer.invalid-identifier.message=El identificador del cliente es inválido. Debe comenzar con sus iniciales (2 o 3 letras mayúsculas), seguidas de 6 dígitos.
 
 authenticated.manager.form.label.identifierNumber = Número de Identificación
 authenticated.manager.form.label.yearsOfExperience = Años de Experiencia

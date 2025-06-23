@@ -103,9 +103,10 @@ public class AssistanceAgentTrackingLogCreateService extends AbstractGuiService<
 		Collection<TrackingLog> tls = this.repository.findTrackingLogsByClaimId(masterId);
 
 		for (TrackingLog t : tls)
-			if (tl.getResolutionPercentage() == 100)
-				if (t.getResolutionPercentage() == 100 && t.getStatus() != tl.getStatus())
-					super.state(false, "status", "acme.validation.trackinglog.wrong-status.message");
+			if (tl.getResolutionPercentage() != null && tl.getResolutionPercentage() == 100)
+				if (tl.getStatus() != null)
+					if (t.getResolutionPercentage() == 100 && t.getStatus() != tl.getStatus())
+						super.state(false, "status", "acme.validation.trackinglog.wrong-status.message");
 	}
 
 	@Override
@@ -116,7 +117,7 @@ public class AssistanceAgentTrackingLogCreateService extends AbstractGuiService<
 		tl.setResolutionPercentage(tl.getResolutionPercentage());
 		tl.setResolution(tl.getResolution());
 		tl.setStatus(tl.getStatus());
-		tl.setDraftMode(tl.isDraftMode());
+		tl.setDraftMode(tl.getDraftMode());
 
 		this.repository.save(tl);
 	}

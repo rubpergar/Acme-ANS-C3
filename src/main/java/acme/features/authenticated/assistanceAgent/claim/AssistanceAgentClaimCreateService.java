@@ -46,7 +46,7 @@ public class AssistanceAgentClaimCreateService extends AbstractGuiService<Assist
 		Integer legId = super.getRequest().getData("selectedLeg", int.class);
 		if (legId != 0) {
 			Leg leg = this.legRepo.getLegById(legId);
-			if (leg == null || leg.getIsDraft())
+			if (leg == null || leg.getIsDraft() || leg.getScheduledArrival().after(MomentHelper.getCurrentMoment()))
 				return false;
 		}
 		return true;
@@ -92,10 +92,10 @@ public class AssistanceAgentClaimCreateService extends AbstractGuiService<Assist
 		Integer legId = super.getRequest().getData("selectedLeg", int.class);
 		if (legId == 0)
 			super.state(false, "selectedLeg", "javax.validation.constraints.NotNull.message");
-		Leg leg = this.legRepo.getLegById(legId);
-		if (leg != null)
-			if (leg.getScheduledArrival().after(MomentHelper.getCurrentMoment()))
-				super.state(false, "selectedLeg", "javax.validation.constraints.invalid-leg.message");
+		//		Leg leg = this.legRepo.getLegById(legId);
+		//		if (leg != null)
+		//			if (leg.getScheduledArrival().after(MomentHelper.getCurrentMoment()))
+		//				super.state(false, "selectedLeg", "javax.validation.constraints.invalid-leg.message");
 	}
 
 	@Override
@@ -119,7 +119,7 @@ public class AssistanceAgentClaimCreateService extends AbstractGuiService<Assist
 		ClaimStatus status = claim.getStatus();
 
 		typeChoices = SelectChoices.from(ClaimType.class, claim.getType());
-		legs = SelectChoices.from(this.repository.getAllPublishedLegs(), "flightNumber", claim.getLeg());
+		legs = SelectChoices.from(this.repository.getAllPublishedLegs(MomentHelper.getCurrentMoment()), "flightNumber", claim.getLeg());
 
 		dataset = super.unbindObject(claim, "registrationMoment", "email", "description");
 		dataset.put("status", status);

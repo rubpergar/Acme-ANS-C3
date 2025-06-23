@@ -275,6 +275,8 @@ acme.validation.booking-passenger.notExistingBookingPassenger.message= This pass
 customer.project.publish.error.passengerNotEmpty = The booking must have at least one passenger to be published.
 customer.booking.passengerInfo = Passenger Information
 customer.passenger.form.error.booking-passenger.exists = The passenger is already in the booking. Please select a different passenger.
+acme.validation.invalid-locatorCode.message = The locator code is invalid. The value must be 6 to 8 characters long and may only contain uppercase letters (A-Z) and digits (0-9), without spaces or special characters.
+acme.validation.passenger.invalid-passportNumber.message = The passport number is invalid. It must contain between 6 and 9 characters, using only uppercase letters and digits, with no spaces or special characters.
 
 
 manager.leg.error.status-required = The leg status is required
@@ -293,9 +295,12 @@ acme.validation.trackinglog.percentage-cant-be-100.message = Maximum number of 1
 javax.validation.constraints.mustUpdate-first.message = Must update first
 java.constraint.trackinglog.update-first = Must update first
 javax.validation.constraints.claim-must-be-published = Claim must be published
-acme.validation.manager.invalid-identifier-not-duplication.message= The customer's identifier is invalid. Many customers must not have the same identifier.
-acme.validation.manager.invalid-identifier-notNull.message= The customer's identifier is invalid. Customer's identifier can not be null.
-acme.validation.manager.invalid-identifier.message = The customer's identifier is invalid. The identifier must start with 2 or 3 uppercase letters, followed by exactly 6 digits, with no spaces or special characters.
+acme.validation.code.notPattern.message = Employee code must consist of 2 or 3 uppercase letters followed by 6 digits (e.g., AB123456 or ABC654321).
+
+
+acme.validation.customer.invalid-identifier-not-duplication.message= The customer's identifier is invalid. Many customers must not have the same identifier.
+acme.validation.customer.invalid-identifier-notNull.message= The customer's identifier is invalid. Customer's identifier can not be null.
+acme.validation.customer.invalid-identifier.message = The customer's identifier is invalid. The identifier must start with 2 or 3 uppercase letters, followed by exactly 6 digits, with no spaces or special characters.
 
 
 

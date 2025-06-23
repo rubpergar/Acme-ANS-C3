@@ -36,7 +36,7 @@ public class AssistanceAgentTrackingLogUpdateService extends AbstractGuiService<
 
 		Claim claim = this.repository.getClaimByTlId(tlId);
 
-		boolean hasAuthority = tl != null && tl.isDraftMode() && super.getRequest().getPrincipal().hasRealmOfType(AssistanceAgent.class) && super.getRequest().getPrincipal().getAccountId() == claim.getAssistanceAgent().getUserAccount().getId();
+		boolean hasAuthority = tl != null && tl.getDraftMode() && super.getRequest().getPrincipal().hasRealmOfType(AssistanceAgent.class) && super.getRequest().getPrincipal().getAccountId() == claim.getAssistanceAgent().getUserAccount().getId();
 
 		if (super.getRequest().getMethod().equals("POST"))
 			hasAuthority = hasAuthority && this.validateStatus();
@@ -100,7 +100,7 @@ public class AssistanceAgentTrackingLogUpdateService extends AbstractGuiService<
 		tl.setResolutionPercentage(tl.getResolutionPercentage());
 		tl.setResolution(tl.getResolution());
 		tl.setStatus(tl.getStatus());
-		tl.setDraftMode(tl.isDraftMode());
+		tl.setDraftMode(tl.getDraftMode());
 
 		this.repository.save(tl);
 	}
@@ -114,7 +114,7 @@ public class AssistanceAgentTrackingLogUpdateService extends AbstractGuiService<
 
 		dataset = super.unbindObject(tl, "lastUpdate", "stepUndergoing", "resolutionPercentage", "resolution");
 		dataset.put("masterId", tl.getClaim().getId());
-		dataset.put("draftMode", tl.isDraftMode());
+		dataset.put("draftMode", tl.getDraftMode());
 		dataset.put("status", statusChoices);
 
 		super.getResponse().addData(dataset);

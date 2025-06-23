@@ -52,7 +52,7 @@ public class Booking extends AbstractEntity {
 	//-------------------------------------------------
 
 	@Mandatory
-	@ValidString(pattern = "^[A-Z0-9]{6,8}$")
+	@ValidString(pattern = "^[A-Z0-9]{6,8}$", message = "{acme.validation.invalid-locatorCode.message}")
 	@Column(unique = true)
 	private String				locatorCode;
 
