@@ -44,6 +44,8 @@ acme.validation.leg.invalid-aircraft.message = La aeronave no esta disponible pa
 
 acme.validation.leg.invalid-airports.message = El aeropuerto de llegada del tramo previo debe ser el mismo que el de salida del actual.
 
+acme.validation.flight.invalid-cost.message = El coste debe utilizar una moneda real válida. Introduzca una cantidad con un código de moneda reconocido (por ejemplo, EUR, USD).
+
 manager.leg.error.invalid-aircraft = La aeronave no está activa. Por favor, proporcione una aeronave diferente.
 
 acme.validation.leg.invalid-dates.message = La diferencia entre dos legs continuos no puede ser menor a 2 dias.
@@ -297,6 +299,7 @@ acme.validation.manager.null-identity.message=La identidad del manager no puede 
 acme.validation.manager.invalid-identifier.message=El identificador del manager es inválido. Debe comenzar con sus iniciales (2 o 3 letras mayúsculas), seguidas de 6 dígitos.
 acme.validation.customer.invalid-identifier.message=El identificador del cliente es inválido. Debe comenzar con sus iniciales (2 o 3 letras mayúsculas), seguidas de 6 dígitos.
 
+authenticated.manager.form.title = Gerente
 authenticated.manager.form.label.identifierNumber = Número de Identificación
 authenticated.manager.form.label.yearsOfExperience = Años de Experiencia
 authenticated.manager.form.label.birthDate = Edad de Nacimiento
