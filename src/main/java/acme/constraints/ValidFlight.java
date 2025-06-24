@@ -9,14 +9,13 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
-@Target(ElementType.FIELD)
+@Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = BirthdayValidator.class)
-public @interface ValidBirthday {
-	
+@Constraint(validatedBy = FlightValidator.class)
+public @interface ValidFlight {
+
 	String message() default "";
 
 	Class<?>[] groups() default {};
 	Class<? extends Payload>[] payload() default {};
-
 }

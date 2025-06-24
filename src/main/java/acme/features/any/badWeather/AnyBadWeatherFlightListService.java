@@ -59,12 +59,12 @@ public class AnyBadWeatherFlightListService extends AbstractGuiService<Any, Flig
 
 					boolean isDuringFlight = !weather.getDate().before(departureTime) && !weather.getDate().after(arrivalTime);
 
-					boolean hasBadWeather = weather.getWindSpeed() > 80 || weather.getHumidity() > 90 || weather.getTemperature() < -0 || weather.getTemperature() > 40;
+					boolean hasBadWeather = weather.getWindSpeed() > 65 || weather.getHumidity() > 80 || weather.getTemperature() < 0 || weather.getTemperature() > 38;
 
 					return isMatchingCity && isDuringFlight && hasBadWeather;
 				});
 			});
-		}).map(Map.Entry::getKey).collect(Collectors.toList());
+		}).map(Map.Entry::getKey).filter(flight -> Boolean.FALSE.equals(flight.getIsDraft())).collect(Collectors.toList());
 
 		super.getBuffer().addData(flightsWithBadWeather);
 	}

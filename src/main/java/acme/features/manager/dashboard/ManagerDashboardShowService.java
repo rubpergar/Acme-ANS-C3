@@ -81,9 +81,10 @@ public class ManagerDashboardShowService extends AbstractGuiService<Manager, Man
 
 		long delayed = flights.stream().filter(f -> this.hasLegWithStatus(f, LegStatus.DELAYED)).count();
 
-		dashboard.setOnTimeDelayedLegsRatio((double) (onTime / delayed));
-		//dashboard.setOnTimeLegsRatio(total == 0 ? 0 : onTime / total);
-		//dashboard.setDelayedLegsRatio(total == 0 ? 0 : delayed / total);
+		if (delayed > 0)
+			dashboard.setOnTimeDelayedLegsRatio((double) (onTime / delayed));
+		else
+			dashboard.setOnTimeDelayedLegsRatio(0.0);
 	}
 
 	private boolean hasLegWithStatus(final Flight flight, final LegStatus status) {

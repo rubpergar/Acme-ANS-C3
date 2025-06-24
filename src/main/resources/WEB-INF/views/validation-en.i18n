@@ -19,6 +19,7 @@ acme.validation.PromotionCode.message=The promotion code is invalid. It must fol
 acme.validation.PromotionCodeLength.message = The promotion code is invalid. It cannot be null or have a length less than one.
 
 acme.validation.wrongPhoneNumber.message=The phone number is invalid. It must follow a pattern. This pattern matches an optional + followed by 6 to 15 digits, ensuring the entire string consists only of numbers.
+acme.validation.wrongIATACode.message =The IATA code is invalid. It must consist of exactly three uppercase letters, with no spaces or special characters.
 
 acme.validation.aircraft.duplicate-registration-number.message=The registration number is already in use. Please provide a different one.
 
@@ -49,7 +50,9 @@ acme.validation.leg.invalid-dates.message = The time difference between two legs
 
 acme.validation.leg.published-legs-not-allowed.message = The flight cannot be deleted because one of his legs are published. 
 
-acme.validation.flight-number.message = The flight number is invalid. It must start with the airline's IATA code, followed by a hyphen and a sequence of digits (e.g., AAX1234).
+acme.validation.flight-number.message = The flight number is invalid. It must start with the airline's IATA code, followed by four of digits (e.g., AAX1234).
+
+acme.validation.flight.invalid-cost.message = The cost must use a valid real-world currency. Please enter a valid amount with a recognized currency code (e.g., EUR, USD).
 
 manager.flight.form.label.tag = Tag
 manager.flight.form.label.cost = Cost
@@ -305,7 +308,7 @@ acme.validation.customer.invalid-identifier.message = The customer's identifier 
 
 
 
-
+authenticated.manager.form.title = Manager 
 authenticated.manager.form.label.identifierNumber = Identifier Number
 authenticated.manager.form.label.yearsOfExperience = Years of Experience
 authenticated.manager.form.label.birthDate = Birth Date
@@ -341,6 +344,8 @@ any.weather-dashboard.list.title = Weather Dashboard
 any.weather-dashboard.list.label.country = Country
 any.weather-dashboard.list.label.date = Date
 any.weather-dashboard.form.title = Weather Details
+
+master.menu.administrator.populate-weathers = Populate Weathers
 
 acme.validation.passport.number-wrong-pattern.message = The passport number is invalid. It must contain between 6 and 9 characters, using only uppercase letters and digits, with no spaces or special characters
 acme.validation.passport.number-not-unique.message = The passport number must be unique. This value is already used by another passenger.
