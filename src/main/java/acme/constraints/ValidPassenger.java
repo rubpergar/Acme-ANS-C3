@@ -8,19 +8,14 @@ import java.lang.annotation.Target;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
-import javax.validation.constraints.Pattern;
 
-@Target(ElementType.FIELD)
+@Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = {})
+@Constraint(validatedBy = PassengerValidator.class)
+public @interface ValidPassenger {
 
-@Pattern(regexp = "^(|[0-9]{4})$")
-public @interface ValidLastNibble {
+	String message() default "";
 
-	String message() default "{ acme.validation.LastNibbleWrongFormat.message }";
 	Class<?>[] groups() default {};
-
-	Class<? extends Payload>[] payload() default
-
-	{};
+	Class<? extends Payload>[] payload() default {};
 }
