@@ -79,7 +79,7 @@ public class CustomerBookingPublishService extends AbstractGuiService<Customer, 
 		super.state(booking.getPrice().getAmount() != 0.0, "*", "customer.project.publish.error.priceNotNull");
 
 		//Comprobar que la fecha de compra de publicacion de la reserva es anterior a la fecha de vuelo
-		boolean flightIsAfterStatus = booking.getFlight().getScheduledArrival().after(MomentHelper.getCurrentMoment());
+		boolean flightIsAfterStatus = booking.getFlight().getScheduledDeparture().after(MomentHelper.getCurrentMoment());
 		super.state(flightIsAfterStatus, "flight", "acme.validation.booking.after-flight.message");
 
 	}
