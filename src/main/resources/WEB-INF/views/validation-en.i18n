@@ -344,4 +344,8 @@ any.weather-dashboard.list.title = Weather Dashboard
 any.weather-dashboard.list.label.country = Country
 any.weather-dashboard.list.label.date = Date
 any.weather-dashboard.form.title = Weather Details
+
 master.menu.administrator.populate-weathers = Populate Weathers
+
+acme.validation.passport.number-wrong-pattern.message = The passport number is invalid. It must contain between 6 and 9 characters, using only uppercase letters and digits, with no spaces or special characters
+acme.validation.passport.number-not-unique.message = The passport number must be unique. This value is already used by another passenger.

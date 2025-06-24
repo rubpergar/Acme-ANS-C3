@@ -3,6 +3,7 @@ package acme.entities.passenger;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Index;
 import javax.persistence.ManyToOne;
@@ -18,6 +19,7 @@ import acme.client.components.validation.Optional;
 import acme.client.components.validation.ValidEmail;
 import acme.client.components.validation.ValidMoment;
 import acme.client.components.validation.ValidString;
+import acme.constraints.ValidPassenger;
 import acme.realms.Customer;
 import lombok.Getter;
 import lombok.Setter;
@@ -28,6 +30,7 @@ import lombok.Setter;
 @Table(indexes = {
 	@Index(columnList = "customer_id, isDraft")
 })
+@ValidPassenger
 public class Passenger extends AbstractEntity {
 
 	private static final long	serialVersionUID	= 1L;
@@ -43,8 +46,8 @@ public class Passenger extends AbstractEntity {
 	private String				email;
 
 	@Mandatory
-	@ValidString(pattern = "^[A-Z0-9]{6,9}$", message = "{acme.validation.passenger.invalid-passportNumber.message}")
-	@Automapped
+	@ValidString
+	@Column(unique = true)
 	private String				passportNumber;
 
 	@Mandatory
