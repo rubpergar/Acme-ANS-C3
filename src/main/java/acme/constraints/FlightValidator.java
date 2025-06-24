@@ -23,7 +23,7 @@ public class FlightValidator extends AbstractValidator<ValidFlight, Flight> {
 	public boolean isValid(final Flight flight, final ConstraintValidatorContext context) {
 
 		boolean isCostCorrect = true;
-		Set<String> VALID_CURRENCIES = Currency.getAvailableCurrencies().stream().map(Currency::getCurrencyCode).collect(Collectors.toSet());
+		Set<String> VALID_CURRENCIES = Currency.getAvailableCurrencies().stream().map(Currency::getCurrencyCode).filter(c -> !c.equals("XXX")).collect(Collectors.toSet());
 		if (flight.getCost() != null)
 			if (!VALID_CURRENCIES.contains(flight.getCost().getCurrency()))
 				isCostCorrect = false;
