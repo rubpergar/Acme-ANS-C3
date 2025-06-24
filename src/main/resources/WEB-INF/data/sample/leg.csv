@@ -1,57 +1,52 @@
 key,flight-number,scheduled-departure,scheduled-arrival,status,key:departure-airport,key:arrival-airport,key:flight,key:aircraft,isDraft
-# base entity,"","","","","","","",""
-leg-00,AAX1001,2000/02/01 09:00,2000/02/01 10:00,ON_TIME,airport-00,airport-01,flight-01,aircraft-01,true
-# flight-number - standard variations,"","","","","","",""
-leg-01,AAX0000,2000/02/01 10:01,2000/02/01 11:00,ON_TIME,airport-00,airport-01,flight-01,aircraft-01,true
-leg-02,AAX0001,2000/02/01 11:01,2000/02/01 12:00,ON_TIME,airport-00,airport-01,flight-01,aircraft-01,false
-leg-03,AAX9998,2000/02/01 12:01,2000/02/01 13:00,ON_TIME,airport-00,airport-01,flight-01,aircraft-01,true
-leg-04,AAX9999,2000/02/01 13:01,2000/02/01 14:00,ON_TIME,airport-00,airport-01,flight-01,aircraft-01,true
-# flight-number - singular values
-leg-05,AAX3466,2000/02/01 14:01,2000/02/01 15:00,ON_TIME,airport-00,airport-01,flight-01,aircraft-01,true
-# scheduled-departure - standard variations
+# base entity
+leg-00,AAX1001,2004/06/01 09:00,2004/06/01 10:00,ON_TIME,airport-00,airport-01,flight-01,aircraft-01,true
+# flight-number 
+leg-01,AAX0000,2004/06/01 10:30,2004/06/01 11:00,ON_TIME,airport-00,airport-01,flight-01,aircraft-01,true
+leg-02,AAX0001,2004/06/01 11:30,2004/06/01 12:00,ON_TIME,airport-00,airport-01,flight-01,aircraft-01,false
+leg-03,AAX9998,2004/06/01 12:30,2004/06/01 13:00,ON_TIME,airport-00,airport-01,flight-01,aircraft-01,true
+leg-04,AAX9999,2004/06/01 13:30,2004/06/01 14:00,ON_TIME,airport-00,airport-01,flight-01,aircraft-01,true
+leg-05,AAX3466,2004/06/01 14:30,2004/06/01 15:00,ON_TIME,airport-00,airport-01,flight-01,aircraft-01,true
+# scheduled-departure
 leg-06,AAX1002,2000/01/01 0:00,2000/01/01 0:01,ON_TIME,airport-00,airport-01,flight-01,aircraft-01,true
 leg-07,AAX1003,2000/01/01 0:01,2000/01/01 0:02,ON_TIME,airport-00,airport-01,flight-02,aircraft-01,true
 leg-08,AAX1004,2200/12/31 23:57,2200/12/31 23:58,ON_TIME,airport-00,airport-01,flight-03,aircraft-01,true
 leg-09,AAX1005,2200/12/31 23:58,2200/12/31 23:59,ON_TIME,airport-00,airport-01,flight-04,aircraft-01,true
-# scheduled-departure - no singular values
-# scheduled-arrival - standard variations
+# scheduled-arrival 
 leg-11,AAX1006,2000/01/01 0:00,2000/01/01 0:01,ON_TIME,airport-00,airport-01,flight-05,aircraft-01,true
 leg-12,AAX1007,2000/01/01 0:02,2000/02/01 0:03,ON_TIME,airport-00,airport-01,flight-06,aircraft-01,true
 leg-13,AAX1008,2000/02/01 10:00,2200/12/31 23:58,ON_TIME,airport-00,airport-01,flight-07,aircraft-01,true
 leg-14,AAX1009,2000/02/01 10:00,2200/12/31 23:59,ON_TIME,airport-00,airport-01,flight-08,aircraft-01,true
-# scheduled-arrival - no singular values
-# status - standard variations
+# status
 leg-15,AAX1010,2000/02/01 16:01,2000/02/01 17:00,DELAYED,airport-00,airport-01,flight-04,aircraft-01,true
 leg-16,AAX1011,2000/02/01 17:01,2000/02/01 18:00,CANCELLED,airport-00,airport-01,flight-05,aircraft-01,true
 leg-17,AAX1012,2000/02/01 18:01,2000/02/01 19:00,LANDED,airport-00,airport-01,flight-06,aircraft-01,true
-# status - no singular values
-# draft-mode - standard variations
+# isDraft
 leg-24,AAX1017,2000/02/02 10:00,2000/02/02 11:00,ON_TIME,airport-00,airport-01,flight-29,aircraft-01,false
-# draft-mode - no singular values
 leg-18,AAX2001,2000/02/01 19:01,2000/02/01 20:00,ON_TIME,airport-00,airport-01,flight-09,aircraft-01,true
 leg-19,AAX3001,2000/02/01 20:01,2000/02/01 21:00,ON_TIME,airport-00,airport-01,flight-10,aircraft-01,true
-# flight - standard variations
+# flight
 leg-20,AAX1013,2000/02/01 10:00,2000/02/01 11:00,ON_TIME,airport-00,airport-01,flight-22,aircraft-01,true
-# flight - no singular values
-# departure-airport - standard variations
+# departure-airport 
 leg-21,AAX1014,2000/02/01 21:01,2000/02/01 22:00,ON_TIME,airport-10,airport-00,flight-11,aircraft-01,true
-# departure-airport - no singular values
-# arrival-airport - standard variations
+# arrival-airport
 leg-22,AAX1015,2000/02/01 22:01,2000/02/01 23:00,ON_TIME,airport-00,airport-11,flight-12,aircraft-01,true
-# arrival-airport - no singular values
-# aircraft - standard variations
+# aircraft
 leg-23,ABX1016,2000/02/01 10:00,2000/02/01 11:00,ON_TIME,airport-00,airport-01,flight-30,aircraft-11,true
-# aircraft - no singular values
-# extra data for other students,"",""
+# extra data for other students
 leg-25,AAX1018,2030/01/01 10:00,2030/01/01 11:00,ON_TIME,airport-00,airport-01,flight-11,aircraft-01,false
 leg-26,AAX1019,2030/02/01 10:00,2030/02/01 11:00,ON_TIME,airport-00,airport-01,flight-12,aircraft-01,false
 leg-27,AAX1020,2030/03/01 10:00,2030/03/01 11:00,ON_TIME,airport-00,airport-01,flight-13,aircraft-01,false
 leg-28,AAX1021,2030/04/01 10:00,2030/04/01 11:00,ON_TIME,airport-00,airport-01,flight-14,aircraft-01,false
 leg-29,AAX1022,2030/05/01 10:00,2030/05/01 11:00,ON_TIME,airport-00,airport-01,flight-15,aircraft-01,false
-# two incompatible flights
 leg-30,AAX1023,2030/06/01 10:00,2030/06/01 11:00,ON_TIME,airport-00,airport-01,flight-16,aircraft-01,false
 leg-31,AAX1024,2030/06/01 10:00,2030/06/01 11:00,ON_TIME,airport-00,airport-01,flight-17,aircraft-02,false
 # leg not published
 leg-32,AAX1025,2030/07/01 10:00,2030/07/01 11:00,ON_TIME,airport-00,airport-01,flight-18,aircraft-01,true
 # leg in past
 leg-33,AAX1026,2024/12/04 10:00,2024/12/04 11:00,ON_TIME,airport-00,airport-01,flight-19,aircraft-01,false
+# leg just after present moment
+leg-34,AAX1027,2025/01/01 00:01,2025/01/01 01:00,ON_TIME,airport-01,airport-04,flight-19,aircraft-01,false
+#legs in past month
+leg-35,AAX1028,2024/12/05 10:00,2024/12/05 11:00,ON_TIME,airport-00,airport-01,flight-20,aircraft-02,false
+leg-36,AAX1029,2024/12/05 11:30,2024/12/05 12:00,ON_TIME,airport-01,airport-04,flight-20,aircraft-02,false
