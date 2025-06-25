@@ -34,15 +34,16 @@ public class CustomerBookingPassengerDeleteService extends AbstractGuiService<Cu
 		int userAccountId = super.getRequest().getPrincipal().getAccountId();
 		BookingPassenger bookingPassenger = this.repository.findBookingPassengerById(id);
 
-		boolean bookingIsDraft = bookingPassenger.getBooking().getIsDraft() == true;
-
-		Passenger actualPassenger = super.getRequest().getData("passenger", Passenger.class);
-
-		int actualPassengerId = actualPassenger != null ? actualPassenger.getId() : -1;
-
-		boolean passengerNotChanged = actualPassengerId == passenger.getId();
-
-		super.getResponse().setAuthorised(passenger.getCustomer().getUserAccount().getId() == userAccountId && bookingIsDraft && passengerNotChanged);
+		if (bookingPassenger != null && passenger != null) {
+			boolean bookingIsDraft = bookingPassenger.getBooking().getIsDraft() == true;
+			boolean passengerNotChanged = true;
+			if (super.getRequest().hasData("passenger")) {
+				int actualPassengerId = super.getRequest().getData("passenger", int.class);
+				passengerNotChanged = actualPassengerId == passenger.getId();
+			}
+			super.getResponse().setAuthorised(passenger.getCustomer().getUserAccount().getId() == userAccountId && bookingIsDraft && passengerNotChanged);
+		} else
+			super.getResponse().setAuthorised(false);
 	}
 
 	@Override

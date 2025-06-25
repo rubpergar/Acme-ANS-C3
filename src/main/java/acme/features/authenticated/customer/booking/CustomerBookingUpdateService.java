@@ -31,7 +31,10 @@ public class CustomerBookingUpdateService extends AbstractGuiService<Customer, B
 
 		Integer customerId = super.getRequest().getPrincipal().getActiveRealm().getId();
 
-		status = status && booking.getCustomer().getId() == customerId && booking.getIsDraft();
+		if (booking != null)
+			status = status && booking.getCustomer().getId() == customerId && booking.getIsDraft();
+		else
+			status = false;
 
 		// FLIGHT
 		if (super.getRequest().getMethod().equals("POST")) {

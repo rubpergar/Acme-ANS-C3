@@ -30,7 +30,10 @@ public class CustomerBookingDeleteService extends AbstractGuiService<Customer, B
 
 		Integer customerId = super.getRequest().getPrincipal().getActiveRealm().getId();
 
-		status = status && booking.getCustomer().getId() == customerId && booking.getIsDraft();
+		if (booking != null)
+			status = status && booking.getCustomer().getId() == customerId && booking.getIsDraft();
+		else
+			status = false;
 
 		super.getResponse().setAuthorised(status);
 	}
