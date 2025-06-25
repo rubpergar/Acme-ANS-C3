@@ -27,7 +27,11 @@ public class CustomerBookingPassengerShowService extends AbstractGuiService<Cust
 		int id = super.getRequest().getData("id", int.class);
 		passenger = this.repository.findPassengerByBookingPassengerId(id);
 		int userAccountId = super.getRequest().getPrincipal().getAccountId();
-		super.getResponse().setAuthorised(passenger.getCustomer().getUserAccount().getId() == userAccountId);
+
+		if (this.repository.findBookingPassengerById(id) == null || passenger == null)
+			super.getResponse().setAuthorised(false);
+		else
+			super.getResponse().setAuthorised(passenger.getCustomer().getUserAccount().getId() == userAccountId);
 	}
 
 	@Override

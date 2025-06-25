@@ -37,13 +37,17 @@ public class CustomerBookingPublishService extends AbstractGuiService<Customer, 
 
 		userAccountId = super.getRequest().getPrincipal().getAccountId();
 
-		boolean status = booking.getCustomer().getUserAccount().getId() == userAccountId;
+		boolean status;
+		if (booking != null) {
+			status = booking.getCustomer().getUserAccount().getId() == userAccountId;
 
-		super.getResponse().setAuthorised(booking.getCustomer().getUserAccount().getId() == userAccountId);
+			super.getResponse().setAuthorised(booking.getCustomer().getUserAccount().getId() == userAccountId);
 
-		if (!booking.getIsDraft())
+			if (!booking.getIsDraft())
+				status = false;
+
+		} else
 			status = false;
-
 		super.getResponse().setAuthorised(status);
 	}
 
