@@ -15,7 +15,7 @@
 	</jstl:if>
 	
 	<jstl:if test="${_command == 'update'}" >
-		<acme:input-select code="authenticated.manager.form.label.airline" path="airline" choices="${airlineChoices}" readonly="true"/>
+		<acme:input-select code="authenticated.manager.form.label.airline" path="airline" choices="${airlineChoices}"/>
 		<acme:submit code="authenticated.manager.form.button.update" action="/authenticated/manager/update"/>
 	</jstl:if>
 	

@@ -6,6 +6,7 @@ acme.validation.crew-member.invalid-identifier.message=El identificador del miem
 
 acme.validation.activity-log.invalid-moment.message=El registro de actividad no se puede realizar debido a que su correspondiente tramo no ha concluido aún
 
+acme.validation.manager.duplicate-identifier-number.message = El número de identificación del gerente ya está en uso. Por favor, proporcione uno diferente.
 acme.validation.leg.invalid-scheduled-arrival.message=La hora de llegada debe ser posterior a la hora de salida programada.
 acme.validation.leg.invalid-flight-number.message=El número de vuelo debe comenzar con el código IATA de la aerolínea
 

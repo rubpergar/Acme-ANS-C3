@@ -36,7 +36,7 @@ public class Manager extends AbstractRole {
 	// Attributes -------------------------------------------------------------
 
 	@Mandatory
-	@ValidString(min = 8, max = 9)
+	@ValidString(pattern = "^[A-Z]{2,3}\\d{6}$", min = 8, max = 9, message = "{acme.validation.manager.invalid-identifier.message}")
 	@Column(unique = true)
 	private String				identifierNumber;
 
