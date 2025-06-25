@@ -75,7 +75,6 @@ public class ManagerDashboardShowService extends AbstractGuiService<Manager, Man
 	}
 
 	private void setLegsRatios(final ManagerDashboard dashboard, final List<Flight> flights) {
-		//double total = flights.size();
 
 		long onTime = flights.stream().filter(f -> this.hasLegWithStatus(f, LegStatus.ON_TIME)).count();
 

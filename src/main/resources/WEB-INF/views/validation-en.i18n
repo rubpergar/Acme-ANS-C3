@@ -11,6 +11,7 @@ acme.validation.leg.invalid-flight-number.message=The flight number must start w
 
 acme.validation.flight.overlapping.message=Flight legs must not overlap
 
+acme.validation.manager.duplicate-identifier-number.message =The manager's identifier number is already in use. Please provide a different one.
 acme.validation.manager.null-identity.message=The manager's identity cannot be null. Please provide a valid first and last name.
 acme.validation.manager.invalid-identifier.message=The manager's identifier is invalid. It must start with their initials (2 or 3 uppercase letters) followed by 6 digits.
 
