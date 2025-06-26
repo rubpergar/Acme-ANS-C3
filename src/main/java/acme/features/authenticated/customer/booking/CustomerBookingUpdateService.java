@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import acme.client.components.models.Dataset;
 import acme.client.components.views.SelectChoices;
+import acme.client.helpers.MomentHelper;
 import acme.client.services.AbstractGuiService;
 import acme.client.services.GuiService;
 import acme.entities.booking.Booking;
@@ -72,6 +73,11 @@ public class CustomerBookingUpdateService extends AbstractGuiService<Customer, B
 		Booking bookingExistingLocatorCode = this.repository.findBookingByLocatorCode(booking.getLocatorCode());
 		boolean locatorCodeStatus = bookingExistingLocatorCode == null || bookingExistingLocatorCode.getId() == booking.getId();
 		super.state(locatorCodeStatus, "locatorCode", "acme.validation.booking.repeated-locatorCode.message");
+
+		// Verificar que la fecha del vuelo es posterior antes de actualizar
+
+		boolean flightStatus = booking.getFlight().getScheduledDeparture().after(MomentHelper.getCurrentMoment());
+		super.state(flightStatus, "*", "acme.validation.booking.flight-scheduled-departure.message");
 
 	}
 
