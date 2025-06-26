@@ -20,6 +20,7 @@ acme.validation.wrongPhoneNumber.message=El número de teléfono no es válido. 
 acme.validation.wrongIATACode.message=El código IATA no es válido. Debe seguir un patrón de 3 letras mayúsculas.
 
 acme.validation.aircraft.duplicate-registration-number.message=El número de registro ya está en uso. Por favor, proporcione uno diferente.
+acme.validation.booking.flight-scheduled-departure.message
 
 acme.validation.customer.invalid-identifier-not-duplication.message= El identificador del cliente no es válido. Varios clientes no pueden tener el mismo identificador.
 
@@ -341,3 +342,4 @@ master.menu.administrator.populate-weathers = Población de Climas
 
 acme.validation.passport.number-wrong-pattern.message = El número de pasaporte debe seguir el patrón correcto. Debe tener entre 6 y 9 caracteres y solo puede contener letras mayúsculas (A-Z) y dígitos (0-9), sin espacios ni caracteres especiales.
 acme.validation.passport.number-not-unique.message = El número de pasaporte ya está en uso. Por favor, proporcione uno diferente.
+acme.validation.booking.flight-scheduled-departure.message = Para actualizar una reserva, el vuelo debe tener una fecha de salida programada en el futuro. El vuelo seleccionado ya ha salido. Si deseas actualizar la reserva, seleccione un vuelo que aún no haya salido.
