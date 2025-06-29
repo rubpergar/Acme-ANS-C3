@@ -34,5 +34,6 @@ flight-27,Lorem ipsum dolor sit ame,false,EUR 500000.00,<script>alert('Hacked!')
 flight-28,Lorem ipsum dolor sit ame,false,EUR 500000.00,' or 'A' = 'A,manager-01,true
 # isDraft
 flight-29,Lorem ipsum dolor sit ame,false,EUR 500000.00,"Lorem ipsum dolor sit amet, consectetur adipiscing",manager-01,true
+flight-31,Lorem ipsum dolor sit ame,false,EUR 500000.00,"Lorem ipsum dolor sit amet, consectetur adipiscing",manager-02,false
 # airline-manager 
 flight-30,Lorem ipsum dolor sit ame,false,EUR 500000.00,"Lorem ipsum dolor sit amet, consectetur adipiscing",manager-02,true
