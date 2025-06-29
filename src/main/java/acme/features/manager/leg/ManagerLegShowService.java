@@ -67,8 +67,6 @@ public class ManagerLegShowService extends AbstractGuiService<Manager, Leg> {
 
 		Collection<Aircraft> aircraftsActives = this.repository.findAllAircraftsByStatus(AircraftStatus.ACTIVE);
 
-		//List<Aircraft> finalAircrafts = aircraftsActives.stream().filter(a -> a.getAirline().getCodeIATA().equals(leg.getFlight().getAirlineManager().getAirline().getCodeIATA())).toList();
-
 		dataset = super.unbindObject(leg, "flightNumber", "scheduledDeparture", "scheduledArrival");
 		dataset.put("masterId", leg.getFlight().getId());
 		dataset.put("isDraft", leg.getIsDraft());
@@ -76,7 +74,6 @@ public class ManagerLegShowService extends AbstractGuiService<Manager, Leg> {
 		selectedAircraft = SelectChoices.from(aircraftsActives, "registrationNumber", leg.getAircraft());
 		dataset.put("aircrafts", selectedAircraft);
 		dataset.put("aircraft", selectedAircraft.getSelected().getKey());
-		dataset.put("duration", leg.getDuration());
 		dataset.put("isDraftFlight", leg.getFlight().getIsDraft());
 		dataset.put("codeIATA", leg.getFlight().getAirlineManager().getAirline().getCodeIATA());
 
@@ -86,6 +83,10 @@ public class ManagerLegShowService extends AbstractGuiService<Manager, Leg> {
 		dataset.put("departureAirport", departureAirportChoices.getSelected().getKey());
 		dataset.put("arrivalAirports", arrivalAirportChoices);
 		dataset.put("arrivalAirport", arrivalAirportChoices.getSelected().getKey());
+		if (leg.getScheduledDeparture() != null && leg.getScheduledArrival() != null)
+			dataset.put("duration", leg.getDuration());
+		else
+			dataset.put("duration", null);
 
 		super.getResponse().addData(dataset);
 	}
