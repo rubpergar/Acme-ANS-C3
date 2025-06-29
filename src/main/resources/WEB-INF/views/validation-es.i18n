@@ -337,6 +337,7 @@ any.weather-dashboard.list.title = Tabla de Clima
 any.weather-dashboard.list.label.country = País
 any.weather-dashboard.list.label.date = Fecha
 any.weather-dashboard.form.title = Detalles del Clima
+any.weather-dashboard.list.label.description = Descripción
 
 master.menu.administrator.populate-weathers = Población de Climas
 

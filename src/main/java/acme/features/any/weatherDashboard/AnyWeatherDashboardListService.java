@@ -34,9 +34,6 @@ public class AnyWeatherDashboardListService extends AbstractGuiService<Any, Weat
 
 		List<WeatherDashboard> weatherDashboards = new ArrayList<>();
 
-		//String city = super.getRequest().getData("city", String.class);
-		//String country = super.getRequest().getData("country", String.class);
-
 		List<Weather> weathers = this.repository.findAllWeathers();
 
 		for (Weather w : weathers) {
@@ -44,9 +41,6 @@ public class AnyWeatherDashboardListService extends AbstractGuiService<Any, Weat
 			wD.setId(w.getId());
 			wD.setCity(w.getCity());
 			wD.setCountry(w.getCountry());
-			//wD.setTemperature(w.getTemperature());
-			//wD.setHumidity(w.getHumidity());
-			//wD.setWindSpeed(w.getWindSpeed());
 			wD.setDate(w.getDate());
 			weatherDashboards.add(wD);
 		}

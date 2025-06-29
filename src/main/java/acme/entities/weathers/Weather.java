@@ -52,4 +52,10 @@ public class Weather extends AbstractEntity {
 	@ValidMoment
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date				date;
+
+	@Mandatory
+	@ValidString(min = 1, max = 255)
+	@Automapped
+	private String				description;
+
 }

@@ -11,4 +11,5 @@
     <acme:input-textbox code="any.weather-dashboard.list.label.humidity" path="humidity" readonly="true"/>
     <acme:input-textbox code="any.weather-dashboard.list.label.windSpeed" path="windSpeed" readonly="true"/>
     <acme:input-moment code="any.weather-dashboard.list.label.date" path="date" readonly="true"/>
+    <acme:input-textbox code="any.weather-dashboard.list.label.description" path="description" readonly="true"/>
 </acme:form>

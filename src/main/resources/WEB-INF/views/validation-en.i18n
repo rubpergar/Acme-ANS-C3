@@ -345,6 +345,7 @@ any.weather-dashboard.list.title = Weather Dashboard
 any.weather-dashboard.list.label.country = Country
 any.weather-dashboard.list.label.date = Date
 any.weather-dashboard.form.title = Weather Details
+any.weather-dashboard.list.label.description = Description
 
 master.menu.administrator.populate-weathers = Populate Weathers
 
