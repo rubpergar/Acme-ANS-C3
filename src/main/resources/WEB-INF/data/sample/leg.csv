@@ -41,6 +41,7 @@ leg-28,AAX1021,2030/04/01 10:00,2030/04/01 11:00,ON_TIME,airport-00,airport-01,f
 leg-29,AAX1022,2030/05/01 10:00,2030/05/01 11:00,ON_TIME,airport-00,airport-01,flight-15,aircraft-01,false
 leg-30,AAX1023,2030/06/01 10:00,2030/06/01 11:00,ON_TIME,airport-00,airport-01,flight-16,aircraft-01,false
 leg-31,AAX1024,2030/06/01 10:00,2030/06/01 11:00,ON_TIME,airport-00,airport-01,flight-17,aircraft-02,false
+leg-37,ABX1030,2000/02/01 13:00,2000/02/01 15:00,ON_TIME,airport-00,airport-01,flight-30,aircraft-11,true
 # leg not published
 leg-32,AAX1025,2030/07/01 10:00,2030/07/01 11:00,ON_TIME,airport-00,airport-01,flight-18,aircraft-01,true
 # leg in past
