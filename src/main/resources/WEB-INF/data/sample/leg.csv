@@ -1,7 +1,7 @@
 key,flight-number,scheduled-departure,scheduled-arrival,status,key:departure-airport,key:arrival-airport,key:flight,key:aircraft,isDraft
 # base entity
 leg-00,AAX1001,2004/06/01 09:00,2004/06/01 10:00,ON_TIME,airport-00,airport-01,flight-01,aircraft-01,true
-# flight-number 
+# flight-number
 leg-01,AAX0000,2004/06/01 10:30,2004/06/01 11:00,ON_TIME,airport-00,airport-01,flight-01,aircraft-01,true
 leg-02,AAX0001,2004/06/01 11:30,2004/06/01 12:00,ON_TIME,airport-00,airport-01,flight-01,aircraft-01,false
 leg-03,AAX9998,2004/06/01 12:30,2004/06/01 13:00,ON_TIME,airport-00,airport-01,flight-01,aircraft-01,true
@@ -12,7 +12,7 @@ leg-06,AAX1002,2000/01/01 0:00,2000/01/01 0:01,ON_TIME,airport-00,airport-01,fli
 leg-07,AAX1003,2000/01/01 0:01,2000/01/01 0:02,ON_TIME,airport-00,airport-01,flight-02,aircraft-01,true
 leg-08,AAX1004,2200/12/31 23:57,2200/12/31 23:58,ON_TIME,airport-00,airport-01,flight-03,aircraft-01,true
 leg-09,AAX1005,2200/12/31 23:58,2200/12/31 23:59,ON_TIME,airport-00,airport-01,flight-04,aircraft-01,true
-# scheduled-arrival 
+# scheduled-arrival
 leg-11,AAX1006,2000/01/01 0:00,2000/01/01 0:01,ON_TIME,airport-00,airport-01,flight-05,aircraft-01,true
 leg-12,AAX1007,2000/01/01 0:02,2000/02/01 0:03,ON_TIME,airport-00,airport-01,flight-06,aircraft-01,true
 leg-13,AAX1008,2000/02/01 10:00,2200/12/31 23:58,ON_TIME,airport-00,airport-01,flight-07,aircraft-01,true
@@ -27,7 +27,7 @@ leg-18,AAX2001,2000/02/01 19:01,2000/02/01 20:00,ON_TIME,airport-00,airport-01,f
 leg-19,AAX3001,2000/02/01 20:01,2000/02/01 21:00,ON_TIME,airport-00,airport-01,flight-10,aircraft-01,true
 # flight
 leg-20,AAX1013,2000/02/01 10:00,2000/02/01 11:00,ON_TIME,airport-00,airport-01,flight-22,aircraft-01,true
-# departure-airport 
+# departure-airport
 leg-21,AAX1014,2000/02/01 21:01,2000/02/01 22:00,ON_TIME,airport-10,airport-00,flight-11,aircraft-01,true
 # arrival-airport
 leg-22,AAX1015,2000/02/01 22:01,2000/02/01 23:00,ON_TIME,airport-00,airport-11,flight-12,aircraft-01,true
@@ -41,7 +41,7 @@ leg-28,AAX1021,2030/04/01 10:00,2030/04/01 11:00,ON_TIME,airport-00,airport-01,f
 leg-29,AAX1022,2030/05/01 10:00,2030/05/01 11:00,ON_TIME,airport-00,airport-01,flight-15,aircraft-01,false
 leg-30,AAX1023,2030/06/01 10:00,2030/06/01 11:00,ON_TIME,airport-00,airport-01,flight-16,aircraft-01,false
 leg-31,AAX1024,2030/06/01 10:00,2030/06/01 11:00,ON_TIME,airport-00,airport-01,flight-17,aircraft-02,false
-leg-37,ABX1030,2000/02/01 13:00,2000/02/01 15:00,ON_TIME,airport-00,airport-01,flight-30,aircraft-11,true
+leg-37,ABX1030,2000/02/01 13:00,2000/02/01 15:00,ON_TIME,airport-01,airport-02,flight-30,aircraft-11,true
 # leg not published
 leg-32,AAX1025,2030/07/01 10:00,2030/07/01 11:00,ON_TIME,airport-00,airport-01,flight-18,aircraft-01,true
 # leg in past
