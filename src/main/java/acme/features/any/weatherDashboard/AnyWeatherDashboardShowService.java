@@ -25,10 +25,10 @@ public class AnyWeatherDashboardShowService extends AbstractGuiService<Any, Weat
 
 	@Override
 	public void authorise() {
-		//boolean status;
-		//int id = super.getRequest().getData("id", int.class);
-		//Weather w = this.repository.findWeatherById(id);
-		//status = w != null;
+		boolean status;
+		int id = super.getRequest().getData("id", int.class);
+		Weather w = this.repository.findWeatherById(id);
+		status = w != null;
 		super.getResponse().setAuthorised(true);
 	}
 
@@ -45,13 +45,14 @@ public class AnyWeatherDashboardShowService extends AbstractGuiService<Any, Weat
 		wD.setHumidity(w.getHumidity());
 		wD.setWindSpeed(w.getWindSpeed());
 		wD.setDate(w.getDate());
+		wD.setDescription(w.getDescription());
 
 		super.getBuffer().addData(wD);
 	}
 
 	@Override
 	public void unbind(final WeatherDashboard weathersDashboard) {
-		Dataset dataset = super.unbindObject(weathersDashboard, "id", "city", "country", "temperature", "humidity", "windSpeed", "date");
+		Dataset dataset = super.unbindObject(weathersDashboard, "id", "city", "country", "temperature", "humidity", "windSpeed", "date", "description");
 		super.getResponse().addData(dataset);
 	}
 

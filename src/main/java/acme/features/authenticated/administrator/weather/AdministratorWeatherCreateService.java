@@ -97,6 +97,8 @@ public class AdministratorWeatherCreateService extends AbstractGuiService<Admini
 				weather.setHumidity(day.getDouble("humidity"));
 				weather.setWindSpeed(day.getDouble("windspeed"));
 				weather.setDate(date);
+				String description = day.optString("description", "");
+				weather.setDescription(description);
 
 				return weather;
 			}

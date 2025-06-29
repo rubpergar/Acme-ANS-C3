@@ -5,6 +5,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,9 @@ import acme.features.any.weatherDashboard.AnyWeatherDashboardRepository;
 public class AnyBadWeatherFlightListService extends AbstractGuiService<Any, Flight> {
 
 	@Autowired
-	protected AnyWeatherDashboardRepository repository;
+	protected AnyWeatherDashboardRepository	repository;
+
+	private static final Set<String>		BAD_WEATHER_DESCRIPTIONS	= Set.of("storm", "heavy rain", "rain", "snow", "hail", "blizzard", "fog", "heatwave", "strong wind", "extreme cold", "thunderstorm", "drizzle", "freezing rain", "sleet");
 
 
 	@Override
@@ -59,7 +62,8 @@ public class AnyBadWeatherFlightListService extends AbstractGuiService<Any, Flig
 
 					boolean isDuringFlight = !weather.getDate().before(departureTime) && !weather.getDate().after(arrivalTime);
 
-					boolean hasBadWeather = weather.getWindSpeed() > 65 || weather.getHumidity() > 80 || weather.getTemperature() < 0 || weather.getTemperature() > 38;
+					boolean hasBadWeather = weather.getWindSpeed() > 65 || weather.getHumidity() > 80 || weather.getTemperature() < 0 || weather.getTemperature() > 38
+						|| AnyBadWeatherFlightListService.BAD_WEATHER_DESCRIPTIONS.stream().anyMatch(desc -> weather.getDescription() != null && weather.getDescription().toLowerCase().contains(desc));
 
 					return isMatchingCity && isDuringFlight && hasBadWeather;
 				});
