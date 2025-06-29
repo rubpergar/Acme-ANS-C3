@@ -39,8 +39,6 @@ public class ManagerFlightCreateService extends AbstractGuiService<Manager, Flig
 	@Override
 	public void bind(final Flight flight) {
 
-		flight.setAirlineManager(this.repository.getManagerById(super.getRequest().getPrincipal().getActiveRealm().getId()));
-
 		super.bindObject(flight, "tag", "selfTransfer", "cost", "description");
 	}
 
