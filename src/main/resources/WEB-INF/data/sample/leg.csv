@@ -45,9 +45,9 @@ leg-37,ABX1030,2000/02/01 13:00,2000/02/01 15:00,ON_TIME,airport-01,airport-02,f
 # leg not published,"","","","",""
 leg-32,AAX1025,2030/07/01 10:00,2030/07/01 11:00,ON_TIME,airport-00,airport-01,flight-18,aircraft-01,true
 # leg in past
-leg-33,AAX1026,2024/12/04 10:00,2024/12/04 11:00,ON_TIME,airport-00,airport-01,flight-19,aircraft-01,false
+leg-33,AAX1026,2024/12/04 10:00,2024/12/04 11:00,LANDED,airport-00,airport-01,flight-19,aircraft-01,false
 # leg just after present moment
 leg-34,AAX1027,2025/01/01 00:01,2025/01/01 01:00,ON_TIME,airport-01,airport-04,flight-19,aircraft-01,false
 #legs in past month
-leg-35,AAX1028,2024/12/05 10:00,2024/12/05 11:00,ON_TIME,airport-00,airport-01,flight-20,aircraft-02,false
-leg-36,AAX1029,2024/12/05 11:30,2024/12/05 12:00,ON_TIME,airport-01,airport-04,flight-20,aircraft-02,false
+leg-35,AAX1028,2024/12/05 10:00,2024/12/05 11:00,LANDED,airport-00,airport-01,flight-20,aircraft-02,false
+leg-36,AAX1029,2024/12/05 11:30,2024/12/05 12:00,LANDED,airport-01,airport-04,flight-20,aircraft-02,false
