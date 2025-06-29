@@ -20,4 +20,4 @@ user-account-member-01,true,"UserIdentity{name: 'Member', surname: 'Member', ema
 user-account-member-02,true,"UserIdentity{name: 'Member', surname: 'Member', email: 'member2@acme.com'}",member2,member2
 user-account-member-03,true,"UserIdentity{name: 'Member', surname: 'Member', email: 'member3@acme.com'}",member3,member3
 user-account-member-04,true,"UserIdentity{name: 'Member', surname: 'Member', email: 'member4@acme.com'}",member4,member4
-user-account-member-05,true,"UserIdentity{name: 'Member', surname: 'Member', email: 'member5@acme.com'}",member5,member5
+user-account-member-05,true,"UserIdentity{name: 'Member', surname: 'Member', email: 'member5@acme.com'}",member,member
