@@ -12,6 +12,7 @@
 	<acme:list-column code="manager.leg.list.label.departureAirport" path="departureAirport" width="20%" />
 	<acme:list-column code="manager.leg.list.label.arrivalAirport" path="arrivalAirport" width="20%" />
 	<acme:list-column code="manager.leg.list.label.aircraft2" path="aircraft" width="20%" />
+	<acme:list-payload path="payload" />
 	
 </acme:list>
 <jstl:if test="${showCreate}">
