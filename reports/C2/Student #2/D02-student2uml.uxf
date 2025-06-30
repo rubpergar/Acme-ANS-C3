@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="15.1">
+  <zoom_level>5</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>570</x>
+      <y>215</y>
+      <w>305</w>
+      <h>75</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Role&gt;&gt;
+Customer {ValidCustomer}
+--
++ identifier: String {Mandatory, ValidString(pattern = "^[A-Z]{2,3}\\d{6}$"), Column(unique = true)}
++ phoneNumber: String {Mandatory, ValidPhoneNumber, Automapped}
++ physicalAdress: String {Mandatory, ValidString(min = 1, max = 255), Automapped}
++ city: String {Mandatory, ValidString(min = 1, max = 50), Automapped}
++ country: String {Mandatory, ValidString(min = 1, max = 50), Automapped}
+- earnedPoints: Integer {Optional, ValidNumber(min = 0, max = 500000), Automapped}
+bg=pink</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>660</x>
+      <y>355</y>
+      <w>310</w>
+      <h>75</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Entity&gt;&gt;
+Booking
+--
++ locatorCode: String {Mandatory, ValidString(pattern = "^[A-Z0-9]{6,8}$"), Column(unique = true)}
++ purchaseMoment: Date {Mandatory, ValidMoment(past = true), Temporal(TIMESTAMP)}
++ travelClass: TravelClass {Mandatory, Valid, Automapped}
+- lastNibble: String {Optional, ValidString(min = 4, max = 4), Automapped}
++ isDraft: Boolean {Mandatory, Valid, Automapped}
+--
+/+ price: Money {Mandatory, ValidMoney, Automapped}
+
+bg=pink</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>510</x>
+      <y>380</y>
+      <w>110</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Entity&gt;&gt;
+BookingPassenger
+--
+bg=pink</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>120</x>
+      <y>360</y>
+      <w>320</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Entity&gt;&gt;
+Passenger
+--
++ fullName: String {Mandatory, ValidString(min = 1, max = 255), Automapped}
++ email: String {Mandatory, ValidEmail, Automapped}
++ passportNumber: String {Mandatory, ValidString, Column(unique = true)}
++ dateOfBirth: Date {Mandatory, ValidMoment(past = true), Temporal(TemporalType.TIMESTAMP)}
+- specialNeeds: String {Optional, ValidString(min = 0, max = 50), Automapped}
++ isDraft: Boolean {Mandatory, Valid, Automapped}
+bg=pink</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>915</x>
+      <y>285</y>
+      <w>110</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Enum&gt;&gt;
+TravelClass
+--
+ECONOMY
+BUSINESS
+bg=pink</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>900</x>
+      <y>480</y>
+      <w>95</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Entity&gt;&gt;
+Flight
+--
+
+bg=pink</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>340</x>
+      <y>455</y>
+      <w>165</w>
+      <h>145</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Form&gt;&gt;
+CustomerDashboard
+--
++ lastFiveDestinations: List&lt;String&gt;
++ moneySpentDuringLastYear: Money
++ numberOfEconomyBookings: Integer
++ numberOfBusinessBookings: Integer
++ countBookingsInLastFiveYearsCost: Money
++ avgBookingsInLastFiveYearsCost: Money
++ minBookingsInLastFiveYearsCost: Money
++ maxBookingsInLastFiveYearsCost: Money
++ devBookingsInLastFiveYearsCost: Money
++ countBookingsNumberOfPassengers: Integer
++ avgBookingsNumberOfPassengers: Double
++ minBookingsNumberOfPassengers: Integer
++ maxBookingsNumberOfPassengers: Integer
++ devBookingsNumberOfPassengers: Double
+bg=pink</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>765</x>
+      <y>285</y>
+      <w>40</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=x-&gt;
+m1=*
+m2=1
+made by</panel_attributes>
+    <additional_attributes>10.0;140.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>935</x>
+      <y>425</y>
+      <w>60</w>
+      <h>65</h>
+    </coordinates>
+    <panel_attributes>lt=x-&gt;
+m1=*
+m2=1
+corresponds to</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;110.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>615</x>
+      <y>385</y>
+      <w>55</w>
+      <h>25</h>
+    </coordinates>
+    <panel_attributes>lt=x-&gt;
+m1=*
+m2=1
+make</panel_attributes>
+    <additional_attributes>10.0;20.0;90.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>435</x>
+      <y>390</y>
+      <w>85</w>
+      <h>25</h>
+    </coordinates>
+    <panel_attributes>lt=x-&gt;
+m1=*
+m2=1
+is passenger in</panel_attributes>
+    <additional_attributes>150.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>370</x>
+      <y>255</y>
+      <w>210</w>
+      <h>115</h>
+    </coordinates>
+    <panel_attributes>lt=x-&gt;
+m1=*
+m2=1
+made by</panel_attributes>
+    <additional_attributes>10.0;210.0;400.0;10.0</additional_attributes>
+  </element>
+</diagram>
