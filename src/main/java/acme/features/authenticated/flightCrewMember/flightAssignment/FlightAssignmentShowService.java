@@ -1,12 +1,15 @@
 
 package acme.features.authenticated.flightCrewMember.flightAssignment;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 import acme.client.components.models.Dataset;
 import acme.client.components.views.SelectChoices;
+import acme.client.helpers.MomentHelper;
 import acme.client.services.AbstractGuiService;
 import acme.client.services.GuiService;
 import acme.entities.flightAssignment.FlightAssignment;
@@ -58,22 +61,49 @@ public class FlightAssignmentShowService extends AbstractGuiService<FlightCrewMe
 
 	@Override
 	public void unbind(final FlightAssignment flightAssignment) {
-		Collection<Leg> legs = this.repository.findAllLegs();
-		Collection<FlightCrewMember> members = this.repository.findAllMembers();
+		int flightCrewMemberAirlineId;
+		int flightCrewMemberId;
+
+		flightCrewMemberAirlineId = this.repository.getMemberById(super.getRequest().getPrincipal().getActiveRealm().getId()).getAirline().getId();
+		flightCrewMemberId = super.getRequest().getPrincipal().getActiveRealm().getId();
+
+		Collection<Leg> availableLegs = this.repository.findAvailableLegs(flightCrewMemberAirlineId, MomentHelper.getCurrentMoment());
+		List<Leg> memberAssignedLegs = this.repository.getAllLegsByMemberId(flightCrewMemberId);
+		Leg assignedLeg = flightAssignment.getLeg();
+		Collection<Leg> compatibleLegs = new ArrayList<>();
+
+		for (Leg candidate : availableLegs) {
+			boolean isCompatible = true;
+
+			for (Leg assigned : memberAssignedLegs) {
+				if (assignedLeg != null && assigned.getId() == assignedLeg.getId())
+					continue;
+
+				boolean departureOverlap = MomentHelper.isInRange(candidate.getScheduledDeparture(), assigned.getScheduledDeparture(), assigned.getScheduledArrival());
+				boolean arrivalOverlap = MomentHelper.isInRange(candidate.getScheduledArrival(), assigned.getScheduledDeparture(), assigned.getScheduledArrival());
+
+				if (departureOverlap || arrivalOverlap) {
+					isCompatible = false;
+					break;
+				}
+			}
+
+			if (isCompatible)
+				compatibleLegs.add(candidate);
+		}
+
+		if (assignedLeg != null && !compatibleLegs.contains(assignedLeg))
+			compatibleLegs.add(assignedLeg);
 
 		SelectChoices status = SelectChoices.from(FlightAssignmentStatus.class, flightAssignment.getStatus());
 		SelectChoices duty = SelectChoices.from(FlightAssignmentDuty.class, flightAssignment.getDuty());
-		SelectChoices legChoices = SelectChoices.from(legs, "flightNumber", flightAssignment.getLeg());
-		SelectChoices memberChoices = SelectChoices.from(members, "employeeCode", flightAssignment.getFlightCrewMember());
+		SelectChoices legChoices = SelectChoices.from(compatibleLegs, "flightNumber", assignedLeg);
 
-		Dataset dataset;
-		dataset = super.unbindObject(flightAssignment, "duty", "lastUpdateMoment", "status", "remarks", "draftMode");
+		Dataset dataset = super.unbindObject(flightAssignment, "duty", "lastUpdateMoment", "status", "remarks", "draftMode");
 		dataset.put("status", status);
 		dataset.put("duty", duty);
 		dataset.put("leg", legChoices.getSelected().getKey());
 		dataset.put("legs", legChoices);
-		dataset.put("flightCrewMember", memberChoices.getSelected().getKey());
-		dataset.put("members", memberChoices);
 
 		super.getResponse().addData(dataset);
 	}
