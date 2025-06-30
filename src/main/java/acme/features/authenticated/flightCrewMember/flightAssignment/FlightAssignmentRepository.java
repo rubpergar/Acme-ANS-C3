@@ -2,6 +2,7 @@
 package acme.features.authenticated.flightCrewMember.flightAssignment;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
@@ -16,11 +17,11 @@ import acme.realms.flightCrewMember.FlightCrewMember;
 @Repository
 public interface FlightAssignmentRepository extends AbstractRepository {
 
-	@Query("SELECT fa from FlightAssignment fa where fa.leg.scheduledArrival < CURRENT_TIMESTAMP AND fa.flightCrewMember.id = :id")
-	Collection<FlightAssignment> getCompletedFlightAssignmentsByMemberId(int id);
+	@Query("SELECT fa from FlightAssignment fa where fa.leg.scheduledArrival < :date AND fa.flightCrewMember.id = :id")
+	Collection<FlightAssignment> getCompletedFlightAssignmentsByMemberId(int id, Date date);
 
-	@Query("SELECT fa from FlightAssignment fa where fa.leg.scheduledArrival > CURRENT_TIMESTAMP AND fa.flightCrewMember.id = :id")
-	Collection<FlightAssignment> getUncompletedFlightAssignmentsByMemberId(int id);
+	@Query("SELECT fa from FlightAssignment fa where fa.leg.scheduledArrival > :date AND fa.flightCrewMember.id = :id")
+	Collection<FlightAssignment> getUncompletedFlightAssignmentsByMemberId(int id, Date date);
 
 	@Query("SELECT fa from FlightAssignment fa where fa.id = :id")
 	FlightAssignment getFlightAssignmentById(int id);
@@ -28,8 +29,14 @@ public interface FlightAssignmentRepository extends AbstractRepository {
 	@Query("SELECT l from Leg l")
 	Collection<Leg> findAllLegs();
 
+	@Query("SELECT l FROM Leg l WHERE l.scheduledArrival > :date AND l.isDraft = false AND l.flight.airlineManager.airline.id = :airlineId")
+	Collection<Leg> findAvailableLegs(int airlineId, Date date);
+
 	@Query("SELECT fcm from FlightCrewMember fcm")
 	Collection<FlightCrewMember> findAllMembers();
+
+	@Query("SELECT fcm from FlightCrewMember fcm where fcm.id = :id")
+	FlightCrewMember getMemberById(int id);
 
 	@Query("SELECT al from ActivityLog al WHERE al.flightAssignment.id = :id")
 	Collection<ActivityLog> getAllActivityLogsFromAssignmentId(int id);
@@ -40,6 +47,10 @@ public interface FlightAssignmentRepository extends AbstractRepository {
 	@Query("SELECT DISTINCT fa.leg FROM FlightAssignment fa WHERE fa.flightCrewMember.id = :id")
 	List<Leg> getAllLegsByMemberId(int id);
 
-	@Query("SELECT COUNT(l) > 0 FROM Leg l WHERE l.id = :id AND l.scheduledDeparture < CURRENT_TIMESTAMP")
-	boolean isLegConcluded(int id);
+	@Query("SELECT DISTINCT fa.leg FROM FlightAssignment fa WHERE fa.flightCrewMember.id = :memberId AND fa.leg.id != :legId")
+	List<Leg> getAllLegsByMemberIdExceptSelfLeg(int memberId, int legId);
+
+	@Query("SELECT COUNT(l) > 0 FROM Leg l WHERE l.id = :id AND l.scheduledDeparture < :date")
+	boolean isLegConcluded(int id, Date date);
+
 }

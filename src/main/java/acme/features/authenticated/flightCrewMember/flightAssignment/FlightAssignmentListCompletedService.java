@@ -6,6 +6,7 @@ import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import acme.client.components.models.Dataset;
+import acme.client.helpers.MomentHelper;
 import acme.client.services.AbstractGuiService;
 import acme.client.services.GuiService;
 import acme.entities.flightAssignment.FlightAssignment;
@@ -33,7 +34,7 @@ public class FlightAssignmentListCompletedService extends AbstractGuiService<Fli
 		int userAccountId;
 
 		userAccountId = super.getRequest().getPrincipal().getActiveRealm().getId();
-		flightAssignments = this.repository.getCompletedFlightAssignmentsByMemberId(userAccountId);
+		flightAssignments = this.repository.getCompletedFlightAssignmentsByMemberId(userAccountId, MomentHelper.getCurrentMoment());
 
 		super.getBuffer().addData(flightAssignments);
 	}

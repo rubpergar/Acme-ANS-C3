@@ -39,3 +39,4 @@ flight-assignment-32,PILOT,2012/07/02 00:00,PENDING,lorem,true,leg-05,member-01
 flight-assignment-33,CO_PILOT,2012/07/02 00:00,PENDING,lorem,true,leg-04,member-02
 flight-assignment-34,LEAD_ATTENDANT,2012/07/02 00:00,PENDING,lorem,true,leg-05,member-03
 flight-assignment-35,CABIN_ATTENDANT,2012/07/02 00:00,PENDING,lorem,true,leg-05,member-04
+flight-assignment-36,LEAD_ATTENDANT,2012/07/02 00:00,PENDING,lorem,true,leg-31,member-04
