@@ -11,6 +11,6 @@ import acme.client.repositories.AbstractRepository;
 @Repository
 public interface PassengerRepository extends AbstractRepository {
 
-	@Query("select p from Passenger p where p.passportNumber = :passportNumber")
-	Collection<Passenger> findPassengerByPassportNumber(String passportNumber);
+	@Query("select p from Passenger p where p.passportNumber = :passportNumber and p.customer.id = :customerId")
+	Collection<Passenger> findPassengerByPassportNumberAndCustomer(String passportNumber, int customerId);
 }
