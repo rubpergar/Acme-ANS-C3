@@ -1,24 +1,28 @@
 key,key:flight,key:customer,locatorCode,purchaseMoment,travelClass,lastNibble,isDraft
-# base entity,""
+# base entity
 booking-01,flight-17,customer-01,ZXC987,2024/11/30 23:59,ECONOMY,4321,true
 # locatorCode - variations
 booking-02,flight-17,customer-01,LMN654,2024/10/31 12:45,ECONOMY,5678,true
-booking-03,flight-17,customer-02,RTY321,2024/09/15 08:30,ECONOMY,6789,false
-booking-04,flight-17,customer-01,POI852,2024/08/22 14:00,ECONOMY,7890,false
-booking-05,flight-17,customer-02,ASD741,2024/07/10 16:45,ECONOMY,8901,true
+booking-03,flight-17,customer-02,RTY32E12,2024/09/15 08:30,ECONOMY,6789,false
+booking-04,flight-17,customer-01,POI8R2,2024/08/22 14:00,ECONOMY,7890,false
+booking-05,flight-17,customer-02,ASDQ411,2024/07/10 16:45,ECONOMY,8901,true
+booking-06,flight-17,customer-02,ASDXXX,2024/10/20 16:45,ECONOMY,8301,true
 # purchaseMoment - variations
-booking-06,flight-17,customer-01,GHJ369,2000/01/01 00:00,ECONOMY,9012,false
-booking-07,flight-19,customer-01,QWE258,2023/06/15 12:30,ECONOMY,0123,true
-booking-08,flight-17,customer-02,DFG753,2023/12/31 23:59,ECONOMY,1234,false
+booking-07,flight-17,customer-01,GHJ369,2000/01/01 00:00,ECONOMY,9012,false
+booking-08,flight-17,customer-02,GHJ36Z,2000/01/01 00:01,ECONOMY,2012,false
+booking-09,flight-19,customer-01,QWE258,2023/06/15 12:30,ECONOMY,0123,true
+booking-10,flight-17,customer-02,DFG753,2024/12/31 23:59,ECONOMY,1234,false
+booking-11,flight-17,customer-01,GHJQ69,2025/01/01 00:00,ECONOMY,2012,false
 # travelClass - variations
-booking-09,flight-17,customer-02,XCV159,2024/11/25 18:20,ECONOMY,2345,true
-booking-10,flight-17,customer-02,BNM357,2024/10/20 21:10,BUSINESS,3456,false
-# price - variations
-booking-11,flight-17,customer-01,MNB753,2024/09/05 06:30,ECONOMY,4567,true
-booking-12,flight-17,customer-02,VCX159,2024/08/17 09:50,ECONOMY,5678,false
-booking-13,flight-17,customer-02,ZXC369,2024/07/29 11:15,ECONOMY,6789,false
-booking-14,flight-17,customer-01,JKL147,2024/06/05 15:40,ECONOMY,7890,false
+booking-12,flight-17,customer-02,XCV159,2024/11/25 18:20,ECONOMY,2345,true
+booking-13,flight-17,customer-02,BNM357,2024/10/20 21:10,BUSINESS,3456,false
+# isDraft - variations
+booking-14,flight-17,customer-01,MNB753,2024/09/05 06:30,ECONOMY,4567,true
+booking-15,flight-17,customer-02,VCX159,2024/08/17 09:50,ECONOMY,5678,false
+
 # lastNibble - variations
-booking-15,flight-17,customer-02,HGF951,2024/05/12 20:20,ECONOMY,0001,false
-booking-16,flight-17,customer-01,FDS357,2024/04/18 07:35,ECONOMY,9998,false
-booking-17,flight-17,customer-02,TGB852,2024/03/22 13:55,ECONOMY,1111,false
+booking-16,flight-17,customer-02,ZXC369,2024/07/29 11:15,ECONOMY,,false
+booking-17,flight-17,customer-01,JKL147,2024/06/05 15:40,ECONOMY,7890,false
+booking-18,flight-17,customer-02,HGF951,2024/05/12 20:20,ECONOMY,0001,false
+booking-19,flight-17,customer-01,FDS357,2024/04/18 07:35,ECONOMY,9998,false
+booking-20,flight-17,customer-02,TGB852,2024/03/22 13:55,ECONOMY,1111,false
