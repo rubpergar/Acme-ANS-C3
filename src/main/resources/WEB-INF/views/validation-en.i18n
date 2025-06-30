@@ -262,6 +262,7 @@ customer.project.publish.error.lastNibbleNotPublished = To publish a booking the
 acme.validation.flight-assignment.incompatible-legs.message = This member cannot be assigned to multiple legs simultaneously
 acme.validation.flight-assignment.has-pilot.message = This duty has been already assigned. Each leg can only have one pilot
 acme.validation.flight-assignment.has-copilot.message = This duty has been already assigned. Each leg can only have one copilot
+acme.validation.flight-assignment.publish-leg-concluded.message = You cannot publish a flight assignment linked to a leg that have already occurred
 acme.validation.flight-assignment.leg-concluded.message = This flight assignment cannot be linked to a leg that have already occurred
 acme.validation.flight-assignment.unavailable-member.message = Only available members can be assigned
 acme.validation.flight-assignment.unpublished-assignment.message = Activity logs can only be published if its corresponding flight assignment is published
