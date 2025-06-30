@@ -30,8 +30,9 @@ public class LegValidator extends AbstractValidator<ValidLeg, Leg> {
 	public boolean isValid(final Leg leg, final ConstraintValidatorContext context) {
 
 		// La fecha de salida y llegada programada no pueden ser nulas y la fecha de salida debe ser anterior a la fecha de llegada
-		boolean isScheduleCorrect = leg.getScheduledDeparture() != null && leg.getScheduledArrival() != null && MomentHelper.isBefore(leg.getScheduledDeparture(), leg.getScheduledArrival());
-
+		boolean isScheduleCorrect = true;
+		if (leg.getScheduledDeparture() != null && leg.getScheduledArrival() != null)
+			isScheduleCorrect = MomentHelper.isBefore(leg.getScheduledDeparture(), leg.getScheduledArrival());
 		super.state(context, isScheduleCorrect, "scheduledArrival", "acme.validation.leg.invalid-scheduled-arrival.message");
 
 		// El número de vuelo debe comenzar con el código IATA de la aerolínea
@@ -41,16 +42,16 @@ public class LegValidator extends AbstractValidator<ValidLeg, Leg> {
 		super.state(context, isFlightNumberCorrect, "flightNumber", "acme.validation.leg.invalid-flight-number.message");
 
 		boolean isValidAirport = true;
-		if (leg.getDepartureAirport() == leg.getArrivalAirport())
+		if (leg.getDepartureAirport() != null && leg.getDepartureAirport().equals(leg.getArrivalAirport()))
 			isValidAirport = false;
 		super.state(context, isValidAirport, "departureAirport", "acme.validation.leg.invalid-airport.message");
 
 		String flightNumber = leg.getFlightNumber();
-
-		Optional<Leg> legWithSameFlightNumber = this.repository.findLegByFlightNumber(flightNumber);
-		if (legWithSameFlightNumber.isPresent() && legWithSameFlightNumber.get().getId() != leg.getId())
-			super.state(context, false, "flightNumber", "acme.validation.leg.duplicate-flight-number.message");
-
+		if (flightNumber != null) {
+			Optional<Leg> legWithSameFlightNumber = this.repository.findLegByFlightNumber(flightNumber);
+			if (legWithSameFlightNumber.isPresent() && legWithSameFlightNumber.get().getId() != leg.getId())
+				super.state(context, false, "flightNumber", "acme.validation.leg.duplicate-flight-number.message");
+		}
 		return !super.hasErrors(context);
 	}
 }

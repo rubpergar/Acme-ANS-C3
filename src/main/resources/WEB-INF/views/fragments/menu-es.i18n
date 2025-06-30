@@ -30,7 +30,7 @@ master.menu.administrator.list-user-accounts = Ver cuentas de usuario
 master.menu.administrator.populate-db-initial = Poblar BD (inicial)
 master.menu.administrator.populate-db-sample = Poblar BD (ejemplos)
 master.menu.administrator.shut-system-down = Parar el sistema
-master.menu.administrator.list-aircrafts = Lista de aeronave 
+master.menu.administrator.list-aircrafts = Lista de aviones 
 master.menu.administrator.list-airport = Lista de aeropuertos
 master.menu.administrator.list-airline = Lista de aerolineas
 

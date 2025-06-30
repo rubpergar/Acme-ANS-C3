@@ -1,7 +1,7 @@
 key,key:claim,lastUpdate,stepUndergoing,resolutionPercentage,status,resolution,draftMode
 #lastUpdate
-tracking-log-01,claim-01,2012/01/01 00:00,lorem,10,PENDING,,true
-tracking-log-02,claim-01,2012/01/01 00:01,lorem,25,PENDING,,true
+tracking-log-01,claim-01,2000/01/01 00:00,lorem,10,PENDING,,true
+tracking-log-02,claim-01,2000/01/01 00:01,lorem,25,PENDING,,true
 tracking-log-03,claim-01,2012/07/02 00:00,lorem,50,PENDING,,true
 tracking-log-04,claim-01,2024/12/31 23:59,lorem,90,PENDING,,true
 tracking-log-05,claim-01,2025/01/01 00:00,lorem,100,ACCEPTED,lorem,true
@@ -15,9 +15,9 @@ tracking-log-11,claim-03,2012/07/05 12:00,' or 'A' = 'A,90,PENDING,,true
 tracking-log-12,claim-03,2012/07/06 00:00,"Lorem ipsum dolor sit amet, consectetur adipiscing",100,REJECTED,lorem,true
 #resolutionPercentage
 tracking-log-13,claim-02,2012/07/02 00:00,lorem,0,PENDING,,true
-tracking-log-14,claim-02,2012/07/03 00:00,lorem,1,PENDING,,true
+tracking-log-14,claim-02,2012/07/03 00:00,lorem,0.01,PENDING,,true
 tracking-log-15,claim-02,2012/07/03 18:00,lorem,50,PENDING,,true
-tracking-log-16,claim-02,2012/07/04 00:00,lorem,99,PENDING,,true
+tracking-log-16,claim-02,2012/07/04 00:00,lorem,99.99,PENDING,,true
 tracking-log-17,claim-02,2012/07/05 00:01,lorem,100,ACCEPTED,lorem,true
 #status
 tracking-log-18,claim-04,2012/07/02 00:00,lorem,50,PENDING,,true

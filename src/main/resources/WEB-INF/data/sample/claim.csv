@@ -1,31 +1,43 @@
 key,registrationMoment,email,description,type,key:assistanceAgent,key:leg,draftMode
 #registrationMoment
-claim-01,2012/01/01 00:00,example1@gmail.com,lorem,FLIGHT_ISSUES,agent-01,leg-02,true
-claim-02,2012/01/01 00:01,example2@gmail.com,lorem,FLIGHT_ISSUES,agent-01,leg-02,true
-claim-03,2012/07/02 00:00,example2@gmail.com,lorem,FLIGHT_ISSUES,agent-01,leg-02,true
-claim-04,2024/12/31 23:59,example3@gmail.com,lorem,FLIGHT_ISSUES,agent-01,leg-02,true
-claim-05,2025/01/01 00:00,example4@gmail.com,lorem,FLIGHT_ISSUES,agent-01,leg-02,true
+claim-01,2000/01/01 00:00,example1@gmail.com,lorem,FLIGHT_ISSUES,agent-01,leg-35,true
+claim-02,2000/01/01 00:01,example2@gmail.com,lorem,FLIGHT_ISSUES,agent-01,leg-35,true
+claim-03,2012/07/02 00:00,example2@gmail.com,lorem,FLIGHT_ISSUES,agent-01,leg-35,true
+claim-04,2024/12/31 23:59,example3@gmail.com,lorem,FLIGHT_ISSUES,agent-01,leg-35,true
+claim-05,2025/01/01 00:00,example4@gmail.com,lorem,FLIGHT_ISSUES,agent-01,leg-35,true
 #email
-claim-06,2012/07/02 00:00,a@b.e,lorem,FLIGHT_ISSUES,agent-02,leg-02,true
-claim-07,2012/07/02 00:00,a@b.es,lorem,FLIGHT_ISSUES,agent-02,leg-02,true
-claim-08,2012/07/02 00:00,a@b.esx,lorem,FLIGHT_ISSUES,agent-02,leg-02,true
-claim-09,2012/07/02 00:00,acme@lorem-ipsum.org,lorem,FLIGHT_ISSUES,agent-02,leg-02,true
-claim-10,2012/07/02 00:00,lorem-ipsum@dolor.sit.amet.consectetur.adipiscing.elit.sed.do.eiusmod.tempor.incididunt.ut.labore.et.dolore.magna.aliqua.Ut.enim.ad.minim.veniam.quis.nostrud.exercitation.ullamco.laboris.nisi.ut.aliquip.ex.ea.commodo.consequat.duis.aute.irure.doloris.edu,lorem,FLIGHT_ISSUES,agent-02,leg-02,true
-claim-11,2012/07/02 00:00,lorem-ipsum@dolor.sit.amet.consectetur.adipiscing.elit.sed.do.eiusmod.tempor.incididunt.ut.labore.et.dolore.magna.aliqua.Ut.enim.ad.minim.veniam.quis.nostrud.exercitation.ullamco.laboris.nisi.ut.aliquip.ex.ea.commodo.consequat.duis.aute.irure.dolor.es.org,lorem,FLIGHT_ISSUES,agent-02,leg-02,true
+claim-06,2012/07/02 00:00,a@b.e,lorem,FLIGHT_ISSUES,agent-02,leg-35,true
+claim-07,2012/07/02 00:00,a@b.es,lorem,FLIGHT_ISSUES,agent-02,leg-35,true
+claim-08,2012/07/02 00:00,a@b.esx,lorem,FLIGHT_ISSUES,agent-02,leg-35,true
+claim-09,2012/07/02 00:00,acme@lorem-ipsum.org,lorem,FLIGHT_ISSUES,agent-02,leg-35,true
+claim-10,2012/07/02 00:00,lorem-ipsum@dolor.sit.amet.consectetur.adipiscing.elit.sed.do.eiusmod.tempor.incididunt.ut.labore.et.dolore.magna.aliqua.Ut.enim.ad.minim.veniam.quis.nostrud.exercitation.ullamco.laboris.nisi.ut.aliquip.ex.ea.commodo.consequat.duis.aute.irure.doloris.edu,lorem,FLIGHT_ISSUES,agent-02,leg-35,true
+claim-11,2012/07/02 00:00,lorem-ipsum@dolor.sit.amet.consectetur.adipiscing.elit.sed.do.eiusmod.tempor.incididunt.ut.labore.et.dolore.magna.aliqua.Ut.enim.ad.minim.veniam.quis.nostrud.exercitation.ullamco.laboris.nisi.ut.aliquip.ex.ea.commodo.consequat.duis.aute.irure.dolor.es.org,lorem,FLIGHT_ISSUES,agent-02,leg-35,true
 #description
-claim-12,2012/07/02 00:00,example2@gmail.com,L,FLIGHT_ISSUES,agent-01,leg-02,true
-claim-13,2012/07/02 00:00,example2@gmail.com,Lo,FLIGHT_ISSUES,agent-01,leg-02,true
-claim-14,2012/07/02 00:00,example2@gmail.com,Lorem ipsum dolor sit amet consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut*,FLIGHT_ISSUES,agent-01,leg-02,true
-claim-15,2012/07/02 00:00,example2@gmail.com,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut enim ad minim veniam? Quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor",FLIGHT_ISSUES,agent-01,leg-02,true
-claim-16,2012/07/02 00:00,example2@gmail.com,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut enim ad minim veniam? Quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor*",FLIGHT_ISSUES,agent-01,leg-02,true
-claim-17,2012/07/02 00:00,example2@gmail.com,洛伦·伊普森,FLIGHT_ISSUES,agent-01,leg-02,true
-claim-18,2012/07/02 00:00,example2@gmail.com,<marquee>Hacked</marquee>,FLIGHT_ISSUES,agent-01,leg-02,true
+claim-12,2012/07/02 00:00,example2@gmail.com,L,FLIGHT_ISSUES,agent-01,leg-35,true
+claim-13,2012/07/02 00:00,example2@gmail.com,Lo,FLIGHT_ISSUES,agent-01,leg-35,true
+claim-14,2012/07/02 00:00,example2@gmail.com,Lorem ipsum dolor sit amet consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut*,FLIGHT_ISSUES,agent-01,leg-35,true
+claim-15,2012/07/02 00:00,example2@gmail.com,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut enim ad minim veniam? Quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor",FLIGHT_ISSUES,agent-01,leg-35,true
+claim-16,2012/07/02 00:00,example2@gmail.com,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut enim ad minim veniam? Quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor*",FLIGHT_ISSUES,agent-01,leg-35,true
+claim-17,2012/07/02 00:00,example2@gmail.com,洛伦·伊普森,FLIGHT_ISSUES,agent-01,leg-35,true
+claim-18,2012/07/02 00:00,example2@gmail.com,<marquee>Hacked</marquee>,FLIGHT_ISSUES,agent-01,leg-35,true
 #type
-claim-19,2012/07/02 00:00,example2@gmail.com,lorem,FLIGHT_ISSUES,agent-01,leg-02,true
-claim-20,2012/07/02 00:00,example2@gmail.com,lorem,LUGGAGE_ISSUES,agent-01,leg-02,true
-claim-21,2012/07/02 00:00,example2@gmail.com,lorem,SECURITY_INCIDENT,agent-01,leg-02,true
-claim-22,2012/07/02 00:00,example2@gmail.com,lorem,OTHER_ISSUES,agent-01,leg-02,true
+claim-19,2012/07/02 00:00,example2@gmail.com,lorem,FLIGHT_ISSUES,agent-01,leg-35,true
+claim-20,2012/07/02 00:00,example2@gmail.com,lorem,LUGGAGE_ISSUES,agent-01,leg-35,true
+claim-21,2012/07/02 00:00,example2@gmail.com,lorem,SECURITY_INCIDENT,agent-01,leg-35,true
+claim-22,2012/07/02 00:00,example2@gmail.com,lorem,OTHER_ISSUES,agent-01,leg-35,true
 #draftMode
-claim-23,2012/07/02 00:00,example2@gmail.com,lorem,FLIGHT_ISSUES,agent-01,leg-02,false
-claim-24,2021/07/01 00:00,example2@gmail.com,lorem,FLIGHT_ISSUES,agent-01,leg-02,true
-claim-25,2017/07/01 00:00,example2@gmail.com,lorem,FLIGHT_ISSUES,agent-01,leg-02,true
+claim-23,2012/07/02 00:00,example2@gmail.com,lorem,FLIGHT_ISSUES,agent-01,leg-35,false
+claim-24,2021/07/01 00:00,example2@gmail.com,lorem,FLIGHT_ISSUES,agent-01,leg-35,true
+claim-25,2017/07/01 00:00,example2@gmail.com,lorem,FLIGHT_ISSUES,agent-01,leg-35,true
+#agent
+claim-26,2012/07/02 00:00,example2@gmail.com,lorem,FLIGHT_ISSUES,agent-01,leg-36,true
+claim-27,2012/07/02 20:00,example2@gmail.com,lorem,FLIGHT_ISSUES,agent-01,leg-36,false
+claim-28,2012/07/02 00:00,example2@gmail.com,lorem,FLIGHT_ISSUES,agent-02,leg-33,true
+claim-29,2012/07/02 10:00,example2@gmail.com,lorem,FLIGHT_ISSUES,agent-02,leg-33,false
+#leg
+claim-30,2012/07/03 00:00,example2@gmail.com,lorem,FLIGHT_ISSUES,agent-02,leg-33,false
+claim-31,2012/07/02 00:00,example2@gmail.com,lorem,FLIGHT_ISSUES,agent-02,leg-35,false
+claim-32,2012/07/02 00:00,example2@gmail.com,lorem,FLIGHT_ISSUES,agent-02,leg-36,false
+
+
+

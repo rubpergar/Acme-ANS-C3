@@ -10,7 +10,7 @@ acme.validation.manager.duplicate-identifier-number.message = El número de iden
 acme.validation.leg.invalid-scheduled-arrival.message=La hora de llegada debe ser posterior a la hora de salida programada.
 acme.validation.leg.invalid-flight-number.message=El número de vuelo debe comenzar con el código IATA de la aerolínea
 
-acme.validation.flight.overlapping.message=Los tramos del vuelo no pueden solaparse
+acme.validation.flight.overlapping.message=Las etapas del vuelo no pueden solaparse
 
 acme.validation.PromotionCode.message=El código de promoción no es válido. Debe seguir un patrón de cuatro letras mayúsculas seguidas de dos dígitos que representen el año actual.
 
@@ -42,17 +42,17 @@ acme.validation.leg.duplicate-flight-number.message=El número de vuelo ya está
 
 acme.validation.leg.invalid-departure.message = La fecha de salida tiene que ser posterior a la fecha actual.
 
-acme.validation.leg.invalid-aircraft.message = La aeronave no esta disponible para esta fecha. Por favor, proporcione una aeronave diferente o cambie la fecha.
+acme.validation.leg.invalid-aircraft.message = El avión no esta disponible para esta fecha. Por favor, proporcione un avión diferente o cambie la fecha.
 
-acme.validation.leg.invalid-airports.message = El aeropuerto de llegada del tramo previo debe ser el mismo que el de salida del actual.
+acme.validation.leg.invalid-airports.message = El aeropuerto de llegada de la etapa previa debe ser el mismo que el de salida del actual.
 
 acme.validation.flight.invalid-cost.message = El coste debe utilizar una moneda real válida. Introduzca una cantidad con un código de moneda reconocido (por ejemplo, EUR, USD).
 
-manager.leg.error.invalid-aircraft = La aeronave no está activa. Por favor, proporcione una aeronave diferente.
+manager.leg.error.invalid-aircraft = El avión  no está activa. Por favor, proporcione un avión diferente.
 
 acme.validation.leg.invalid-dates.message = La diferencia entre dos legs continuos no puede ser menor a 2 dias.
 
-acme.validation.leg.published-legs-not-allowed.message = El vuelo no puede ser borrado porque uno de sus tramos ya ha sido publicado.
+acme.validation.leg.published-legs-not-allowed.message = El vuelo no puede ser borrado porque una de sus etapas ya ha sido publicada.
 
 acme.validation.leg.invalid-flight-number-manager.message = El número de vuelo debe comenzar con el código IATA de la aerolínea. Por favor, proporcione un número de vuelo válido.
 
@@ -137,11 +137,11 @@ manager.flight.form.label.destinationCity = Ciudad de destino
 manager.flight.form.label.layovers = Número de escalas
 
 manager.flight.form.error.notDraft = No puede realizar esta acción para un vuelo que ya está publicado.
-manager.flight.publish.error.notAllPublished = Para publicar el vuelo, todos sus tramos deben estar publicados.
-manager.project.publish.error.noLegs = Debe tener al menos un tramo para publicar un vuelo.
-manager.flight.publish.error.overlappingLegs = Los tramos del vuelo se solapan.
+manager.flight.publish.error.notAllPublished = Para publicar el vuelo, todas sus etapas deben estar publicadas.
+manager.project.publish.error.noLegs = Debe tener al menos una etapa para publicar un vuelo.
+manager.flight.publish.error.overlappingLegs = Las etapas del vuelo se solapan.
 manager.flight.publish.error.notAfter = El vuelo no puede ser publicado después de que comience.
-manager.leg.publish.error.notAfter= El tramo no puede ser publicado despues de que el vuelo comience.
+manager.leg.publish.error.notAfter= La etapa no puede ser publicado después de que el vuelo comience.
 
 manager.flight.list.label.tag = Etiqueta
 manager.flight.list.label.cost = Costo
@@ -196,9 +196,9 @@ assistanceAgent.trackingLog.form.label.resolution = Resolución
 
 acme.validation.code.notPattern.message = El código de empleado debe tener 2 o 3 letras mayúsculas seguidas de 6 dígitos (por ejemplo, AB123456 o ABC654321).
 
-master.menu.administrator.list-aircrafts = Listar aeronaves
-administrator.aircraft.list.title = Aeronaves
-administrator.aircraft.form.title = Aeronave
+master.menu.administrator.list-aircrafts = Listar aviones
+administrator.aircraft.list.title = Avión
+administrator.aircraft.form.title = Avión
 
 acme.validation.confirmation.message = Estas operaciones requieren confirmación. Por favor, confirme su acción.
 administrator.aircraft.list.label.model = Modelo
@@ -207,13 +207,13 @@ administrator.aircraft.list.label.capacity = Capacidad
 administrator.aircraft.list.label.cargoWeight = Peso de carga
 administrator.aircraft.list.label.status = Estado
 administrator.aircraft.list.label.details = Detalles
-administrator.aircraft.form.label.confirmation = ¿Está seguro de que desea continuar con esta acción para esta aeronave?
+administrator.aircraft.form.label.confirmation = ¿Está seguro de que desea continuar con esta acción para este avión?
 administrator.aircraft.form.label.airline = Aerolínea
 
-administrator.aircraft.list.button.create = Crear aeronave
+administrator.aircraft.list.button.create = Crear avión
 administrator.airport.form.button.update = Actualizar
 administrator.airport.form.button.disable = Deshabilitar
-administrator.aircraft.form.button.create = Crear aeronave
+administrator.aircraft.form.button.create = Crear avión
 
 master.menu.administrator.list-airport = Lista de aeropuertos
 administrator.airport.list.title = Aeropuertos
@@ -242,18 +242,18 @@ administrator.airport.form.label.confirmation = ¿Seguro que quiere continuar co
 administrator.airport.form.button.update = Actualizar
 administrator.airport.form.button.create = Crear
 
-manager.leg.list.title = Tramos del vuelo
+manager.leg.list.title = Etapas del vuelo
 manager.leg.list.label.flightNumber = Número de vuelo (Código IATA + 4 dígitos. Ej: AAX1234)
 manager.leg.list.label.flightNumber2 = Número de vuelo
 manager.leg.list.label.scheduledDeparture = Salida prog.
 manager.leg.list.label.scheduledArrival = Llegada prog.
 manager.leg.list.label.status = Estado
-manager.leg.create.button = Crear tramo
+manager.leg.create.button = Crear etapa
 manager.leg.list.label.departureAirport = Aerop. salida
 manager.leg.list.label.arrivalAirport = Aerop. llegada
-manager.leg.list.label.aircraft = Aeronave
-manager.leg.list.label.aircraft2 = Aeronave
-manager.leg.form.title=Detalles del tramo etapa
+manager.leg.list.label.aircraft = Avión
+manager.leg.list.label.aircraft2 = Avión
+manager.leg.form.title=Detalles de la etapa
 manager.leg.form.button.update=Actualizar
 manager.leg.form.button.delete=Eliminar
 manager.leg.form.button.publish=Publicar
@@ -309,18 +309,18 @@ authenticated.airline-manager.form.label.pictureLink = Enlace a la Imagen
 authenticated.manager.form.label.airline = Aerolínea
 authenticated.manager.form.button.create = Crear Gerente
 authenticated.manager.form.button.update = Actualizar Gerente
-any.leg.form.title = Tramo de vuelo
-any.leg.list.title = Tramos de vuelo
+any.leg.form.title = Etapa de vuelo
+any.leg.list.title = Etapas de vuelo
 any.flight.form.title = Vuelo
 any.flight.list.title = Vuelos publicados
 
 
 manager.dashboard.form.label.rankingPosition = Posición en el Ranking
 manager.dashboard.form.label.yearsToRetirement = Años hasta la Jubilación
-manager.dashboard.form.label.onTimeDelayedLegsRatio = Relación de Tramos a Tiempo/Retardados
+manager.dashboard.form.label.onTimeDelayedLegsRatio = Relación de Etapas a Tiempo/Retardados
 manager.dashboard.form.label.mostPopularAirport = Aeropuerto Más Popular
 manager.dashboard.form.label.leastPopularAirport = Aeropuerto Menos Popular
-manager.dashboard.form.label.numberofLegsByStatus = Número de Tramos por Estado
+manager.dashboard.form.label.numberofLegsByStatus = Número de Etapas por Estado
 manager.dashboard.form.label.averageFlightCost = Costo Promedio del Vuelo
 manager.dashboard.form.label.deviationFlightCost = Desviación del Costo del Vuelo
 manager.dashboard.form.label.maximumFlightCost = Máximo Costo del Vuelo
@@ -337,6 +337,7 @@ any.weather-dashboard.list.title = Tabla de Clima
 any.weather-dashboard.list.label.country = País
 any.weather-dashboard.list.label.date = Fecha
 any.weather-dashboard.form.title = Detalles del Clima
+any.weather-dashboard.list.label.description = Descripción
 
 master.menu.administrator.populate-weathers = Población de Climas
 

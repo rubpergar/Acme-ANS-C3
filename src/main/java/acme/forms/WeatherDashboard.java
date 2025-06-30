@@ -24,17 +24,18 @@ public class WeatherDashboard extends AbstractForm {
 	private String				city;
 	private String				country;
 	private Date				date;
+	private String				description;
 
 
-	public static WeatherDashboard of(final Double temperature, final Double humidity, final Double windSpeed, final String city, final String country, final Date date) {
-		return new WeatherDashboard(temperature, humidity, windSpeed, city, country, date);
+	public static WeatherDashboard of(final Double temperature, final Double humidity, final Double windSpeed, final String city, final String country, final Date date, final String description) {
+		return new WeatherDashboard(temperature, humidity, windSpeed, city, country, date, description);
 	}
 
 	public WeatherDashboard() {
 
 	}
 
-	public WeatherDashboard(final Double temperature, final Double humidity, final Double windSpeed, final String city, final String country, final Date date) {
+	public WeatherDashboard(final Double temperature, final Double humidity, final Double windSpeed, final String city, final String country, final Date date, final String description) {
 		super();
 		this.temperature = temperature;
 		this.humidity = humidity;
@@ -42,6 +43,7 @@ public class WeatherDashboard extends AbstractForm {
 		this.city = city;
 		this.country = country;
 		this.date = date;
+		this.description = description;
 	}
 	// Relationships ----------------------------------------------------------
 

@@ -31,41 +31,50 @@ public class ManagerLegUpdateService extends AbstractGuiService<Manager, Leg> {
 
 	@Override
 	public void authorise() {
+		boolean status = false;
 		int legId = super.getRequest().getData("id", int.class);
 		Leg leg = this.repository.getLegById(legId);
-		boolean isDraftMode = leg.getIsDraft();
-		boolean isOwner = super.getRequest().getPrincipal().getAccountId() == leg.getFlight().getAirlineManager().getUserAccount().getId();
-		boolean status = isDraftMode && isOwner;
-		if (status && super.getRequest().getMethod().equals("POST"))
-			status = this.validatePostFields();
+		if (leg != null) {
+			boolean isDraftMode = leg.getIsDraft();
+			boolean isOwner = super.getRequest().getPrincipal().getAccountId() == leg.getFlight().getAirlineManager().getUserAccount().getId();
 
+			if (isDraftMode && isOwner) {
+				String method = super.getRequest().getMethod();
+				if ("GET".equals(method))
+					status = true;
+				else if ("POST".equals(method))
+					status = this.validateRelatedEntities();
+			}
+		}
 		super.getResponse().setAuthorised(status);
 	}
 
-	private boolean validatePostFields() {
-		return this.validateAircraft() && this.validateAirport("departureAirport") && this.validateAirport("arrivalAirport");
-	}
+	private boolean validateRelatedEntities() {
+		boolean valid = true;
 
-	private boolean validateAircraft() {
-		Integer aircraftId = super.getRequest().getData("aircraft", int.class);
+		int departureAirportId = super.getRequest().getData("departureAirport", int.class);
+		if (valid && departureAirportId != 0) {
+			Airport departureAirport = this.repository.findAirportById(departureAirportId);
+			if (departureAirport == null)
+				valid = false;
+		}
+
+		int arrivalAirportId = super.getRequest().getData("arrivalAirport", int.class);
+		if (valid && arrivalAirportId != 0) {
+			Airport arrivalAirport = this.repository.findAirportById(arrivalAirportId);
+			if (arrivalAirport == null)
+				valid = false;
+		}
+
+		int aircraftId = super.getRequest().getData("aircraft", int.class);
 		if (aircraftId != 0) {
 			Aircraft aircraft = this.repository.findAircraftById(aircraftId);
-			if (aircraft == null || !aircraft.getStatus().equals(AircraftStatus.ACTIVE))
-				return false;
+			if (aircraft == null || !AircraftStatus.ACTIVE.equals(aircraft.getStatus()))
+				valid = false;
 		}
-		return true;
-	}
 
-	private boolean validateAirport(final String airportField) {
-		Integer airportId = super.getRequest().getData(airportField, int.class);
-		if (airportId != 0) {
-			Airport airport = this.repository.findAirportById(airportId);
-			if (airport == null)
-				return false;
-		}
-		return true;
+		return valid;
 	}
-
 	@Override
 	public void load() {
 		Leg leg;
@@ -133,8 +142,6 @@ public class ManagerLegUpdateService extends AbstractGuiService<Manager, Leg> {
 		SelectChoices selectedAircraft = new SelectChoices();
 
 		Collection<Aircraft> aircraftsActives = this.repository.findAllAircraftsByStatus(AircraftStatus.ACTIVE);
-
-		//List<Aircraft> finalAircrafts = aircraftsActives.stream().filter(a -> a.getAirline().getCodeIATA().equals(leg.getFlight().getAirlineManager().getAirline().getCodeIATA())).toList();
 
 		dataset = super.unbindObject(leg, "flightNumber", "scheduledDeparture", "scheduledArrival");
 		dataset.put("masterId", leg.getFlight().getId());
