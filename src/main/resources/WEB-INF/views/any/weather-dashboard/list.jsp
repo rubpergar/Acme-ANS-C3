@@ -8,4 +8,5 @@
 	<acme:list-column code="any.weather-dashboard.list.label.city" path="city" width="20%"/>
 	<acme:list-column code="any.weather-dashboard.list.label.country" path="country" width="20%"/>
 	<acme:list-column code="any.weather-dashboard.list.label.date" path="date" width="20%"/>
+	<acme:list-payload path="payload" />
 </acme:list>
