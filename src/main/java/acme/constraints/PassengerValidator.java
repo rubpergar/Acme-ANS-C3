@@ -39,10 +39,11 @@ public class PassengerValidator extends AbstractValidator<ValidPassenger, Passen
 				boolean validPattern = passportNumber.matches("[A-Z0-9]{6,9}$");
 				super.state(context, validPattern, "passportNumber", "acme.validation.passport.number-wrong-pattern.message");
 
-				boolean uniquePassport = this.passengerRepository.findPassengerByPassportNumber(passportNumber).isEmpty();
+				int customerId = passenger.getCustomer().getId();
+				boolean uniquePassport = this.passengerRepository.findPassengerByPassportNumberAndCustomer(passportNumber, customerId).isEmpty();
 
 				if (!uniquePassport) {
-					boolean sameAsCurrent = this.passengerRepository.findPassengerByPassportNumber(passportNumber).stream().anyMatch(p -> p.getId() == passenger.getId());
+					boolean sameAsCurrent = this.passengerRepository.findPassengerByPassportNumberAndCustomer(passportNumber, customerId).stream().anyMatch(p -> p.getId() == passenger.getId());
 					super.state(context, sameAsCurrent, "passportNumber", "acme.validation.passport.number-not-unique.message");
 				} else
 					super.state(context, uniquePassport, "passportNumber", "acme.validation.passport.number-not-unique.message");

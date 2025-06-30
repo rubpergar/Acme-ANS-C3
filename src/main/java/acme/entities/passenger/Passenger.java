@@ -3,7 +3,6 @@ package acme.entities.passenger;
 
 import java.util.Date;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Index;
 import javax.persistence.ManyToOne;
@@ -28,7 +27,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Table(indexes = {
-	@Index(columnList = "customer_id, isDraft")
+	@Index(columnList = "customer_id, isDraft"), @Index(columnList = "passportNumber, customer_id")
 })
 @ValidPassenger
 public class Passenger extends AbstractEntity {
@@ -47,7 +46,7 @@ public class Passenger extends AbstractEntity {
 
 	@Mandatory
 	@ValidString
-	@Column(unique = true)
+	@Automapped
 	private String				passportNumber;
 
 	@Mandatory
