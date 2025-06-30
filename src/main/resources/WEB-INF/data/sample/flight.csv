@@ -33,7 +33,7 @@ flight-26,Lorem ipsum dolor sit ame,false,EUR 500000.00,<marquee>Hacked</marquee
 flight-27,Lorem ipsum dolor sit ame,false,EUR 500000.00,<script>alert('Hacked!');</script>,manager-01,true
 flight-28,Lorem ipsum dolor sit ame,false,EUR 500000.00,' or 'A' = 'A,manager-01,true
 # isDraft
-flight-29,Lorem ipsum dolor sit ame,false,EUR 500000.00,"Lorem ipsum dolor sit amet, consectetur adipiscing",manager-01,true
-flight-31,Lorem ipsum dolor sit ame,false,EUR 500000.00,"Lorem ipsum dolor sit amet, consectetur adipiscing",manager-02,false
+flight-29,Lorem ipsum dolor sit ame,false,EUR 500000.00,"Lorem ipsum dolor sit amet, consectetur adipiscing",manager-01,false
+flight-31,Lorem ipsum dolor sit ame,false,EUR 500000.00,"Lorem ipsum dolor sit amet, consectetur adipiscing",manager-02,true
 # airline-manager 
 flight-30,Lorem ipsum dolor sit ame,false,EUR 500000.00,"Lorem ipsum dolor sit amet, consectetur adipiscing",manager-02,true

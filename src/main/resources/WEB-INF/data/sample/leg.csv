@@ -22,7 +22,7 @@ leg-15,AAX1010,2000/02/01 16:01,2000/02/01 17:00,DELAYED,airport-01,airport-00,f
 leg-16,AAX1011,2000/02/01 17:01,2000/02/01 18:00,CANCELLED,airport-01,airport-00,flight-05,aircraft-01,true
 leg-17,AAX1012,2000/02/01 18:01,2000/02/01 19:00,LANDED,airport-01,airport-00,flight-06,aircraft-01,true
 # isDraft
-leg-24,AAX1017,2000/02/02 10:00,2000/02/02 11:00,ON_TIME,airport-00,airport-01,flight-29,aircraft-01,false
+leg-24,AAX1017,2000/02/02 10:00,2000/02/02 11:00,LANDED,airport-00,airport-01,flight-29,aircraft-01,false
 leg-18,AAX2001,2000/02/01 19:01,2000/02/01 20:00,ON_TIME,airport-00,airport-01,flight-09,aircraft-01,true
 leg-19,AAX3001,2000/02/01 20:01,2000/02/01 21:00,ON_TIME,airport-00,airport-01,flight-10,aircraft-01,true
 # flight
