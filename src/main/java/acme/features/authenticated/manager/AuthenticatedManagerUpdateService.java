@@ -9,6 +9,7 @@ import acme.client.components.views.SelectChoices;
 import acme.client.helpers.PrincipalHelper;
 import acme.client.services.AbstractGuiService;
 import acme.client.services.GuiService;
+import acme.entities.airline.Airline;
 import acme.realms.Manager;
 
 @GuiService
@@ -25,6 +26,15 @@ public class AuthenticatedManagerUpdateService extends AbstractGuiService<Authen
 		boolean status;
 
 		status = super.getRequest().getPrincipal().hasRealmOfType(Manager.class);
+
+		if (status && super.getRequest().getMethod().equals("POST")) {
+			Integer airlineId = super.getRequest().getData("airline", int.class);
+			if (airlineId != 0) {
+				Airline airline = this.repository.findAirlineById(airlineId);
+				if (airline == null)
+					status = false;
+			}
+		}
 
 		super.getResponse().setAuthorised(status);
 	}
