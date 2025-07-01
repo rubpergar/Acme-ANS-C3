@@ -9,7 +9,7 @@ leg-04,AAX9999,2004/06/01 13:30,2004/06/01 14:00,ON_TIME,airport-04,airport-02,f
 leg-05,AAX3466,2004/06/01 14:30,2004/06/01 15:00,ON_TIME,airport-02,airport-01,flight-01,aircraft-01,true
 # scheduled-departure,"","","",""
 leg-06,AAX1002,2000/01/01 0:00,2000/01/01 0:01,ON_TIME,airport-01,airport-00,flight-01,aircraft-01,true
-leg-07,AAX1003,2000/01/01 0:01,2000/01/01 0:02,ON_TIME,airport-00,airport-01,flight-02,aircraft-01,true
+leg-07,AAX1003,2000/01/01 0:01,2000/01/01 0:02,LANDED,airport-00,airport-01,flight-02,aircraft-01,false
 leg-08,AAX1004,2200/12/31 23:57,2200/12/31 23:58,ON_TIME,airport-00,airport-01,flight-03,aircraft-01,true
 leg-09,AAX1005,2200/12/31 23:58,2200/12/31 23:59,ON_TIME,airport-00,airport-01,flight-04,aircraft-01,true
 # scheduled-arrival

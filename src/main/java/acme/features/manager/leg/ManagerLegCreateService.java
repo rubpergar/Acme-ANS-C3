@@ -124,6 +124,14 @@ public class ManagerLegCreateService extends AbstractGuiService<Manager, Leg> {
 			super.state(validScheduledDeparture, "scheduledDeparture", "acme.validation.leg.invalid-departure.message");
 		}
 
+		boolean validScheduledArrival = true;
+		Date scheduledArrival = leg.getScheduledArrival();
+		if (scheduledArrival != null) {
+			Date currentMoment = MomentHelper.getCurrentMoment();
+			validScheduledArrival = MomentHelper.isAfter(scheduledArrival, currentMoment);
+			super.state(validScheduledArrival, "scheduledArrival", "acme.validation.leg.invalid-departure.message");
+		}
+
 	}
 
 	@Override
