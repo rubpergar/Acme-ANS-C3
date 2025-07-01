@@ -40,7 +40,7 @@ acme.validation.leg.invalid-airport.message=El aeropuerto de llegada no puede se
 
 acme.validation.leg.duplicate-flight-number.message=El número de vuelo ya está en uso. Por favor, proporcione uno diferente.
 
-acme.validation.leg.invalid-departure.message = La fecha de salida tiene que ser posterior a la fecha actual.
+acme.validation.leg.invalid-departure.message = La fecha tiene que ser posterior a la fecha actual.
 
 acme.validation.leg.invalid-aircraft.message = El avión no esta disponible para esta fecha. Por favor, proporcione un avión diferente o cambie la fecha.
 

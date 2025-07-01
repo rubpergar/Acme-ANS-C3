@@ -39,7 +39,7 @@ acme.validation.leg.invalid-flight-number-manager.message =The flight number is 
 acme.validation.length.message = Too long. 
 acme.validation.leg.duplicate-flight-number.message=The flight number is already in use. Please provide a different one.
 
-acme.validation.leg.invalid-departure.message = The scheduled departure must be after than present moment.
+acme.validation.leg.invalid-departure.message = The scheduled must be after than present moment.
 
 acme.validation.leg.invalid-aircraft.message = The aircraft is not available for the scheduled. Please select a different aircraft or change the scheduled time.
 

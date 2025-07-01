@@ -28,7 +28,7 @@ leg-19,AAX3001,2000/02/01 20:01,2000/02/01 21:00,ON_TIME,airport-00,airport-01,f
 # flight
 leg-20,AAX1013,2000/02/01 10:00,2000/02/01 11:00,ON_TIME,airport-00,airport-01,flight-22,aircraft-01,true
 # departure-airport
-leg-21,AAX1014,2000/02/01 21:01,2000/02/01 22:00,ON_TIME,airport-10,airport-00,flight-11,aircraft-01,true
+leg-21,AAX1014,2030/02/01 21:01,2030/02/01 22:00,ON_TIME,airport-10,airport-00,flight-11,aircraft-01,true
 # arrival-airport
 leg-22,AAX1015,2000/02/01 22:01,2000/02/01 23:00,ON_TIME,airport-00,airport-11,flight-12,aircraft-01,true
 # aircraft
