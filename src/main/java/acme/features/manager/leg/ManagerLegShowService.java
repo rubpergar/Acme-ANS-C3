@@ -35,8 +35,7 @@ public class ManagerLegShowService extends AbstractGuiService<Manager, Leg> {
 		int legId = super.getRequest().getData("id", int.class);
 		Flight flight = this.repository.getFlightByLegId(legId);
 		leg = this.repository.getLegById(legId);
-		boolean isOwner = super.getRequest().getPrincipal().getAccountId() == flight.getAirlineManager().getUserAccount().getId();
-		status = leg != null && (!leg.getIsDraft() || isOwner);
+		status = leg != null && (!leg.getIsDraft() || super.getRequest().getPrincipal().hasRealm(leg.getFlight().getAirlineManager()));
 		super.getResponse().setAuthorised(status);
 	}
 
@@ -83,10 +82,7 @@ public class ManagerLegShowService extends AbstractGuiService<Manager, Leg> {
 		dataset.put("departureAirport", departureAirportChoices.getSelected().getKey());
 		dataset.put("arrivalAirports", arrivalAirportChoices);
 		dataset.put("arrivalAirport", arrivalAirportChoices.getSelected().getKey());
-		if (leg.getScheduledDeparture() != null && leg.getScheduledArrival() != null)
-			dataset.put("duration", leg.getDuration());
-		else
-			dataset.put("duration", null);
+		dataset.put("duration", leg.getDuration());
 
 		super.getResponse().addData(dataset);
 	}
