@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="15.1">
-  <zoom_level>5</zoom_level>
+  <zoom_level>11</zoom_level>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>570</x>
-      <y>215</y>
-      <w>305</w>
-      <h>75</h>
+      <x>990</x>
+      <y>11</y>
+      <w>671</w>
+      <h>165</h>
     </coordinates>
     <panel_attributes>&lt;&lt;Role&gt;&gt;
 Customer {ValidCustomer}
@@ -24,10 +24,10 @@ bg=pink</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>660</x>
-      <y>355</y>
-      <w>310</w>
-      <h>75</h>
+      <x>1188</x>
+      <y>319</y>
+      <w>682</w>
+      <h>165</h>
     </coordinates>
     <panel_attributes>&lt;&lt;Entity&gt;&gt;
 Booking
@@ -46,10 +46,10 @@ bg=pink</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>510</x>
-      <y>380</y>
-      <w>110</w>
-      <h>30</h>
+      <x>858</x>
+      <y>374</y>
+      <w>242</w>
+      <h>66</h>
     </coordinates>
     <panel_attributes>&lt;&lt;Entity&gt;&gt;
 BookingPassenger
@@ -60,17 +60,17 @@ bg=pink</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>120</x>
-      <y>360</y>
-      <w>320</w>
-      <h>70</h>
+      <x>0</x>
+      <y>330</y>
+      <w>704</w>
+      <h>154</h>
     </coordinates>
     <panel_attributes>&lt;&lt;Entity&gt;&gt;
 Passenger
 --
 + fullName: String {Mandatory, ValidString(min = 1, max = 255), Automapped}
 + email: String {Mandatory, ValidEmail, Automapped}
-+ passportNumber: String {Mandatory, ValidString, Column(unique = true)}
++ passportNumber: String {Mandatory, ValidString, Automapped}
 + dateOfBirth: Date {Mandatory, ValidMoment(past = true), Temporal(TemporalType.TIMESTAMP)}
 - specialNeeds: String {Optional, ValidString(min = 0, max = 50), Automapped}
 + isDraft: Boolean {Mandatory, Valid, Automapped}
@@ -80,10 +80,10 @@ bg=pink</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>915</x>
-      <y>285</y>
-      <w>110</w>
-      <h>45</h>
+      <x>1749</x>
+      <y>165</y>
+      <w>242</w>
+      <h>99</h>
     </coordinates>
     <panel_attributes>&lt;&lt;Enum&gt;&gt;
 TravelClass
@@ -96,10 +96,10 @@ bg=pink</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>900</x>
-      <y>480</y>
-      <w>95</w>
-      <h>35</h>
+      <x>1716</x>
+      <y>594</y>
+      <w>209</w>
+      <h>77</h>
     </coordinates>
     <panel_attributes>&lt;&lt;Entity&gt;&gt;
 Flight
@@ -111,10 +111,10 @@ bg=pink</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>340</x>
-      <y>455</y>
-      <w>165</w>
-      <h>145</h>
+      <x>484</x>
+      <y>539</y>
+      <w>363</w>
+      <h>319</h>
     </coordinates>
     <panel_attributes>&lt;&lt;Form&gt;&gt;
 CustomerDashboard
@@ -139,10 +139,10 @@ bg=pink</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>765</x>
-      <y>285</y>
-      <w>40</w>
-      <h>80</h>
+      <x>1419</x>
+      <y>165</y>
+      <w>88</w>
+      <h>176</h>
     </coordinates>
     <panel_attributes>lt=x-&gt;
 m1=*
@@ -153,10 +153,10 @@ made by</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>935</x>
-      <y>425</y>
-      <w>60</w>
-      <h>65</h>
+      <x>1793</x>
+      <y>473</y>
+      <w>132</w>
+      <h>143</h>
     </coordinates>
     <panel_attributes>lt=x-&gt;
 m1=*
@@ -167,10 +167,10 @@ corresponds to</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>615</x>
+      <x>1089</x>
       <y>385</y>
-      <w>55</w>
-      <h>25</h>
+      <w>121</w>
+      <h>55</h>
     </coordinates>
     <panel_attributes>lt=x-&gt;
 m1=*
@@ -181,10 +181,10 @@ make</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>435</x>
-      <y>390</y>
-      <w>85</w>
-      <h>25</h>
+      <x>693</x>
+      <y>396</y>
+      <w>187</w>
+      <h>55</h>
     </coordinates>
     <panel_attributes>lt=x-&gt;
 m1=*
@@ -195,10 +195,10 @@ is passenger in</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>370</x>
-      <y>255</y>
-      <w>210</w>
-      <h>115</h>
+      <x>550</x>
+      <y>99</y>
+      <w>462</w>
+      <h>253</h>
     </coordinates>
     <panel_attributes>lt=x-&gt;
 m1=*
