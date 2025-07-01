@@ -134,6 +134,15 @@ public class ManagerLegPublishService extends AbstractGuiService<Manager, Leg> {
 
 			super.state(validScheduledDeparture, "scheduledDeparture", "acme.validation.leg.invalid-departure.message");
 		}
+
+		Date scheduledArrival = leg.getScheduledArrival();
+		if (scheduledArrival != null) {
+			Date currentMoment = MomentHelper.getCurrentMoment();
+
+			boolean validScheduledArrival = MomentHelper.isAfter(scheduledArrival, currentMoment);
+
+			super.state(validScheduledArrival, "scheduledArrival", "acme.validation.leg.invalid-departure.message");
+		}
 	}
 
 	private void validateOverlappingLegs(final Leg leg) {
