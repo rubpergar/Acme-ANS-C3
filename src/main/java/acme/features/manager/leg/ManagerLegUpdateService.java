@@ -42,7 +42,7 @@ public class ManagerLegUpdateService extends AbstractGuiService<Manager, Leg> {
 				String method = super.getRequest().getMethod();
 				if ("GET".equals(method))
 					status = true;
-				else if ("POST".equals(method))
+				else
 					status = this.validateRelatedEntities();
 			}
 		}
@@ -53,7 +53,7 @@ public class ManagerLegUpdateService extends AbstractGuiService<Manager, Leg> {
 		boolean valid = true;
 
 		int departureAirportId = super.getRequest().getData("departureAirport", int.class);
-		if (valid && departureAirportId != 0) {
+		if (departureAirportId != 0) {
 			Airport departureAirport = this.repository.findAirportById(departureAirportId);
 			if (departureAirport == null)
 				valid = false;
