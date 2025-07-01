@@ -157,7 +157,7 @@ public class ManagerLegCreateService extends AbstractGuiService<Manager, Leg> {
 
 		dataset = super.unbindObject(leg, "scheduledDeparture", "scheduledArrival");
 		String iata = leg.getFlight().getAirlineManager().getAirline().getCodeIATA();
-		if (leg.getFlightNumber() == null || leg.getFlightNumber().isBlank())
+		if (leg.getFlightNumber() == null)
 			dataset.put("flightNumber", iata);
 		else
 			dataset.put("flightNumber", leg.getFlightNumber());
@@ -176,10 +176,7 @@ public class ManagerLegCreateService extends AbstractGuiService<Manager, Leg> {
 		dataset.put("departureAirport", departureAirportChoices.getSelected().getKey());
 		dataset.put("arrivalAirports", arrivalAirportChoices);
 		dataset.put("arrivalAirport", arrivalAirportChoices.getSelected().getKey());
-		if (leg.getScheduledDeparture() != null && leg.getScheduledArrival() != null)
-			dataset.put("duration", leg.getDuration());
-		else
-			dataset.put("duration", null);
+		dataset.put("duration", leg.getDuration());
 
 		super.getResponse().addData(dataset);
 	}

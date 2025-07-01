@@ -12,7 +12,6 @@ import acme.client.services.GuiService;
 import acme.entities.aircrafts.Aircraft;
 import acme.entities.aircrafts.AircraftStatus;
 import acme.entities.airports.Airport;
-import acme.entities.flights.Flight;
 import acme.entities.legs.Leg;
 import acme.entities.legs.LegStatus;
 import acme.realms.Manager;
@@ -32,11 +31,9 @@ public class ManagerLegDeleteService extends AbstractGuiService<Manager, Leg> {
 	public void authorise() {
 		int legId = super.getRequest().getData("id", int.class);
 		Leg leg = this.repository.getLegById(legId);
-		String method = super.getRequest().getMethod();
 		boolean status = false;
 
-		Flight flight = leg.getFlight();
-		status = method.equals("POST") && leg != null && leg.getIsDraft() && super.getRequest().getPrincipal().getAccountId() == flight.getAirlineManager().getUserAccount().getId();
+		status = leg != null && leg.getIsDraft() && super.getRequest().getPrincipal().hasRealm(leg.getFlight().getAirlineManager());
 
 		super.getResponse().setAuthorised(status);
 	}
@@ -99,10 +96,7 @@ public class ManagerLegDeleteService extends AbstractGuiService<Manager, Leg> {
 		dataset.put("departureAirport", departureAirportChoices.getSelected().getKey());
 		dataset.put("arrivalAirports", arrivalAirportChoices);
 		dataset.put("arrivalAirport", arrivalAirportChoices.getSelected().getKey());
-		if (leg.getScheduledDeparture() != null && leg.getScheduledArrival() != null)
-			dataset.put("duration", leg.getDuration());
-		else
-			dataset.put("duration", null);
+		dataset.put("duration", leg.getDuration());
 
 		super.getResponse().addData(dataset);
 	}
