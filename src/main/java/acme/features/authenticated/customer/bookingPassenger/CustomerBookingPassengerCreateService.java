@@ -33,34 +33,37 @@ public class CustomerBookingPassengerCreateService extends AbstractGuiService<Cu
 		bookingId = super.getRequest().getData("masterId", int.class);
 		booking = this.repository.findBookingById(bookingId);
 
-		customerId = super.getRequest().getPrincipal().getActiveRealm().getId();
+		if (booking != null) {
+			customerId = super.getRequest().getPrincipal().getActiveRealm().getId();
 
-		boolean isCustomer = customerId == booking.getCustomer().getId();
-		boolean isDraft = booking.getIsDraft();
-		boolean validPassenger = true;
+			boolean isCustomer = customerId == booking.getCustomer().getId();
+			boolean isDraft = booking.getIsDraft();
+			boolean validPassenger = true;
 
-		if (super.getRequest().getMethod().equals("POST")) {
-			Integer passengerId = super.getRequest().getData("passenger", Integer.class);
-			if (passengerId != 0) {
-				// Pasajero no existente o es borrador
-				Passenger passenger = this.repository.findPassengerByIdAndCustomerId(passengerId, customerId);
+			if (super.getRequest().getMethod().equals("POST")) {
+				Integer passengerId = super.getRequest().getData("passenger", Integer.class);
+				if (passengerId != 0) {
+					// Pasajero no existente o es borrador
+					Passenger passenger = this.repository.findPassengerByIdAndCustomerId(passengerId, customerId);
 
-				boolean invalidPassenger = (passenger == null || passenger.getIsDraft()) && passengerId != null;
+					boolean invalidPassenger = (passenger == null || passenger.getIsDraft()) && passengerId != null;
 
-				if (invalidPassenger)
-					validPassenger = false;
-				// Pasajero ya existe en el booking
-				boolean existingBookingPassenger = this.repository.findBookingPassengerByBookingIdAndPassengerId(bookingId, passengerId) != null;
-				if (existingBookingPassenger)
-					validPassenger = false;
+					if (invalidPassenger)
+						validPassenger = false;
+					// Pasajero ya existe en el booking
+					boolean existingBookingPassenger = this.repository.findBookingPassengerByBookingIdAndPassengerId(bookingId, passengerId) != null;
+					if (existingBookingPassenger)
+						validPassenger = false;
 
+				}
 			}
-		}
 
-		super.getResponse().setAuthorised(isCustomer && isDraft && validPassenger);
+			super.getResponse().setAuthorised(isCustomer && isDraft && validPassenger);
 
-		if (!isDraft)
-			super.state(false, "*", "customer.booking.form.error.publishedBooking", "booking");
+			if (!isDraft)
+				super.state(false, "*", "customer.booking.form.error.publishedBooking", "booking");
+		} else
+			super.getResponse().setAuthorised(false);
 	}
 
 	@Override

@@ -76,8 +76,11 @@ public class CustomerBookingUpdateService extends AbstractGuiService<Customer, B
 
 		// Verificar que la fecha del vuelo es posterior antes de actualizar
 
-		boolean flightStatus = booking.getFlight().getScheduledDeparture().after(MomentHelper.getCurrentMoment());
-		super.state(flightStatus, "*", "acme.validation.booking.flight-scheduled-departure.message");
+		if (booking.getFlight() != null) {
+
+			boolean flightStatus = booking.getFlight().getScheduledDeparture().after(MomentHelper.getCurrentMoment());
+			super.state(flightStatus, "*", "acme.validation.booking.flight-scheduled-departure.message");
+		}
 
 	}
 
