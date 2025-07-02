@@ -33,7 +33,7 @@ public interface AssistanceAgentClaimRepository extends AbstractRepository {
 	@Query("SELECT l FROM Leg l")
 	Collection<Leg> getAllLegs();
 
-	@Query("SELECT l FROM Leg l WHERE l.isDraft = false AND l.scheduledArrival < :now")
+	@Query("SELECT l FROM Leg l WHERE l.scheduledArrival < :now AND l.isDraft = false")
 	Collection<Leg> getAllPublishedLegs(@Param("now") Date now);
 
 	@Query("SELECT tl FROM TrackingLog tl WHERE tl.claim.id = :claimId")
