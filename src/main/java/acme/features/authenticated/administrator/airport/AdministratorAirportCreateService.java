@@ -26,16 +26,6 @@ public class AdministratorAirportCreateService extends AbstractGuiService<Admini
 	public void authorise() {
 		boolean hasAuthority = super.getRequest().getPrincipal().hasRealmOfType(Administrator.class);
 
-		if (super.getRequest().hasData("id")) {
-			String airpScope = super.getRequest().getData("scope", String.class);
-			if (airpScope != null && !airpScope.equals("0"))
-				try {
-					AirportType.valueOf(airpScope);
-				} catch (IllegalArgumentException e) {
-					hasAuthority = false;
-				}
-		}
-
 		super.getResponse().setAuthorised(hasAuthority);
 	}
 
