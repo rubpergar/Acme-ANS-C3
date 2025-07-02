@@ -62,9 +62,9 @@ public class TrackingLogValidator extends AbstractValidator<ValidTrackingLog, Tr
 
 			}
 			for (TrackingLog t : orderedTrackingLogs)
-				if (trackingLog.getResolutionPercentage() != 100 && trackingLog.getResolutionPercentage() != null)
-					if (MomentHelper.isBeforeOrEqual(t.getLastUpdate(), trackingLog.getLastUpdate()))
-						if (t.getResolutionPercentage() >= trackingLog.getResolutionPercentage() && t.getId() != trackingLog.getId())
+				if (trackingLog.getResolutionPercentage() != null && trackingLog.getResolutionPercentage() != 100)
+					if (trackingLog.getLastUpdate() != null && MomentHelper.isBeforeOrEqual(t.getLastUpdate(), trackingLog.getLastUpdate()))
+						if (t.getResolutionPercentage() != null && t.getResolutionPercentage() >= trackingLog.getResolutionPercentage() && t.getId() != trackingLog.getId())
 							super.state(context, false, "resolutionPercentage", "acme.validation.trackinglog.invalid-percentage.message");
 
 		}
