@@ -85,7 +85,6 @@ public class CustomerBookingPassengerDeleteService extends AbstractGuiService<Cu
 		dataset.put("bookingId", bookingPassenger.getBooking().getId());
 
 		List<Passenger> listPassengersNotInBooking = new ArrayList<>(passengersNotInBooking);
-		//if (!passengersNotInBooking.isEmpty()) {
 		if (!passengersNotInBooking.contains(bookingPassenger.getPassenger()))
 			listPassengersNotInBooking.add(bookingPassenger.getPassenger());
 		passengers = SelectChoices.from(listPassengersNotInBooking, "fullName", bookingPassenger.getPassenger());
