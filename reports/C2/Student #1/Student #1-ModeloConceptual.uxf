@@ -1,0 +1,454 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="15.1">
+  <help_text>lt=x-&gt;
+m1=*
+m2=1
+
+</help_text>
+  <zoom_level>4</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>468</x>
+      <y>228</y>
+      <w>288</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Entity&gt;&gt;
+Leg : {ValidLeg}
+--
+-serialVersionUID = 1L: long
+-flightNumber: String {Mandatory,ValidString(pattern = "^[A-Z]{3}\\d{4}$", min = 7, max = 7),Column(unique=true)}
+-scheduledDeparture: Date {Mandatory,ValidMoment,Temporal(TemporalType.TIMESTAMP)
+-scheduledArrival: Date {Mandatory,ValidMoment,Temporal(TemporalType.TIMESTAMP)}
+-status: LegStatus {Mandatory,Valid,Automapped}
+-isDraft: boolean {Mandatory, Automapped}
+-departureAirport: Airport {Mandatory,Valid,ManyToOne(optional=false)}
+-arrivalAirport: Airport {Mandatory,Valid,ManyToOne(optional=false)}
+-aircraft: Aircraft {Mandatory,Valid,ManyToOne(optional=false)}
+-flight: Flight {Mandatory,Valid,ManyToOne(optional=false)}
+--
+~getDuration(): Double
+--
+
+
+bg=ORANGE</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>764</x>
+      <y>228</y>
+      <w>160</w>
+      <h>76</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+LegRepository
+--
+~getScheduledDeparture(int flightId) : Collection&lt;Date&gt;
+~getScheduledArrival(int flightId) : Collection&lt;Date&gt;
+~getOriginCity (Integer flightId) : Collection&lt;String&gt;
+~getDestinationCity (Integer flightId) : Collection&lt;String&gt;
+~getNumberLegsByFlight(Integer flightId): Integer
+~getLegsByFlight2(Integer flightId): Collection&lt;Leg&gt;
+~findLegByFlightNumber(String flightNumber): Optional&lt;Leg&gt;
+~findAllLegs(): Collection&lt;Leg&gt;
+--
+
+bg=ORANGE</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>496</x>
+      <y>396</y>
+      <w>80</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Entity&gt;&gt;
+Airport
+--
+
+bg=ORANGE</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>572</x>
+      <y>368</y>
+      <w>36</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Entity&gt;&gt;
+Airline
+--
+
+bg=ORANGE</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>556</x>
+      <y>444</y>
+      <w>300</w>
+      <h>64</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Role&gt;&gt;
+Manager : {ValidManager}
+--
+-serialVersionUID = 1L: long
+-identifierNumber: String {Mandatory,ValidString(pattern = "^[A-Z]{2,3}\\d{6}$", min = 8, max = 9),Column(unique=true)}
+-yearsOfExperience: Integer {Mandatory,ValidNumber(min=0,max=120),Automapped}
+-dateOfBirth: Date {Mandatory,ValidMoment(past=true),Temporal(TemporalType.TIMESTAMP)}
+-pictureLink: String {Optional,ValidUrl,Automapped}
+~airline: Airline {Mandatory,Valid,ManyToOne(optional=false)}
+--
+--
+
+bg=ORANGE</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>468</x>
+      <y>364</y>
+      <w>36</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Entity&gt;&gt;
+Aircraft
+
+--
+
+bg=ORANGE</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>620</x>
+      <y>332</y>
+      <w>196</w>
+      <h>108</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Entity&gt;&gt;
+Flight : {ValidFlight}
+--
+-serialVersionUID = 1L: long
+-tag: String {Mandatory,ValidString(min=1,max=50),Automapped}
+-indication: Boolean {Mandatory,Valid,Automapped}
+-cost: Money {Mandatory,ValidMoney(min=0,max=1000000),Automapped}
+-description: String {Optional,ValidString(min=0,max=255),Automapped}
+-isDraft : boolean {Mandatory, Automapped}
+-airlineManager: Manager {Mandatory,Valid,ManyToOne(optional=false)}
+--
++getScheduledDeparture(): Date
++getScheduledArrival(): Date
++getOriginCity(): String
++getDestinationCity(): String
++getNumberOfLayovers(): int
++getFlightDistinction() : String
+--
+
+fg=BLACK
+bg=ORANGE</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>832</x>
+      <y>320</y>
+      <w>48</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Enum&gt;&gt; 
+LegStatus
+--
+ON_TIME
+DELAYED
+CANCELLED
+LANDED
+
+
+bg=ORANGE</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>484</x>
+      <y>320</y>
+      <w>36</w>
+      <h>52</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+m1= *
+m2= 1
+</panel_attributes>
+    <additional_attributes>70.0;10.0;10.0;110.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>516</x>
+      <y>320</y>
+      <w>28</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+m1= *
+m2= 1
+arrives 
+at
+</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;190.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>536</x>
+      <y>320</y>
+      <w>36</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+m1= *
+m2= 1
+departs
+from
+</panel_attributes>
+    <additional_attributes>10.0;10.0;40.0;190.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>568</x>
+      <y>320</y>
+      <w>60</w>
+      <h>64</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+m1= *
+m2= 1
+</panel_attributes>
+    <additional_attributes>10.0;10.0;130.0;140.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>600</x>
+      <y>400</y>
+      <w>28</w>
+      <h>52</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+m1= *
+m2= 1
+</panel_attributes>
+    <additional_attributes>50.0;10.0;10.0;110.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>572</x>
+      <y>388</y>
+      <w>32</w>
+      <h>64</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+m1= *
+m2= 1
+</panel_attributes>
+    <additional_attributes>10.0;140.0;50.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>512</x>
+      <y>416</y>
+      <w>56</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+m1= *
+m2= 1
+leastPopular
+</panel_attributes>
+    <additional_attributes>10.0;130.0;70.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>472</x>
+      <y>416</y>
+      <w>56</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+m1= *
+m2= 1
+mostPopular</panel_attributes>
+    <additional_attributes>10.0;130.0;80.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>716</x>
+      <y>516</y>
+      <w>132</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Constraint&gt;&gt;
+ValidLeg
+--
++ scheduledDeparture must be before than scheduledArrival
++ flightNumber must start with airline's IATA code
++ arrivalAirport cannot be the same than departureAirport
++ flightNumber must be unique
+bg=ORANGE</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>556</x>
+      <y>516</y>
+      <w>148</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Constraint&gt;&gt;
+ValidManager
+--
++ identifier number must start with the first 2 or 3 initials
++ yearsOfExperience cannot exceed the manager's age.
++ identifierNumber must be unique
+
+bg=ORANGE</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>592</x>
+      <y>564</y>
+      <w>100</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Constraint&gt;&gt;
+ValidFlight
+--
++ current cost must be real valor
+
+
+bg=ORANGE</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>212</x>
+      <y>344</y>
+      <w>216</w>
+      <h>76</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Entity&gt;&gt;
+Weather
+--
+-serialVersionUID = 1L: long
+-temperature: Double {Mandatory, ValidNumber(min=-100,max=100),Automapped}
+-humidity: Double {Mandatory, ValidNumber(min=0, max=100), Automapped}
+-windSpeed: Double {Mandatory, ValidNumber(min=0, max=200), Automapped}
+-city: String {Mandatory, ValidString(min=1, max=50), Automapped}
+-country: String {Mandatory, ValidString(min=1, max=50), Automapped}
+-city: String {Mandatory, ValidString(min=1, max=255), Automapped}
+-date: Date {Mandatory, ValidMoment, Temporal(TemporalType.TIMESTAMP)}
+--
+--
+
+bg=ORANGE</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>416</x>
+      <y>468</y>
+      <w>132</w>
+      <h>116</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Form&gt;&gt;
+ManagerDashboard
+--
+-serialVersionUID = 1L: long
+-rankingPosition: int
+-yearsToRetirement: int
+-onTimeDelayedLegsRatio: Double
+-mostPopularAirport: Airport
+-leastPopularAirport: Airport
+-completedLegs: int
+-pendingLegs: int
+-cancelledLegs: int
+-numberofLegsByStatus: Map&lt;LegStatus, Integer&gt;
+-averageFlightCost: List&lt;Money&gt;
+-deviationFlightCost: List&lt;Money&gt;
+-maximumFlightCost: List&lt;Money&gt;
+-minimumFlightCost: List&lt;Money&gt;
+--
+--
+
+bg=ORANGE</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>60</x>
+      <y>228</y>
+      <w>388</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Form&gt;&gt;
+WeatherDashboard
+--
+-serialVersionUID = 1L: long
+-id: int
+-temperature: Double
+-humidity: Double
+-windSpeed: Double
+-city: String
+-country: String
+-description: String
+-date: Date
+--
++WeatherDashboard(): ctor
++WeatherDashboard(final Double temperature, final Double humidity, final Double windSpeed, final String city, final String country, final Date date): ctor
++of(final Double temperature, final Double humidity, final Double windSpeed, final String city, final String country, final Date date): WeatherDashboard
+--
+
+bg=ORANGE</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>136</x>
+      <y>456</y>
+      <w>212</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+ManagerRepository
+--
+~findManagersByIdentifierNumber(String identifierNumber): Optional&lt;Manager&gt;
+--
+
+bg=ORANGE</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
