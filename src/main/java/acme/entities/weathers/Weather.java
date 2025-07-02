@@ -4,6 +4,8 @@ package acme.entities.weathers;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.Index;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -19,6 +21,9 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
+@Table(indexes = {
+	@Index(columnList = "city, country"), @Index(columnList = "city, country")
+})
 public class Weather extends AbstractEntity {
 
 	private static final long	serialVersionUID	= 1L;
