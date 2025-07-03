@@ -2,6 +2,8 @@
 package acme.features.authenticated.flightCrewMember.flightAssignment;
 
 import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -60,16 +62,12 @@ public class FlightAssignmentPublishService extends AbstractGuiService<FlightCre
 	public void validate(final FlightAssignment flightAssignment) {
 
 		// No se puede publicar una asignación con un member no disponible
-		if (flightAssignment.getFlightCrewMember() != null) {
-			boolean availableMember = flightAssignment.getFlightCrewMember().getAvailabilityStatus() == CrewAvailabilityStatus.AVAILABLE;
-			super.state(availableMember, "leg", "acme.validation.flight-assignment.unavailable-member.message");
-		}
+		if (flightAssignment.getFlightCrewMember().getAvailabilityStatus() != CrewAvailabilityStatus.AVAILABLE)
+			super.state(false, "leg", "acme.validation.flight-assignment.unavailable-member.message");
 
 		// No se puede publicar una asignación con leg que ya hayan ocurrido
-		if (flightAssignment.getLeg() != null) {
-			boolean legConcluded = this.repository.isLegConcluded(flightAssignment.getLeg().getId(), MomentHelper.getCurrentMoment());
-			super.state(!legConcluded, "leg", "acme.validation.flight-assignment.publish-leg-concluded.message");
-		}
+		if (this.repository.isLegConcluded(flightAssignment.getLeg().getId(), MomentHelper.getCurrentMoment()))
+			super.state(false, "leg", "acme.validation.flight-assignment.publish-leg-concluded.message");
 
 	}
 
@@ -83,10 +81,11 @@ public class FlightAssignmentPublishService extends AbstractGuiService<FlightCre
 	public void unbind(final FlightAssignment flightAssignment) {
 		int flightCrewMemberAirlineId;
 		flightCrewMemberAirlineId = this.repository.getMemberById(super.getRequest().getPrincipal().getActiveRealm().getId()).getAirline().getId();
-		Collection<Leg> legs = this.repository.findAvailableLegs(flightCrewMemberAirlineId, MomentHelper.getCurrentMoment());
+		Collection<Leg> allAvailableLegs = this.repository.findAvailableLegs(MomentHelper.getCurrentMoment());
+		List<Leg> legs = allAvailableLegs.stream().filter(l -> l.getFlight().getAirlineManager().getAirline().getId() == flightCrewMemberAirlineId).collect(Collectors.toList());
 
 		Leg assignedLeg = flightAssignment.getLeg();
-		if (assignedLeg != null && !legs.contains(assignedLeg))
+		if (!legs.contains(assignedLeg))
 			legs.add(assignedLeg);
 
 		SelectChoices status = SelectChoices.from(FlightAssignmentStatus.class, flightAssignment.getStatus());
