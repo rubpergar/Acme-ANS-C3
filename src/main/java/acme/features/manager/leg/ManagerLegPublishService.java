@@ -6,7 +6,6 @@ import java.util.Collection;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -147,7 +146,7 @@ public class ManagerLegPublishService extends AbstractGuiService<Manager, Leg> {
 
 	private void validateOverlappingLegs(final Leg leg) {
 		Collection<Leg> legs = this.legRepository.getLegsByFlight2(leg.getFlight().getId());
-		List<Leg> legsToValidate = legs.stream().filter(l -> !l.getIsDraft()).collect(Collectors.toList());
+		List<Leg> legsToValidate = legs.stream().filter(l -> !l.getIsDraft()).toList();
 
 		List<Leg> legsToValidateOverlap = new ArrayList<>(legsToValidate);
 		legsToValidateOverlap.add(leg);
@@ -215,7 +214,7 @@ public class ManagerLegPublishService extends AbstractGuiService<Manager, Leg> {
 		Collection<Airport> airports;
 		airports = this.repository.findAllAirports();
 
-		SelectChoices selectedAircraft = new SelectChoices();
+		SelectChoices selectedAircraft;
 
 		Collection<Aircraft> aircraftsActives = this.repository.findAllAircraftsByStatus(AircraftStatus.ACTIVE);
 

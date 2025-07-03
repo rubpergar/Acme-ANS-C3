@@ -56,7 +56,7 @@ public class ManagerLegDeleteService extends AbstractGuiService<Manager, Leg> {
 
 	@Override
 	public void validate(final Leg leg) {
-		;
+		//Intentionally left empty, as no specific validation is required for deletion.
 	}
 
 	@Override
@@ -76,7 +76,7 @@ public class ManagerLegDeleteService extends AbstractGuiService<Manager, Leg> {
 		Collection<Airport> airports;
 		airports = this.repository.findAllAirports();
 
-		SelectChoices selectedAircraft = new SelectChoices();
+		SelectChoices selectedAircraft;
 
 		Collection<Aircraft> aircraftsActives = this.repository.findAllAircraftsByStatus(AircraftStatus.ACTIVE);
 

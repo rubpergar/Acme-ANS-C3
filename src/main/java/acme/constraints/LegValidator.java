@@ -23,13 +23,14 @@ public class LegValidator extends AbstractValidator<ValidLeg, Leg> {
 
 	@Override
 	protected void initialise(final ValidLeg annotation) {
+		// Intentionally left empty
 
 	}
 
 	@Override
 	public boolean isValid(final Leg leg, final ConstraintValidatorContext context) {
 
-		// La fecha de salida y llegada programada no pueden ser nulas y la fecha de salida debe ser anterior a la fecha de llegada
+		// la fecha de salida debe ser anterior a la fecha de llegada
 		boolean isScheduleCorrect = true;
 		if (leg.getScheduledDeparture() != null && leg.getScheduledArrival() != null)
 			isScheduleCorrect = MomentHelper.isBefore(leg.getScheduledDeparture(), leg.getScheduledArrival());
