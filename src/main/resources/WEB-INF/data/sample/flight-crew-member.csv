@@ -1,6 +1,6 @@
 key,key:userAccount,employeeCode,phone,languageSkills,availabilityStatus,salary,yearsExperience,key:airline
 member-01,user-account-member-01,MM000001,111111111,Spanish,AVAILABLE,EUR 1000.00,1,airline-01
 member-02,user-account-member-02,MM000002,222222222,English,AVAILABLE,EUR 2000.00,2,airline-01
-member-03,user-account-member-03,MM000003,333333333,Español,AVAILABLE,EUR 3000.00,3,airline-01
+member-03,user-account-member-03,MM000003,333333333,Español,AVAILABLE,EUR 3000.00,3,airline-02
 member-04,user-account-member-04,MM000004,444444444,German,ON_VACATION,EUR 4000.00,4,airline-01
 member-05,user-account-member-05,MM000005,555555555,Chinese,AVAILABLE,EUR 5000.00,5,airline-01
