@@ -30,9 +30,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @ValidClaim
-//@Table(indexes = {
-//	@Index(columnList = "assistance_agent_id")
-//})
 public class Claim extends AbstractEntity {
 
 	// Serialisation version --------------------------------------------------
