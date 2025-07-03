@@ -54,8 +54,8 @@ public class ActivityLogPublishService extends AbstractGuiService<FlightCrewMemb
 
 	@Override
 	public void validate(final ActivityLog activityLog) {
-		boolean flightAssignmentPublished = !activityLog.getFlightAssignment().isDraftMode();
-		super.state(flightAssignmentPublished, "flightAssignment", "acme.validation.flight-assignment.unpublished-assignment.message");
+		if (activityLog.getFlightAssignment().isDraftMode())
+			super.state(false, "flightAssignment", "acme.validation.flight-assignment.unpublished-assignment.message");
 	}
 
 	@Override

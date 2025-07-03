@@ -4,6 +4,7 @@ package acme.features.authenticated.flightCrewMember.flightAssignment;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -67,7 +68,8 @@ public class FlightAssignmentShowService extends AbstractGuiService<FlightCrewMe
 		flightCrewMemberAirlineId = this.repository.getMemberById(super.getRequest().getPrincipal().getActiveRealm().getId()).getAirline().getId();
 		flightCrewMemberId = super.getRequest().getPrincipal().getActiveRealm().getId();
 
-		Collection<Leg> availableLegs = this.repository.findAvailableLegs(flightCrewMemberAirlineId, MomentHelper.getCurrentMoment());
+		Collection<Leg> allAvailableLegs = this.repository.findAvailableLegs(MomentHelper.getCurrentMoment());
+		List<Leg> availableLegs = allAvailableLegs.stream().filter(l -> l.getFlight().getAirlineManager().getAirline().getId() == flightCrewMemberAirlineId).collect(Collectors.toList());
 		List<Leg> memberAssignedLegs = this.repository.getAllLegsByMemberId(flightCrewMemberId);
 		Leg assignedLeg = flightAssignment.getLeg();
 		Collection<Leg> compatibleLegs = new ArrayList<>();
@@ -76,7 +78,7 @@ public class FlightAssignmentShowService extends AbstractGuiService<FlightCrewMe
 			boolean isCompatible = true;
 
 			for (Leg assigned : memberAssignedLegs) {
-				if (assignedLeg != null && assigned.getId() == assignedLeg.getId())
+				if (assigned.getId() == assignedLeg.getId())
 					continue;
 
 				boolean departureOverlap = MomentHelper.isInRange(candidate.getScheduledDeparture(), assigned.getScheduledDeparture(), assigned.getScheduledArrival());
@@ -92,7 +94,7 @@ public class FlightAssignmentShowService extends AbstractGuiService<FlightCrewMe
 				compatibleLegs.add(candidate);
 		}
 
-		if (assignedLeg != null && !compatibleLegs.contains(assignedLeg))
+		if (!compatibleLegs.contains(assignedLeg))
 			compatibleLegs.add(assignedLeg);
 
 		SelectChoices status = SelectChoices.from(FlightAssignmentStatus.class, flightAssignment.getStatus());

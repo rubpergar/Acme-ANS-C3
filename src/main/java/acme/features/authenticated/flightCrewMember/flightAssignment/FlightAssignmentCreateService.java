@@ -4,6 +4,7 @@ package acme.features.authenticated.flightCrewMember.flightAssignment;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -81,7 +82,9 @@ public class FlightAssignmentCreateService extends AbstractGuiService<FlightCrew
 			try {
 				int legId = Integer.parseInt(legIdRaw);
 				int airlineId = this.repository.getMemberById(super.getRequest().getPrincipal().getActiveRealm().getId()).getAirline().getId();
-				Collection<Leg> availableLegs = this.repository.findAvailableLegs(airlineId, MomentHelper.getCurrentMoment());
+				Collection<Leg> allAvailableLegs = this.repository.findAvailableLegs(MomentHelper.getCurrentMoment());
+				List<Leg> availableLegs = allAvailableLegs.stream().filter(l -> l.getFlight().getAirlineManager().getAirline().getId() == airlineId).collect(Collectors.toList());
+
 				boolean found = false;
 				for (Leg l : availableLegs)
 					if (l.getId() == legId) {
@@ -103,10 +106,8 @@ public class FlightAssignmentCreateService extends AbstractGuiService<FlightCrew
 			super.state(false, "remarks", "acme.validation.out-1-255-range.message");
 
 		// No se puede publicar una asignación con un member no disponible
-		if (flightAssignment.getFlightCrewMember() != null) {
-			boolean availableMember = flightAssignment.getFlightCrewMember().getAvailabilityStatus() == CrewAvailabilityStatus.AVAILABLE;
-			super.state(availableMember, "leg", "acme.validation.flight-assignment.unavailable-member.message");
-		}
+		if (flightAssignment.getFlightCrewMember().getAvailabilityStatus() != CrewAvailabilityStatus.AVAILABLE)
+			super.state(false, "leg", "acme.validation.flight-assignment.unavailable-member.message");
 
 		// Solo 1 piloto y 1 co-piloto por leg
 		if (flightAssignment.getLeg() != null && flightAssignment.getDuty() != null) {
@@ -141,7 +142,8 @@ public class FlightAssignmentCreateService extends AbstractGuiService<FlightCrew
 		flightCrewMemberAirlineId = this.repository.getMemberById(super.getRequest().getPrincipal().getActiveRealm().getId()).getAirline().getId();
 		flightCrewMemberId = super.getRequest().getPrincipal().getActiveRealm().getId();
 
-		Collection<Leg> availableLegs = this.repository.findAvailableLegs(flightCrewMemberAirlineId, MomentHelper.getCurrentMoment());
+		Collection<Leg> allAvailableLegs = this.repository.findAvailableLegs(MomentHelper.getCurrentMoment());
+		List<Leg> availableLegs = allAvailableLegs.stream().filter(l -> l.getFlight().getAirlineManager().getAirline().getId() == flightCrewMemberAirlineId).collect(Collectors.toList());
 		List<Leg> memberAssignedLegs = this.repository.getAllLegsByMemberId(flightCrewMemberId);
 
 		Collection<Leg> compatibleLegs = new ArrayList<>();

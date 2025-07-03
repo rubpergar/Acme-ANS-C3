@@ -4,6 +4,7 @@ package acme.features.authenticated.flightCrewMember.flightAssignment;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -83,27 +84,30 @@ public class FlightAssignmentUpdateService extends AbstractGuiService<FlightCrew
 		// Evitar hacking en Leg
 		String legIdRaw = super.getRequest().getData("leg", String.class);
 
-		if (!legIdRaw.equals("0"))
-			try {
-				int legId = Integer.parseInt(legIdRaw);
-				int airlineId = this.repository.getMemberById(super.getRequest().getPrincipal().getActiveRealm().getId()).getAirline().getId();
-				Collection<Leg> availableLegs = this.repository.findAvailableLegs(airlineId, MomentHelper.getCurrentMoment());
+		try {
+			int legId = Integer.parseInt(legIdRaw);
 
-				Leg currentLeg = flightAssignment.getLeg();
-				if (currentLeg != null && currentLeg.getId() == legId) {
-				} else {
-					boolean found = false;
-					for (Leg l : availableLegs)
-						if (l.getId() == legId) {
-							found = true;
-							break;
-						}
-					if (!found)
-						throw new RuntimeException("Access is not authorised");
-				}
-			} catch (NumberFormatException e) {
-				throw new RuntimeException("Access is not authorised");
+			if (legId != 0) {
+				int airlineId = this.repository.getMemberById(super.getRequest().getPrincipal().getActiveRealm().getId()).getAirline().getId();
+
+				Collection<Leg> allAvailableLegs = this.repository.findAvailableLegs(MomentHelper.getCurrentMoment());
+				List<Leg> availableLegs = allAvailableLegs.stream().filter(l -> l.getFlight().getAirlineManager().getAirline().getId() == airlineId).collect(Collectors.toList());
+
+				int assignmentId = super.getRequest().getData("id", int.class);
+				FlightAssignment originalAssignment = this.repository.getFlightAssignmentById(assignmentId);
+				Leg currentLeg = originalAssignment.getLeg();
+
+				boolean isCurrentLeg = currentLeg.getId() == legId;
+				boolean isInAvailableLegs = availableLegs.stream().anyMatch(l -> l.getId() == legId);
+
+				if (!isCurrentLeg && !isInAvailableLegs)
+					throw new RuntimeException("Access is not authorised");
 			}
+
+		} catch (NumberFormatException e) {
+			throw new RuntimeException("Access is not authorised");
+		}
+
 	}
 
 	@Override
@@ -113,10 +117,8 @@ public class FlightAssignmentUpdateService extends AbstractGuiService<FlightCrew
 			super.state(false, "remarks", "acme.validation.out-1-255-range.message");
 
 		// No se puede publicar una asignación con un member no disponible
-		if (flightAssignment.getFlightCrewMember() != null) {
-			boolean availableMember = flightAssignment.getFlightCrewMember().getAvailabilityStatus() == CrewAvailabilityStatus.AVAILABLE;
-			super.state(availableMember, "leg", "acme.validation.flight-assignment.unavailable-member.message");
-		}
+		if (flightAssignment.getFlightCrewMember().getAvailabilityStatus() != CrewAvailabilityStatus.AVAILABLE)
+			super.state(false, "leg", "acme.validation.flight-assignment.unavailable-member.message");
 
 		// Solo 1 piloto y 1 co-piloto por leg
 		if (flightAssignment.getLeg() != null && flightAssignment.getDuty() != null) {
@@ -157,7 +159,8 @@ public class FlightAssignmentUpdateService extends AbstractGuiService<FlightCrew
 		flightCrewMemberAirlineId = this.repository.getMemberById(super.getRequest().getPrincipal().getActiveRealm().getId()).getAirline().getId();
 		flightCrewMemberId = super.getRequest().getPrincipal().getActiveRealm().getId();
 
-		Collection<Leg> availableLegs = this.repository.findAvailableLegs(flightCrewMemberAirlineId, MomentHelper.getCurrentMoment());
+		Collection<Leg> allAvailableLegs = this.repository.findAvailableLegs(MomentHelper.getCurrentMoment());
+		List<Leg> availableLegs = allAvailableLegs.stream().filter(l -> l.getFlight().getAirlineManager().getAirline().getId() == flightCrewMemberAirlineId).collect(Collectors.toList());
 		List<Leg> memberAssignedLegs = this.repository.getAllLegsByMemberId(flightCrewMemberId);
 		Leg assignedLeg = flightAssignment.getLeg();
 		Collection<Leg> compatibleLegs = new ArrayList<>();
