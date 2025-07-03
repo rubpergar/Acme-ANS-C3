@@ -151,7 +151,7 @@ public class ManagerLegCreateService extends AbstractGuiService<Manager, Leg> {
 		Collection<Airport> airports;
 		airports = this.repository.findAllAirports();
 
-		SelectChoices selectedAircraft = new SelectChoices();
+		SelectChoices selectedAircraft;
 
 		Collection<Aircraft> aircraftsActives = this.repository.findAllAircraftsByStatus(AircraftStatus.ACTIVE);
 

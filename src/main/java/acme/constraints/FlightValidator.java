@@ -16,6 +16,7 @@ public class FlightValidator extends AbstractValidator<ValidFlight, Flight> {
 
 	@Override
 	protected void initialise(final ValidFlight annotation) {
+		// Intentionally left empty
 
 	}
 
@@ -24,9 +25,8 @@ public class FlightValidator extends AbstractValidator<ValidFlight, Flight> {
 
 		boolean isCostCorrect = true;
 		Set<String> VALID_CURRENCIES = Currency.getAvailableCurrencies().stream().map(Currency::getCurrencyCode).filter(c -> !c.equals("XXX")).collect(Collectors.toSet());
-		if (flight.getCost() != null)
-			if (!VALID_CURRENCIES.contains(flight.getCost().getCurrency()))
-				isCostCorrect = false;
+		if (flight.getCost() != null && !VALID_CURRENCIES.contains(flight.getCost().getCurrency()))
+			isCostCorrect = false;
 
 		super.state(context, isCostCorrect, "cost", "acme.validation.flight.invalid-cost.message");
 

@@ -50,6 +50,7 @@ public class ManagerFlightUpdateService extends AbstractGuiService<Manager, Flig
 
 	@Override
 	public void validate(final Flight flight) {
+		// Intentionally left empty, as no specific validation is required for updating a flight.
 
 	}
 

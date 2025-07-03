@@ -24,6 +24,7 @@ public class ManagerValidator extends AbstractValidator<ValidManager, Manager> {
 
 	@Override
 	protected void initialise(final ValidManager annotation) {
+		// Intentionally left empty
 	}
 
 	@Override
