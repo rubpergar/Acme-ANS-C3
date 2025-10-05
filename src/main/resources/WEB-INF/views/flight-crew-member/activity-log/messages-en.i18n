@@ -6,7 +6,7 @@ member.activity-log.form.label.registrationMoment = Registration Moment
 member.activity-log.form.label.type = Incident type
 member.activity-log.form.label.description = Description
 member.activity-log.form.label.severityLevel = Severity Level
-member.activity-log.form.label.flightAssignment = Flight Assignment
+member.activity-log.form.label.leg = Leg
 
 member.activity-log.form.button.create = Create
 member.activity-log.form.button.update = Update

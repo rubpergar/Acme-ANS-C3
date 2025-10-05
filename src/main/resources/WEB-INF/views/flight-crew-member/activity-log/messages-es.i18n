@@ -7,7 +7,7 @@ member.activity-log.form.label.registrationMoment = Momento de registro
 member.activity-log.form.label.type = Tipo de incidente
 member.activity-log.form.label.description = Descripción
 member.activity-log.form.label.severityLevel = Nivel de criticidad
-member.activity-log.form.label.flightAssignment = Asignación de vuelo
+member.activity-log.form.label.leg = Tramo de vuelo
 
 member.activity-log.form.button.create = Crear
 member.activity-log.form.button.update = Actualizar
