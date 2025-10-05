@@ -9,6 +9,7 @@ import acme.client.services.AbstractGuiService;
 import acme.client.services.GuiService;
 import acme.entities.activityLog.ActivityLog;
 import acme.entities.flightAssignment.FlightAssignment;
+import acme.features.authenticated.flightCrewMember.flightAssignment.FlightAssignmentRepository;
 import acme.realms.flightCrewMember.FlightCrewMember;
 
 @GuiService
@@ -17,7 +18,10 @@ public class ActivityLogCreateService extends AbstractGuiService<FlightCrewMembe
 	// Internal state ---------------------------------------------------------
 
 	@Autowired
-	private ActivityLogRepository repository;
+	private ActivityLogRepository		repository;
+
+	@Autowired
+	private FlightAssignmentRepository	Frepository;
 
 	// AbstractGuiService interface -------------------------------------------
 
@@ -80,12 +84,18 @@ public class ActivityLogCreateService extends AbstractGuiService<FlightCrewMembe
 	@Override
 	public void unbind(final ActivityLog activityLog) {
 		Dataset dataset;
+		int masterId;
+		String leg;
 
-		dataset = super.unbindObject(activityLog, "type", "description", "severityLevel", "draftMode", "flightAssignment");
+		masterId = super.getRequest().getData("masterId", int.class);
+
+		leg = this.Frepository.getFlightAssignmentById(masterId).getLeg().getFlightNumber();
+
+		dataset = super.unbindObject(activityLog, "type", "description", "severityLevel", "draftMode");
 		dataset.put("masterId", activityLog.getFlightAssignment().getId());
 		dataset.put("registrationMoment", MomentHelper.getCurrentMoment());
 		dataset.put("draftMode", activityLog.isDraftMode());
-		dataset.put("flightAssignment", activityLog.getFlightAssignment().getId());
+		dataset.put("leg", leg);
 
 		super.getResponse().addData(dataset);
 	}

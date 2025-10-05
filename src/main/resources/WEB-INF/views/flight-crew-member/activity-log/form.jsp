@@ -9,7 +9,7 @@
 	<acme:input-textbox code="member.activity-log.form.label.type" path="type"/>	
 	<acme:input-textbox code="member.activity-log.form.label.description" path="description"/>	
 	<acme:input-integer code="member.activity-log.form.label.severityLevel" path="severityLevel"/>	
-	<acme:input-textbox code="member.activity-log.form.label.flightAssignment" path="flightAssignment" readonly="true"/>	
+	<acme:input-textbox code="member.activity-log.form.label.leg" path="leg" readonly="true"/>	
 	
 	<jstl:choose>	 
 		<jstl:when test="${acme:anyOf(_command, 'show|update|delete|publish') && draftMode == true}">
