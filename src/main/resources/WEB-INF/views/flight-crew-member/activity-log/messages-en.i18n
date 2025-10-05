@@ -1,5 +1,4 @@
 # messages-en.i18n
-
 flight-crew-member.activity-log.form.title = Activity Log Form
 flight-crew-member.activity-log.list.title = Activity Log List
 
@@ -16,7 +15,7 @@ member.activity-log.form.button.delete = Delete
 
 member.activity-log.list.label.type = Incident type
 member.activity-log.list.label.description = Description
-member.activity-log.list.label.severityLevel = Flight Assignment
+member.activity-log.list.label.severityLevel = Severity level
 member.activity-log.list.label.draftMode = Draft
 
 member.activity-log.list.button.create = Create
