@@ -50,12 +50,19 @@ public class ActivityLogPublishService extends AbstractGuiService<FlightCrewMemb
 
 	@Override
 	public void bind(final ActivityLog activityLog) {
+		super.bindObject(activityLog, "type", "description", "severityLevel");
 	}
 
 	@Override
 	public void validate(final ActivityLog activityLog) {
 		if (activityLog.getFlightAssignment().isDraftMode())
 			super.state(false, "flightAssignment", "acme.validation.flight-assignment.unpublished-assignment.message");
+
+		if (activityLog.getType().length() < 1 || activityLog.getType().length() > 50)
+			super.state(false, "type", "acme.validation.out-1-50-range.message");
+
+		if (activityLog.getDescription().length() < 1 || activityLog.getDescription().length() > 255)
+			super.state(false, "description", "acme.validation.out-1-255-range.message");
 	}
 
 	@Override
