@@ -43,3 +43,33 @@ tracking-log-34,claim-25,2017/07/05 00:00,lorem,10,PENDING,,true
 tracking-log-35,claim-25,2017/07/06 00:00,lorem,20,PENDING,,true
 tracking-log-36,claim-25,2017/07/07 00:00,lorem,30,PENDING,,true
 tracking-log-37,claim-25,2017/07/08 00:00,lorem,40,PENDING,,true
+#claim36
+tracking-log-38,claim-36,2017/07/05 00:00,lorem,10,PENDING,,true
+tracking-log-39,claim-36,2017/07/04 00:00,lorem,20,PENDING,,true
+tracking-log-40,claim-36,2017/07/07 00:00,lorem,30,PENDING,,true
+tracking-log-41,claim-36,2017/07/08 00:00,lorem,70,PENDING,,true
+tracking-log-42,claim-36,2017/07/09 00:00,lorem,10,PENDING,,false
+tracking-log-43,claim-36,2017/07/10 00:00,lorem,20,PENDING,,false
+tracking-log-44,claim-36,2017/07/11 00:00,lorem,30,PENDING,,false
+tracking-log-45,claim-36,2017/07/12 00:00,lorem,40,PENDING,,false
+#claim37
+tracking-log-46,claim-37,2017/07/07 00:00,lorem,30,PENDING,,true
+tracking-log-47,claim-37,2017/07/08 00:00,lorem,70,PENDING,,true
+tracking-log-48,claim-37,2017/07/09 00:00,lorem,100,ACCEPTED,RES,true
+tracking-log-49,claim-37,2017/07/10 00:00,lorem,20,PENDING,,false
+tracking-log-50,claim-37,2017/07/11 00:00,lorem,30,PENDING,,false
+tracking-log-51,claim-37,2017/07/12 00:00,lorem,100,ACCEPTED,RES,false
+#claim38
+tracking-log-52,claim-38,2017/07/07 00:00,lorem,30,PENDING,,true
+tracking-log-53,claim-38,2017/07/08 00:00,lorem,70,PENDING,,true
+tracking-log-54,claim-38,2017/07/09 00:00,lorem,10,PENDING,,false
+tracking-log-55,claim-38,2017/07/10 00:00,lorem,20,PENDING,,false
+tracking-log-56,claim-38,2017/07/11 00:00,lorem,100,REJECTED,RES,false
+tracking-log-57,claim-38,2017/07/12 00:00,lorem,100,REJECTED,RES,false
+#claim39
+tracking-log-58,claim-39,2017/07/07 00:00,lorem,30,PENDING,,true
+tracking-log-59,claim-39,2017/07/08 00:00,lorem,20,PENDING,,true
+tracking-log-60,claim-39,2017/07/09 00:00,lorem,10,PENDING,,false
+tracking-log-61,claim-39,2017/07/10 00:00,lorem,20,PENDING,,false
+tracking-log-62,claim-39,2017/07/11 00:00,lorem,100,REJECTED,RES,false
+
