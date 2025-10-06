@@ -43,7 +43,7 @@ public class AssistanceAgentTrackingLogCreateService extends AbstractGuiService<
 
 		boolean hasAuthority = claim != null && super.getRequest().getPrincipal().hasRealmOfType(AssistanceAgent.class) && super.getRequest().getPrincipal().getAccountId() == claim.getAssistanceAgent().getUserAccount().getId();
 
-		tls = this.claimRepository.getTrackingLogByClaimId(masterId);
+		tls = this.claimRepository.getAllPublishedTlsByClaimId(masterId);		//cuando ya haya 2 tl publicados al 100, no puedo crear más tl
 
 		for (TrackingLog tl : tls)
 			if (tl.getResolutionPercentage() == 100)
@@ -99,14 +99,20 @@ public class AssistanceAgentTrackingLogCreateService extends AbstractGuiService<
 
 	@Override
 	public void validate(final TrackingLog tl) {
-		int masterId = super.getRequest().getData("masterId", int.class);
-		Collection<TrackingLog> tls = this.repository.findTrackingLogsByClaimId(masterId);
+		int masterId = super.getRequest().getData("masterId", int.class);	//masterId -> claimId
+		Collection<TrackingLog> tls = this.claimRepository.getAllPublishedTlsByClaimId(masterId);	//tracking log publicados
 
 		for (TrackingLog t : tls)
-			if (tl.getResolutionPercentage() != null && tl.getResolutionPercentage() == 100)
-				if (tl.getStatus() != null)
-					if (t.getResolutionPercentage() == 100 && t.getStatus() != tl.getStatus())
-						super.state(false, "status", "acme.validation.trackinglog.wrong-status.message");
+			if (tl.getResolutionPercentage() != null) {
+				if (tl.getResolutionPercentage() != 100)
+					if (tl.getResolutionPercentage() <= t.getResolutionPercentage())
+						super.state(false, "resolutionPercentage", "acme.validation.trackinglog.invalid-percentage.message");		// si el tl que voy a crear es igual o menor que uno de los que ya está publicado, no lo puedo crear
+
+				if (tl.getResolutionPercentage() == 100)
+					if (tl.getStatus() != null)
+						if (t.getResolutionPercentage() == 100 && t.getStatus() != tl.getStatus())									// si el tl que voy a crear tiene distinto status que uno ya publicado al 100, no lo puedo crear
+							super.state(false, "status", "acme.validation.trackinglog.wrong-status.message");
+			}
 	}
 
 	@Override

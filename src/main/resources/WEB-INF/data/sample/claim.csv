@@ -38,6 +38,14 @@ claim-29,2012/07/02 10:00,example2@gmail.com,lorem,FLIGHT_ISSUES,agent-02,leg-33
 claim-30,2012/07/03 00:00,example2@gmail.com,lorem,FLIGHT_ISSUES,agent-02,leg-33,false
 claim-31,2012/07/02 00:00,example2@gmail.com,lorem,FLIGHT_ISSUES,agent-02,leg-35,false
 claim-32,2012/07/02 00:00,example2@gmail.com,lorem,FLIGHT_ISSUES,agent-02,leg-36,false
-
+#extras
+claim-33,2010/07/03 00:00,example2@gmail.com,lorem,FLIGHT_ISSUES,agent-02,leg-33,true
+claim-34,2010/07/02 00:00,example2@gmail.com,lorem,FLIGHT_ISSUES,agent-02,leg-35,true
+claim-35,2010/07/02 00:00,example2@gmail.com,lorem,FLIGHT_ISSUES,agent-02,leg-36,true
+claim-36,2000/07/03 00:00,example2@gmail.com,lorem,FLIGHT_ISSUES,agent-01,leg-33,false
+claim-37,2001/07/02 00:00,example2@gmail.com,lorem,FLIGHT_ISSUES,agent-01,leg-35,false
+claim-38,2002/07/02 00:00,example2@gmail.com,lorem,FLIGHT_ISSUES,agent-01,leg-36,false
+claim-39,2003/07/03 00:00,example2@gmail.com,lorem,FLIGHT_ISSUES,agent-01,leg-33,false
+claim-40,2004/07/02 00:00,example2@gmail.com,lorem,FLIGHT_ISSUES,agent-01,leg-35,false
 
 

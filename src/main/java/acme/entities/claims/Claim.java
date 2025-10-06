@@ -83,7 +83,7 @@ public class Claim extends AbstractEntity {
 
 		status = ClaimStatus.PENDING;
 		repo = SpringHelper.getBean(ClaimRepository.class);
-		tls = repo.getTrackingLogsByClaim(claimId);
+		tls = repo.getAllPublishedTlsByClaimId(claimId);
 
 		for (TrackingLog tl : tls)
 			if (tl.getStatus() == TrackingLogStatus.ACCEPTED)

@@ -17,6 +17,9 @@ public interface ClaimRepository extends AbstractRepository {
 	@Query("SELECT tl FROM TrackingLog tl WHERE tl.claim.id = :claimId")
 	Collection<TrackingLog> getTrackingLogsByClaim(@Param("claimId") int claimId);
 
+	@Query("SELECT tl FROM TrackingLog tl WHERE tl.claim.id = :claimId AND tl.draftMode = false")
+	Collection<TrackingLog> getAllPublishedTlsByClaimId(@Param("claimId") int claimId);
+
 	@Query("SELECT c.leg FROM Claim c WHERE c.id = :claimId")
 	Leg getLegByClaim(@Param("claimId") int claimId);
 
