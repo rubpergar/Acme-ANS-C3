@@ -1,6 +1,8 @@
 
 package acme.features.authenticated.assistanceAgent.trackingLog;
 
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import acme.client.components.models.Dataset;
@@ -57,12 +59,25 @@ public class AssistanceAgentTrackingLogShowService extends AbstractGuiService<As
 	public void unbind(final TrackingLog tl) {
 		Dataset dataset;
 		SelectChoices statusChoices;
+		final boolean showUpdate;
+		int contador = 0;
 
 		statusChoices = SelectChoices.from(TrackingLogStatus.class, tl.getStatus());
+
+		Claim claim = this.repository.getClaimByTlId(tl.getId());
+		Collection<TrackingLog> tls = this.claimRepository.getAllPublishedTlsByClaimId(claim.getId());
+
+		for (TrackingLog t : tls)
+			if (t.getResolutionPercentage() == 100)
+				contador += 1;
+
+		showUpdate = contador < 2;
 
 		dataset = super.unbindObject(tl, "lastUpdate", "stepUndergoing", "resolutionPercentage", "resolution");
 		dataset.put("draftMode", tl.getDraftMode());
 		dataset.put("status", statusChoices);
+
+		super.getResponse().addGlobal("showUpdate", showUpdate);
 
 		super.getResponse().addData(dataset);
 	}

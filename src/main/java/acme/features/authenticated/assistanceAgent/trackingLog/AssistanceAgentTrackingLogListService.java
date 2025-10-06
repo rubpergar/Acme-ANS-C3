@@ -69,7 +69,7 @@ public class AssistanceAgentTrackingLogListService extends AbstractGuiService<As
 
 		masterId = super.getRequest().getData("masterId", int.class);
 		claim = this.claimRepository.getClaimById(masterId);
-		tls = this.claimRepository.getTrackingLogByClaimId(masterId);
+		tls = this.claimRepository.getAllPublishedTlsByClaimId(masterId);
 		for (TrackingLog tl : tls)
 			if (tl.getResolutionPercentage() == 100)
 				contador += 1;

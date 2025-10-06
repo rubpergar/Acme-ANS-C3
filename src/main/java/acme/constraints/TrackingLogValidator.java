@@ -8,7 +8,6 @@ import javax.validation.ConstraintValidatorContext;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import acme.client.components.validation.AbstractValidator;
-import acme.client.helpers.MomentHelper;
 import acme.client.helpers.StringHelper;
 import acme.entities.claims.Claim;
 import acme.entities.trackingLogs.TrackingLog;
@@ -61,11 +60,11 @@ public class TrackingLogValidator extends AbstractValidator<ValidTrackingLog, Tr
 					super.state(context, false, "resolution", "acme.validation.trackinglog.resolution-mandatory-if-status-not-pending.message");
 
 			}
-			for (TrackingLog t : orderedTrackingLogs)
-				if (trackingLog.getResolutionPercentage() != null && trackingLog.getResolutionPercentage() != 100)
-					if (trackingLog.getLastUpdate() != null && MomentHelper.isBeforeOrEqual(t.getLastUpdate(), trackingLog.getLastUpdate()))
-						if (t.getResolutionPercentage() != null && t.getResolutionPercentage() >= trackingLog.getResolutionPercentage() && t.getId() != trackingLog.getId())
-							super.state(context, false, "resolutionPercentage", "acme.validation.trackinglog.invalid-percentage.message");
+			//			for (TrackingLog t : orderedTrackingLogs)
+			//				if (trackingLog.getResolutionPercentage() != null && trackingLog.getResolutionPercentage() != 100)
+			//					if (trackingLog.getLastUpdate() != null && MomentHelper.isBeforeOrEqual(t.getLastUpdate(), trackingLog.getLastUpdate()))
+			//						if (t.getResolutionPercentage() != null && t.getResolutionPercentage() >= trackingLog.getResolutionPercentage() && t.getId() != trackingLog.getId())
+			//							super.state(context, false, "resolutionPercentage", "acme.validation.trackinglog.invalid-percentage.message");
 
 		}
 		result = !super.hasErrors(context);

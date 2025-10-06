@@ -1,6 +1,8 @@
 
 package acme.features.authenticated.assistanceAgent.trackingLog;
 
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import acme.client.components.models.Dataset;
@@ -33,7 +35,17 @@ public class AssistanceAgentTrackingLogPublishService extends AbstractGuiService
 
 		Claim claim = this.repository.getClaimByTlId(tlId);
 
+		int contador = 0;
+
+		Collection<TrackingLog> tls = this.claimRepository.getAllPublishedTlsByClaimId(claim.getId());
+
 		boolean hasAuthority = tl != null && tl.getDraftMode() && super.getRequest().getPrincipal().hasRealmOfType(AssistanceAgent.class) && super.getRequest().getPrincipal().getAccountId() == claim.getAssistanceAgent().getUserAccount().getId();
+
+		for (TrackingLog t : tls)
+			if (t.getResolutionPercentage() == 100)
+				contador += 1;
+		if (contador >= 2)
+			hasAuthority = false;
 
 		if (super.getRequest().getMethod().equals("POST"))
 			hasAuthority = hasAuthority && this.validateStatus();
@@ -88,6 +100,39 @@ public class AssistanceAgentTrackingLogPublishService extends AbstractGuiService
 		if (claim.getDraftMode())
 			super.state(false, "*", "javax.validation.constraints.claim-must-be-published");
 
+		Collection<TrackingLog> tls = this.claimRepository.getAllPublishedTlsByClaimId(claim.getId());
+
+		for (TrackingLog t : tls)
+			if (tl.getResolutionPercentage() != null) {
+				if (tl.getResolutionPercentage() != 100)
+					if (tl.getResolutionPercentage() <= t.getResolutionPercentage())
+						super.state(false, "resolutionPercentage", "acme.validation.trackinglog.invalid-percentage.message");
+
+				if (tl.getResolutionPercentage() == 100)
+					if (tl.getStatus() != null)
+						if (t.getResolutionPercentage() == 100 && t.getStatus() != tl.getStatus())
+							super.state(false, "status", "acme.validation.trackinglog.wrong-status.message");
+			}
+
+		//		if (tl.getResolutionPercentage() != null && tl.getResolutionPercentage() != 100)
+		//			for (TrackingLog t : tls)
+		//				if (tl.getResolutionPercentage() <= t.getResolutionPercentage())
+		//					super.state(false, "resolutionPercentage", "acme.validation.trackinglog.invalid-percentage.message");
+		//
+		//		if (tl.getResolutionPercentage() != null && tl.getResolutionPercentage() == 100) {
+		//			for (TrackingLog t : tls)
+		//				if (t.getResolutionPercentage() == 100)
+		//					contador += 1;
+		//
+		//			if (contador > 1)
+		//				super.state(false, "resolutionPercentage", "acme.validation.trackinglog.percentage-cant-be-100.message");
+		//			else
+		//				for (TrackingLog t : tls)
+		//					if (t.getResolutionPercentage() == 100)
+		//						if (tl.getStatus() != null && tl.getStatus() != t.getStatus())
+		//							super.state(false, "status", "acme.validation.trackinglog.wrong-status.message");
+		//		}
+
 	}
 
 	@Override
@@ -100,13 +145,26 @@ public class AssistanceAgentTrackingLogPublishService extends AbstractGuiService
 	public void unbind(final TrackingLog tl) {
 		Dataset dataset;
 		SelectChoices statusChoices;
+		final boolean showUpdate;
+		int contador = 0;
 
 		statusChoices = SelectChoices.from(TrackingLogStatus.class, tl.getStatus());
+
+		Claim claim = this.repository.getClaimByTlId(tl.getId());
+		Collection<TrackingLog> tls = this.claimRepository.getAllPublishedTlsByClaimId(claim.getId());
+
+		for (TrackingLog t : tls)
+			if (t.getResolutionPercentage() == 100)
+				contador += 1;
+
+		showUpdate = contador < 2;
 
 		dataset = super.unbindObject(tl, "lastUpdate", "stepUndergoing", "resolutionPercentage", "resolution");
 		dataset.put("masterId", tl.getClaim().getId());
 		dataset.put("draftMode", true);
 		dataset.put("status", statusChoices);
+
+		super.getResponse().addGlobal("showUpdate", showUpdate);
 
 		super.getResponse().addData(dataset);
 	}
