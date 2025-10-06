@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import acme.client.components.models.Dataset;
 import acme.client.components.views.SelectChoices;
+import acme.client.helpers.MomentHelper;
 import acme.client.services.AbstractGuiService;
 import acme.client.services.GuiService;
 import acme.entities.claims.Claim;
@@ -114,30 +115,12 @@ public class AssistanceAgentTrackingLogPublishService extends AbstractGuiService
 							super.state(false, "status", "acme.validation.trackinglog.wrong-status.message");
 			}
 
-		//		if (tl.getResolutionPercentage() != null && tl.getResolutionPercentage() != 100)
-		//			for (TrackingLog t : tls)
-		//				if (tl.getResolutionPercentage() <= t.getResolutionPercentage())
-		//					super.state(false, "resolutionPercentage", "acme.validation.trackinglog.invalid-percentage.message");
-		//
-		//		if (tl.getResolutionPercentage() != null && tl.getResolutionPercentage() == 100) {
-		//			for (TrackingLog t : tls)
-		//				if (t.getResolutionPercentage() == 100)
-		//					contador += 1;
-		//
-		//			if (contador > 1)
-		//				super.state(false, "resolutionPercentage", "acme.validation.trackinglog.percentage-cant-be-100.message");
-		//			else
-		//				for (TrackingLog t : tls)
-		//					if (t.getResolutionPercentage() == 100)
-		//						if (tl.getStatus() != null && tl.getStatus() != t.getStatus())
-		//							super.state(false, "status", "acme.validation.trackinglog.wrong-status.message");
-		//		}
-
 	}
 
 	@Override
 	public void perform(final TrackingLog tl) {
 		tl.setDraftMode(false);
+		tl.setLastUpdate(MomentHelper.getCurrentMoment());
 		this.repository.save(tl);
 	}
 
