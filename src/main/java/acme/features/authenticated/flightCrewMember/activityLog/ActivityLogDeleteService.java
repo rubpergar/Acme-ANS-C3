@@ -24,14 +24,12 @@ public class ActivityLogDeleteService extends AbstractGuiService<FlightCrewMembe
 	public void authorise() {
 		boolean authorised = false;
 
-		try {
+		if (super.getRequest().hasData("id", int.class)) {
 			int activityLogId = super.getRequest().getData("id", int.class);
 			FlightAssignment flightAssignment = this.repository.findFlightAssignmentByActivityLogId(activityLogId);
-			authorised = super.getRequest().getPrincipal().hasRealm(flightAssignment.getFlightCrewMember());
-		} catch (Throwable error) {
-			// No hacemos nada, authorised se mantiene en false
+			if (flightAssignment != null)
+				authorised = super.getRequest().getPrincipal().hasRealm(flightAssignment.getFlightCrewMember());
 		}
-
 		super.getResponse().setAuthorised(authorised);
 	}
 

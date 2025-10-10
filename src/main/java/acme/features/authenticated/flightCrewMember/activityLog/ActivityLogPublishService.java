@@ -25,13 +25,14 @@ public class ActivityLogPublishService extends AbstractGuiService<FlightCrewMemb
 	public void authorise() {
 		boolean authorised = false;
 
-		try {
+		if (super.getRequest().hasData("id", int.class)) {
 			int activityLogId = super.getRequest().getData("id", int.class);
 			FlightAssignment flightAssignment = this.repository.findFlightAssignmentByActivityLogId(activityLogId);
-			boolean isOwner = super.getRequest().getPrincipal().hasRealm(flightAssignment.getFlightCrewMember());
-			authorised = isOwner;
-		} catch (Throwable error) {
-			// No hacemos nada, authorised se mantiene en false
+
+			if (flightAssignment != null) {
+				boolean isOwner = super.getRequest().getPrincipal().hasRealm(flightAssignment.getFlightCrewMember());
+				authorised = isOwner;
+			}
 		}
 
 		super.getResponse().setAuthorised(authorised);
