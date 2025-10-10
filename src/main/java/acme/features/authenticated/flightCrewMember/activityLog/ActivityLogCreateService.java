@@ -30,18 +30,35 @@ public class ActivityLogCreateService extends AbstractGuiService<FlightCrewMembe
 	public void authorise() {
 		boolean authorised = false;
 
-		if (super.getRequest().hasData("masterId"))
-			try {
-				int masterId = super.getRequest().getData("masterId", int.class);
-				FlightAssignment flightAssignment = this.repository.findFlightAssignmentById(masterId);
+		if (super.getRequest().hasData("masterId")) {
+			String masterIdRaw = super.getRequest().getData("masterId", String.class);
 
-				if (flightAssignment != null)
-					authorised = super.getRequest().getPrincipal().hasRealm(flightAssignment.getFlightCrewMember());
-			} catch (Throwable error) {
-				// No hacemos nada, authorised se mantiene en false
+			if (this.isPositiveInt(masterIdRaw)) {
+				int masterId = Integer.parseInt(masterIdRaw);
+
+				FlightAssignment fa = this.repository.findFlightAssignmentById(masterId);
+				if (fa != null)
+					authorised = super.getRequest().getPrincipal().hasRealm(fa.getFlightCrewMember());
 			}
+		}
 
 		super.getResponse().setAuthorised(authorised);
+	}
+
+	private boolean isPositiveInt(final String s) {
+		if (s == null || s.isEmpty())
+			return false;
+		for (int i = 0; i < s.length(); i++) {
+			char c = s.charAt(i);
+			if (c < '0' || c > '9')
+				return false;
+		}
+		final String INT_MAX = "2147483647";
+		if (s.length() < INT_MAX.length())
+			return true;
+		if (s.length() > INT_MAX.length())
+			return false;
+		return s.compareTo(INT_MAX) <= 0;
 	}
 
 	@Override
