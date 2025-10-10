@@ -33,7 +33,87 @@ public class FlightAssignmentCreateService extends AbstractGuiService<FlightCrew
 
 	@Override
 	public void authorise() {
-		super.getResponse().setAuthorised(super.getRequest().getPrincipal().hasRealmOfType(FlightCrewMember.class));
+		boolean status = false;
+
+		if (super.getRequest().getPrincipal().hasRealmOfType(FlightCrewMember.class)) {
+			String method = super.getRequest().getMethod();
+			if ("GET".equals(method))
+				status = true;
+			else
+				status = this.validateRelatedEntities();
+		}
+		super.getResponse().setAuthorised(status);
+	}
+
+	private boolean validateRelatedEntities() {
+		boolean valid = true;
+
+		// Validar Duty
+		String duty = super.getRequest().getData("duty", String.class);
+		if (duty != null && !"0".equals(duty)) {
+			boolean dutyOk = false;
+			for (FlightAssignmentDuty d : FlightAssignmentDuty.values())
+				if (d.name().equals(duty)) {
+					dutyOk = true;
+					break;
+				}
+			if (!dutyOk)
+				valid = false;
+		}
+
+		// Validar Status
+		String status = super.getRequest().getData("status", String.class);
+		if (status != null && !"0".equals(status)) {
+			boolean statusOk = false;
+			for (FlightAssignmentStatus s : FlightAssignmentStatus.values())
+				if (s.name().equals(status)) {
+					statusOk = true;
+					break;
+				}
+			if (!statusOk)
+				valid = false;
+		}
+
+		// Validar Leg
+		String leg = super.getRequest().getData("leg", String.class);
+		if (leg != null && !"0".equals(leg))
+			if (!this.isPositiveInt(leg))
+				valid = false;
+			else {
+				int legId = Integer.parseInt(leg);
+				int memberId = super.getRequest().getPrincipal().getActiveRealm().getId();
+				int airlineId = this.repository.getMemberById(memberId).getAirline().getId();
+				Collection<Leg> availableLegs = this.repository.findAvailableLegs(MomentHelper.getCurrentMoment());
+
+				boolean legAllowed = false;
+				for (Leg l : availableLegs)
+					if (l.getId() == legId) {
+						int lAirlineId = l.getFlight().getAirlineManager().getAirline().getId();
+						if (lAirlineId == airlineId)
+							legAllowed = true;
+						break;
+					}
+				if (!legAllowed)
+					valid = false;
+			}
+
+		return valid;
+	}
+
+	private boolean isPositiveInt(final String s) {
+		if (s == null || s.isEmpty())
+			return false;
+		for (int i = 0; i < s.length(); i++) {
+			char c = s.charAt(i);
+			if (c < '0' || c > '9')
+				return false;
+		}
+		final String INT_MAX = "2147483647";
+		if (s.length() < INT_MAX.length())
+			return true;
+		if (s.length() > INT_MAX.length())
+			return false;
+		return s.compareTo(INT_MAX) <= 0;
 	}
 
 	@Override
@@ -54,49 +134,6 @@ public class FlightAssignmentCreateService extends AbstractGuiService<FlightCrew
 	public void bind(final FlightAssignment flightAssignment) {
 		super.bindObject(flightAssignment, "duty", "status", "remarks", "leg");
 		flightAssignment.setLastUpdateMoment(MomentHelper.getCurrentMoment());
-
-		// Evitar hacking en Duty
-		String dutyRaw = super.getRequest().getData("duty", String.class);
-
-		if (!dutyRaw.equals("0"))
-			try {
-				FlightAssignmentDuty.valueOf(dutyRaw);
-			} catch (IllegalArgumentException e) {
-				throw new RuntimeException("Access is not authorised");
-			}
-
-		// Evitar hacking en Status
-		String statusRaw = super.getRequest().getData("status", String.class);
-
-		if (!statusRaw.equals("0"))
-			try {
-				FlightAssignmentStatus.valueOf(statusRaw);
-			} catch (IllegalArgumentException e) {
-				throw new RuntimeException("Access is not authorised");
-			}
-
-		// Evitar hacking en Leg
-		String legIdRaw = super.getRequest().getData("leg", String.class);
-
-		if (!legIdRaw.equals("0"))
-			try {
-				int legId = Integer.parseInt(legIdRaw);
-				int airlineId = this.repository.getMemberById(super.getRequest().getPrincipal().getActiveRealm().getId()).getAirline().getId();
-				Collection<Leg> allAvailableLegs = this.repository.findAvailableLegs(MomentHelper.getCurrentMoment());
-				List<Leg> availableLegs = allAvailableLegs.stream().filter(l -> l.getFlight().getAirlineManager().getAirline().getId() == airlineId).collect(Collectors.toList());
-
-				boolean found = false;
-				for (Leg l : availableLegs)
-					if (l.getId() == legId) {
-						found = true;
-						break;
-					}
-				if (!found)
-					throw new RuntimeException("Access is not authorised");
-			} catch (NumberFormatException e) {
-				throw new RuntimeException("Access is not authorised");
-			}
-
 	}
 
 	@Override
