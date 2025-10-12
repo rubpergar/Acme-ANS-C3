@@ -91,29 +91,50 @@ public class FlightAssignmentPublishService extends AbstractGuiService<FlightCre
 				valid = false;
 			else {
 				int legId = Integer.parseInt(leg);
+
 				boolean isCurrentLeg = false;
+				Leg originalLeg = null;
 				if (super.getRequest().hasData("id")) {
 					int assignmentId = super.getRequest().getData("id", int.class);
 					if (assignmentId != 0) {
 						FlightAssignment original = this.repository.getFlightAssignmentById(assignmentId);
-						if (original != null && original.getLeg() != null)
-							if (original.getLeg().getId() == legId)
+						if (original != null && original.getLeg() != null) {
+							originalLeg = original.getLeg();
+							if (originalLeg.getId() == legId)
 								isCurrentLeg = true;
+						}
 					}
 				}
+
 				if (!isCurrentLeg) {
 					int memberId = super.getRequest().getPrincipal().getActiveRealm().getId();
 					int airlineId = this.repository.getMemberById(memberId).getAirline().getId();
-					Collection<Leg> availableLegs = this.repository.findAvailableLegs(MomentHelper.getCurrentMoment());
+
+					Collection<Leg> allAvailableLegs = this.repository.findAvailableLegs(MomentHelper.getCurrentMoment());
+					List<Leg> availableLegs = allAvailableLegs.stream().filter(l -> l.getFlight().getAirlineManager().getAirline().getId() == airlineId).collect(Collectors.toList());
+
+					List<Leg> memberAssignedLegs = this.repository.getAllLegsByMemberId(memberId);
 
 					boolean legAllowed = false;
-					for (Leg l : availableLegs)
-						if (l.getId() == legId) {
-							int lAirlineId = l.getFlight().getAirlineManager().getAirline().getId();
-							if (lAirlineId == airlineId)
-								legAllowed = true;
+					for (Leg candidate : availableLegs) {
+						if (candidate.getId() != legId)
+							continue;
+
+						boolean isCompatible = true;
+						for (Leg assigned : memberAssignedLegs) {
+							if (originalLeg != null && assigned.getId() == originalLeg.getId())
+								continue;
+
+							if (this.intervalsOverlap(candidate, assigned)) {
+								isCompatible = false;
+								break;
+							}
+						}
+						if (isCompatible) {
+							legAllowed = true;
 							break;
 						}
+					}
 					if (!legAllowed)
 						valid = false;
 				}
@@ -130,12 +151,16 @@ public class FlightAssignmentPublishService extends AbstractGuiService<FlightCre
 			if (c < '0' || c > '9')
 				return false;
 		}
-		final String INT_MAX = "2147483647";
+		String INT_MAX = "2147483647";
 		if (s.length() < INT_MAX.length())
 			return true;
 		if (s.length() > INT_MAX.length())
 			return false;
 		return s.compareTo(INT_MAX) <= 0;
+	}
+
+	private boolean intervalsOverlap(final Leg a, final Leg b) {
+		return MomentHelper.isBefore(a.getScheduledDeparture(), b.getScheduledArrival()) && MomentHelper.isBefore(b.getScheduledDeparture(), a.getScheduledArrival());
 	}
 
 	@Override
@@ -199,17 +224,14 @@ public class FlightAssignmentPublishService extends AbstractGuiService<FlightCre
 		Leg assignedLeg = flightAssignment.getLeg();
 		Collection<Leg> compatibleLegs = new ArrayList<>();
 
-		for (Leg candidate : availableLegs) {
+		for (final Leg candidate : availableLegs) {
 			boolean isCompatible = true;
 
-			for (Leg assigned : memberAssignedLegs) {
+			for (final Leg assigned : memberAssignedLegs) {
 				if (assignedLeg != null && assigned.getId() == assignedLeg.getId())
 					continue;
 
-				boolean departureOverlap = MomentHelper.isInRange(candidate.getScheduledDeparture(), assigned.getScheduledDeparture(), assigned.getScheduledArrival());
-				boolean arrivalOverlap = MomentHelper.isInRange(candidate.getScheduledArrival(), assigned.getScheduledDeparture(), assigned.getScheduledArrival());
-
-				if (departureOverlap || arrivalOverlap) {
+				if (this.intervalsOverlap(candidate, assigned)) {
 					isCompatible = false;
 					break;
 				}
@@ -219,7 +241,7 @@ public class FlightAssignmentPublishService extends AbstractGuiService<FlightCre
 				compatibleLegs.add(candidate);
 		}
 
-		if (assignedLeg != null && !compatibleLegs.contains(assignedLeg))
+		if (assignedLeg != null && compatibleLegs.stream().noneMatch(l -> l.getId() == assignedLeg.getId()))
 			compatibleLegs.add(assignedLeg);
 
 		SelectChoices status = SelectChoices.from(FlightAssignmentStatus.class, flightAssignment.getStatus());
