@@ -166,16 +166,11 @@ public class FlightAssignmentPublishService extends AbstractGuiService<FlightCre
 
 		// Solo 1 piloto y 1 co-piloto por leg
 		if (flightAssignment.getLeg() != null && flightAssignment.getDuty() != null) {
-			List<FlightAssignment> flightAssignmentsInLeg = this.repository.getAllFlightAssignmentsByLegId(flightAssignment.getLeg().getId());
+			List<FlightAssignment> otros = this.repository.getAllFlightAssignmentsByLegId(flightAssignment.getLeg().getId()).stream().filter(x -> !x.isDraftMode()).filter(x -> x.getId() != flightAssignment.getId()).toList();
 
-			boolean hasPilot = false;
-			boolean hasCopilot = false;
-			for (FlightAssignment fa : flightAssignmentsInLeg) {
-				if (fa.getDuty().equals(FlightAssignmentDuty.PILOT))
-					hasPilot = true;
-				if (fa.getDuty().equals(FlightAssignmentDuty.CO_PILOT))
-					hasCopilot = true;
-			}
+			boolean hasPilot = otros.stream().anyMatch(x -> x.getDuty() == FlightAssignmentDuty.PILOT);
+			boolean hasCopilot = otros.stream().anyMatch(x -> x.getDuty() == FlightAssignmentDuty.CO_PILOT);
+
 			super.state(!(flightAssignment.getDuty().equals(FlightAssignmentDuty.PILOT) && hasPilot), "duty", "acme.validation.flight-assignment.has-pilot.message");
 			super.state(!(flightAssignment.getDuty().equals(FlightAssignmentDuty.CO_PILOT) && hasCopilot), "duty", "acme.validation.flight-assignment.has-copilot.message");
 
