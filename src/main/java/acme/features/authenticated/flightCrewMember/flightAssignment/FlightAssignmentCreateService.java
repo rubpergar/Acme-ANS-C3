@@ -83,16 +83,28 @@ public class FlightAssignmentCreateService extends AbstractGuiService<FlightCrew
 				int legId = Integer.parseInt(leg);
 				int memberId = super.getRequest().getPrincipal().getActiveRealm().getId();
 				int airlineId = this.repository.getMemberById(memberId).getAirline().getId();
-				Collection<Leg> availableLegs = this.repository.findAvailableLegs(MomentHelper.getCurrentMoment());
+
+				Collection<Leg> allAvailableLegs = this.repository.findAvailableLegs(MomentHelper.getCurrentMoment());
+				List<Leg> availableLegs = allAvailableLegs.stream().filter(l -> l.getFlight().getAirlineManager().getAirline().getId() == airlineId).collect(Collectors.toList());
+
+				List<Leg> memberAssignedLegs = this.repository.getAllLegsByMemberId(memberId);
 
 				boolean legAllowed = false;
-				for (Leg l : availableLegs)
-					if (l.getId() == legId) {
-						int lAirlineId = l.getFlight().getAirlineManager().getAirline().getId();
-						if (lAirlineId == airlineId)
-							legAllowed = true;
+				for (Leg candidate : availableLegs) {
+					if (candidate.getId() != legId)
+						continue;
+
+					boolean isCompatible = true;
+					for (Leg assigned : memberAssignedLegs)
+						if (this.intervalsOverlap(candidate, assigned)) {
+							isCompatible = false;
+							break;
+						}
+					if (isCompatible) {
+						legAllowed = true;
 						break;
 					}
+				}
 				if (!legAllowed)
 					valid = false;
 			}
@@ -108,12 +120,16 @@ public class FlightAssignmentCreateService extends AbstractGuiService<FlightCrew
 			if (c < '0' || c > '9')
 				return false;
 		}
-		final String INT_MAX = "2147483647";
+		String INT_MAX = "2147483647";
 		if (s.length() < INT_MAX.length())
 			return true;
 		if (s.length() > INT_MAX.length())
 			return false;
 		return s.compareTo(INT_MAX) <= 0;
+	}
+
+	private boolean intervalsOverlap(final Leg a, final Leg b) {
+		return MomentHelper.isBefore(a.getScheduledDeparture(), b.getScheduledArrival()) && MomentHelper.isBefore(b.getScheduledDeparture(), a.getScheduledArrival());
 	}
 
 	@Override
@@ -160,7 +176,6 @@ public class FlightAssignmentCreateService extends AbstractGuiService<FlightCrew
 			}
 			super.state(!(flightAssignment.getDuty().equals(FlightAssignmentDuty.PILOT) && hasPilot), "duty", "acme.validation.flight-assignment.has-pilot.message");
 			super.state(!(flightAssignment.getDuty().equals(FlightAssignmentDuty.CO_PILOT) && hasCopilot), "duty", "acme.validation.flight-assignment.has-copilot.message");
-
 		}
 
 	}
@@ -188,15 +203,11 @@ public class FlightAssignmentCreateService extends AbstractGuiService<FlightCrew
 		for (Leg candidate : availableLegs) {
 			boolean isCompatible = true;
 
-			for (Leg assigned : memberAssignedLegs) {
-				boolean departureOverlap = MomentHelper.isInRange(candidate.getScheduledDeparture(), assigned.getScheduledDeparture(), assigned.getScheduledArrival());
-				boolean arrivalOverlap = MomentHelper.isInRange(candidate.getScheduledArrival(), assigned.getScheduledDeparture(), assigned.getScheduledArrival());
-
-				if (departureOverlap || arrivalOverlap) {
+			for (Leg assigned : memberAssignedLegs)
+				if (this.intervalsOverlap(candidate, assigned)) {
 					isCompatible = false;
 					break;
 				}
-			}
 
 			if (isCompatible)
 				compatibleLegs.add(candidate);
