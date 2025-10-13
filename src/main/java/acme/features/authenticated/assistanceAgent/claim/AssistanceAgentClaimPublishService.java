@@ -115,6 +115,7 @@ public class AssistanceAgentClaimPublishService extends AbstractGuiService<Assis
 
 	@Override
 	public void perform(final Claim claim) {
+		claim.setRegistrationMoment(MomentHelper.getCurrentMoment());
 		claim.setDraftMode(false);
 		this.repository.save(claim);
 	}
