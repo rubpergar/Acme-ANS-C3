@@ -67,11 +67,19 @@ public class ActivityLogUpdateService extends AbstractGuiService<FlightCrewMembe
 	@Override
 	public void unbind(final ActivityLog activityLog) {
 		Dataset dataset;
+		int id;
+		String leg;
+
+		id = super.getRequest().getData("id", int.class);
+
+		leg = this.repository.findFlightAssignmentByActivityLogId(id).getLeg().getFlightNumber();
 
 		dataset = super.unbindObject(activityLog, "registrationMoment", "type", "description", "severityLevel", "draftMode", "flightAssignment");
 		dataset.put("masterId", activityLog.getFlightAssignment().getId());
 		dataset.put("draftMode", activityLog.isDraftMode());
 		dataset.put("flightAssignment", activityLog.getFlightAssignment().getId());
+
+		dataset.put("leg", leg);
 
 		super.getResponse().addData(dataset);
 	}
