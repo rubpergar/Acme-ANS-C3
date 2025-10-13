@@ -28,7 +28,6 @@ public class ActivityLogPublishService extends AbstractGuiService<FlightCrewMemb
 		if (super.getRequest().hasData("id", int.class)) {
 			int activityLogId = super.getRequest().getData("id", int.class);
 			FlightAssignment flightAssignment = this.repository.findFlightAssignmentByActivityLogId(activityLogId);
-
 			if (flightAssignment != null) {
 				boolean isOwner = super.getRequest().getPrincipal().hasRealm(flightAssignment.getFlightCrewMember());
 				authorised = isOwner;
@@ -57,7 +56,7 @@ public class ActivityLogPublishService extends AbstractGuiService<FlightCrewMemb
 	@Override
 	public void validate(final ActivityLog activityLog) {
 		if (activityLog.getFlightAssignment().isDraftMode())
-			super.state(false, "flightAssignment", "acme.validation.flight-assignment.unpublished-assignment.message");
+			super.state(false, "*", "acme.validation.flight-assignment.unpublished-assignment.message");
 
 		if (activityLog.getType().length() < 1 || activityLog.getType().length() > 50)
 			super.state(false, "type", "acme.validation.out-1-50-range.message");
@@ -75,11 +74,19 @@ public class ActivityLogPublishService extends AbstractGuiService<FlightCrewMemb
 	@Override
 	public void unbind(final ActivityLog activityLog) {
 		Dataset dataset;
+		int id;
+		String leg;
+
+		id = super.getRequest().getData("id", int.class);
+
+		leg = this.repository.findFlightAssignmentByActivityLogId(id).getLeg().getFlightNumber();
 
 		dataset = super.unbindObject(activityLog, "registrationMoment", "type", "description", "severityLevel", "draftMode", "flightAssignment");
 		dataset.put("masterId", activityLog.getFlightAssignment().getId());
 		dataset.put("draftMode", activityLog.isDraftMode());
 		dataset.put("flightAssignment", activityLog.getFlightAssignment().getId());
+
+		dataset.put("leg", leg);
 
 		super.getResponse().addData(dataset);
 	}
