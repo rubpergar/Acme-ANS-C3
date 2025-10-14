@@ -42,11 +42,14 @@ public class AssistanceAgentTrackingLogUpdateService extends AbstractGuiService<
 
 		boolean hasAuthority = tl != null && tl.getDraftMode() && super.getRequest().getPrincipal().hasRealmOfType(AssistanceAgent.class) && super.getRequest().getPrincipal().getAccountId() == claim.getAssistanceAgent().getUserAccount().getId();
 
-		tls = this.claimRepository.getAllPublishedTlsByClaimId(claim.getId());		//cuando ya haya 2 tl publicados al 100, no puedo crear más tl
+		if (claim != null) {
+			tls = this.claimRepository.getAllPublishedTlsByClaimId(claim.getId());		//cuando ya haya 2 tl publicados al 100, no puedo crear más tl
 
-		for (TrackingLog t : tls)
-			if (t.getResolutionPercentage() == 100)
-				contador += 1;
+			for (TrackingLog t : tls)
+				if (t.getResolutionPercentage() == 100)
+					contador += 1;
+		}
+
 		if (contador >= 2)
 			hasAuthority = false;
 
