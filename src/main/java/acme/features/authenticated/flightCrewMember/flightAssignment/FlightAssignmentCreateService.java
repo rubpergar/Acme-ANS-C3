@@ -75,57 +75,37 @@ public class FlightAssignmentCreateService extends AbstractGuiService<FlightCrew
 		}
 
 		// Validar Leg
-		String leg = super.getRequest().getData("leg", String.class);
-		if (leg != null && !"0".equals(leg))
-			if (!this.isPositiveInt(leg))
-				valid = false;
-			else {
-				int legId = Integer.parseInt(leg);
-				int memberId = super.getRequest().getPrincipal().getActiveRealm().getId();
-				int airlineId = this.repository.getMemberById(memberId).getAirline().getId();
+		Integer leg = super.getRequest().getData("leg", Integer.class);
+		if (leg != null && leg != 0) {
+			int memberId = super.getRequest().getPrincipal().getActiveRealm().getId();
+			int airlineId = this.repository.getMemberById(memberId).getAirline().getId();
 
-				Collection<Leg> allAvailableLegs = this.repository.findAvailableLegs(MomentHelper.getCurrentMoment());
-				List<Leg> availableLegs = allAvailableLegs.stream().filter(l -> l.getFlight().getAirlineManager().getAirline().getId() == airlineId).collect(Collectors.toList());
+			Collection<Leg> allAvailableLegs = this.repository.findAvailableLegs(MomentHelper.getCurrentMoment());
+			List<Leg> availableLegs = allAvailableLegs.stream().filter(l -> l.getFlight().getAirlineManager().getAirline().getId() == airlineId).collect(Collectors.toList());
 
-				List<Leg> memberAssignedLegs = this.repository.getAllLegsByMemberId(memberId);
+			List<Leg> memberAssignedLegs = this.repository.getAllLegsByMemberId(memberId);
 
-				boolean legAllowed = false;
-				for (Leg candidate : availableLegs) {
-					if (candidate.getId() != legId)
-						continue;
+			boolean legAllowed = false;
+			for (Leg candidate : availableLegs) {
+				if (candidate.getId() != leg)
+					continue;
 
-					boolean isCompatible = true;
-					for (Leg assigned : memberAssignedLegs)
-						if (this.intervalsOverlap(candidate, assigned)) {
-							isCompatible = false;
-							break;
-						}
-					if (isCompatible) {
-						legAllowed = true;
+				boolean isCompatible = true;
+				for (Leg assigned : memberAssignedLegs)
+					if (this.intervalsOverlap(candidate, assigned)) {
+						isCompatible = false;
 						break;
 					}
+				if (isCompatible) {
+					legAllowed = true;
+					break;
 				}
-				if (!legAllowed)
-					valid = false;
 			}
+			if (!legAllowed)
+				valid = false;
+		}
 
 		return valid;
-	}
-
-	private boolean isPositiveInt(final String s) {
-		if (s == null || s.isEmpty())
-			return false;
-		for (int i = 0; i < s.length(); i++) {
-			char c = s.charAt(i);
-			if (c < '0' || c > '9')
-				return false;
-		}
-		String INT_MAX = "2147483647";
-		if (s.length() < INT_MAX.length())
-			return true;
-		if (s.length() > INT_MAX.length())
-			return false;
-		return s.compareTo(INT_MAX) <= 0;
 	}
 
 	private boolean intervalsOverlap(final Leg a, final Leg b) {

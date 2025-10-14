@@ -35,35 +35,19 @@ public class FlightAssignmentShowService extends AbstractGuiService<FlightCrewMe
 		boolean authorised = false;
 
 		if (super.getRequest().hasData("id")) {
-			String idRaw = super.getRequest().getData("id", String.class);
-			if (this.isPositiveInt(idRaw)) {
-				int flightAssignmentId = Integer.parseInt(idRaw);
-
-				FlightAssignment flightAssignment = this.repository.getFlightAssignmentById(flightAssignmentId);
-				if (flightAssignment != null) {
-					boolean isOwner = super.getRequest().getPrincipal().hasRealm(flightAssignment.getFlightCrewMember());
-					authorised = flightAssignment.isDraftMode() ? isOwner : true;
-				}
+			int id = super.getRequest().getData("id", int.class);
+			FlightAssignment flightAssignment = this.repository.getFlightAssignmentById(id);
+			if (flightAssignment != null) {
+				boolean isOwner = super.getRequest().getPrincipal().hasRealm(flightAssignment.getFlightCrewMember());
+				authorised = flightAssignment.isDraftMode() ? isOwner : true;
 			}
 		}
 
 		super.getResponse().setAuthorised(authorised);
 	}
 
-	private boolean isPositiveInt(final String s) {
-		if (s == null || s.isEmpty())
-			return false;
-		for (int i = 0; i < s.length(); i++) {
-			char c = s.charAt(i);
-			if (c < '0' || c > '9')
-				return false;
-		}
-		final String INT_MAX = "2147483647";
-		if (s.length() < INT_MAX.length())
-			return true;
-		if (s.length() > INT_MAX.length())
-			return false;
-		return s.compareTo(INT_MAX) <= 0;
+	private boolean intervalsOverlap(final Leg a, final Leg b) {
+		return MomentHelper.isBefore(a.getScheduledDeparture(), b.getScheduledArrival()) && MomentHelper.isBefore(b.getScheduledDeparture(), a.getScheduledArrival());
 	}
 
 	@Override
@@ -98,10 +82,7 @@ public class FlightAssignmentShowService extends AbstractGuiService<FlightCrewMe
 				if (assigned.getId() == assignedLeg.getId())
 					continue;
 
-				boolean departureOverlap = MomentHelper.isInRange(candidate.getScheduledDeparture(), assigned.getScheduledDeparture(), assigned.getScheduledArrival());
-				boolean arrivalOverlap = MomentHelper.isInRange(candidate.getScheduledArrival(), assigned.getScheduledDeparture(), assigned.getScheduledArrival());
-
-				if (departureOverlap || arrivalOverlap) {
+				if (this.intervalsOverlap(candidate, assigned)) {
 					isCompatible = false;
 					break;
 				}
