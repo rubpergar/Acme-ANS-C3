@@ -111,10 +111,15 @@ public class AssistanceAgentClaimPublishService extends AbstractGuiService<Assis
 
 		super.state(hasChanges, "*", "javax.validation.constraints.mustUpdate-first.message");
 
+		Integer legId = super.getRequest().getData("selectedLeg", int.class);
+		if (legId == 0)
+			super.state(false, "selectedLeg", "javax.validation.constraints.NotNull.message");
+
 	}
 
 	@Override
 	public void perform(final Claim claim) {
+		claim.setRegistrationMoment(MomentHelper.getCurrentMoment());
 		claim.setDraftMode(false);
 		this.repository.save(claim);
 	}
