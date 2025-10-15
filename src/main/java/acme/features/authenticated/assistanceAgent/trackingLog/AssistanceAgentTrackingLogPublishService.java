@@ -33,18 +33,21 @@ public class AssistanceAgentTrackingLogPublishService extends AbstractGuiService
 	public void authorise() {
 		int tlId = super.getRequest().getData("id", int.class);
 		TrackingLog tl = this.repository.getTlById(tlId);
+		Collection<TrackingLog> tls;
 
 		Claim claim = this.repository.getClaimByTlId(tlId);
 
 		int contador = 0;
 
-		Collection<TrackingLog> tls = this.claimRepository.getAllPublishedTlsByClaimId(claim.getId());
+		if (claim != null) {
+			tls = this.claimRepository.getAllPublishedTlsByClaimId(claim.getId());
+			for (TrackingLog t : tls)
+				if (t.getResolutionPercentage() == 100)
+					contador += 1;
+		}
 
 		boolean hasAuthority = tl != null && tl.getDraftMode() && super.getRequest().getPrincipal().hasRealmOfType(AssistanceAgent.class) && super.getRequest().getPrincipal().getAccountId() == claim.getAssistanceAgent().getUserAccount().getId();
 
-		for (TrackingLog t : tls)
-			if (t.getResolutionPercentage() == 100)
-				contador += 1;
 		if (contador >= 2)
 			hasAuthority = false;
 
